@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3683FC</color>
+    <color name="colorPrimaryDark">#3683FC</color>
+    <color name="colorAccent">#51DAFF</color>
+
+    <!--Common colours for button-->
+    <color name="button_enabled_startColor">#3683FC</color>
+    <color name="button_enabled_endColor">#51DAFF</color>
+    <color name="button_pressed">#3683FC</color>
+    <color name="button_disable">#878787</color>
+
+    <!--Background label color gradient-->
+    <color name="labelGradientBckFirst">#51DAFF</color>
+    <color name="labelGradientBckSecond">#3683FC</color>
+</resources>

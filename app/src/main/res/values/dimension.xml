@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="label_appName_textSize">22sp</dimen>
+    <dimen name="standart_min_text_size">12sp</dimen>
+    <dimen name="standart_width_field_logo">300dp</dimen>
+    <dimen name="standart_margin_top_logo">12dp</dimen>
+</resources>

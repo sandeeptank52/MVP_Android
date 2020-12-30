@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">BMI Disease Tracker</string>
+
+    <!--error message-->
+    <string name="error_unauthorized">error_unauthorized</string>
+    <string name="error_connection">error_connection</string>
+    <string name="error_socket_timeout">error_socket_timeout</string>
+    <string name="error_not_found">error_not_found</string>
+    <string name="error_token_invalid">error_token_invalid</string>
+
+    <!--medcard parameters name-->
+    <string name="medcard_name_weight">Weight</string>
+    <string name="medcard_name_hip">Hip</string>
+    <string name="medcard_name_waist">Waist</string>
+    <string name="medcard_name_wrist">Wrist</string>
+    <string name="medcard_name_neck">Neck</string>
+    <string name="medcard_name_heart_rate_alone">Current heart rate</string>
+    <string name="medcard_name_daily_activity_level">Daily activity level</string>
+    <string name="medcard_name_blood_pressure_sys">Blood pressure sys</string>
+    <string name="medcard_name_blood_pressure_dia">Blood pressure dia</string>
+    <string name="medcard_name_cholesterol">Cholesterol</string>
+    <string name="medcard_name_glucose">Glucose</string>
+
+    <!--result card name-->
+    <string name="result_card_name_bmi">BMI (Ketle index)</string>
+    <string name="result_card_name_obesity_level">Obesity level</string>
+    <string name="result_card_name_ideal_weight">Ideal weight</string>
+    <string name="result_card_name_base_metabolism">Base metabolism</string>
+    <string name="result_card_name_waist_to_hip_proportion">Waist to hip ratio</string>
+    <string name="result_card_name_passport_age">Biological age</string>
+    <string name="result_card_name_common_risk_level">Main risk level</string>
+    <string name="result_card_name_fat_percent">Subcutaneous fat percentage</string>
+    <string name="result_card_name_body_type">Body type</string>
+
+    <!--parameters unit name-->
+    <string name="unit_name_kg_si">kg</string>
+    <string name="unit_name_kg_im">lb</string>
+    <string name="unit_name_sm_si">sm</string>
+    <string name="unit_name_sm_im">in</string>
+    <string name="unit_name_mmrtst_si">mm Hg</string>
+    <string name="unit_name_mmrtst_im">kPa</string>
+    <string name="unit_name_mmoll_si">mmol/l</string>
+    <string name="unit_name_mmoll_im">mg/dL</string>
+    <string name="unit_name_bpm_si">bpm</string>
+</resources>
