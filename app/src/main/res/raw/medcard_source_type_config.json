@@ -1,0 +1,12 @@
+{
+  "source_list": [
+    {
+      "id": "manual",
+      "title": "manual_title"
+    },
+    {
+      "id": "garmin",
+      "title": "garmin_title"
+    }
+  ]
+}

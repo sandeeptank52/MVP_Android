@@ -1,12 +1,57 @@
 <resources>
     <string name="app_name">BMI Disease Tracker</string>
+    <string name="server_client_id">403561407577-tbsv2nomg2981hd1b7cd2dt7bek43267.apps.googleusercontent.com</string>
 
-    <!--error message-->
-    <string name="error_unauthorized">error_unauthorized</string>
-    <string name="error_connection">error_connection</string>
-    <string name="error_socket_timeout">error_socket_timeout</string>
-    <string name="error_not_found">error_not_found</string>
-    <string name="error_token_invalid">error_token_invalid</string>
+    <!--hints-->
+    <string name="login_hint_email">Email address</string>
+    <string name="login_hint_password">Password</string>
+    <string name="login_hint_confirm_password">Confirm password</string>
+    <string name="login_hint_passwordCheck">Password must contain:</string>
+    <string name="login_hint_passwordCheck_length">at least 8 characters</string>
+    <string name="login_hint_passwordCheck_number">\u0020 1 number</string>
+    <string name="login_hint_passwordCheck_symbol">\u0020 1 special symbol</string>
+    <string name="login_hint_passwordCheck_match">passwords must match</string>
+
+    <!--buttons-->
+    <string name="button_sign_in">Sign In</string>
+    <string name="button_sign_up">Sign Up</string>
+    <string name="button_next">Next</string>
+    <string name="button_dont_remember_password">Don\'t remember password</string>
+    <string name="button_i_agree">I Agree</string>
+    <string name="button_i_disagree">I Disagree</string>
+    <string name="button_reset_pass">Reset</string>
+    <string name="button_send">Send</string>
+    <string name="button_accept">Accept</string>
+
+    <!--menu-->
+    <string name="main_bottom_menu_home">Home</string>
+    <string name="main_bottom_menu_profile">Profile</string>
+    <string name="main_bottom_menu_medcard">Medical card</string>
+
+    <!--switches-->
+    <string name="switch_disclaimer">Don`t show again?</string>
+    <string name="switch_login_remember_password">Save password</string>
+    <string name="switch_sign_in_privacy_agree">I agree to the therms condition</string>
+
+    <!--disclaimer fragment-->
+    <string name="disclaimer_title">Disclaimer!</string>
+
+    <!--welcome text fragment-->
+    <string name="welcome_title">Welcome!</string>
+
+    <!--sign up fragment-->
+    <string name="policy_title">Accept the privacy policy</string>
+    <string name="sign_up_success">To complete the registration you need follow the link sent to you by email.</string>
+
+    <!--forgot password fragment-->
+    <string name="forgot_pass_text">If you have forgotten your password enter your e-mail address and we send you a verification code, then you can reset your password.</string>
+    <string name="forgot_pass_title">Reset password</string>
+    <string name="forgot_pass_sending_info">To complete the reset your password you need follow the link sent to you by email</string>
+
+    <!--reset password fragment-->
+    <string name="reset_pass_title">New password</string>
+    <string name="reset_pass_text">Enter your new password, please, try to use a numbers and english letters in it.</string>
+    <string name="reset_pass_success">Password changed successfully!</string>
 
     <!--medcard parameters name-->
     <string name="medcard_name_weight">Weight</string>
@@ -42,4 +87,28 @@
     <string name="unit_name_mmoll_si">mmol/l</string>
     <string name="unit_name_mmoll_im">mg/dL</string>
     <string name="unit_name_bpm_si">bpm</string>
+
+    <!--error messages-->
+    <string name="error_unauthorized">Invalid username or password</string>
+    <string name="error_not_found">User not found</string>
+    <string name="error_token_invalid">Try again</string>
+    <string name="error_connection">No internet connection</string>
+    <string name="error_connection_socket_timeout">Server time out</string>
+    <string name="error_common">Something went wrong, please try again</string>
+
+    <!--error message for form fields-->
+    <string name="error_form_fields_incorrect_email">Please enter correct email</string>
+    <string name="error_form_fields_incorrect_password">Please enter correct password</string>
+    <string name="error_form_fields_different_password">Please enter the same passwords</string>
+    <string name="error_form_fields_empty_password">Please enter password</string>
+    <string name="error_form_fields_email_exist">Email already exist</string>
+    <string name="error_form_field_email_not_registered">Email not registered</string>
+
+    <!--images content description-->
+    <string name="login_title_image_description">Title image</string>
+    <string name="label_title_image_description">Logo our company</string>
+
+    <!--text-->
+    <string name="text_welcome">Dear Customer! Welcome to the first version of the BMI Disease Tracker application. It is in a test mode, so  we  kindly  ask  you  to  forgive  us  for  possible  errors. Please  help  us to improve  this application  by  sending  your  feedback  and  any  questions  related  to  its  use  to support@intime.digital. At the moment, the application has a technical design that will be improved soon. The BMI Disease Tracker app is designed to monitor in real-time the key parameters of your body to provide information on how they can affect longevity and the possibility of developing serious diseases in the future. Please enter the required data manually in the  required  fields  and/or connect to your fitness application to synchronize data. If not all fields are provided, please add data manually. You can check your blood sugar and cholesterol data in your most recent medical tests if you do not remember your most recent results. Our AI server will calculate your personal risks based on the data collected and provide risk recommendations to reduce the likelihood of possible your wellbeing development. The more accurately you enter your data, the more accurate the results and recommendations will be. The frequency of risk and recommendation updates depends on how often the data in your fitness app is updated or you manually update it. In future releases, we plan to reduce the amount of manually entered data by expanding the number of supported fitness apps and individual devices to update risks and recommendations in real-time without any additional inconvenience. You are given a free period of 2 weeks for initial acquaintance with the application. Then you will be offered a monthly subscription, at a price less than a cup of coffee, for 1,99$ per month. The subscription price will grow for new customers, but for our first users who agreed to keep the application and use it even with minimal functionality, special conditions will remain for years. The most important thing is that the longer you measure your data, store, update it in the application by hand or through Google Fit / Health Kit or your smart wearable devices, the more accurate the calculation of risks and forecasts will be. We will be able to improve the accuracy and bring it up to 95%. Please note that this app is for informational and educational purposes only. It provides a "second opinion" and in the future, it will be possible to share the test results with your physician or find one through our partners. This is not a medical application and all decisions related to this application are entirely up to you. We will notify you of new updates, each of which is intended to provide you with more information about your health and how you can avoid the likelihood of developing certain diseases in the future. For more information, please visit: www.inTime.digital</string>
+    <string name="text_disclaimer">Our service is not a medical service. Consult a specialist for advice. The information provided in this application is for informational purposes only and should not be used for diagnosis or treatment. Our service is not a substitute for professional medical care. If you have or suspect that you may have health problems, please consult your doctor. Our services are second/third opinion based on artificial intelligence algorithms and statistics. We provide diagnostics only of the likelihood of developing diseases based on data on the health status of people with similar parameters.</string>
 </resources>

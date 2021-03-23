@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.loginActivity.forgotPass.ForgotPassFragment">
+
+    <TextView
+        android:id="@+id/forgotPassTextViewTitle"
+        android:text="@string/forgot_pass_title"
+        android:textSize="22sp"
+        android:textColor="@android:color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standart_margin_top_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/forgotPassTextViewInfoText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/standart_margin_top_logo"
+        android:layout_marginTop="@dimen/standart_margin_top_logo"
+        android:gravity="center_horizontal"
+        android:text="@string/forgot_pass_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/forgotPassTextViewTitle" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/forgotPassTextInputLayoutMail"
+        android:layout_width="@dimen/standart_width_field_logo"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standart_margin_top_logo"
+        app:errorEnabled="true"
+        android:hint="@string/login_hint_email"
+        app:boxBackgroundColor="@android:color/white"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/sign_up_mail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/forgotPassTextViewInfoText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/forgotPassTextInputEditTextMail"
+            android:focusable="true"
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ProgressBar
+        android:id="@+id/forgotPassProgressBar"
+        android:layout_width="@dimen/standart_width_field_logo"
+        android:layout_marginTop="@dimen/standart_margin_top_logo"
+        android:indeterminate="true"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/forgotPassTextInputLayoutMail"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/forgotPassButtonSend"
+        android:text="@string/button_send"
+        android:enabled="false"
+        android:textColor="@android:color/white"
+        android:background="@drawable/common_button_selector"
+        android:layout_marginTop="@dimen/standart_margin_top_logo"
+        android:layout_width="@dimen/standart_width_field_logo"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/forgotPassProgressBar"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

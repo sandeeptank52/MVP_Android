@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_nav_graph"
+    app:startDestination="@id/loginNavSignInFragment">
+
+    <fragment
+        android:id="@+id/loginNavCheckPinFragment"
+        android:name="com.application.bmiobesity.view.loginActivity.checkPin.CheckPinFragment"
+        tools:layout="@layout/login_checkpin_fragment" />
+
+    <fragment
+        android:id="@+id/loginNavForgotPassFragment"
+        android:name="com.application.bmiobesity.view.loginActivity.forgotPass.ForgotPassFragment"
+        tools:layout="@layout/login_forgotpass_fragment">
+        <action
+            android:id="@+id/loginNavForgotPassToSignIn"
+            app:destination="@id/loginNavSignInFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginNavResetPassFragment"
+        android:name="com.application.bmiobesity.view.loginActivity.forgotPass.ResetPassFragment"
+        tools:layout="@layout/login_resetpass_fragment">
+        <action
+            android:id="@+id/loginNavResetPassToSignIn"
+            app:destination="@id/loginNavSignInFragment"/>
+        <deepLink
+            android:id="@+id/resetPassDeepLink"
+            android:autoVerify="true"
+            app:action="ACTION_VIEW"
+            app:uri="https://intime.digital/en/account/reset/{uid}/{token}/" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginNavSignInFragment"
+        android:name="com.application.bmiobesity.view.loginActivity.signIn.SignInFragment"
+        tools:layout="@layout/login_signin_fragment">
+        <action
+            android:id="@+id/loginNavSignInToCheckPin"
+            app:destination="@id/loginNavCheckPinFragment" />
+        <action
+            android:id="@+id/loginNavSignInToForgotPass"
+            app:destination="@id/loginNavForgotPassFragment" />
+        <action
+            android:id="@+id/loginNavSignInToSignUp"
+            app:destination="@id/loginNavSignUpFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginNavSignUpFragment"
+        android:name="com.application.bmiobesity.view.loginActivity.signUp.SignUpFragment"
+        tools:layout="@layout/login_signup_fragment">
+        <action
+            android:id="@+id/loginNavSignUpToSignIn"
+            app:destination="@id/loginNavSignInFragment" />
+        <action
+            android:id="@+id/loginNavSignUpToConfirmEmail"
+            app:destination="@id/loginNavConfirmEmailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginNavConfirmEmailFragment"
+        android:name="com.application.bmiobesity.view.loginActivity.confirmEmail.ConfirmEmailFragment"
+        tools:layout="@layout/login_confirm_email_fragment" />
+
+</navigation>

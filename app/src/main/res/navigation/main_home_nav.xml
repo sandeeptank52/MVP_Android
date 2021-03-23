@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_home_nav_graph"
+    app:startDestination="@id/mainHomeFavoriteNav">
+
+    <fragment
+        android:id="@+id/mainHomeAnalyzeNav"
+        android:name="com.application.bmiobesity.view.mainActivity.home.analyze.HomeAnalyzeFragment"
+        tools:layout="@layout/main_home_analyze_fragment"/>
+
+    <fragment
+        android:id="@+id/mainHomeFavoriteNav"
+        android:name="com.application.bmiobesity.view.mainActivity.home.favorite.HomeFavoriteFragment"
+        tools:layout="@layout/main_home_favorite_fragment"/>
+
+    <fragment
+        android:id="@+id/mainHomeRecommendationNav"
+        android:name="com.application.bmiobesity.view.mainActivity.home.recommendation.HomeRecommendationFragment"
+        tools:layout="@layout/main_home_recommendation_fragment"/>
+
+</navigation>

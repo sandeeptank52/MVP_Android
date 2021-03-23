@@ -1,0 +1,29 @@
+{
+  "param_unit": [
+    {
+      "id": "kg",
+      "name_metric_res": "unit_name_kg_si",
+      "name_imperial_res": "unit_name_kg_im"
+    },
+    {
+      "id": "sm",
+      "name_metric_res": "unit_name_sm_si",
+      "name_imperial_res": "unit_name_sm_im"
+    },
+    {
+      "id": "mmrtst",
+      "name_metric_res": "unit_name_mmrtst_si",
+      "name_imperial_res": "unit_name_mmrtst_im"
+    },
+    {
+      "id": "mmol",
+      "name_metric_res": "unit_name_mmoll_si",
+      "name_imperial_res": "unit_name_mmoll_im"
+    },
+    {
+      "id": "bpm",
+      "name_metric_res": "unit_name_bpm_si",
+      "name_imperial_res": "unit_name_bpm_si"
+    }
+  ]
+}

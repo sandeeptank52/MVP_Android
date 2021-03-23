@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.loginActivity.forgotPass.ResetPassFragment">
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/resetPassGroupPassHint"
+        app:constraint_referenced_ids="resetPassTextViewHintTitle, resetPassTextViewHintLength, resetPassTextViewHintNumber, resetPassTextViewHintSymbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/resetPassTextViewTitle"
+        android:text="@string/reset_pass_title"
+        android:textSize="22sp"
+        android:textColor="@android:color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standart_margin_top_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/resetPassTextViewInfoText"
+        android:text="@string/reset_pass_text"
+        android:layout_marginTop="@dimen/standart_margin_top_logo"
+        android:layout_marginHorizontal="@dimen/standart_margin_top_logo"
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/resetPassTextViewTitle"/>
+
+    <TextView
+        android:id="@+id/resetPassTextViewHintTitle"
+        android:text="@string/login_hint_passwordCheck"
+        android:textSize="@dimen/standart_min_text_size"
+        android:textStyle="italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standart_margin_top_logo"
+        app:layout_constraintStart_toStartOf="@id/resetPassTextInputLayoutPass"
+        app:layout_constraintTop_toBottomOf="@id/resetPassTextViewInfoText"/>
+
+    <TextView
+        android:id="@+id/resetPassTextViewHintLength"
+        android:text="@string/login_hint_passwordCheck_length"
+        android:textSize="@dimen/standart_min_text_size"
+        android:textStyle="italic"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/resetPassTextViewHintTitle"
+        app:layout_constraintTop_toBottomOf="@id/resetPassTextViewHintTitle"/>
+
+    <TextView
+        android:id="@+id/resetPassTextViewHintNumber"
+        android:text="@string/login_hint_passwordCheck_number"
+        android:textSize="@dimen/standart_min_text_size"
+        android:textStyle="italic"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/resetPassTextViewHintLength"
+        app:layout_constraintTop_toBottomOf="@id/resetPassTextViewHintTitle"/>
+
+    <TextView
+        android:id="@+id/resetPassTextViewHintSymbol"
+        android:text="@string/login_hint_passwordCheck_symbol"
+        android:textSize="@dimen/standart_min_text_size"
+        android:textStyle="italic"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/resetPassTextViewHintNumber"
+        app:layout_constraintTop_toBottomOf="@id/resetPassTextViewHintTitle"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/resetPassTextInputLayoutPass"
+        app:errorEnabled="true"
+        android:hint="@string/login_hint_password"
+        app:boxBackgroundColor="@android:color/white"
+        app:endIconMode="password_toggle"
+        android:layout_width="@dimen/standart_width_field_logo"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/resetPassTextViewHintSymbol">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/resetPassTextInputEditTextPass"
+            android:focusable="true"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ProgressBar
+        android:id="@+id/resetPassProgress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:visibility="gone"
+        android:layout_width="@dimen/standart_width_field_logo"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standart_margin_top_logo"
+        android:indeterminate="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/resetPassTextInputLayoutPass"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/resetPassButtonReset"
+        android:text="@string/button_reset_pass"
+        android:enabled="false"
+        android:textColor="@android:color/white"
+        android:background="@drawable/common_button_selector"
+        android:layout_marginTop="@dimen/standart_margin_top_logo"
+        android:layout_width="@dimen/standart_width_field_logo"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/resetPassProgress"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

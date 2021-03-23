@@ -7,19 +7,32 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
+        android:name=".InTimeApp"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo_icon"
         android:supportsRtl="false"
         android:theme="@style/Theme.DiseaseTrackerProduction">
-        <activity android:name=".MainActivity">
+
+        <activity
+            android:name=".view.labelActivity.LabelActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".view.loginActivity.LoginActivity"
+            android:screenOrientation="portrait">
+            <nav-graph android:value="@navigation/login_nav"/>
+        </activity>
+        <activity
+            android:name=".view.mainActivity.MainActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

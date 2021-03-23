@@ -1,0 +1,94 @@
+{
+  "result_card": [
+    {
+      "id": "bmi",
+      "name": "result_card_name_bmi",
+      "img": "favorites_img_bmi",
+      "short_description": "",
+      "long_description": "",
+      "last_modified": 0,
+      "data_type": "",
+      "is_visible": true
+    },
+    {
+      "id": "obesity_level",
+      "name": "result_card_name_obesity_level",
+      "img": "favorites_img_obesity_level",
+      "short_description": "",
+      "long_description": "",
+      "last_modified": 0,
+      "data_type": "",
+      "is_visible": true
+    },
+    {
+      "id": "ideal_weight",
+      "name": "result_card_name_ideal_weight",
+      "img": "favorites_img_ideal_weight",
+      "short_description": "",
+      "long_description": "",
+      "last_modified": 0,
+      "data_type": "",
+      "is_visible": true
+    },
+    {
+      "id": "base_metabolism",
+      "name": "result_card_name_base_metabolism",
+      "img": "favorites_img_base_metabolism",
+      "short_description": "",
+      "long_description": "",
+      "last_modified": 0,
+      "data_type": "",
+      "is_visible": true
+    },
+    {
+      "id": "waist_to_hip_proportion",
+      "name": "result_card_name_waist_to_hip_proportion",
+      "img": "favorites_img_waist_to_hip_proportion",
+      "short_description": "",
+      "long_description": "",
+      "last_modified": 0,
+      "data_type": "",
+      "is_visible": true
+    },
+    {
+      "id": "passport_age",
+      "name": "result_card_name_passport_age",
+      "img": "favorites_img_passport_age",
+      "short_description": "",
+      "long_description": "",
+      "last_modified": 0,
+      "data_type": "",
+      "is_visible": true
+    },
+    {
+      "id": "common_risk_level",
+      "name": "result_card_name_common_risk_level",
+      "img": "favorites_img_common_risk_level",
+      "short_description": "",
+      "long_description": "",
+      "last_modified": 0,
+      "data_type": "",
+      "is_visible": true
+    },
+    {
+      "id": "fat_percent",
+      "name": "result_card_name_fat_percent",
+      "img": "favorites_img_fat_percent",
+      "short_description": "",
+      "long_description": "",
+      "last_modified": 0,
+      "data_type": "",
+      "is_visible": true
+    },
+    {
+      "id": "body_type",
+      "name": "result_card_name_body_type",
+      "img": "favorites_img_body_type",
+      "short_description": "",
+      "long_description": "",
+      "last_modified": 0,
+      "data_type": "",
+      "is_visible": true
+    }
+  ]
+}

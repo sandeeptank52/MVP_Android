@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/label_nav_graph"
+    app:startDestination="@id/labelMainNav">
+
+    <fragment
+        android:id="@+id/labelMainNav"
+        android:name="com.application.bmiobesity.view.labelActivity.main.MainFragment"
+        tools:layout="@layout/label_main_fragment">
+        <action
+            android:id="@+id/mainToWelcome"
+            app:destination="@id/labelWelcomeNav"/>
+        <action
+            android:id="@+id/mainToDisclaimer"
+            app:destination="@id/labelDisclaimerNav"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/labelDisclaimerNav"
+        android:name="com.application.bmiobesity.view.labelActivity.disclaimer.DisclaimerFragment"
+        tools:layout="@layout/label_disclaimer_fragment"/>
+
+    <fragment
+        android:id="@+id/labelWelcomeNav"
+        android:name="com.application.bmiobesity.view.labelActivity.welcome.WelcomeFragment"
+        tools:layout="@layout/label_welcome_text_fragment">
+        <action
+            android:id="@+id/welcomeToDisclaimer"
+            app:destination="@id/labelDisclaimerNav"/>
+    </fragment>
+
+</navigation>
