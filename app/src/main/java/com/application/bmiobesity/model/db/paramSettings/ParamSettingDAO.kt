@@ -13,13 +13,13 @@ import com.application.bmiobesity.model.db.paramSettings.entities.ResultCard
 interface ParamSettingDAO {
 
     @Query("SELECT * FROM result_card")
-    fun getAllFromResultCard(): List<ResultCard>
+    suspend fun getAllFromResultCard(): List<ResultCard>
     @Query("SELECT * FROM param_unit")
-    fun getAllFromParamUnit(): List<ParamUnit>
+    suspend fun getAllFromParamUnit(): List<ParamUnit>
     @Query("SELECT * FROM medcard_source_type")
-    fun getAllFromMedCardSourceType(): List<MedCardSourceType>
+    suspend fun getAllFromMedCardSourceType(): List<MedCardSourceType>
     @Query("SELECT * FROM medcard_param_setting")
-    fun getAllFromMedCardParamSetting(): List<MedCardParamSetting>
+    suspend fun getAllFromMedCardParamSetting(): List<MedCardParamSetting>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllResultCard(items: List<ResultCard>)

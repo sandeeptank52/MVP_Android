@@ -38,6 +38,6 @@ interface InTimeDigitalApi {
     fun patchProfileAsync(@Header("Authorization") access: String, @Body profile: Profile): Deferred<Response<ResultProfile>>
 
     // Testing API
-    @POST(TEST_API)
-    fun getGoogleAuthAsync(@Body login: SendGoogleTokenId): Deferred<Response<ResultTokenFromGoogle>>
+    /*@POST(TEST_API)
+    fun getGoogleAuthAsync(@Body login: SendGoogleTokenId): Deferred<Response<ResultTokenFromGoogle>>*/
 }

@@ -8,6 +8,7 @@ import com.application.bmiobesity.model.localStorage.LocalStorageRepo
 import com.application.bmiobesity.model.retrofit.RemoteRepo
 import com.application.bmiobesity.viewModels.LabelViewModel
 import com.application.bmiobesity.viewModels.LoginViewModel
+import com.application.bmiobesity.viewModels.MainViewModel
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
@@ -35,6 +36,7 @@ interface ApplicationComponent{
 
     fun inject(viewModel: LabelViewModel)
     fun inject(viewModel: LoginViewModel)
+    fun inject(viewModel: MainViewModel)
 }
 
 
