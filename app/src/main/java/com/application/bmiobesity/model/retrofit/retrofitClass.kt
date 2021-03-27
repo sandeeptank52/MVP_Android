@@ -48,3 +48,15 @@ data class ResultPolicy( val policy: String? )
 data class ResultExist( val exist: Boolean?)
 data class ResultToken(val access: String?, val refresh: String?)
 data class ResultTokenFromGoogle(val token: String?, val refresh: String?)
+
+data class ResultMedCard(var weight:Float?,
+                         var hip:Float?,
+                         var waist:Float?,
+                         var wrist:Float?,
+                         var neck: Float?,
+                         var heart_rate_alone:Int?,
+                         var daily_activity_level: Float?,
+                         var blood_pressure_sys:Int?,
+                         var blood_pressure_dia:Int?,
+                         var cholesterol:Float?,
+                         var glucose:Float?)

@@ -81,6 +81,13 @@ class RemoteRepo private constructor(){
         return RetrofitResult.Error(result.message(), result.code())
     }
 
+    suspend fun getMedCard(access: String) = safeApiCall { mGetMedCard(access) }
+    private suspend fun mGetMedCard(access: String): RetrofitResult<ResultMedCard>{
+        val result = intimeApi.getMedCardAsync(access).await()
+        if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
+        return RetrofitResult.Error(result.message(), result.code())
+    }
+
 
     // Testing API
     /*suspend fun getTokenFromGoogle(login: SendGoogleTokenId) = safeApiCall { mGetTokenFromGoogle(login) }
