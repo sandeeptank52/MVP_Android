@@ -2,6 +2,7 @@ package com.application.bmiobesity.model.db.paramSettings.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
@@ -65,4 +66,7 @@ data class MedCardParamSetting(
     @SerializedName("molar_mass")
     @ColumnInfo(name = "molar_mass")
     var molarMass: Float
-)
+){
+    @Ignore
+    var values: MutableList<MedCardParamSimpleValue> = mutableListOf()
+}

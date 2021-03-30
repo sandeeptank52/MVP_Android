@@ -43,20 +43,27 @@ data class ResultListCountries(val countries: List<ResultSimpleCountry>?)
 data class ResultSimpleGender(val id: Int?, val value: String?)
 data class ResultListGenders(val genders: List<ResultSimpleGender>?)
 
+data class ResultSimpleFavorites(val name: String?, val value: String?, val color: String?, val desc: String?)
+data class ResultFavorites(val params: List<ResultSimpleFavorites>?)
+
 data class ResultProfile(val first_name: String?, val last_name: String?, val email: String?, val image: String?)
+data class ResultUserProfile(val birth_date: String?, val country: Int?, val gender: Int?, val height: Float?, val smoker: Boolean?, val measuring_system: Int?)
 data class ResultPolicy( val policy: String? )
 data class ResultExist( val exist: Boolean?)
 data class ResultToken(val access: String?, val refresh: String?)
 data class ResultTokenFromGoogle(val token: String?, val refresh: String?)
 
-data class ResultMedCard(var weight:Float?,
-                         var hip:Float?,
-                         var waist:Float?,
-                         var wrist:Float?,
-                         var neck: Float?,
-                         var heart_rate_alone:Int?,
-                         var daily_activity_level: Float?,
-                         var blood_pressure_sys:Int?,
-                         var blood_pressure_dia:Int?,
-                         var cholesterol:Float?,
-                         var glucose:Float?)
+data class ResultMedCard(val weight:Float?,
+                         val hip:Float?,
+                         val waist:Float?,
+                         val wrist:Float?,
+                         val neck: Float?,
+                         val heart_rate_alone:Int?,
+                         val daily_activity_level: Float?,
+                         val blood_pressure_sys:Int?,
+                         val blood_pressure_dia:Int?,
+                         val cholesterol:Float?,
+                         val glucose:Float?)
+
+data class ResultCommonRecommendation(val message_short: String?, val message_long: String?, val importance_level: String?)
+data class ResultDiseaseRisk(val icd_id: Int?, val risk_string: String?, val message: String?, val risk_percents: String?, val recomendation: String?)

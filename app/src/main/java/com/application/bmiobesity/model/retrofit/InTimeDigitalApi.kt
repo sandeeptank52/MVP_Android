@@ -37,8 +37,14 @@ interface InTimeDigitalApi {
     @PATCH("$WORK_API/profile/")
     fun patchProfileAsync(@Header("Authorization") access: String, @Body profile: Profile): Deferred<Response<ResultProfile>>
 
+    @GET("$WORK_API/user_profile/")
+    fun getUserProfileAsync(@Header("Authorization") access: String): Deferred<Response<ResultUserProfile>>
+
     @GET("$WORK_API/med_card/")
     fun getMedCardAsync(@Header("Authorization") access: String): Deferred<Response<ResultMedCard>>
+
+    @GET("$WORK_API/resultdata/")
+    fun getFavoritesAsync(@Header("Authorization") access: String, @Header(value = "Accept-Language") locale: String): Deferred<Response<ResultFavorites>>
 
     // Testing API
     /*@POST(TEST_API)

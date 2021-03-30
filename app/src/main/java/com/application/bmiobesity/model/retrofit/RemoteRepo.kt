@@ -88,6 +88,20 @@ class RemoteRepo private constructor(){
         return RetrofitResult.Error(result.message(), result.code())
     }
 
+    suspend fun getUserProfile(access: String) = safeApiCall { mGetUserProfile(access) }
+    private suspend fun mGetUserProfile(access: String): RetrofitResult<ResultUserProfile>{
+        val result = intimeApi.getUserProfileAsync(access).await()
+        if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
+        return RetrofitResult.Error(result.message(), result.code())
+    }
+
+    suspend fun getFavorites(access: String, locale: String) = safeApiCall { mGetFavorites(access, locale) }
+    private suspend fun mGetFavorites(access: String, locale: String): RetrofitResult<ResultFavorites>{
+        val result = intimeApi.getFavoritesAsync(access, locale).await()
+        if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
+        return RetrofitResult.Error(result.message(), result.code())
+    }
+
 
     // Testing API
     /*suspend fun getTokenFromGoogle(login: SendGoogleTokenId) = safeApiCall { mGetTokenFromGoogle(login) }

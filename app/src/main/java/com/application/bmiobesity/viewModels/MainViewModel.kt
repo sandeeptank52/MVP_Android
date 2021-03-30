@@ -12,8 +12,12 @@ import com.application.bmiobesity.model.db.commonSettings.entities.Policy
 import com.application.bmiobesity.model.db.paramSettings.ParamSettingsRepo
 import com.application.bmiobesity.model.db.paramSettings.entities.*
 import com.application.bmiobesity.model.localStorage.LocalStorageRepo
+import com.application.bmiobesity.model.parameters.MedCard
 import com.application.bmiobesity.model.retrofit.RemoteRepo
+import com.application.bmiobesity.model.retrofit.ResultFavorites
+import com.application.bmiobesity.model.retrofit.ResultUserProfile
 import com.application.bmiobesity.model.retrofit.RetrofitResult
+import com.application.bmiobesity.utils.getCurrentLocale
 import com.application.bmiobesity.viewModels.eventManagerMain.EventManagerMain
 import com.application.bmiobesity.viewModels.eventManagerMain.MainViewModelEvent
 import kotlinx.coroutines.*
@@ -43,88 +47,110 @@ class MainViewModel : ViewModel() {
     private lateinit var resultCard: List<ResultCard>
     private lateinit var paramUnit: List<ParamUnit>
     private lateinit var medCardSourceType: List<MedCardSourceType>
-    private lateinit var medCardParamSetting: List<MedCardParamSetting>
+
+    private var medCard: MedCard
 
     private lateinit var profile: Profile
+    private lateinit var userProfile: ResultUserProfile
+
+    private lateinit var favorites: ResultFavorites
 
 
     init {
         InTimeApp.appComponent.inject(this)
+        medCard = MedCard()
 
         viewModelScope.launch(Dispatchers.IO) {
-            /*val getAppPreferenceDeferred = async { getAppPreference() }
 
-            val getGendersDeferred = async { getGenders() }
-            val getCountriesDeferred = async { getCountries() }
-            val getPolicyDeferred = async { getPolicy() }
-
-            val getResultCardDeferred = async { getResultCard() }
-            val getParamUnitDeferred = async { getParamUnit() }
-            val getMedCardSourceTypeDeferred = async { getMedCardSourceType() }
-            val getMedCardParamSettingDeferred = async { getMedCardParamSetting() }*/
-
-            //appPreference = getAppPreferenceDeferred.await()
-            //genders = getGendersDeferred.await()
-            //countries = getCountriesDeferred.await()
-            //policy = getPolicyDeferred.await()
-
-            val upd = updateFromDB()
+            val upd = updateLocal()
             upd.join()
 
-            //resultCard = getResultCardDeferred.await()
-            //paramUnit = getParamUnitDeferred.await()
-            //medCardSourceType = getMedCardSourceTypeDeferred.await()
-            //medCardParamSetting = getMedCardParamSettingDeferred.await()
+            val access = "Bearer ${appPreference.accessToken}"
 
-            //val access = "Bearer ${appPreference.accessToken}"
+            val updateProfileJob = updateProfile(access)
+            val updateMedCardJob = updateMedCard(access)
 
-            /*when (val resultProfile = remoteRepo.getProfile(access)){
+            updateProfileJob.join()
+            updateMedCardJob.join()
+
+            when (val resultProfile = remoteRepo.getUserProfile(access)){
                 is RetrofitResult.Success -> {
-                    profile = Profile(resultProfile.value)
+                    userProfile = resultProfile.value
                 }
                 is RetrofitResult.Error -> {
 
                 }
             }
 
-            when (val resultMedCard = remoteRepo.getMedCard(access)){
+            when (val result = remoteRepo.getFavorites(access, getCurrentLocale().locale)){
                 is RetrofitResult.Success -> {
-                    val i = 0
+                    resultCard.forEach { card ->
+                        card.setValues(result.value.params?.find { it.name == card.id })
+                    }
+
                 }
                 is RetrofitResult.Error -> {
-                    val i = 0
+
                 }
-            }*/
+            }
 
             eventManager.preloadSuccessEvent(true)
             test()
         }
     }
 
-    private suspend fun updateGenders() = viewModelScope.launch(Dispatchers.IO) { genders =  commonSettingRepo.getAllGenders() }
-    private suspend fun updateCountries() = viewModelScope.launch(Dispatchers.IO) { countries =  commonSettingRepo.getAllCountries() }
-    private suspend fun updatePolicy() = viewModelScope.launch(Dispatchers.IO) { policy =  commonSettingRepo.getAllPolicy() }
-    private suspend fun updateFromDB(): Job{
-        return viewModelScope.launch(Dispatchers.IO) {
-            val gendersJob = updateGenders()
-            val countriesJob = updateCountries()
-            val policyJob = updatePolicy()
-            gendersJob.join()
-            countriesJob.join()
-            policyJob.join()
+    private suspend fun updateProfile(access: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val resultProfile = remoteRepo.getProfile(access)){
+            is RetrofitResult.Success -> {
+                profile = Profile(resultProfile.value)
+            }
+            is RetrofitResult.Error -> {
+
+            }
+        }
+    }
+    private suspend fun updateMedCard(access: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val resultMedCard = remoteRepo.getMedCard(access)){
+            is RetrofitResult.Success -> {
+                medCard.setValues(resultMedCard.value)
+            }
+            is RetrofitResult.Error -> {
+
+            }
         }
     }
 
-    private suspend fun getAppPreference(): AppPreference = appSetting.getAppPreference().first()
+    private suspend fun updateGenders() = viewModelScope.launch(Dispatchers.IO) { genders =  commonSettingRepo.getAllGenders() }
+    private suspend fun updateCountries() = viewModelScope.launch(Dispatchers.IO) { countries =  commonSettingRepo.getAllCountries() }
+    private suspend fun updatePolicy() = viewModelScope.launch(Dispatchers.IO) { policy =  commonSettingRepo.getAllPolicy() }
+    private suspend fun updateLocal() = viewModelScope.launch(Dispatchers.IO) {
+        val gendersJob = updateGenders()
+        val countriesJob = updateCountries()
+        val policyJob = updatePolicy()
 
-    private suspend fun getGenders(): List<Genders> = commonSettingRepo.getAllGenders()
-    private suspend fun getCountries(): List<Countries> = commonSettingRepo.getAllCountries()
-    private suspend fun getPolicy(): List<Policy> = commonSettingRepo.getAllPolicy()
+        val preferenceJob = updateAppPreference()
 
-    private suspend fun getResultCard(): List<ResultCard> = paramSettingRepo.getAllResultCard()
-    private suspend fun getParamUnit(): List<ParamUnit> = paramSettingRepo.getAllParamUnit()
-    private suspend fun getMedCardSourceType(): List<MedCardSourceType> = paramSettingRepo.getAllMedCardSourceType()
-    private suspend fun getMedCardParamSetting(): List<MedCardParamSetting> = paramSettingRepo.getAllMedCardParamSetting()
+        val resultCardJob = updateResultCard()
+        val paramUnitJob = updateParamUnit()
+        val medCardSourceTypeJob = updateMedCardSourceType()
+        val medCardParamSettingJob = updateMedCardParamSetting()
+
+        gendersJob.join()
+        countriesJob.join()
+        policyJob.join()
+        preferenceJob.join()
+        resultCardJob.join()
+        paramUnitJob.join()
+        medCardSourceTypeJob.join()
+        medCardParamSettingJob.join()
+    }
+
+    private suspend fun updateAppPreference() = viewModelScope.launch(Dispatchers.IO) { appPreference = appSetting.getAppPreference().first() }
+
+    private suspend fun updateResultCard() = viewModelScope.launch(Dispatchers.IO) { resultCard = paramSettingRepo.getAllResultCard() }
+    private suspend fun updateParamUnit() = viewModelScope.launch(Dispatchers.IO) { paramUnit = paramSettingRepo.getAllParamUnit() }
+    private suspend fun updateMedCardSourceType() = viewModelScope.launch(Dispatchers.IO) { medCardSourceType = paramSettingRepo.getAllMedCardSourceType() }
+    private suspend fun updateMedCardParamSetting() = viewModelScope.launch(Dispatchers.IO) { medCard.setParameters(paramSettingRepo.getAllMedCardParamSetting()) }
 
     private fun test(){
         val i = 0
