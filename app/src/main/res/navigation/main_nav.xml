@@ -9,17 +9,38 @@
     <fragment
         android:id="@+id/mainHomeNav"
         android:name="com.application.bmiobesity.view.mainActivity.home.HomeFragment"
-        tools:layout="@layout/main_home_fragment"/>
+        tools:layout="@layout/main_home_fragment">
+        <action
+            android:id="@+id/mainNavHomeToMedcard"
+            app:destination="@id/mainMedcardNav"/>
+        <action
+            android:id="@+id/mainNavHomeToProfile"
+            app:destination="@id/mainProfileNav"/>
+    </fragment>
 
     <fragment
         android:id="@+id/mainMedcardNav"
         android:name="com.application.bmiobesity.view.mainActivity.medcard.MedcardFragment"
-        tools:layout="@layout/main_medcard_fragment"/>
+        tools:layout="@layout/main_medcard_fragment">
+        <action
+            android:id="@+id/mainNavMedcardToHome"
+            app:destination="@id/mainHomeNav"/>
+        <action
+            android:id="@+id/mainNavMedcaedToProfile"
+            app:destination="@id/mainProfileNav"/>
+    </fragment>
 
     <fragment
         android:id="@+id/mainProfileNav"
         android:name="com.application.bmiobesity.view.mainActivity.profile.ProfileFragment"
-        tools:layout="@layout/main_profile_fragment"/>
+        tools:layout="@layout/main_profile_fragment">
+        <action
+            android:id="@+id/mainNavProfileToHome"
+            app:destination="@id/mainHomeNav"/>
+        <action
+            android:id="@+id/mainNavProfileToMedcard"
+            app:destination="@id/mainMedcardNav"/>
+    </fragment>
 
     <fragment
         android:id="@+id/mainSettingNav"

@@ -13,10 +13,7 @@ import com.application.bmiobesity.model.db.paramSettings.ParamSettingsRepo
 import com.application.bmiobesity.model.db.paramSettings.entities.*
 import com.application.bmiobesity.model.localStorage.LocalStorageRepo
 import com.application.bmiobesity.model.parameters.MedCard
-import com.application.bmiobesity.model.retrofit.RemoteRepo
-import com.application.bmiobesity.model.retrofit.ResultFavorites
-import com.application.bmiobesity.model.retrofit.ResultUserProfile
-import com.application.bmiobesity.model.retrofit.RetrofitResult
+import com.application.bmiobesity.model.retrofit.*
 import com.application.bmiobesity.utils.getCurrentLocale
 import com.application.bmiobesity.viewModels.eventManagerMain.EventManagerMain
 import com.application.bmiobesity.viewModels.eventManagerMain.MainViewModelEvent
@@ -52,9 +49,8 @@ class MainViewModel : ViewModel() {
 
     private lateinit var profile: Profile
     private lateinit var userProfile: ResultUserProfile
-
-    private lateinit var favorites: ResultFavorites
-
+    private lateinit var resultAnalyze: ResultAnalyze
+    private lateinit var recommendations: List<ResultRecommendation>
 
     init {
         InTimeApp.appComponent.inject(this)
@@ -68,31 +64,18 @@ class MainViewModel : ViewModel() {
             val access = "Bearer ${appPreference.accessToken}"
 
             val updateProfileJob = updateProfile(access)
+            val updateUserProfileJob = updateUserProfile(access)
             val updateMedCardJob = updateMedCard(access)
+            val updateResultFavoritesJob = updateResultFavorites(access, getCurrentLocale().locale)
+            val updateAnalyzeJob = updateAnalyze(access, getCurrentLocale().locale)
+            val updateRecommendationsJob = updateRecommendations(access, getCurrentLocale().locale)
 
             updateProfileJob.join()
+            updateUserProfileJob.join()
             updateMedCardJob.join()
-
-            when (val resultProfile = remoteRepo.getUserProfile(access)){
-                is RetrofitResult.Success -> {
-                    userProfile = resultProfile.value
-                }
-                is RetrofitResult.Error -> {
-
-                }
-            }
-
-            when (val result = remoteRepo.getFavorites(access, getCurrentLocale().locale)){
-                is RetrofitResult.Success -> {
-                    resultCard.forEach { card ->
-                        card.setValues(result.value.params?.find { it.name == card.id })
-                    }
-
-                }
-                is RetrofitResult.Error -> {
-
-                }
-            }
+            updateResultFavoritesJob.join()
+            updateAnalyzeJob.join()
+            updateRecommendationsJob.join()
 
             eventManager.preloadSuccessEvent(true)
             test()
@@ -109,10 +92,52 @@ class MainViewModel : ViewModel() {
             }
         }
     }
+    private suspend fun updateUserProfile(access: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val resultProfile = remoteRepo.getUserProfile(access)){
+            is RetrofitResult.Success -> {
+                userProfile = resultProfile.value
+            }
+            is RetrofitResult.Error -> {
+
+            }
+        }
+    }
     private suspend fun updateMedCard(access: String) = viewModelScope.launch(Dispatchers.IO) {
         when (val resultMedCard = remoteRepo.getMedCard(access)){
             is RetrofitResult.Success -> {
                 medCard.setValues(resultMedCard.value)
+            }
+            is RetrofitResult.Error -> {
+
+            }
+        }
+    }
+    private suspend fun updateResultFavorites(access: String, locale: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val result = remoteRepo.getFavorites(access, locale)){
+            is RetrofitResult.Success -> {
+                resultCard.forEach { card ->
+                    card.setValues(result.value.params?.find { it.name == card.id })
+                }
+            }
+            is RetrofitResult.Error -> {
+
+            }
+        }
+    }
+    private suspend fun updateAnalyze(access: String, locale: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val result = remoteRepo.getResultAnalyze(access, locale)){
+            is RetrofitResult.Success -> {
+                resultAnalyze = result.value
+            }
+            is RetrofitResult.Error -> {
+
+            }
+        }
+    }
+    private suspend fun updateRecommendations(access: String, locale: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val result = remoteRepo.getRecommendations(access, locale)){
+            is RetrofitResult.Success -> {
+                recommendations = result.value
             }
             is RetrofitResult.Error -> {
 
@@ -155,6 +180,4 @@ class MainViewModel : ViewModel() {
     private fun test(){
         val i = 0
     }
-
-
 }

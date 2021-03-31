@@ -52,6 +52,7 @@ data class ResultPolicy( val policy: String? )
 data class ResultExist( val exist: Boolean?)
 data class ResultToken(val access: String?, val refresh: String?)
 data class ResultTokenFromGoogle(val token: String?, val refresh: String?)
+data class ResultRecommendation(val name: String?)
 
 data class ResultMedCard(val weight:Float?,
                          val hip:Float?,
@@ -67,3 +68,17 @@ data class ResultMedCard(val weight:Float?,
 
 data class ResultCommonRecommendation(val message_short: String?, val message_long: String?, val importance_level: String?)
 data class ResultDiseaseRisk(val icd_id: Int?, val risk_string: String?, val message: String?, val risk_percents: String?, val recomendation: String?)
+data class ResultAnalyze(val bmi: List<String>?,
+                         val obesity_level: List<String>?,
+                         val ideal_weight: Float?,
+                         val base_metabolism: Int?,
+                         val calories_to_low_weight: Int?,
+                         val waist_to_hip_proportion: Float?,
+                         val passport_age: Int?,
+                         val common_risk_level: List<String>?,
+                         val prognostic_age: Int?,
+                         val fat_percent: List<String>?,
+                         val body_type: String?,
+                         val unfilled: String?,
+                         val disease_risk: List<ResultDiseaseRisk>?,
+                         val common_recomendations: List<ResultCommonRecommendation>?)

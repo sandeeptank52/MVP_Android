@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/mainBottomMenuHome"
+        android:id="@+id/mainHomeNav"
         android:title="@string/main_bottom_menu_home"/>
 
     <item
-        android:id="@+id/mainBottomMenuProfile"
+        android:id="@+id/mainProfileNav"
         android:title="@string/main_bottom_menu_profile"/>
 
     <item
-        android:id="@+id/mainBottomMenuMedcard"
+        android:id="@+id/mainMedcardNav"
         android:title="@string/main_bottom_menu_medcard"/>
 
 </menu>

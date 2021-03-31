@@ -7,4 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".view.mainActivity.medcard.MedcardFragment">
 
+    <TextView
+        android:id="@+id/tddtttt"
+        android:text="main_medcard_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

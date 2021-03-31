@@ -46,6 +46,12 @@ interface InTimeDigitalApi {
     @GET("$WORK_API/resultdata/")
     fun getFavoritesAsync(@Header("Authorization") access: String, @Header(value = "Accept-Language") locale: String): Deferred<Response<ResultFavorites>>
 
+    @GET("$WORK_API/result/")
+    fun getResultAnalyzeAsync(@Header("Authorization") access: String, @Header(value = "Accept-Language") locale: String): Deferred<Response<ResultAnalyze>>
+
+    @GET("$WORK_API/recomendations/")
+    fun getRecommendationsAsync(@Header("Authorization") access: String, @Header(value = "Accept-Language") locale: String): Deferred<Response<List<ResultRecommendation>>>
+
     // Testing API
     /*@POST(TEST_API)
     fun getGoogleAuthAsync(@Body login: SendGoogleTokenId): Deferred<Response<ResultTokenFromGoogle>>*/

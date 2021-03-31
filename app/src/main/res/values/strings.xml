@@ -28,6 +28,10 @@
     <string name="main_bottom_menu_profile">Profile</string>
     <string name="main_bottom_menu_medcard">Medical card</string>
 
+    <string name="main_home_menu_favorite">Favorite</string>
+    <string name="main_home_menu_analyze">Analyze</string>
+    <string name="main_home_menu_recommendations">Recommendations</string>
+
     <!--switches-->
     <string name="switch_disclaimer">Don`t show again?</string>
     <string name="switch_login_remember_password">Save password</string>
