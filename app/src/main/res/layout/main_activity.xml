@@ -34,15 +34,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/testtest"
-        android:text="main_activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mainFrameLayoutTitle"/>
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/mainNavHostFragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -53,7 +44,7 @@
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/testtest"
+        app:layout_constraintTop_toBottomOf="@id/mainFrameLayoutTitle"
         app:layout_constraintBottom_toTopOf="@id/mainBottomNavigationView"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

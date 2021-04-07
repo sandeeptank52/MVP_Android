@@ -25,7 +25,6 @@ class HomeFavoriteFragment : Fragment(R.layout.main_home_favorite_fragment) {
     private fun init(){
         val favoriteAdapter = HomeFavoriteAdapterRecycler { onClickResultCardMenu(it) }
         favoriteBinding?.favoriteRecyclerResultCard?.adapter = favoriteAdapter
-
         mainModel.resultCard.observe(viewLifecycleOwner, {
             it?.let {
                 favoriteAdapter.submitList(it as MutableList<ResultCard>)

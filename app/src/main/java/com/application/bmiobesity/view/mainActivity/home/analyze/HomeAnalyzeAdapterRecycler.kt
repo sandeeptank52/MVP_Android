@@ -1,9 +1,11 @@
 package com.application.bmiobesity.view.mainActivity.home.analyze
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +27,7 @@ class HomeAnalyzeAdapterRecycler(private val onClick: (ResultDiseaseRisk) -> Uni
     class HomeAnalyzeViewHolder(itemView: View, val onClick: (ResultDiseaseRisk) -> Unit) : RecyclerView.ViewHolder(itemView){
         private var currentResultRisk: ResultDiseaseRisk? = null
         private val message: TextView = itemView.findViewById(R.id.analyzeCardViewText)
+        private val card: CardView = itemView.findViewById(R.id.analyzeCardView)
 
         init {
             itemView.setOnClickListener {
@@ -36,7 +39,14 @@ class HomeAnalyzeAdapterRecycler(private val onClick: (ResultDiseaseRisk) -> Uni
 
         fun bind(risk: ResultDiseaseRisk){
             currentResultRisk = risk
-            message.text = risk.message
+
+            val msg = risk.message
+            val color = risk.risk_string
+
+            if (!msg.isNullOrEmpty()){
+                message.text = msg
+                if (!color.isNullOrEmpty()) card.setCardBackgroundColor(Color.parseColor(color))
+            }
         }
     }
 

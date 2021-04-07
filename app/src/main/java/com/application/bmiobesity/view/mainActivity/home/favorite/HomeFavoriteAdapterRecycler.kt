@@ -44,15 +44,32 @@ class HomeFavoriteAdapterRecycler(private val onClick: (ResultCard) -> Unit) : L
 
         fun bind(card: ResultCard){
             currentCard = card
+
+            // Resource ID
             val idImage = InTimeApp.APPLICATION.resources.getIdentifier(card.imgRes, "drawable", "com.application.bmiobesity")
             val idTitle = InTimeApp.APPLICATION.resources.getIdentifier(card.nameRes, "string", "com.application.bmiobesity")
+            val idErrorNotAvailable = InTimeApp.APPLICATION.resources.getIdentifier("error_data_not_available", "string", "com.application.bmiobesity")
 
             favoriteCardImage.setImageResource(idImage)
             favoriteCardTitle.setText(idTitle)
             favoriteCardDate.text = getFormatData("dd.MM.yyyy")
 
-            favoriteCardValue.text = card.value
-            if(card.valueColour.isNotEmpty()) favoriteCardValue.setTextColor(Color.parseColor(card.valueColour))
+            val resultValue = card.value
+            val resultColor = card.valueColour
+
+            if (resultValue.isNotEmpty()){
+                if (card.id == "fat_percent"){
+                    val split = resultValue.split(Regex(","))
+                    favoriteCardValue.text = split[0]
+                    if(resultColor.isNotEmpty()) favoriteCardValue.setTextColor(Color.parseColor(resultColor))
+                } else {
+                    favoriteCardValue.text = resultValue
+                    if(resultColor.isNotEmpty()) favoriteCardValue.setTextColor(Color.parseColor(resultColor))
+                }
+            } else {
+                favoriteCardValue.setText(idErrorNotAvailable)
+                favoriteCardValue.setTextColor(Color.RED)
+            }
         }
     }
 

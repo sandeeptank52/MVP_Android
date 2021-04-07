@@ -7,15 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".view.mainActivity.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/ttttt"
-        android:text="main_home_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/mainHomeTabLayoutMenu"
         app:tabMode="auto"
@@ -23,7 +14,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ttttt"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/mainHomeViewPager"
