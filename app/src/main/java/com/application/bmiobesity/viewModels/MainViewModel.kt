@@ -1,7 +1,6 @@
 package com.application.bmiobesity.viewModels
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.application.bmiobesity.InTimeApp
 import com.application.bmiobesity.model.appSettings.AppPreference
 import com.application.bmiobesity.model.appSettings.AppSettingDataStore
@@ -19,6 +18,8 @@ import com.application.bmiobesity.viewModels.eventManagerMain.EventManagerMain
 import com.application.bmiobesity.viewModels.eventManagerMain.MainViewModelEvent
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class MainViewModel : ViewModel() {
@@ -34,23 +35,36 @@ class MainViewModel : ViewModel() {
     lateinit var localStorageRepo: LocalStorageRepo
 
     private val eventManager: MainViewModelEvent = EventManagerMain.getEventManager()
-
     private lateinit var appPreference: AppPreference
 
+    // Common setting
     private lateinit var genders: List<Genders>
     private lateinit var countries: List<Countries>
     private lateinit var policy: List<Policy>
 
-    private lateinit var resultCard: List<ResultCard>
+    // Result
+    // Favorite screen
+    private val mResultCard: MutableLiveData<List<ResultCard>> by lazy { MutableLiveData<List<ResultCard>>() }
+    val resultCard: LiveData<List<ResultCard>> = mResultCard
+    // Analyze screen
+    private val mResultRiskAnalyze: MutableLiveData<List<ResultDiseaseRisk>> by lazy { MutableLiveData<List<ResultDiseaseRisk>>() }
+    val resultRiskAnalyze: LiveData<List<ResultDiseaseRisk>> = mResultRiskAnalyze
+    // Recommendations screen
+    // Common
+    private val mResultCommonRecommendations: MutableLiveData<List<ResultCommonRecommendation>> by lazy { MutableLiveData<List<ResultCommonRecommendation>>() }
+    val resultCommonRecommendations: LiveData<List<ResultCommonRecommendation>> = mResultCommonRecommendations
+    // Personal
+    private val mResultPersonalRecommendations: MutableLiveData<List<ResultRecommendation>> by lazy { MutableLiveData<List<ResultRecommendation>>() }
+    val resultPersonalRecommendations: LiveData<List<ResultRecommendation>> = mResultPersonalRecommendations
+
+    // MedCard
+    private var medCard: MedCard
     private lateinit var paramUnit: List<ParamUnit>
     private lateinit var medCardSourceType: List<MedCardSourceType>
 
-    private var medCard: MedCard
-
+    // User profile
     private lateinit var profile: Profile
     private lateinit var userProfile: ResultUserProfile
-    private lateinit var resultAnalyze: ResultAnalyze
-    private lateinit var recommendations: List<ResultRecommendation>
 
     init {
         InTimeApp.appComponent.inject(this)
@@ -66,9 +80,9 @@ class MainViewModel : ViewModel() {
             val updateProfileJob = updateProfile(access)
             val updateUserProfileJob = updateUserProfile(access)
             val updateMedCardJob = updateMedCard(access)
-            val updateResultFavoritesJob = updateResultFavorites(access, getCurrentLocale().locale)
-            val updateAnalyzeJob = updateAnalyze(access, getCurrentLocale().locale)
-            val updateRecommendationsJob = updateRecommendations(access, getCurrentLocale().locale)
+            val updateResultFavoritesJob = updateResultCardServer(access, getCurrentLocale().locale)
+            val updateAnalyzeJob = updateAnalyzeServer(access, getCurrentLocale().locale)
+            val updateRecommendationsJob = updateRecommendationsServer(access, getCurrentLocale().locale)
 
             updateProfileJob.join()
             updateUserProfileJob.join()
@@ -112,38 +126,6 @@ class MainViewModel : ViewModel() {
             }
         }
     }
-    private suspend fun updateResultFavorites(access: String, locale: String) = viewModelScope.launch(Dispatchers.IO) {
-        when (val result = remoteRepo.getFavorites(access, locale)){
-            is RetrofitResult.Success -> {
-                resultCard.forEach { card ->
-                    card.setValues(result.value.params?.find { it.name == card.id })
-                }
-            }
-            is RetrofitResult.Error -> {
-
-            }
-        }
-    }
-    private suspend fun updateAnalyze(access: String, locale: String) = viewModelScope.launch(Dispatchers.IO) {
-        when (val result = remoteRepo.getResultAnalyze(access, locale)){
-            is RetrofitResult.Success -> {
-                resultAnalyze = result.value
-            }
-            is RetrofitResult.Error -> {
-
-            }
-        }
-    }
-    private suspend fun updateRecommendations(access: String, locale: String) = viewModelScope.launch(Dispatchers.IO) {
-        when (val result = remoteRepo.getRecommendations(access, locale)){
-            is RetrofitResult.Success -> {
-                recommendations = result.value
-            }
-            is RetrofitResult.Error -> {
-
-            }
-        }
-    }
 
     private suspend fun updateGenders() = viewModelScope.launch(Dispatchers.IO) { genders =  commonSettingRepo.getAllGenders() }
     private suspend fun updateCountries() = viewModelScope.launch(Dispatchers.IO) { countries =  commonSettingRepo.getAllCountries() }
@@ -155,7 +137,7 @@ class MainViewModel : ViewModel() {
 
         val preferenceJob = updateAppPreference()
 
-        val resultCardJob = updateResultCard()
+        val resultCardJob = updateResultCardDB()
         val paramUnitJob = updateParamUnit()
         val medCardSourceTypeJob = updateMedCardSourceType()
         val medCardParamSettingJob = updateMedCardParamSetting()
@@ -172,12 +154,56 @@ class MainViewModel : ViewModel() {
 
     private suspend fun updateAppPreference() = viewModelScope.launch(Dispatchers.IO) { appPreference = appSetting.getAppPreference().first() }
 
-    private suspend fun updateResultCard() = viewModelScope.launch(Dispatchers.IO) { resultCard = paramSettingRepo.getAllResultCard() }
+
     private suspend fun updateParamUnit() = viewModelScope.launch(Dispatchers.IO) { paramUnit = paramSettingRepo.getAllParamUnit() }
     private suspend fun updateMedCardSourceType() = viewModelScope.launch(Dispatchers.IO) { medCardSourceType = paramSettingRepo.getAllMedCardSourceType() }
     private suspend fun updateMedCardParamSetting() = viewModelScope.launch(Dispatchers.IO) { medCard.setParameters(paramSettingRepo.getAllMedCardParamSetting()) }
 
+    // Update settings result parameters from DB
+    private suspend fun updateResultCardDB() = viewModelScope.launch(Dispatchers.IO) { mResultCard.postValue(paramSettingRepo.getAllResultCard()) }
+
+    // Update result from server
+    // Update favorite screen
+    private suspend fun updateResultCardServer(access: String, locale: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val result = remoteRepo.getFavorites(access, locale)){
+            is RetrofitResult.Success -> {
+                val temp = mResultCard.value
+                temp?.forEach { card ->
+                    card.setValues(result.value.params?.find { it.name == card.id })
+                }
+                mResultCard.postValue(temp)
+            }
+            is RetrofitResult.Error -> {
+
+            }
+        }
+    }
+    // Update disease risk and common recommendations
+    private suspend fun updateAnalyzeServer(access: String, locale: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val result = remoteRepo.getResultAnalyze(access, locale)){
+            is RetrofitResult.Success -> {
+                mResultRiskAnalyze.postValue(result.value.disease_risk)
+                mResultCommonRecommendations.postValue(result.value.common_recomendations)
+            }
+            is RetrofitResult.Error -> {
+
+            }
+        }
+    }
+    // Update personal recommendations
+    private suspend fun updateRecommendationsServer(access: String, locale: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val result = remoteRepo.getRecommendations(access, locale)){
+            is RetrofitResult.Success -> {
+                mResultPersonalRecommendations.postValue(result.value)
+            }
+            is RetrofitResult.Error -> {
+
+            }
+        }
+    }
+
     private fun test(){
         val i = 0
+
     }
 }

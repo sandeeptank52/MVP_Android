@@ -13,7 +13,7 @@
     app:cardElevation="8dp">
 
     <TextView
-        android:id="@+id/recommendationCardViewText"
+        android:id="@+id/analyzeCardViewText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
