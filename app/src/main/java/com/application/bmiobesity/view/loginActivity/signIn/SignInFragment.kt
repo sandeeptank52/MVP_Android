@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
 import com.application.bmiobesity.databinding.LoginSigninFragmentBinding
+import com.application.bmiobesity.databinding.LoginSigninFragmentV2Binding
 import com.application.bmiobesity.model.retrofit.RetrofitError
 import com.application.bmiobesity.model.retrofit.RetrofitResult
 import com.application.bmiobesity.model.retrofit.SendGoogleTokenId
@@ -65,6 +66,7 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
     override fun onStart() {
         super.onStart()
         val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(requireContext())
+        val i = 0
     }
 
     private fun initGoogleService(){
@@ -75,29 +77,6 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
         mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
         mGoogleSignInLauncher = registerForActivityResult(GoogleSignInContract()){
             googleSignInCallBack(it)
-        }
-    }
-    private fun googleSignIn(){
-        //mGoogleSignInLauncher.launch(mGoogleSignInClient)
-    }
-    private fun googleSignInCallBack(completedTask: Task<GoogleSignInAccount>){
-        try {
-            val account = completedTask.result
-            val code = account?.serverAuthCode
-
-            /*lifecycleScope.launch {
-                when (val result = loginModel.remoteRepo.getTokenFromGoogle(SendGoogleTokenId(code = code))){
-                    is RetrofitResult.Success -> {
-                        val test = 0
-                    }
-                    is RetrofitResult.Error -> {
-                        val test1 = 1
-                    }
-                }
-            }*/
-
-        } catch (e: ApiException){
-
         }
     }
 
@@ -170,6 +149,31 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
     }
     private fun signUpAction() = findNavController().navigate(R.id.loginNavSignInToSignUp)
     private fun forgotAction() = findNavController().navigate(R.id.loginNavSignInToForgotPass)
+    private fun googleSignIn(){
+        mGoogleSignInLauncher.launch(mGoogleSignInClient)
+    }
+    private fun googleSignInCallBack(completedTask: Task<GoogleSignInAccount>){
+        try {
+            val account = completedTask.result
+            val code = account?.serverAuthCode
+
+            val i = 0
+
+            lifecycleScope.launch {
+                when (val result = loginModel.remoteRepo.getTokenFromGoogle(code ?: "")){
+                    is RetrofitResult.Success -> {
+                        val test = 0
+                    }
+                    is RetrofitResult.Error -> {
+                        val test1 = 1
+                    }
+                }
+            }
+
+        } catch (e: ApiException){
+
+        }
+    }
 
     private fun setErrorMailField(error: String?){
         signInBinding?.signInTextInputLayoutMail?.error = error

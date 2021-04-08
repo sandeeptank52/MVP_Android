@@ -13,7 +13,7 @@ class NetworkService private constructor(){
     private val interceptor = HttpLoggingInterceptor()
 
     init {
-        interceptor.level = HttpLoggingInterceptor.Level.NONE
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
 
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 

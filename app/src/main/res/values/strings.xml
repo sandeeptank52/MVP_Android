@@ -34,7 +34,7 @@
 
     <!--switches-->
     <string name="switch_disclaimer">Don`t show again?</string>
-    <string name="switch_login_remember_password">Save password</string>
+    <string name="switch_login_remember_password">Remember password</string>
     <string name="switch_sign_in_privacy_agree">I agree to the therms condition</string>
 
     <!--disclaimer fragment-->

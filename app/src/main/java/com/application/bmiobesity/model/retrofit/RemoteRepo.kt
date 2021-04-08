@@ -46,6 +46,13 @@ class RemoteRepo private constructor(){
         return RetrofitResult.Error(result.message(), result.code())
     }
 
+    suspend fun getTokenFromGoogle(code: String) = safeApiCall { mGetTokenFromGoogle(code) }
+    private suspend fun mGetTokenFromGoogle(code: String): RetrofitResult<ResultTokenFromGoogle>{
+        val result = intimeApi.getGoogleAuthAsync(code).await()
+        if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
+        return RetrofitResult.Error(result.message(), result.code())
+    }
+
     suspend fun signUp(login: SendLogin) = safeApiCall { mSignUp(login) }
     private suspend fun mSignUp(login: SendLogin): RetrofitResult<ResultToken>{
         val result = intimeApi.signUpAsync(login).await()
@@ -115,16 +122,6 @@ class RemoteRepo private constructor(){
         if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
         return RetrofitResult.Error(result.message(), result.code())
     }
-
-
-    // Testing API
-    /*suspend fun getTokenFromGoogle(login: SendGoogleTokenId) = safeApiCall { mGetTokenFromGoogle(login) }
-    private suspend fun mGetTokenFromGoogle(login: SendGoogleTokenId): RetrofitResult<ResultTokenFromGoogle>{
-        val result = intimeApi.getGoogleAuthAsync(login).await()
-        if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
-        return RetrofitResult.Error(result.message(), result.code())
-    }*/
-
 
     companion object{
         @Volatile

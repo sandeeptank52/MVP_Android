@@ -26,6 +26,7 @@ class MainFragment : Fragment(R.layout.label_main_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainBinding = LabelMainFragmentBinding.bind(view)
+
         animateLabelScreen()
 
         lifecycleScope.launch {

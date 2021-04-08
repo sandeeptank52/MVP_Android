@@ -29,6 +29,9 @@ interface InTimeDigitalApi {
     @POST("$WORK_API/token/")
     fun getTokenAsync(@Body login: SendLogin): Deferred<Response<ResultToken>>
 
+    @POST("$WORK_API/login/social/jwt-pair/{var}")
+    fun getGoogleAuthAsync(@Path("var") code: String): Deferred<Response<ResultTokenFromGoogle>>
+
     @POST("$WORK_API/signup/")
     fun signUpAsync(@Body login: SendLogin): Deferred<Response<ResultToken>>
 
@@ -51,8 +54,4 @@ interface InTimeDigitalApi {
 
     @GET("$WORK_API/recomendations/")
     fun getRecommendationsAsync(@Header("Authorization") access: String, @Header(value = "Accept-Language") locale: String): Deferred<Response<List<ResultRecommendation>>>
-
-    // Testing API
-    /*@POST(TEST_API)
-    fun getGoogleAuthAsync(@Body login: SendGoogleTokenId): Deferred<Response<ResultTokenFromGoogle>>*/
 }

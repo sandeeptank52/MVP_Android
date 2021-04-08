@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.application.bmiobesity.R
 import com.application.bmiobesity.databinding.LoginActivityBinding
+import com.application.bmiobesity.databinding.LoginActivityV2Binding
 
 class LoginActivity : AppCompatActivity() {
 
