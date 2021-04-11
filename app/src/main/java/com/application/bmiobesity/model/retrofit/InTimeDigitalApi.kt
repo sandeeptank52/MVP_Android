@@ -28,6 +28,8 @@ interface InTimeDigitalApi {
 
     @POST("$WORK_API/token/")
     fun getTokenAsync(@Body login: SendLogin): Deferred<Response<ResultToken>>
+    @POST("$WORK_API/token/refresh/")
+    fun refreshTokenAsync(@Body refresh: SendRefreshToken): Deferred<Response<ResultToken>>
 
     @POST("$WORK_API/login/social/jwt-pair/")
     fun getGoogleAuthAsync(@Body googleLogin: SendGoogleTokenId): Deferred<Response<ResultTokenFromGoogle>>

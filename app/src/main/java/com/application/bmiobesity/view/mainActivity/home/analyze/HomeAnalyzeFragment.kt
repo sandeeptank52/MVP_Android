@@ -2,6 +2,7 @@ package com.application.bmiobesity.view.mainActivity.home.analyze
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.application.bmiobesity.R
@@ -32,7 +33,9 @@ class HomeAnalyzeFragment : Fragment(R.layout.main_home_analyze_fragment) {
     }
 
     private fun onClickRecyclerItem(item: ResultDiseaseRisk){
-
+        if (!item.recomendation.isNullOrEmpty()){
+            Toast.makeText(requireContext(), item.recomendation, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroyView() {

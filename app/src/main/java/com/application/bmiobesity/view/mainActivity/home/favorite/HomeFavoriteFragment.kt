@@ -2,6 +2,7 @@ package com.application.bmiobesity.view.mainActivity.home.favorite
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.application.bmiobesity.InTimeApp
@@ -34,7 +35,9 @@ class HomeFavoriteFragment : Fragment(R.layout.main_home_favorite_fragment) {
     }
 
     private fun onClickResultCardMenu(card: ResultCard){
-
+        if (card.description.isNotEmpty()){
+            Toast.makeText(requireContext(), card.description, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroyView() {

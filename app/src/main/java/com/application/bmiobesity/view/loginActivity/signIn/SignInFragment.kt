@@ -66,12 +66,11 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
     override fun onStart() {
         super.onStart()
         val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(requireContext())
-        val i = 0
     }
 
     private fun initGoogleService(){
         val gso: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestScopes(Scope(Scopes.PROFILE))
+            .requestScopes(Scope(Scopes.PROFILE), Scope(Scopes.EMAIL))
             .requestServerAuthCode(getString(R.string.server_client_id))
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
@@ -120,7 +119,7 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
 
     private fun addListeners(){
         signInBinding?.signInButtonSignIn?.clicks()?.subscribe { signInAction() }
-        signInBinding?.signInButtonSignUp?.clicks()?.subscribe { signUpAction() }
+        signInBinding?.signInTextViewSignUp?.clicks()?.subscribe { signUpAction() }
         signInBinding?.signInTextViewForgotPass?.clicks()?.subscribe { forgotAction() }
         signInBinding?.signInButtonGoogleSignIn?.clicks()?.subscribe { googleSignIn() }
 
@@ -150,32 +149,22 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
     private fun signUpAction() = findNavController().navigate(R.id.loginNavSignInToSignUp)
     private fun forgotAction() = findNavController().navigate(R.id.loginNavSignInToForgotPass)
     private fun googleSignIn(){
+        setEnabledInterface(false)
         mGoogleSignInLauncher.launch(mGoogleSignInClient)
     }
     private fun googleSignInCallBack(completedTask: Task<GoogleSignInAccount>){
         try {
             val account = completedTask.result
             val code = account?.serverAuthCode
-
-            val i = 0
+            val mail = account?.email
+            val firstName = account?.givenName
+            val lastName = account?.familyName
+            val photoUri = account?.photoUrl
+            val rememberPass = signInBinding?.signInSwitchRememberPassword?.isChecked ?: false
 
             if (!code.isNullOrEmpty()){
-
-                lifecycleScope.launch {
-                    when (val result = loginModel.remoteRepo.getTokenFromGoogle(SendGoogleTokenId(code = code))) {
-                        is RetrofitResult.Success -> {
-                            val test = 0
-                        }
-                        is RetrofitResult.Error -> {
-                            val test1 = 1
-                        }
-                    }
-                }
-
+                loginModel.signInActionWithGoogle(mail, code, rememberPass, firstName, lastName, photoUri)
             }
-
-
-
         } catch (e: ApiException){
 
         }
@@ -192,8 +181,9 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
         signInBinding?.signInTextInputLayoutMail?.isEnabled = value
         signInBinding?.signInSwitchRememberPassword?.isEnabled = value
         signInBinding?.signInButtonSignIn?.isEnabled = value
-        signInBinding?.signInButtonSignUp?.isEnabled = value
+        signInBinding?.signInTextViewSignUp?.isClickable = value
         signInBinding?.signInTextViewForgotPass?.isClickable = value
+        signInBinding?.signInButtonGoogleSignIn?.isEnabled = value
         if (value) signInBinding?.signInProgressBar?.visibility = View.GONE
         else signInBinding?.signInProgressBar?.visibility = View.VISIBLE
     }

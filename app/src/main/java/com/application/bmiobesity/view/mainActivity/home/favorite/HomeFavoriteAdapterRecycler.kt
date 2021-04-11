@@ -35,7 +35,7 @@ class HomeFavoriteAdapterRecycler(private val onClick: (ResultCard) -> Unit) : L
         private var currentCard: ResultCard? = null
 
         init {
-            (itemView.findViewById(R.id.favoriteCardViewMenu) as ImageView).setOnClickListener  {
+            itemView.setOnClickListener {
                 currentCard?.let {
                     onClick(it)
                 }
@@ -68,7 +68,7 @@ class HomeFavoriteAdapterRecycler(private val onClick: (ResultCard) -> Unit) : L
                 }
             } else {
                 favoriteCardValue.setText(idErrorNotAvailable)
-                favoriteCardValue.setTextColor(Color.RED)
+                //favoriteCardValue.setTextColor(Color.RED)
             }
         }
     }

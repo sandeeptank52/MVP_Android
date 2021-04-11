@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,7 @@ class HomeAnalyzeAdapterRecycler(private val onClick: (ResultDiseaseRisk) -> Uni
         private var currentResultRisk: ResultDiseaseRisk? = null
         private val message: TextView = itemView.findViewById(R.id.analyzeCardViewText)
         private val card: CardView = itemView.findViewById(R.id.analyzeCardView)
+        private val percentText: TextView = itemView.findViewById(R.id.analyzeCardViewTextPercent)
 
         init {
             itemView.setOnClickListener {
@@ -42,10 +44,24 @@ class HomeAnalyzeAdapterRecycler(private val onClick: (ResultDiseaseRisk) -> Uni
 
             val msg = risk.message
             val color = risk.risk_string
+            val percent = risk.risk_percents
 
             if (!msg.isNullOrEmpty()){
                 message.text = msg
-                if (!color.isNullOrEmpty()) card.setCardBackgroundColor(Color.parseColor(color))
+
+                if (!percent.isNullOrEmpty()) {
+                    val txt = "$percent %"
+                    percentText.visibility = View.VISIBLE
+                    percentText.text = txt
+                } else {
+                    percentText.visibility = View.GONE
+                }
+
+                if (!color.isNullOrEmpty()){
+                    card.setCardBackgroundColor(Color.parseColor(color))
+                } else {
+                    card.setCardBackgroundColor(Color.WHITE)
+                }
             }
         }
     }

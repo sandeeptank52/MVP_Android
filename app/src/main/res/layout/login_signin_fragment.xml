@@ -102,31 +102,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/signInProgressBar"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/signInButtonSignUp"
-            android:text="@string/button_sign_up"
-            android:textColor="@android:color/white"
-            android:background="@drawable/common_button_selector"
-            android:layout_marginTop="@dimen/standart_margin_top_logo"
-            android:layout_width="@dimen/standart_width_field_logo"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/signInButtonSignIn"/>
-
         <TextView
             android:id="@+id/signInTextViewOr"
-            android:text="OR"
+            android:text="---OR---"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/signInButtonSignUp"/>
+            app:layout_constraintTop_toBottomOf="@id/signInButtonSignIn"/>
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/signInButtonGoogleSignIn"
-            android:layout_width="300dp"
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             app:buttonSize="wide"
@@ -135,9 +123,24 @@
             app:layout_constraintTop_toBottomOf="@id/signInTextViewOr" />
 
         <TextView
+            android:id="@+id/signInTextViewSignUp"
+            android:text="@string/button_sign_up_text"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/signInButtonGoogleSignIn"/>
+
+        <TextView
             android:id="@+id/signInTextViewForgotPass"
             android:text="@string/button_dont_remember_password"
             android:layout_marginTop="@dimen/standart_margin_top_logo"
+            android:textStyle="italic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -145,7 +148,7 @@
             android:textColor="@android:color/holo_blue_dark"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/signInButtonGoogleSignIn"/>
+            app:layout_constraintTop_toBottomOf="@id/signInTextViewSignUp"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

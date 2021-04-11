@@ -15,6 +15,7 @@
     <!--buttons-->
     <string name="button_sign_in">Sign In</string>
     <string name="button_sign_up">Sign Up</string>
+    <string name="button_sign_up_text">Need an account?</string>
     <string name="button_next">Next</string>
     <string name="button_dont_remember_password">Don\'t remember password</string>
     <string name="button_i_agree">I Agree</string>

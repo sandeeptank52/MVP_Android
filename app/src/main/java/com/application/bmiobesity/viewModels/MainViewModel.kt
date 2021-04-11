@@ -1,6 +1,8 @@
 package com.application.bmiobesity.viewModels
 
+import android.os.Build
 import androidx.lifecycle.*
+import com.application.bmiobesity.BuildConfig
 import com.application.bmiobesity.InTimeApp
 import com.application.bmiobesity.model.appSettings.AppPreference
 import com.application.bmiobesity.model.appSettings.AppSettingDataStore
@@ -75,6 +77,9 @@ class MainViewModel : ViewModel() {
             val upd = updateLocal()
             upd.join()
 
+            //val refreshJob = refreshToken()
+            //refreshJob.join()
+
             val access = "Bearer ${appPreference.accessToken}"
 
             val updateProfileJob = updateProfile(access)
@@ -93,6 +98,21 @@ class MainViewModel : ViewModel() {
 
             eventManager.preloadSuccessEvent(true)
             test()
+        }
+    }
+
+    private suspend fun refreshToken() = viewModelScope.launch(Dispatchers.IO) {
+        val refresh = SendRefreshToken(SendRefresh(appPreference.refreshToken), getDevice())
+        when (val result = remoteRepo.refreshToken(refresh)){
+            is RetrofitResult.Success -> {
+                appSetting.setStringParam(AppSettingDataStore.PrefKeys.ACCESS_TOKEN, result.value.access ?: "")
+                appSetting.setStringParam(AppSettingDataStore.PrefKeys.REFRESH_TOKEN, result.value.refresh ?: "")
+                val updateJob = updateAppPreference()
+                updateJob.join()
+            }
+            is RetrofitResult.Error -> {
+
+            }
         }
     }
 
@@ -204,6 +224,15 @@ class MainViewModel : ViewModel() {
 
     private fun test(){
         val i = 0
-
     }
+
+    private fun getDevice() = SendDevice(
+        appPreference.deviceUUID,
+        AppSettingDataStore.Constants.OS_NAME,
+        Build.VERSION.RELEASE,
+        "${Build.BRAND} - ${Build.MODEL}",
+        BuildConfig.VERSION_NAME
+    )
+
+    suspend fun isFirstTimeAsync(): Deferred<Boolean> = viewModelScope.async { appSetting.getBoolParam(AppSettingDataStore.PrefKeys.FIRST_TIME).first() }
 }
