@@ -8,7 +8,7 @@ import retrofit2.http.*
 interface InTimeDigitalApi {
     companion object{
         private const val WORK_API = "/api/v2"
-        private const val TEST_API = "/api/v2/login/social/jwt-pair/"
+        private const val TEST_API = "/api/v2"
     }
 
     @POST("$WORK_API/countries/")
@@ -29,8 +29,8 @@ interface InTimeDigitalApi {
     @POST("$WORK_API/token/")
     fun getTokenAsync(@Body login: SendLogin): Deferred<Response<ResultToken>>
 
-    @POST("$WORK_API/login/social/jwt-pair/{var}")
-    fun getGoogleAuthAsync(@Path("var") code: String): Deferred<Response<ResultTokenFromGoogle>>
+    @POST("$WORK_API/login/social/jwt-pair/")
+    fun getGoogleAuthAsync(@Body googleLogin: SendGoogleTokenId): Deferred<Response<ResultTokenFromGoogle>>
 
     @POST("$WORK_API/signup/")
     fun signUpAsync(@Body login: SendLogin): Deferred<Response<ResultToken>>

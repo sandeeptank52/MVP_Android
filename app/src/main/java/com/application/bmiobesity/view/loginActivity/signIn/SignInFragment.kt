@@ -159,16 +159,22 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
 
             val i = 0
 
-            lifecycleScope.launch {
-                when (val result = loginModel.remoteRepo.getTokenFromGoogle(code ?: "")){
-                    is RetrofitResult.Success -> {
-                        val test = 0
-                    }
-                    is RetrofitResult.Error -> {
-                        val test1 = 1
+            if (!code.isNullOrEmpty()){
+
+                lifecycleScope.launch {
+                    when (val result = loginModel.remoteRepo.getTokenFromGoogle(SendGoogleTokenId(code = code))) {
+                        is RetrofitResult.Success -> {
+                            val test = 0
+                        }
+                        is RetrofitResult.Error -> {
+                            val test1 = 1
+                        }
                     }
                 }
+
             }
+
+
 
         } catch (e: ApiException){
 

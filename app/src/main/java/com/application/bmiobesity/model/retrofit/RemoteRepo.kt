@@ -46,8 +46,8 @@ class RemoteRepo private constructor(){
         return RetrofitResult.Error(result.message(), result.code())
     }
 
-    suspend fun getTokenFromGoogle(code: String) = safeApiCall { mGetTokenFromGoogle(code) }
-    private suspend fun mGetTokenFromGoogle(code: String): RetrofitResult<ResultTokenFromGoogle>{
+    suspend fun getTokenFromGoogle(code: SendGoogleTokenId) = safeApiCall { mGetTokenFromGoogle(code) }
+    private suspend fun mGetTokenFromGoogle(code: SendGoogleTokenId): RetrofitResult<ResultTokenFromGoogle>{
         val result = intimeApi.getGoogleAuthAsync(code).await()
         if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
         return RetrofitResult.Error(result.message(), result.code())
