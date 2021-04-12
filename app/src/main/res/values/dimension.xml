@@ -4,4 +4,7 @@
     <dimen name="standart_min_text_size">12sp</dimen>
     <dimen name="standart_width_field_logo">300dp</dimen>
     <dimen name="standart_margin_top_logo">12dp</dimen>
+
+    <dimen name="settings_size">55dp</dimen>
+    <dimen name="settings_padding_start">25dp</dimen>
 </resources>

@@ -3,14 +3,17 @@
 
     <item
         android:id="@+id/mainBottomMenuHome"
+        android:icon="@drawable/home_icon"
         android:title="@string/main_bottom_menu_home"/>
 
     <item
         android:id="@+id/mainBottomMenuProfile"
+        android:icon="@drawable/profile_icon"
         android:title="@string/main_bottom_menu_profile"/>
 
     <item
         android:id="@+id/mainBottomMenuMedcard"
+        android:icon="@drawable/heart_icon"
         android:title="@string/main_bottom_menu_medcard"/>
 
 </menu>
