@@ -7,6 +7,7 @@ sealed class RetrofitResult<out T: Any>{
     data class Success <out T: Any> (val value: T, val code: Int, val message: String): RetrofitResult<T>()
     data class Error(val errorMessage: String, val code: Int, val responseBody: ResponseBody?) : RetrofitResult<Nothing>()
 }
+
 suspend fun <T: Any> safeApiCall(call: suspend () -> RetrofitResult<T>): RetrofitResult<T> =
 try {
     call.invoke()
@@ -37,8 +38,10 @@ data class SendRefresh(var refresh: String)
 data class SendDevice(var device_uuid:String, var os_name:String, var os_version:String, var device_model:String, var app_version:String)
 data class SendRefreshToken(var token: SendRefresh, var device: SendDevice)
 data class SendLogin(var user: SendUser, var device: SendDevice)
-data class SendConfirmResetPass(val new_password1: String, val new_password2: String, val uid: String, val token: String)
-data class SendGoogleTokenId(val provider: String = "google-oauth2", val code: String)
+data class SendConfirmResetPass(var new_password1: String, var new_password2: String, var uid: String, var token: String)
+data class SendGoogleTokenId(var provider: String = "google-oauth2", var code: String)
+data class SendProfile(var first_name: String, var last_name: String, var email: String)
+data class SendUserProfile(var birth_date: String, var country: Int, var gender: Int, var height: Float, var smoker: Boolean, var measuring_system: Int)
 
 
 data class ResultSimpleCountry(val id: Int?, val value: String?)

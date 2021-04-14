@@ -1,6 +1,5 @@
 package com.application.bmiobesity.model.retrofit
 
-import com.application.bmiobesity.model.db.paramSettings.entities.Profile
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.*
@@ -40,7 +39,7 @@ interface InTimeDigitalApi {
     @GET("$WORK_API/profile/")
     fun getProfileAsync(@Header("Authorization") access: String): Deferred<Response<ResultProfile>>
     @PATCH("$WORK_API/profile/")
-    fun patchProfileAsync(@Header("Authorization") access: String, @Body profile: Profile): Deferred<Response<ResultProfile>>
+    fun patchProfileAsync(@Header("Authorization") access: String, @Body profile: SendProfile): Deferred<Response<ResultProfile>>
 
     @GET("$WORK_API/user_profile/")
     fun getUserProfileAsync(@Header("Authorization") access: String): Deferred<Response<ResultUserProfile>>

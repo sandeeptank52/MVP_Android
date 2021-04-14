@@ -12,6 +12,7 @@ import com.application.bmiobesity.model.db.commonSettings.entities.Genders
 import com.application.bmiobesity.model.db.commonSettings.entities.Policy
 import com.application.bmiobesity.model.db.paramSettings.ParamSettingsRepo
 import com.application.bmiobesity.model.db.paramSettings.entities.*
+import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profile
 import com.application.bmiobesity.model.localStorage.LocalStorageRepo
 import com.application.bmiobesity.model.parameters.MedCard
 import com.application.bmiobesity.model.retrofit.*
@@ -20,8 +21,6 @@ import com.application.bmiobesity.viewModels.eventManagerMain.EventManagerMain
 import com.application.bmiobesity.viewModels.eventManagerMain.MainViewModelEvent
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 class MainViewModel : ViewModel() {
@@ -65,17 +64,21 @@ class MainViewModel : ViewModel() {
     private lateinit var medCardSourceType: List<MedCardSourceType>
 
     // User profile
-    private lateinit var profile: Profile
-    private lateinit var userProfile: ResultUserProfile
+    private lateinit var currentProfile: Profile
 
     init {
         InTimeApp.appComponent.inject(this)
+
         medCard = MedCard()
+
 
         viewModelScope.launch(Dispatchers.IO) {
 
             val upd = updateLocal()
             upd.join()
+
+            val currentMail = getCurrentMailAsync().await()
+            currentProfile = Profile(currentMail)
 
             //val refreshJob = refreshToken()
             //refreshJob.join()
@@ -119,7 +122,7 @@ class MainViewModel : ViewModel() {
     private suspend fun updateProfile(access: String) = viewModelScope.launch(Dispatchers.IO) {
         when (val resultProfile = remoteRepo.getProfile(access)){
             is RetrofitResult.Success -> {
-                profile = Profile(resultProfile.value)
+                currentProfile.loadFromProfile(resultProfile.value)
             }
             is RetrofitResult.Error -> {
 
@@ -129,7 +132,7 @@ class MainViewModel : ViewModel() {
     private suspend fun updateUserProfile(access: String) = viewModelScope.launch(Dispatchers.IO) {
         when (val resultProfile = remoteRepo.getUserProfile(access)){
             is RetrofitResult.Success -> {
-                userProfile = resultProfile.value
+                currentProfile.loadFromUserProfile(resultProfile.value)
             }
             is RetrofitResult.Error -> {
 
@@ -222,10 +225,6 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private fun test(){
-        val i = 0
-    }
-
     private fun getDevice() = SendDevice(
         appPreference.deviceUUID,
         AppSettingDataStore.Constants.OS_NAME,
@@ -235,4 +234,9 @@ class MainViewModel : ViewModel() {
     )
 
     suspend fun isFirstTimeAsync(): Deferred<Boolean> = viewModelScope.async { appSetting.getBoolParam(AppSettingDataStore.PrefKeys.FIRST_TIME).first() }
+    private suspend fun getCurrentMailAsync(): Deferred<String> = viewModelScope.async { appSetting.getStringParam(AppSettingDataStore.PrefKeys.USER_MAIL).first() }
+
+    private fun test(){
+        val i = 0
+    }
 }

@@ -59,11 +59,11 @@ class LoginViewModel : ViewModel() {
             }
         }
     }
-    fun signInActionWithGoogle(mail: String?, code: String, rememberPass: Boolean, firstName: String?, lastName: String?, photoUri: Uri?){
+    fun signInActionWithGoogle(mail: String, code: String, rememberPass: Boolean, firstName: String?, lastName: String?, photoUri: Uri?){
         viewModelScope.launch {
             when(val result = remoteRepo.getTokenFromGoogle(SendGoogleTokenId(code = code))){
                 is RetrofitResult.Success -> {
-                    signInSuccessFromGoogle(result.value.token, result.value.refresh)
+                    signInSuccessFromGoogle(result.value.token, result.value.refresh, mail)
                     eventManager.signInSuccessEvent(true)
                 }
                 is RetrofitResult.Error -> {
@@ -141,9 +141,10 @@ class LoginViewModel : ViewModel() {
     }
 
     // Common
-    private suspend fun signInSuccessFromGoogle(accessToken: String?, refreshToken: String?){
+    private suspend fun signInSuccessFromGoogle(accessToken: String?, refreshToken: String?, mail: String){
         appSetting.setStringParam(AppSettingDataStore.PrefKeys.ACCESS_TOKEN, accessToken ?: "")
         appSetting.setStringParam(AppSettingDataStore.PrefKeys.REFRESH_TOKEN, refreshToken ?: "")
+        appSetting.setStringParam(AppSettingDataStore.PrefKeys.USER_MAIL, mail)
         updateAppPreference()
     }
     private suspend fun signInSuccess(resToken: ResultToken, user: SendUser, rememberPass: Boolean){

@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.application.bmiobesity.model.db.paramSettings.entities.*
+import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profile
 
 @Database(
     entities = [MedCardParamSetting::class,

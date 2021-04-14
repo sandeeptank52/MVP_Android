@@ -162,7 +162,7 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
             val photoUri = account?.photoUrl
             val rememberPass = signInBinding?.signInSwitchRememberPassword?.isChecked ?: false
 
-            if (!code.isNullOrEmpty()){
+            if (!code.isNullOrEmpty() && !mail.isNullOrEmpty()){
                 loginModel.signInActionWithGoogle(mail, code, rememberPass, firstName, lastName, photoUri)
             }
         } catch (e: ApiException){

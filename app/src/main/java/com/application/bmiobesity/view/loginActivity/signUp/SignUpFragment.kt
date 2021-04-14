@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
 import com.application.bmiobesity.databinding.LoginSignupFragmentBinding
 import com.application.bmiobesity.model.retrofit.RetrofitError
@@ -173,7 +174,7 @@ class SignUpFragment : Fragment(R.layout.login_signup_fragment) {
         MaterialAlertDialogBuilder(requireContext())
                 .setMessage(getString(R.string.sign_up_success))
                 .setPositiveButton(getString(R.string.button_accept)) { _, _ ->
-                    startMainActivity()
+                    findNavController().navigate(R.id.loginNavSignUpToSignIn)
                 }
                 .show()
     }

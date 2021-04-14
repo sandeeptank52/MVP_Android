@@ -1,7 +1,5 @@
 package com.application.bmiobesity.model.retrofit
 
-import com.application.bmiobesity.model.db.paramSettings.entities.Profile
-
 class RemoteRepo private constructor(){
 
     private val intimeApi: InTimeDigitalApi = NetworkService.getNetworkService().getApi()
@@ -75,8 +73,8 @@ class RemoteRepo private constructor(){
             return RetrofitResult.Success(result.body()!!, result.code(), result.message())
         return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
     }
-    suspend fun patchProfile(access: String, profile: Profile) = safeApiCall { mPatchProfile(access, profile) }
-    private suspend fun mPatchProfile(access: String, profile: Profile): RetrofitResult<ResultProfile>{
+    suspend fun patchProfile(access: String, profile: SendProfile) = safeApiCall { mPatchProfile(access, profile) }
+    private suspend fun mPatchProfile(access: String, profile: SendProfile): RetrofitResult<ResultProfile>{
         val result = intimeApi.patchProfileAsync(access, profile).await()
         if (result.isSuccessful)
             return RetrofitResult.Success(result.body()!!, result.code(), result.message())
