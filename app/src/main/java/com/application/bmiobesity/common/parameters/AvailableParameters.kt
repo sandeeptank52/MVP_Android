@@ -1,4 +1,4 @@
-package com.application.bmiobesity.model.parameters
+package com.application.bmiobesity.common.parameters
 
 enum class AvailableParameters(val id: String) {
     WEIGHT("weight"),

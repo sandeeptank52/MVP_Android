@@ -1,4 +1,4 @@
-package com.application.bmiobesity.utils
+package com.application.bmiobesity.common
 
 import androidx.lifecycle.Observer
 

@@ -5,6 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.application.bmiobesity.model.db.paramSettings.entities.*
+import com.application.bmiobesity.model.db.paramSettings.entities.profile.AvailableData
+import com.application.bmiobesity.model.db.paramSettings.entities.profile.OnBoardingSteps
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profile
 
 @Database(
@@ -12,7 +14,9 @@ import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profil
         MedCardSourceType::class,
         ParamUnit::class,
         ResultCard::class,
-        Profile::class],
+        Profile::class,
+        AvailableData::class,
+        OnBoardingSteps::class],
     version = 1000,
     exportSchema = true
 )

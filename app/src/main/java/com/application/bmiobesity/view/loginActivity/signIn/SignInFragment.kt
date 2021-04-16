@@ -10,20 +10,16 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
 import com.application.bmiobesity.databinding.LoginSigninFragmentBinding
-import com.application.bmiobesity.databinding.LoginSigninFragmentV2Binding
 import com.application.bmiobesity.model.retrofit.RetrofitError
-import com.application.bmiobesity.model.retrofit.RetrofitResult
-import com.application.bmiobesity.model.retrofit.SendGoogleTokenId
 import com.application.bmiobesity.services.google.signIn.GoogleSignInContract
-import com.application.bmiobesity.utils.EventObserver
+import com.application.bmiobesity.common.EventObserver
 import com.application.bmiobesity.view.mainActivity.MainActivity
 import com.application.bmiobesity.viewModels.LoginViewModel
-import com.application.bmiobesity.viewModels.eventManager.EventManager
-import com.application.bmiobesity.viewModels.eventManager.SignInFragmentEvent
+import com.application.bmiobesity.common.eventManager.EventManager
+import com.application.bmiobesity.common.eventManager.SignInFragmentEvent
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -37,7 +33,6 @@ import com.jakewharton.rxbinding4.widget.textChanges
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
-import kotlinx.coroutines.launch
 
 class SignInFragment : Fragment(R.layout.login_signin_fragment) {
 

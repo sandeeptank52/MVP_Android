@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.lifecycle.*
 import com.application.bmiobesity.BuildConfig
 import com.application.bmiobesity.InTimeApp
+import com.application.bmiobesity.common.ProfileManager
 import com.application.bmiobesity.model.appSettings.AppPreference
 import com.application.bmiobesity.model.appSettings.AppSettingDataStore
 import com.application.bmiobesity.model.db.commonSettings.CommonSettingRepo
@@ -14,11 +15,11 @@ import com.application.bmiobesity.model.db.paramSettings.ParamSettingsRepo
 import com.application.bmiobesity.model.db.paramSettings.entities.*
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profile
 import com.application.bmiobesity.model.localStorage.LocalStorageRepo
-import com.application.bmiobesity.model.parameters.MedCard
+import com.application.bmiobesity.common.parameters.MedCard
 import com.application.bmiobesity.model.retrofit.*
 import com.application.bmiobesity.utils.getCurrentLocale
-import com.application.bmiobesity.viewModels.eventManagerMain.EventManagerMain
-import com.application.bmiobesity.viewModels.eventManagerMain.MainViewModelEvent
+import com.application.bmiobesity.common.eventManagerMain.EventManagerMain
+import com.application.bmiobesity.common.eventManagerMain.MainViewModelEvent
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
@@ -37,6 +38,7 @@ class MainViewModel : ViewModel() {
 
     private val eventManager: MainViewModelEvent = EventManagerMain.getEventManager()
     private lateinit var appPreference: AppPreference
+    private val profileManager = ProfileManager.getProfileManager()
 
     // Common setting
     private lateinit var genders: List<Genders>
@@ -63,9 +65,6 @@ class MainViewModel : ViewModel() {
     private lateinit var paramUnit: List<ParamUnit>
     private lateinit var medCardSourceType: List<MedCardSourceType>
 
-    // User profile
-    private lateinit var currentProfile: Profile
-
     init {
         InTimeApp.appComponent.inject(this)
 
@@ -77,23 +76,15 @@ class MainViewModel : ViewModel() {
             val upd = updateLocal()
             upd.join()
 
-            val currentMail = getCurrentMailAsync().await()
-            currentProfile = Profile(currentMail)
-
-            //val refreshJob = refreshToken()
-            //refreshJob.join()
-
             val access = "Bearer ${appPreference.accessToken}"
 
-            val updateProfileJob = updateProfile(access)
-            val updateUserProfileJob = updateUserProfile(access)
+            setUpProfileManager(access)
+
             val updateMedCardJob = updateMedCard(access)
             val updateResultFavoritesJob = updateResultCardServer(access, getCurrentLocale().locale)
             val updateAnalyzeJob = updateAnalyzeServer(access, getCurrentLocale().locale)
             val updateRecommendationsJob = updateRecommendationsServer(access, getCurrentLocale().locale)
 
-            updateProfileJob.join()
-            updateUserProfileJob.join()
             updateMedCardJob.join()
             updateResultFavoritesJob.join()
             updateAnalyzeJob.join()
@@ -119,26 +110,8 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private suspend fun updateProfile(access: String) = viewModelScope.launch(Dispatchers.IO) {
-        when (val resultProfile = remoteRepo.getProfile(access)){
-            is RetrofitResult.Success -> {
-                currentProfile.loadFromProfile(resultProfile.value)
-            }
-            is RetrofitResult.Error -> {
 
-            }
-        }
-    }
-    private suspend fun updateUserProfile(access: String) = viewModelScope.launch(Dispatchers.IO) {
-        when (val resultProfile = remoteRepo.getUserProfile(access)){
-            is RetrofitResult.Success -> {
-                currentProfile.loadFromUserProfile(resultProfile.value)
-            }
-            is RetrofitResult.Error -> {
 
-            }
-        }
-    }
     private suspend fun updateMedCard(access: String) = viewModelScope.launch(Dispatchers.IO) {
         when (val resultMedCard = remoteRepo.getMedCard(access)){
             is RetrofitResult.Success -> {
@@ -235,6 +208,58 @@ class MainViewModel : ViewModel() {
 
     suspend fun isFirstTimeAsync(): Deferred<Boolean> = viewModelScope.async { appSetting.getBoolParam(AppSettingDataStore.PrefKeys.FIRST_TIME).first() }
     private suspend fun getCurrentMailAsync(): Deferred<String> = viewModelScope.async { appSetting.getStringParam(AppSettingDataStore.PrefKeys.USER_MAIL).first() }
+
+    private suspend fun setUpProfileManager(access: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            val currentMail = getCurrentMailAsync().await()
+
+            val tempProfile = Profile(currentMail)
+
+            loadProfile(access, tempProfile).join()
+            loadUserProfile(access, tempProfile).join()
+
+
+
+
+
+
+            profileManager.currentProfile = Profile(currentMail)
+
+            updateProfile(profileManager.currentProfile)
+        }
+    }
+
+    private suspend fun updateProfile (item: Profile){
+        viewModelScope.launch(Dispatchers.IO) {
+            val temp = paramSettingRepo.getProfileFromMail(item.email)
+            if (temp == null){
+                paramSettingRepo.insertProfile(item)
+            } else {
+                paramSettingRepo.updateProfile(item)
+            }
+        }
+    }
+
+    private suspend fun loadProfile(access: String, profile: Profile) = viewModelScope.launch(Dispatchers.IO) {
+        when (val resultProfile = remoteRepo.getProfile(access)){
+            is RetrofitResult.Success -> {
+                profile.loadFromProfile(resultProfile.value)
+            }
+            is RetrofitResult.Error -> {
+
+            }
+        }
+    }
+    private suspend fun loadUserProfile(access: String, profile: Profile) = viewModelScope.launch(Dispatchers.IO) {
+        when (val resultProfile = remoteRepo.getUserProfile(access)){
+            is RetrofitResult.Success -> {
+                profile.loadFromUserProfile(resultProfile.value)
+            }
+            is RetrofitResult.Error -> {
+
+            }
+        }
+    }
 
     private fun test(){
         val i = 0

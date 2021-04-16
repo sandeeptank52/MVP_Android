@@ -11,13 +11,12 @@ import com.application.bmiobesity.model.appSettings.AppSettingDataStore
 import com.application.bmiobesity.model.db.commonSettings.CommonSettingRepo
 import com.application.bmiobesity.model.db.commonSettings.entities.Policy
 import com.application.bmiobesity.model.retrofit.*
-import com.application.bmiobesity.viewModels.eventManager.EventManager
-import com.application.bmiobesity.viewModels.eventManager.LoginViewModelEvent
+import com.application.bmiobesity.common.eventManager.EventManager
+import com.application.bmiobesity.common.eventManager.LoginViewModelEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.net.URI
 import javax.inject.Inject
 
 class LoginViewModel : ViewModel() {

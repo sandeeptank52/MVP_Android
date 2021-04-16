@@ -1,4 +1,4 @@
-package com.application.bmiobesity.model.parameters
+package com.application.bmiobesity.common.parameters
 
 import com.application.bmiobesity.model.db.paramSettings.entities.MedCardParamSetting
 import com.application.bmiobesity.model.db.paramSettings.entities.MedCardParamSimpleValue

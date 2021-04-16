@@ -1,14 +1,14 @@
 package com.application.bmiobesity.model.db.paramSettings
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.application.bmiobesity.model.db.paramSettings.entities.MedCardParamSetting
 import com.application.bmiobesity.model.db.paramSettings.entities.MedCardSourceType
 import com.application.bmiobesity.model.db.paramSettings.entities.ParamUnit
 import com.application.bmiobesity.model.db.paramSettings.entities.ResultCard
+import com.application.bmiobesity.model.db.paramSettings.entities.profile.AvailableData
+import com.application.bmiobesity.model.db.paramSettings.entities.profile.OnBoardingSteps
+import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profile
 
 @Dao
 interface ParamSettingDAO {
@@ -39,4 +39,33 @@ interface ParamSettingDAO {
     fun deleteAllFromMedCardSourceType()
     @Query("DELETE FROM medcard_param_setting")
     fun deleteAllFromMedCardParamSetting()
+
+    // Profile
+    @Query("SELECT * FROM profile")
+    suspend fun getAllProfile(): List<Profile>
+    @Query("SELECT * FROM on_boarding_steps")
+    suspend fun getAllOnBoardingSteps(): List<OnBoardingSteps>
+    @Query("SELECT * FROM available_data")
+    suspend fun getAllAvailableData(): List<AvailableData>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertProfile(item: Profile)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOnBoardingStep(item: OnBoardingSteps)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAvailableData(item: AvailableData)
+
+    @Update
+    suspend fun updateProfile(item: Profile)
+    @Update
+    suspend fun updateOnBoardingStep(item: OnBoardingSteps)
+    @Update
+    suspend fun updateAvailableData(item: AvailableData)
+
+    @Query("SELECT * FROM profile WHERE email = :mail")
+    suspend fun getProfileFromMail(mail: String): Profile
+    @Query("SELECT * FROM on_boarding_steps WHERE email = :mail")
+    suspend fun getOnBoardStepsFromMail(mail: String): OnBoardingSteps
+    @Query("SELECT * FROM available_data WHERE email = :mail")
+    suspend fun getAvailableData(mail: String): AvailableData
 }

@@ -3,7 +3,6 @@ package com.application.bmiobesity.view.loginActivity.forgotPass
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,17 +12,16 @@ import com.application.bmiobesity.databinding.LoginForgotpassFragmentBinding
 import com.application.bmiobesity.model.retrofit.RetrofitError
 import com.application.bmiobesity.model.retrofit.RetrofitResult
 import com.application.bmiobesity.model.retrofit.SendEmail
-import com.application.bmiobesity.utils.EventObserver
+import com.application.bmiobesity.common.EventObserver
 import com.application.bmiobesity.viewModels.LoginViewModel
-import com.application.bmiobesity.viewModels.eventManager.EventManager
-import com.application.bmiobesity.viewModels.eventManager.ForgotPassFragmentEvent
+import com.application.bmiobesity.common.eventManager.EventManager
+import com.application.bmiobesity.common.eventManager.ForgotPassFragmentEvent
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxbinding4.widget.textChanges
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ForgotPassFragment : Fragment(R.layout.login_forgotpass_fragment) {

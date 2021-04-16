@@ -1,4 +1,4 @@
-package com.application.bmiobesity.viewModels.eventManagerMain
+package com.application.bmiobesity.common.eventManagerMain
 
 interface MainViewModelEvent {
     // Main activity

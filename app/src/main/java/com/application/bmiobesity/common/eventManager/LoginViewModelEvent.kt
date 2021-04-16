@@ -1,4 +1,4 @@
-package com.application.bmiobesity.viewModels.eventManager
+package com.application.bmiobesity.common.eventManager
 
 import com.application.bmiobesity.model.retrofit.RetrofitError
 import com.application.bmiobesity.model.retrofit.SendUser

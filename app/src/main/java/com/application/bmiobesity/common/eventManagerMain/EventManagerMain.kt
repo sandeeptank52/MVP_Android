@@ -1,8 +1,8 @@
-package com.application.bmiobesity.viewModels.eventManagerMain
+package com.application.bmiobesity.common.eventManagerMain
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.application.bmiobesity.utils.Event
+import com.application.bmiobesity.common.Event
 
 class EventManagerMain private constructor() : MainViewModelEvent,
                                                 MainActivityEvent{

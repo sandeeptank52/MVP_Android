@@ -7,24 +7,21 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
 import com.application.bmiobesity.databinding.LoginResetpassFragmentBinding
 import com.application.bmiobesity.model.retrofit.RetrofitError
-import com.application.bmiobesity.model.retrofit.RetrofitResult
 import com.application.bmiobesity.model.retrofit.SendConfirmResetPass
-import com.application.bmiobesity.utils.EventObserver
+import com.application.bmiobesity.common.EventObserver
 import com.application.bmiobesity.viewModels.LoginViewModel
-import com.application.bmiobesity.viewModels.eventManager.EventManager
-import com.application.bmiobesity.viewModels.eventManager.ResetPassFragmentEvent
+import com.application.bmiobesity.common.eventManager.EventManager
+import com.application.bmiobesity.common.eventManager.ResetPassFragmentEvent
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxbinding4.widget.textChanges
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
-import kotlinx.coroutines.launch
 
 class ResetPassFragment : Fragment(R.layout.login_resetpass_fragment) {
 

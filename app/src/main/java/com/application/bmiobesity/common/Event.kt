@@ -1,4 +1,4 @@
-package com.application.bmiobesity.utils
+package com.application.bmiobesity.common
 
 open class Event<out T>(private val content: T) {
 
