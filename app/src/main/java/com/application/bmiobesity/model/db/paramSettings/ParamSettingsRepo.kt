@@ -1,6 +1,7 @@
 package com.application.bmiobesity.model.db.paramSettings
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.application.bmiobesity.model.db.paramSettings.entities.MedCardParamSetting
 import com.application.bmiobesity.model.db.paramSettings.entities.MedCardSourceType
 import com.application.bmiobesity.model.db.paramSettings.entities.ParamUnit
@@ -40,6 +41,7 @@ class ParamSettingsRepo private constructor(context: Context){
 
     // Profile
     suspend fun getProfileFromMail(mail: String): Profile = paramSettingDAO.getProfileFromMail(mail)
+    fun getProfileFromMailLive(mail: String): LiveData<Profile> = paramSettingDAO.getProfileFromMailLive(mail)
     suspend fun getAvailableDataFromMail(mail: String): AvailableData = paramSettingDAO.getAvailableData(mail)
     suspend fun getOnBoardingStepFromMail(mail: String): OnBoardingSteps = paramSettingDAO.getOnBoardStepsFromMail(mail)
 

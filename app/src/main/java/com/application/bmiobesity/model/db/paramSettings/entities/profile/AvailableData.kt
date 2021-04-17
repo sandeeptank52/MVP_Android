@@ -17,9 +17,6 @@ data class AvailableData(
     @ColumnInfo(name = "height")
     var height: Boolean = false,
 
-    @ColumnInfo(name = "smoker")
-    var smoker: Boolean = false,
-
     // Medical card
     var weight: Boolean = false,
     var hip: Boolean = false,
@@ -45,5 +42,10 @@ data class AvailableData(
         this.bloodPressureDia = card.blood_pressure_dia != null
         this.cholesterol = card.cholesterol != null
         this.glucose = card.glucose != null
+    }
+
+    fun updateAvailableProfile(profile: Profile){
+        if (profile.email.isNotEmpty()) this.email = profile.email
+        this.height = profile.height > 0.0f
     }
 }

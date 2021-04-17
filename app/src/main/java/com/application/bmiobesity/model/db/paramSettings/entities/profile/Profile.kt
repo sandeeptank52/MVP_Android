@@ -47,6 +47,7 @@ data class Profile(
     var savedPassword: Boolean = false
 ){
     fun loadFromProfile(resProfile: ResultProfile){
+        if (!resProfile.email.isNullOrEmpty()) this.email = resProfile.email
         this.firstName = resProfile.first_name ?: "First name"
         this.lastName = resProfile.last_name ?: "Last name"
         this.imageURI = resProfile.image ?: ""

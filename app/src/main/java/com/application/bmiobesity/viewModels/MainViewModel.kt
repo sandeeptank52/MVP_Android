@@ -20,6 +20,7 @@ import com.application.bmiobesity.model.retrofit.*
 import com.application.bmiobesity.utils.getCurrentLocale
 import com.application.bmiobesity.common.eventManagerMain.EventManagerMain
 import com.application.bmiobesity.common.eventManagerMain.MainViewModelEvent
+import com.application.bmiobesity.model.db.paramSettings.entities.profile.AvailableData
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
@@ -38,7 +39,7 @@ class MainViewModel : ViewModel() {
 
     private val eventManager: MainViewModelEvent = EventManagerMain.getEventManager()
     private lateinit var appPreference: AppPreference
-    private val profileManager = ProfileManager.getProfileManager()
+    val profileManager = ProfileManager.getProfileManager()
 
     // Common setting
     private lateinit var genders: List<Genders>
@@ -70,27 +71,23 @@ class MainViewModel : ViewModel() {
 
         medCard = MedCard()
 
-
         viewModelScope.launch(Dispatchers.IO) {
 
             val upd = updateLocal()
             upd.join()
 
+            //val access = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhY2Nlc3MiOiJhY2Nlc3MiLCJleHAiOjE2MTg2MjEzNzYsImp0aSI6ImFmMDViMGY0ZDYyMzQ0MDk4ZDQ4ZDgwZTQ1YTI5NDQ0IiwidXNlcl9pZCI6IjcxNTgxOTFhLThkZDQtNGU0Mi1hNzBiLTQ1YWI3Mjk3NzcwMyJ9.RLIZ8HrZK-O7J4noQnrtDNUxFAmz9FPt-pqKDeIMZ_buwwwOl6er9pYfvdvgSheGdM6RSxfdFIey8nR3dV_OQvwQpy51efAoPlKPdR91cz0KvZOqE0RyGS-PeaG42AqH7eAwDRKdQIM3uhcmphIIaq0ErY3ji47Jo_kGhZig2XXE_lW6JGsYLTDQkORfzC8P-wByxlRJZtyjrNHX-qvZfSz_DCW1QLT4Fs0vzCXlpdnEKQu8rMhBrx0s9POwsFqDnY-Kfj1DB70GpfB4A5zokfZX3naRkrqPiKJ-zlKnFK89oDPo9Lk45OFv9AXjowh-9DUFPXkBGdd-wWga2HAlSNHzZwUvMFYS5C0IHZC8SzEXKijCYIXlCB5LvZghQ_iBzVopEU3hFOuhyqu1ATy4clFI7D_BqfaEbGSUjv4bvZDTPxlE6DTc-Kz0S58A8nppC4t4bi0110z5sYWuPw39dfrXe8cyRGo-OogUdnN3BSfDo0cCfun4SHDNbfxOAyJ-x6mp1r7y7yQDnI122WwXGyCltFgtKE2jQ7rQbZTlFkFonxgLqROAPBz3Ip_9V3XXO29uNQMsGF9JOrM-P_0sNeLTt_Sfxx6UgGqP7tBb5RHOYuAYACCnDrT3K0q1T-uR8zd27nSTRQeyhGoD1E0agSBDJFtXvGJVO3DpzkRZx9M"
             val access = "Bearer ${appPreference.accessToken}"
 
-            setUpProfileManager(access)
+            setUpProfileManager(access).join()
 
-            val updateMedCardJob = updateMedCard(access)
-            val updateResultFavoritesJob = updateResultCardServer(access, getCurrentLocale().locale)
-            val updateAnalyzeJob = updateAnalyzeServer(access, getCurrentLocale().locale)
-            val updateRecommendationsJob = updateRecommendationsServer(access, getCurrentLocale().locale)
-
-            updateMedCardJob.join()
-            updateResultFavoritesJob.join()
-            updateAnalyzeJob.join()
-            updateRecommendationsJob.join()
+            updateMedCard(access).join()
+            updateResultCardServer(access, getCurrentLocale().locale).join()
+            updateAnalyzeServer(access, getCurrentLocale().locale).join()
+            updateRecommendationsServer(access, getCurrentLocale().locale).join()
 
             eventManager.preloadSuccessEvent(true)
+
             test()
         }
     }
@@ -209,35 +206,29 @@ class MainViewModel : ViewModel() {
     suspend fun isFirstTimeAsync(): Deferred<Boolean> = viewModelScope.async { appSetting.getBoolParam(AppSettingDataStore.PrefKeys.FIRST_TIME).first() }
     private suspend fun getCurrentMailAsync(): Deferred<String> = viewModelScope.async { appSetting.getStringParam(AppSettingDataStore.PrefKeys.USER_MAIL).first() }
 
-    private suspend fun setUpProfileManager(access: String){
-        viewModelScope.launch(Dispatchers.IO) {
+    private suspend fun setUpProfileManager(access: String): Job{
+        return viewModelScope.launch(Dispatchers.IO) {
             val currentMail = getCurrentMailAsync().await()
 
             val tempProfile = Profile(currentMail)
+            val tempAvailableData = AvailableData(currentMail)
 
             loadProfile(access, tempProfile).join()
             loadUserProfile(access, tempProfile).join()
+            updateProfile(tempProfile)
 
-
-
-
-
-
-            profileManager.currentProfile = Profile(currentMail)
-
-            updateProfile(profileManager.currentProfile)
+            profileManager.updateAvailableProfileData(tempProfile)
         }
     }
 
     private suspend fun updateProfile (item: Profile){
-        viewModelScope.launch(Dispatchers.IO) {
-            val temp = paramSettingRepo.getProfileFromMail(item.email)
-            if (temp == null){
-                paramSettingRepo.insertProfile(item)
-            } else {
-                paramSettingRepo.updateProfile(item)
-            }
+        val temp = paramSettingRepo.getProfileFromMail(item.email)
+        if (temp == null){
+            paramSettingRepo.insertProfile(item)
+        } else {
+            paramSettingRepo.updateProfile(item)
         }
+        profileManager.setProfile(item)
     }
 
     private suspend fun loadProfile(access: String, profile: Profile) = viewModelScope.launch(Dispatchers.IO) {
@@ -246,7 +237,7 @@ class MainViewModel : ViewModel() {
                 profile.loadFromProfile(resultProfile.value)
             }
             is RetrofitResult.Error -> {
-
+                val i = 0
             }
         }
     }
