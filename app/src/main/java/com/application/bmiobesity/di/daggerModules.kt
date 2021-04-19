@@ -5,6 +5,7 @@ import com.application.bmiobesity.model.appSettings.AppSettingDataStore
 import com.application.bmiobesity.model.db.commonSettings.CommonSettingRepo
 import com.application.bmiobesity.model.db.paramSettings.ParamSettingsRepo
 import com.application.bmiobesity.model.localStorage.LocalStorageRepo
+import com.application.bmiobesity.model.retrofit.RefreshTokenAuthenticator
 import com.application.bmiobesity.model.retrofit.RemoteRepo
 import com.application.bmiobesity.viewModels.LabelViewModel
 import com.application.bmiobesity.viewModels.LoginViewModel
@@ -37,6 +38,7 @@ interface ApplicationComponent{
     fun inject(viewModel: LabelViewModel)
     fun inject(viewModel: LoginViewModel)
     fun inject(viewModel: MainViewModel)
+    fun inject(tokenAuthenticator: RefreshTokenAuthenticator)
 }
 
 
