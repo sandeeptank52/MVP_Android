@@ -76,15 +76,17 @@ class MainViewModel : ViewModel() {
             val upd = updateLocal()
             upd.join()
 
-            //val access = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhY2Nlc3MiOiJhY2Nlc3MiLCJleHAiOjE2MTg2MjEzNzYsImp0aSI6ImFmMDViMGY0ZDYyMzQ0MDk4ZDQ4ZDgwZTQ1YTI5NDQ0IiwidXNlcl9pZCI6IjcxNTgxOTFhLThkZDQtNGU0Mi1hNzBiLTQ1YWI3Mjk3NzcwMyJ9.RLIZ8HrZK-O7J4noQnrtDNUxFAmz9FPt-pqKDeIMZ_buwwwOl6er9pYfvdvgSheGdM6RSxfdFIey8nR3dV_OQvwQpy51efAoPlKPdR91cz0KvZOqE0RyGS-PeaG42AqH7eAwDRKdQIM3uhcmphIIaq0ErY3ji47Jo_kGhZig2XXE_lW6JGsYLTDQkORfzC8P-wByxlRJZtyjrNHX-qvZfSz_DCW1QLT4Fs0vzCXlpdnEKQu8rMhBrx0s9POwsFqDnY-Kfj1DB70GpfB4A5zokfZX3naRkrqPiKJ-zlKnFK89oDPo9Lk45OFv9AXjowh-9DUFPXkBGdd-wWga2HAlSNHzZwUvMFYS5C0IHZC8SzEXKijCYIXlCB5LvZghQ_iBzVopEU3hFOuhyqu1ATy4clFI7D_BqfaEbGSUjv4bvZDTPxlE6DTc-Kz0S58A8nppC4t4bi0110z5sYWuPw39dfrXe8cyRGo-OogUdnN3BSfDo0cCfun4SHDNbfxOAyJ-x6mp1r7y7yQDnI122WwXGyCltFgtKE2jQ7rQbZTlFkFonxgLqROAPBz3Ip_9V3XXO29uNQMsGF9JOrM-P_0sNeLTt_Sfxx6UgGqP7tBb5RHOYuAYACCnDrT3K0q1T-uR8zd27nSTRQeyhGoD1E0agSBDJFtXvGJVO3DpzkRZx9M"
-            val access = "Bearer ${appPreference.accessToken}"
+            setUpProfileManager().join()
 
-            setUpProfileManager(access).join()
+            val updateMedCardJob = updateMedCard()
+            val updateResultCardServerJob = updateResultCardServer(getCurrentLocale().locale)
+            val updateAnalyzeServerJob = updateAnalyzeServer(getCurrentLocale().locale)
+            val updateRecomServerJob = updateRecommendationsServer(getCurrentLocale().locale)
 
-            updateMedCard(access).join()
-            updateResultCardServer(access, getCurrentLocale().locale).join()
-            updateAnalyzeServer(access, getCurrentLocale().locale).join()
-            updateRecommendationsServer(access, getCurrentLocale().locale).join()
+            updateMedCardJob.join()
+            updateResultCardServerJob.join()
+            updateAnalyzeServerJob.join()
+            updateRecomServerJob.join()
 
             eventManager.preloadSuccessEvent(true)
 
@@ -92,25 +94,8 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private suspend fun refreshToken() = viewModelScope.launch(Dispatchers.IO) {
-        val refresh = SendRefreshToken(SendRefresh(appPreference.refreshToken), getDevice())
-        when (val result = remoteRepo.refreshToken(refresh)){
-            is RetrofitResult.Success -> {
-                appSetting.setStringParam(AppSettingDataStore.PrefKeys.ACCESS_TOKEN, result.value.access ?: "")
-                appSetting.setStringParam(AppSettingDataStore.PrefKeys.REFRESH_TOKEN, result.value.refresh ?: "")
-                val updateJob = updateAppPreference()
-                updateJob.join()
-            }
-            is RetrofitResult.Error -> {
-
-            }
-        }
-    }
-
-
-
-    private suspend fun updateMedCard(access: String) = viewModelScope.launch(Dispatchers.IO) {
-        when (val resultMedCard = remoteRepo.getMedCard(access)){
+    private suspend fun updateMedCard() = viewModelScope.launch(Dispatchers.IO) {
+        when (val resultMedCard = remoteRepo.getMedCard()){
             is RetrofitResult.Success -> {
                 medCard.setValues(resultMedCard.value)
             }
@@ -157,8 +142,8 @@ class MainViewModel : ViewModel() {
 
     // Update result from server
     // Update favorite screen
-    private suspend fun updateResultCardServer(access: String, locale: String) = viewModelScope.launch(Dispatchers.IO) {
-        when (val result = remoteRepo.getFavorites(access, locale)){
+    private suspend fun updateResultCardServer(locale: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val result = remoteRepo.getFavorites(locale)){
             is RetrofitResult.Success -> {
                 val temp = mResultCard.value
                 temp?.forEach { card ->
@@ -172,8 +157,8 @@ class MainViewModel : ViewModel() {
         }
     }
     // Update disease risk and common recommendations
-    private suspend fun updateAnalyzeServer(access: String, locale: String) = viewModelScope.launch(Dispatchers.IO) {
-        when (val result = remoteRepo.getResultAnalyze(access, locale)){
+    private suspend fun updateAnalyzeServer(locale: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val result = remoteRepo.getResultAnalyze(locale)){
             is RetrofitResult.Success -> {
                 mResultRiskAnalyze.postValue(result.value.disease_risk)
                 mResultCommonRecommendations.postValue(result.value.common_recomendations)
@@ -184,8 +169,8 @@ class MainViewModel : ViewModel() {
         }
     }
     // Update personal recommendations
-    private suspend fun updateRecommendationsServer(access: String, locale: String) = viewModelScope.launch(Dispatchers.IO) {
-        when (val result = remoteRepo.getRecommendations(access, locale)){
+    private suspend fun updateRecommendationsServer(locale: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val result = remoteRepo.getRecommendations(locale)){
             is RetrofitResult.Success -> {
                 mResultPersonalRecommendations.postValue(result.value)
             }
@@ -206,15 +191,15 @@ class MainViewModel : ViewModel() {
     suspend fun isFirstTimeAsync(): Deferred<Boolean> = viewModelScope.async { appSetting.getBoolParam(AppSettingDataStore.PrefKeys.FIRST_TIME).first() }
     private suspend fun getCurrentMailAsync(): Deferred<String> = viewModelScope.async { appSetting.getStringParam(AppSettingDataStore.PrefKeys.USER_MAIL).first() }
 
-    private suspend fun setUpProfileManager(access: String): Job{
+    private suspend fun setUpProfileManager(): Job{
         return viewModelScope.launch(Dispatchers.IO) {
             val currentMail = getCurrentMailAsync().await()
 
             val tempProfile = Profile(currentMail)
             val tempAvailableData = AvailableData(currentMail)
 
-            loadProfile(access, tempProfile).join()
-            loadUserProfile(access, tempProfile).join()
+            loadProfile(tempProfile).join()
+            loadUserProfile(tempProfile).join()
             updateProfile(tempProfile)
 
             profileManager.updateAvailableProfileData(tempProfile)
@@ -231,8 +216,8 @@ class MainViewModel : ViewModel() {
         profileManager.setProfile(item)
     }
 
-    private suspend fun loadProfile(access: String, profile: Profile) = viewModelScope.launch(Dispatchers.IO) {
-        when (val resultProfile = remoteRepo.getProfile(access)){
+    private suspend fun loadProfile(profile: Profile) = viewModelScope.launch(Dispatchers.IO) {
+        when (val resultProfile = remoteRepo.getProfile()){
             is RetrofitResult.Success -> {
                 profile.loadFromProfile(resultProfile.value)
             }
@@ -241,8 +226,8 @@ class MainViewModel : ViewModel() {
             }
         }
     }
-    private suspend fun loadUserProfile(access: String, profile: Profile) = viewModelScope.launch(Dispatchers.IO) {
-        when (val resultProfile = remoteRepo.getUserProfile(access)){
+    private suspend fun loadUserProfile(profile: Profile) = viewModelScope.launch(Dispatchers.IO) {
+        when (val resultProfile = remoteRepo.getUserProfile()){
             is RetrofitResult.Success -> {
                 profile.loadFromUserProfile(resultProfile.value)
             }

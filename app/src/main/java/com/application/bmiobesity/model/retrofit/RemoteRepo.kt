@@ -66,16 +66,16 @@ class RemoteRepo private constructor(){
         return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
     }
 
-    suspend fun getProfile(access: String) = safeApiCall { mGetProfile(access) }
-    private suspend fun mGetProfile(access: String): RetrofitResult<ResultProfile>{
-        val result = intimeApi.getProfileAsync(access).await()
+    suspend fun getProfile() = safeApiCall { mGetProfile() }
+    private suspend fun mGetProfile(): RetrofitResult<ResultProfile>{
+        val result = intimeApi.getProfileAsync("").await()
         if (result.isSuccessful)
             return RetrofitResult.Success(result.body()!!, result.code(), result.message())
         return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
     }
-    suspend fun patchProfile(access: String, profile: SendProfile) = safeApiCall { mPatchProfile(access, profile) }
-    private suspend fun mPatchProfile(access: String, profile: SendProfile): RetrofitResult<ResultProfile>{
-        val result = intimeApi.patchProfileAsync(access, profile).await()
+    suspend fun patchProfile(profile: SendProfile) = safeApiCall { mPatchProfile(profile) }
+    private suspend fun mPatchProfile(profile: SendProfile): RetrofitResult<ResultProfile>{
+        val result = intimeApi.patchProfileAsync("", profile).await()
         if (result.isSuccessful)
             return RetrofitResult.Success(result.body()!!, result.code(), result.message())
         return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
@@ -94,37 +94,37 @@ class RemoteRepo private constructor(){
         return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
     }
 
-    suspend fun getMedCard(access: String) = safeApiCall { mGetMedCard(access) }
-    private suspend fun mGetMedCard(access: String): RetrofitResult<ResultMedCard>{
-        val result = intimeApi.getMedCardAsync(access).await()
+    suspend fun getMedCard() = safeApiCall { mGetMedCard() }
+    private suspend fun mGetMedCard(): RetrofitResult<ResultMedCard>{
+        val result = intimeApi.getMedCardAsync("").await()
         if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
         return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
     }
 
-    suspend fun getUserProfile(access: String) = safeApiCall { mGetUserProfile(access) }
-    private suspend fun mGetUserProfile(access: String): RetrofitResult<ResultUserProfile>{
-        val result = intimeApi.getUserProfileAsync(access).await()
+    suspend fun getUserProfile() = safeApiCall { mGetUserProfile() }
+    private suspend fun mGetUserProfile(): RetrofitResult<ResultUserProfile>{
+        val result = intimeApi.getUserProfileAsync("").await()
         if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
         return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
     }
 
-    suspend fun getFavorites(access: String, locale: String) = safeApiCall { mGetFavorites(access, locale) }
-    private suspend fun mGetFavorites(access: String, locale: String): RetrofitResult<ResultFavorites>{
-        val result = intimeApi.getFavoritesAsync(access, locale).await()
+    suspend fun getFavorites(locale: String) = safeApiCall { mGetFavorites(locale) }
+    private suspend fun mGetFavorites(locale: String): RetrofitResult<ResultFavorites>{
+        val result = intimeApi.getFavoritesAsync("", locale).await()
         if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
         return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
     }
 
-    suspend fun getResultAnalyze(access: String, locale: String) = safeApiCall { mGetResultAnalyze(access, locale) }
-    private suspend fun mGetResultAnalyze(access: String, locale: String): RetrofitResult<ResultAnalyze>{
-        val result = intimeApi.getResultAnalyzeAsync(access, locale).await()
+    suspend fun getResultAnalyze(locale: String) = safeApiCall { mGetResultAnalyze(locale) }
+    private suspend fun mGetResultAnalyze(locale: String): RetrofitResult<ResultAnalyze>{
+        val result = intimeApi.getResultAnalyzeAsync("", locale).await()
         if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
         return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
     }
 
-    suspend fun getRecommendations(access: String, locale: String) = safeApiCall { mGetRecommendations(access, locale) }
-    private suspend fun mGetRecommendations(access: String, locale: String): RetrofitResult<List<ResultRecommendation>>{
-        val result = intimeApi.getRecommendationsAsync(access, locale).await()
+    suspend fun getRecommendations(locale: String) = safeApiCall { mGetRecommendations(locale) }
+    private suspend fun mGetRecommendations(locale: String): RetrofitResult<List<ResultRecommendation>>{
+        val result = intimeApi.getRecommendationsAsync("", locale).await()
         if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
         return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
     }

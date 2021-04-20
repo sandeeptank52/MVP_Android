@@ -6,7 +6,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class NetworkService private constructor(){
+class NetworkRefreshService private constructor(){
     private val BASE_URL = "https://intime.digital"
     private val BASE_URL_TEST = "https://test.intime.digital"
     private val mRetrofit: Retrofit
@@ -16,29 +16,27 @@ class NetworkService private constructor(){
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
         val client = OkHttpClient.Builder()
-                .addInterceptor(RefreshTokenAuthenticator())
                 .addInterceptor(interceptor)
                 .build()
 
         mRetrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(client)
-            .build()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build()
     }
 
-    fun getApi(): InTimeDigitalApi{
-        return mRetrofit.create(InTimeDigitalApi::class.java)
+    fun getApi(): InTimeRefreshApi{
+        return mRetrofit.create(InTimeRefreshApi::class.java)
     }
 
     companion object{
         @Volatile
-        private var INSTANCE: NetworkService? = null
+        private var INSTANCE: NetworkRefreshService? = null
 
-        fun getNetworkService(): NetworkService{
+        fun getNetworkService(): NetworkRefreshService{
             return INSTANCE ?: synchronized(this){
-                val instance = NetworkService()
+                val instance = NetworkRefreshService()
                 INSTANCE = instance
                 instance
             }
