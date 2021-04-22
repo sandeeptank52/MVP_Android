@@ -15,6 +15,7 @@
     <!--buttons-->
     <string name="button_sign_in">Sign In</string>
     <string name="button_sign_up">Sign Up</string>
+    <string name="button_sign_up_text">Need an account?</string>
     <string name="button_next">Next</string>
     <string name="button_dont_remember_password">Don\'t remember password</string>
     <string name="button_i_agree">I Agree</string>
@@ -28,9 +29,13 @@
     <string name="main_bottom_menu_profile">Profile</string>
     <string name="main_bottom_menu_medcard">Medical card</string>
 
+    <string name="main_home_menu_favorite">Favorite</string>
+    <string name="main_home_menu_analyze">Analyze</string>
+    <string name="main_home_menu_recommendations">Recommendations</string>
+
     <!--switches-->
     <string name="switch_disclaimer">Don`t show again?</string>
-    <string name="switch_login_remember_password">Save password</string>
+    <string name="switch_login_remember_password">Remember password</string>
     <string name="switch_sign_in_privacy_agree">I agree to the therms condition</string>
 
     <!--disclaimer fragment-->
@@ -52,6 +57,10 @@
     <string name="reset_pass_title">New password</string>
     <string name="reset_pass_text">Enter your new password, please, try to use a numbers and english letters in it.</string>
     <string name="reset_pass_success">Password changed successfully!</string>
+
+    <!--recommendations fragment-->
+    <string name="recom_title_common">Common recommendations</string>
+    <string name="recom_title_personal">Personal recommendations</string>
 
     <!--medcard parameters name-->
     <string name="medcard_name_weight">Weight</string>
@@ -95,6 +104,7 @@
     <string name="error_connection">No internet connection</string>
     <string name="error_connection_socket_timeout">Server time out</string>
     <string name="error_common">Something went wrong, please try again</string>
+    <string name="error_data_not_available">Data not available</string>
 
     <!--error message for form fields-->
     <string name="error_form_fields_incorrect_email">Please enter correct email</string>
@@ -107,6 +117,8 @@
     <!--images content description-->
     <string name="login_title_image_description">Title image</string>
     <string name="label_title_image_description">Logo our company</string>
+    <string name="favorite_menu_image_description">Menu favorite card</string>
+    <string name="favorite_icon_image_description">Icon favorite card</string>
 
     <!--text-->
     <string name="text_welcome">Dear Customer! Welcome to the first version of the BMI Disease Tracker application. It is in a test mode, so  we  kindly  ask  you  to  forgive  us  for  possible  errors. Please  help  us to improve  this application  by  sending  your  feedback  and  any  questions  related  to  its  use  to support@intime.digital. At the moment, the application has a technical design that will be improved soon. The BMI Disease Tracker app is designed to monitor in real-time the key parameters of your body to provide information on how they can affect longevity and the possibility of developing serious diseases in the future. Please enter the required data manually in the  required  fields  and/or connect to your fitness application to synchronize data. If not all fields are provided, please add data manually. You can check your blood sugar and cholesterol data in your most recent medical tests if you do not remember your most recent results. Our AI server will calculate your personal risks based on the data collected and provide risk recommendations to reduce the likelihood of possible your wellbeing development. The more accurately you enter your data, the more accurate the results and recommendations will be. The frequency of risk and recommendation updates depends on how often the data in your fitness app is updated or you manually update it. In future releases, we plan to reduce the amount of manually entered data by expanding the number of supported fitness apps and individual devices to update risks and recommendations in real-time without any additional inconvenience. You are given a free period of 2 weeks for initial acquaintance with the application. Then you will be offered a monthly subscription, at a price less than a cup of coffee, for 1,99$ per month. The subscription price will grow for new customers, but for our first users who agreed to keep the application and use it even with minimal functionality, special conditions will remain for years. The most important thing is that the longer you measure your data, store, update it in the application by hand or through Google Fit / Health Kit or your smart wearable devices, the more accurate the calculation of risks and forecasts will be. We will be able to improve the accuracy and bring it up to 95%. Please note that this app is for informational and educational purposes only. It provides a "second opinion" and in the future, it will be possible to share the test results with your physician or find one through our partners. This is not a medical application and all decisions related to this application are entirely up to you. We will notify you of new updates, each of which is intended to provide you with more information about your health and how you can avoid the likelihood of developing certain diseases in the future. For more information, please visit: www.inTime.digital</string>

@@ -64,9 +64,12 @@ android {
 dependencies {
     def room_version = "2.2.6"
     def nav_version = "2.3.3"
+    def billing_version = "3.0.3"
 
     // google services
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation "com.android.billingclient:billing:$billing_version"
+    implementation "com.android.billingclient:billing-ktx:$billing_version"
 
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
 

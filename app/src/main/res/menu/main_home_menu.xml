@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mainHomeFavoriteNav"
+        android:title="@string/main_home_menu_favorite"/>
+
+    <item
+        android:id="@+id/mainHomeAnalyzeNav"
+        android:title="@string/main_home_menu_analyze"/>
+
+    <item
+        android:id="@+id/mainHomeRecommendationNav"
+        android:title="@string/main_home_menu_recommendations"/>
+
+</menu>

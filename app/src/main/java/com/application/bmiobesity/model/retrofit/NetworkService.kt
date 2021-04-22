@@ -15,7 +15,10 @@ class NetworkService private constructor(){
     init {
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+        val client = OkHttpClient.Builder()
+                .addInterceptor(RefreshTokenAuthenticator())
+                .addInterceptor(interceptor)
+                .build()
 
         mRetrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)

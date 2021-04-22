@@ -1,5 +1,6 @@
 package com.application.bmiobesity.viewModels
 
+import android.net.Uri
 import android.os.Build
 import android.util.Patterns
 import androidx.lifecycle.*
@@ -10,8 +11,8 @@ import com.application.bmiobesity.model.appSettings.AppSettingDataStore
 import com.application.bmiobesity.model.db.commonSettings.CommonSettingRepo
 import com.application.bmiobesity.model.db.commonSettings.entities.Policy
 import com.application.bmiobesity.model.retrofit.*
-import com.application.bmiobesity.viewModels.eventManager.EventManager
-import com.application.bmiobesity.viewModels.eventManager.LoginViewModelEvent
+import com.application.bmiobesity.common.eventManager.EventManager
+import com.application.bmiobesity.common.eventManager.LoginViewModelEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
@@ -52,7 +53,20 @@ class LoginViewModel : ViewModel() {
                     eventManager.signInSuccessEvent(true)
                 }
                 is RetrofitResult.Error -> {
-                    eventManager.signInShowErrorMessageEvent(errorCheck(resultToken.code, resultToken.errorMessage))
+                    eventManager.signInShowErrorMessageEvent(errorCheck(resultToken.code, resultToken.errorMessage, null))
+                }
+            }
+        }
+    }
+    fun signInActionWithGoogle(mail: String, code: String, rememberPass: Boolean, firstName: String?, lastName: String?, photoUri: Uri?){
+        viewModelScope.launch {
+            when(val result = remoteRepo.getTokenFromGoogle(SendGoogleTokenId(code = code))){
+                is RetrofitResult.Success -> {
+                    signInSuccessFromGoogle(result.value.token, result.value.refresh, mail)
+                    eventManager.signInSuccessEvent(true)
+                }
+                is RetrofitResult.Error -> {
+                    eventManager.signInShowErrorMessageEvent(errorCheck(result.code, result.errorMessage, null))
                 }
             }
         }
@@ -81,7 +95,7 @@ class LoginViewModel : ViewModel() {
                     eventManager.signUpSuccessEvent(true)
                 }
                 is RetrofitResult.Error -> {
-                    eventManager.signUpErrorEvent(errorCheck(resultToken.code, resultToken.errorMessage))
+                    eventManager.signUpErrorEvent(errorCheck(resultToken.code, resultToken.errorMessage, null))
                 }
             }
         }
@@ -107,7 +121,7 @@ class LoginViewModel : ViewModel() {
                     if (resetConfirm.value == "OK") eventManager.forgotPassSuccessEvent(true) else eventManager.forgotPassErrorEvent(RetrofitError.UNKNOWN_ERROR)
                 }
                 is RetrofitResult.Error -> {
-                    eventManager.forgotPassErrorEvent(errorCheck(resetConfirm.code, resetConfirm.errorMessage))
+                    eventManager.forgotPassErrorEvent(errorCheck(resetConfirm.code, resetConfirm.errorMessage, null))
                 }
             }
         }
@@ -119,13 +133,19 @@ class LoginViewModel : ViewModel() {
                     eventManager.resetPassSuccessEvent(true)
                 }
                 is RetrofitResult.Error -> {
-                    eventManager.resetPassErrorEvent(errorCheck(passResetConfirm.code, passResetConfirm.errorMessage))
+                    eventManager.resetPassErrorEvent(errorCheck(passResetConfirm.code, passResetConfirm.errorMessage, null))
                 }
             }
         }
     }
 
     // Common
+    private suspend fun signInSuccessFromGoogle(accessToken: String?, refreshToken: String?, mail: String){
+        appSetting.setStringParam(AppSettingDataStore.PrefKeys.ACCESS_TOKEN, accessToken ?: "")
+        appSetting.setStringParam(AppSettingDataStore.PrefKeys.REFRESH_TOKEN, refreshToken ?: "")
+        appSetting.setStringParam(AppSettingDataStore.PrefKeys.USER_MAIL, mail)
+        updateAppPreference()
+    }
     private suspend fun signInSuccess(resToken: ResultToken, user: SendUser, rememberPass: Boolean){
         appSetting.setStringParam(AppSettingDataStore.PrefKeys.ACCESS_TOKEN, resToken.access ?: "")
         appSetting.setStringParam(AppSettingDataStore.PrefKeys.REFRESH_TOKEN, resToken.refresh ?: "")

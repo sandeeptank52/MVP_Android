@@ -1,6 +1,5 @@
 package com.application.bmiobesity.view.loginActivity.signUp
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -12,17 +11,15 @@ import android.webkit.WebView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
 import com.application.bmiobesity.databinding.LoginSignupFragmentBinding
 import com.application.bmiobesity.model.retrofit.RetrofitError
-import com.application.bmiobesity.model.retrofit.RetrofitResult
-import com.application.bmiobesity.model.retrofit.SendEmail
-import com.application.bmiobesity.utils.EventObserver
+import com.application.bmiobesity.common.EventObserver
 import com.application.bmiobesity.view.mainActivity.MainActivity
 import com.application.bmiobesity.viewModels.LoginViewModel
-import com.application.bmiobesity.viewModels.eventManager.EventManager
-import com.application.bmiobesity.viewModels.eventManager.SignUpFragmentEvent
+import com.application.bmiobesity.common.eventManager.EventManager
+import com.application.bmiobesity.common.eventManager.SignUpFragmentEvent
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxbinding4.view.focusChanges
@@ -30,7 +27,6 @@ import com.jakewharton.rxbinding4.widget.textChanges
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
-import kotlinx.coroutines.launch
 import java.util.*
 
 class SignUpFragment : Fragment(R.layout.login_signup_fragment) {
@@ -173,7 +169,7 @@ class SignUpFragment : Fragment(R.layout.login_signup_fragment) {
         MaterialAlertDialogBuilder(requireContext())
                 .setMessage(getString(R.string.sign_up_success))
                 .setPositiveButton(getString(R.string.button_accept)) { _, _ ->
-                    startMainActivity()
+                    findNavController().navigate(R.id.loginNavSignUpToSignIn)
                 }
                 .show()
     }

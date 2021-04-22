@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.application.bmiobesity.model.retrofit.ResultSimpleFavorites
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "result_card")
@@ -42,10 +43,17 @@ data class ResultCard(
     var isVisible: Boolean
 ){
     @Ignore
-    @SerializedName("value")
     var value: String = ""
 
     @Ignore
-    @SerializedName("value_color")
     var valueColour: String = ""
+
+    @Ignore
+    var description: String = ""
+
+    fun setValues(v: ResultSimpleFavorites?){
+        value = v?.value ?: ""
+        valueColour = v?.color ?: ""
+        description = v?.desc ?: ""
+    }
 }

@@ -1,10 +1,10 @@
-package com.application.bmiobesity.viewModels.eventManager
+package com.application.bmiobesity.common.eventManager
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.application.bmiobesity.model.retrofit.RetrofitError
 import com.application.bmiobesity.model.retrofit.SendUser
-import com.application.bmiobesity.utils.Event
+import com.application.bmiobesity.common.Event
 
 class EventManager private constructor(): LoginViewModelEvent,
                                             SignInFragmentEvent,
@@ -19,7 +19,9 @@ class EventManager private constructor(): LoginViewModelEvent,
 
     override fun signInSuccessEvent(e: Boolean) = mSignInSuccess.postValue(Event(e))
     override fun signInRestorePassEvent(e: SendUser) = mSignInRestorePass.postValue(Event(e))
-    override fun signInShowErrorMessageEvent(e: RetrofitError) = mSignInShowErrorMessage.postValue(Event(e))
+    override fun signInShowErrorMessageEvent(e: RetrofitError) = mSignInShowErrorMessage.postValue(
+        Event(e)
+    )
 
     // Fragment side
     private val signInSuccess: LiveData<Event<Boolean>> = mSignInSuccess

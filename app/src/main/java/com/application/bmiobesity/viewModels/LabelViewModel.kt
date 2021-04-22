@@ -43,6 +43,7 @@ class LabelViewModel : ViewModel() {
         val deviceUUID = appSetting.getStringParam(AppSettingDataStore.PrefKeys.DEVICE_UUID).first()
         if (deviceUUID.isEmpty()) appSetting.setStringParam(AppSettingDataStore.PrefKeys.DEVICE_UUID, UUID.randomUUID().toString())
         appPreference = appSetting.getAppPreference().first()
+        appSetting.setBooleanParam(AppSettingDataStore.PrefKeys.FIRST_TIME, appPreference.firstTime)
     }
 
     suspend fun initParamSetting(){

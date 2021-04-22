@@ -36,7 +36,7 @@
     <fragment
         android:id="@+id/loginNavSignInFragment"
         android:name="com.application.bmiobesity.view.loginActivity.signIn.SignInFragment"
-        tools:layout="@layout/login_signin_fragment">
+        tools:layout="@layout/login_signin_fragment_v2">
         <action
             android:id="@+id/loginNavSignInToCheckPin"
             app:destination="@id/loginNavCheckPinFragment" />

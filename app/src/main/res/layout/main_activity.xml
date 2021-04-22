@@ -8,6 +8,24 @@
     tools:context=".view.mainActivity.MainActivity">
 
     <FrameLayout
+        android:id="@+id/mainFrameLayoutWaiting"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="10dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <ProgressBar
+            android:indeterminate="true"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+
+    <FrameLayout
         android:id="@+id/mainFrameLayoutTitle"
         android:layout_width="0dp"
         android:layout_height="80dp"

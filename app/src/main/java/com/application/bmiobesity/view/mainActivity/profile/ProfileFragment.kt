@@ -4,6 +4,8 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.application.bmiobesity.R
 import com.application.bmiobesity.databinding.MainProfileFragmentBinding
 import java.util.*
