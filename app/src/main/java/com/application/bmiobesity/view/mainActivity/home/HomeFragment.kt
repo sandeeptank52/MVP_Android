@@ -29,12 +29,12 @@ class HomeFragment : Fragment(R.layout.main_home_fragment) {
 
     private fun init(){
         lifecycleScope.launch(Dispatchers.IO) {
-            val firstTime = mainModel.isFirstTimeAsync().await()
+            /*val firstTime = mainModel.isFirstTimeAsync().await()
             if (firstTime){
                 withContext(Dispatchers.Main) {
                     findNavController().navigate(R.id.mainNavHomeToProfile)
                 }
-            }
+            }*/
         }
     }
 

@@ -73,48 +73,42 @@ class MainViewModel : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
 
-            val upd = updateLocal()
-            upd.join()
+            val updJob = updateLocal()
+            val setUpProfileJob = setUpProfileManager()
+            updJob.join()
+            setUpProfileJob.join()
 
-            setUpProfileManager().join()
+            val updateResultCardServerJob = updateResultCardServer(getCurrentLocale().locale)
+            updateResultCardServerJob.join()
+
+            eventManager.preloadSuccessEvent(true)
 
             val updateMedCardJob = updateMedCard()
-            val updateResultCardServerJob = updateResultCardServer(getCurrentLocale().locale)
             val updateAnalyzeServerJob = updateAnalyzeServer(getCurrentLocale().locale)
             val updateRecomServerJob = updateRecommendationsServer(getCurrentLocale().locale)
 
             updateMedCardJob.join()
-            updateResultCardServerJob.join()
             updateAnalyzeServerJob.join()
             updateRecomServerJob.join()
-
-            eventManager.preloadSuccessEvent(true)
 
             test()
         }
     }
 
-    private suspend fun updateMedCard() = viewModelScope.launch(Dispatchers.IO) {
-        when (val resultMedCard = remoteRepo.getMedCard()){
-            is RetrofitResult.Success -> {
-                medCard.setValues(resultMedCard.value)
-            }
-            is RetrofitResult.Error -> {
-
-            }
-        }
-    }
-
+    // Load parameters from DB
     private suspend fun updateGenders() = viewModelScope.launch(Dispatchers.IO) { genders =  commonSettingRepo.getAllGenders() }
     private suspend fun updateCountries() = viewModelScope.launch(Dispatchers.IO) { countries =  commonSettingRepo.getAllCountries() }
     private suspend fun updatePolicy() = viewModelScope.launch(Dispatchers.IO) { policy =  commonSettingRepo.getAllPolicy() }
+    private suspend fun updateAppPreference() = viewModelScope.launch(Dispatchers.IO) { appPreference = appSetting.getAppPreference().first() }
+    private suspend fun updateResultCardDB() = viewModelScope.launch(Dispatchers.IO) { mResultCard.postValue(paramSettingRepo.getAllResultCard()) }
+    private suspend fun updateParamUnit() = viewModelScope.launch(Dispatchers.IO) { paramUnit = paramSettingRepo.getAllParamUnit() }
+    private suspend fun updateMedCardSourceType() = viewModelScope.launch(Dispatchers.IO) { medCardSourceType = paramSettingRepo.getAllMedCardSourceType() }
+    private suspend fun updateMedCardParamSetting() = viewModelScope.launch(Dispatchers.IO) { medCard.setParameters(paramSettingRepo.getAllMedCardParamSetting()) }
     private suspend fun updateLocal() = viewModelScope.launch(Dispatchers.IO) {
         val gendersJob = updateGenders()
         val countriesJob = updateCountries()
         val policyJob = updatePolicy()
-
         val preferenceJob = updateAppPreference()
-
         val resultCardJob = updateResultCardDB()
         val paramUnitJob = updateParamUnit()
         val medCardSourceTypeJob = updateMedCardSourceType()
@@ -129,16 +123,6 @@ class MainViewModel : ViewModel() {
         medCardSourceTypeJob.join()
         medCardParamSettingJob.join()
     }
-
-    private suspend fun updateAppPreference() = viewModelScope.launch(Dispatchers.IO) { appPreference = appSetting.getAppPreference().first() }
-
-
-    private suspend fun updateParamUnit() = viewModelScope.launch(Dispatchers.IO) { paramUnit = paramSettingRepo.getAllParamUnit() }
-    private suspend fun updateMedCardSourceType() = viewModelScope.launch(Dispatchers.IO) { medCardSourceType = paramSettingRepo.getAllMedCardSourceType() }
-    private suspend fun updateMedCardParamSetting() = viewModelScope.launch(Dispatchers.IO) { medCard.setParameters(paramSettingRepo.getAllMedCardParamSetting()) }
-
-    // Update settings result parameters from DB
-    private suspend fun updateResultCardDB() = viewModelScope.launch(Dispatchers.IO) { mResultCard.postValue(paramSettingRepo.getAllResultCard()) }
 
     // Update result from server
     // Update favorite screen
@@ -179,33 +163,36 @@ class MainViewModel : ViewModel() {
             }
         }
     }
+    // Update Medical card
+    private suspend fun updateMedCard() = viewModelScope.launch(Dispatchers.IO) {
+        when (val resultMedCard = remoteRepo.getMedCard()){
+            is RetrofitResult.Success -> {
+                medCard.setValues(resultMedCard.value)
+                profileManager.updateAvailableMedCardData(resultMedCard.value)
+            }
+            is RetrofitResult.Error -> {
 
-    private fun getDevice() = SendDevice(
-        appPreference.deviceUUID,
-        AppSettingDataStore.Constants.OS_NAME,
-        Build.VERSION.RELEASE,
-        "${Build.BRAND} - ${Build.MODEL}",
-        BuildConfig.VERSION_NAME
-    )
+            }
+        }
+    }
 
-    suspend fun isFirstTimeAsync(): Deferred<Boolean> = viewModelScope.async { appSetting.getBoolParam(AppSettingDataStore.PrefKeys.FIRST_TIME).first() }
-    private suspend fun getCurrentMailAsync(): Deferred<String> = viewModelScope.async { appSetting.getStringParam(AppSettingDataStore.PrefKeys.USER_MAIL).first() }
-
+    // Update User Profile
     private suspend fun setUpProfileManager(): Job{
         return viewModelScope.launch(Dispatchers.IO) {
             val currentMail = getCurrentMailAsync().await()
 
             val tempProfile = Profile(currentMail)
-            val tempAvailableData = AvailableData(currentMail)
 
-            loadProfile(tempProfile).join()
-            loadUserProfile(tempProfile).join()
+            val loadProfileJob = loadProfile(tempProfile)
+            val loadUserProfileJob = loadUserProfile(tempProfile)
+            loadProfileJob.join()
+            loadUserProfileJob.join()
+
             updateProfile(tempProfile)
 
             profileManager.updateAvailableProfileData(tempProfile)
         }
     }
-
     private suspend fun updateProfile (item: Profile){
         val temp = paramSettingRepo.getProfileFromMail(item.email)
         if (temp == null){
@@ -215,14 +202,13 @@ class MainViewModel : ViewModel() {
         }
         profileManager.setProfile(item)
     }
-
     private suspend fun loadProfile(profile: Profile) = viewModelScope.launch(Dispatchers.IO) {
         when (val resultProfile = remoteRepo.getProfile()){
             is RetrofitResult.Success -> {
                 profile.loadFromProfile(resultProfile.value)
             }
             is RetrofitResult.Error -> {
-                val i = 0
+
             }
         }
     }
@@ -236,6 +222,10 @@ class MainViewModel : ViewModel() {
             }
         }
     }
+
+
+    suspend fun isFirstTimeAsync(): Deferred<Boolean> = viewModelScope.async { appSetting.getBoolParam(AppSettingDataStore.PrefKeys.FIRST_TIME).first() }
+    private suspend fun getCurrentMailAsync(): Deferred<String> = viewModelScope.async { appSetting.getStringParam(AppSettingDataStore.PrefKeys.USER_MAIL).first() }
 
     private fun test(){
         val i = 0

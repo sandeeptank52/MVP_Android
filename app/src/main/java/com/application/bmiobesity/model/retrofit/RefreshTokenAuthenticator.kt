@@ -57,12 +57,10 @@ class RefreshTokenAuthenticator : Authenticator, Interceptor {
         val originalRequest = chain.request()
         val authHeader = originalRequest.header("Authorization") ?: return chain.proceed(originalRequest)
 
-        val tokeh = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhY2Nlc3MiOiJhY2Nlc3MiLCJleHAiOjE2MTg2MjEzNzYsImp0aSI6ImFmMDViMGY0ZDYyMzQ0MDk4ZDQ4ZDgwZTQ1YTI5NDQ0IiwidXNlcl9pZCI6IjcxNTgxOTFhLThkZDQtNGU0Mi1hNzBiLTQ1YWI3Mjk3NzcwMyJ9.RLIZ8HrZK-O7J4noQnrtDNUxFAmz9FPt-pqKDeIMZ_buwwwOl6er9pYfvdvgSheGdM6RSxfdFIey8nR3dV_OQvwQpy51efAoPlKPdR91cz0KvZOqE0RyGS-PeaG42AqH7eAwDRKdQIM3uhcmphIIaq0ErY3ji47Jo_kGhZig2XXE_lW6JGsYLTDQkORfzC8P-wByxlRJZtyjrNHX-qvZfSz_DCW1QLT4Fs0vzCXlpdnEKQu8rMhBrx0s9POwsFqDnY-Kfj1DB70GpfB4A5zokfZX3naRkrqPiKJ-zlKnFK89oDPo9Lk45OFv9AXjowh-9DUFPXkBGdd-wWga2HAlSNHzZwUvMFYS5C0IHZC8SzEXKijCYIXlCB5LvZghQ_iBzVopEU3hFOuhyqu1ATy4clFI7D_BqfaEbGSUjv4bvZDTPxlE6DTc-Kz0S58A8nppC4t4bi0110z5sYWuPw39dfrXe8cyRGo-OogUdnN3BSfDo0cCfun4SHDNbfxOAyJ-x6mp1r7y7yQDnI122WwXGyCltFgtKE2jQ7rQbZTlFkFonxgLqROAPBz3Ip_9V3XXO29uNQMsGF9JOrM-P_0sNeLTt_Sfxx6UgGqP7tBb5RHOYuAYACCnDrT3K0q1T-uR8zd27nSTRQeyhGoD1E0agSBDJFtXvGJVO3DpzkRZx9M"
-
         synchronized(this){
             val newRequest = originalRequest.newBuilder()
                     .removeHeader("Authorization")
-                    .addHeader("Authorization", tokeh)
+                    .addHeader("Authorization", "Bearer $ACCESS_TOKEN")
                     .method(originalRequest.method, originalRequest.body)
                     .build()
 
@@ -70,35 +68,34 @@ class RefreshTokenAuthenticator : Authenticator, Interceptor {
             val code = response.code
 
             if (code == 403){
-                updateToken(newRequest.url.encodedPath)
+                updateToken()
 
                 val validRequest = newRequest.newBuilder()
                         .removeHeader("Authorization")
-                        .addHeader("Authorization", tokeh)
+                        .addHeader("Authorization", "Bearer $ACCESS_TOKEN")
                         .method(newRequest.method, newRequest.body)
                         .build()
 
-                //return chain.proceed(validRequest)
+                return chain.proceed(validRequest)
             }
 
             return response
         }
     }
 
-    private fun updateToken(rrr: String){
-        Log.d("TEST", "--update--")
-        runBlocking {
-            appSetting.setStringParam(AppSettingDataStore.PrefKeys.REFRESH_TOKEN, rrr)
-            //delay(5000)
-
-        }
-
-        /*
+    private fun updateToken(){
         val sendRefresh = SendRefresh(REFRESH_TOKEN)
         val sendRefreshToken = SendRefreshToken(sendRefresh, sendDevice)
         val response = refreshService.getApi().refreshToken(sendRefreshToken).execute()
         val access = response.body()?.access
         val refresh = response.body()?.refresh
-        */
+        if (!access.isNullOrEmpty() && !refresh.isNullOrEmpty()){
+            this.ACCESS_TOKEN = access
+            this.REFRESH_TOKEN = refresh
+            runBlocking {
+                appSetting.setStringParam(AppSettingDataStore.PrefKeys.REFRESH_TOKEN, refresh)
+                appSetting.setStringParam(AppSettingDataStore.PrefKeys.ACCESS_TOKEN, access)
+            }
+        }
     }
 }
