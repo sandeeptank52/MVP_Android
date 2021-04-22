@@ -123,4 +123,25 @@
     <!--text-->
     <string name="text_welcome">Dear Customer! Welcome to the first version of the BMI Disease Tracker application. It is in a test mode, so  we  kindly  ask  you  to  forgive  us  for  possible  errors. Please  help  us to improve  this application  by  sending  your  feedback  and  any  questions  related  to  its  use  to support@intime.digital. At the moment, the application has a technical design that will be improved soon. The BMI Disease Tracker app is designed to monitor in real-time the key parameters of your body to provide information on how they can affect longevity and the possibility of developing serious diseases in the future. Please enter the required data manually in the  required  fields  and/or connect to your fitness application to synchronize data. If not all fields are provided, please add data manually. You can check your blood sugar and cholesterol data in your most recent medical tests if you do not remember your most recent results. Our AI server will calculate your personal risks based on the data collected and provide risk recommendations to reduce the likelihood of possible your wellbeing development. The more accurately you enter your data, the more accurate the results and recommendations will be. The frequency of risk and recommendation updates depends on how often the data in your fitness app is updated or you manually update it. In future releases, we plan to reduce the amount of manually entered data by expanding the number of supported fitness apps and individual devices to update risks and recommendations in real-time without any additional inconvenience. You are given a free period of 2 weeks for initial acquaintance with the application. Then you will be offered a monthly subscription, at a price less than a cup of coffee, for 1,99$ per month. The subscription price will grow for new customers, but for our first users who agreed to keep the application and use it even with minimal functionality, special conditions will remain for years. The most important thing is that the longer you measure your data, store, update it in the application by hand or through Google Fit / Health Kit or your smart wearable devices, the more accurate the calculation of risks and forecasts will be. We will be able to improve the accuracy and bring it up to 95%. Please note that this app is for informational and educational purposes only. It provides a "second opinion" and in the future, it will be possible to share the test results with your physician or find one through our partners. This is not a medical application and all decisions related to this application are entirely up to you. We will notify you of new updates, each of which is intended to provide you with more information about your health and how you can avoid the likelihood of developing certain diseases in the future. For more information, please visit: www.inTime.digital</string>
     <string name="text_disclaimer">Our service is not a medical service. Consult a specialist for advice. The information provided in this application is for informational purposes only and should not be used for diagnosis or treatment. Our service is not a substitute for professional medical care. If you have or suspect that you may have health problems, please consult your doctor. Our services are second/third opinion based on artificial intelligence algorithms and statistics. We provide diagnostics only of the likelihood of developing diseases based on data on the health status of people with similar parameters.</string>
+
+    <!--personal data parameters-->
+    <string name="personal_info">Personal Information</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="gender">Gender</string>
+    <string name="height">Height</string>
+    <string name="smoker">Smoker</string>
+    <string name="skin">Skin type</string>
+    <string name="diseases">Diseases</string>
+
+    <!--settings-->
+    <string name="settings">Settings</string>
+    <string name="connections">Connections</string>
+    <string name="countries">Countries</string>
+    <string name="delete_profile">Delete profile</string>
+    <string name="more">More</string>
+    <string name="communication_with_the_doctor">Communication with the doctor</string>
+    <string name="help_n_support"><![CDATA[Help & Support]]></string>
+    <string name="save">Save</string>
 </resources>
