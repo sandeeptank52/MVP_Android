@@ -13,4 +13,61 @@
     <!--Background label color gradient-->
     <color name="labelGradientBckFirst">#51DAFF</color>
     <color name="labelGradientBckSecond">#3683FC</color>
+
+    <!--<color name="labelGradientBckFirst">?attr/colorAccent</color>
+    <color name="labelGradientBckSecond">?attr/colorPrimary</color>-->
+
+    <!--Common text colours-->
+    <color name="card_title_text">#005BEA</color>
+    <color name="card_added_parameter_text">#252222</color>
+
+    <color name="gray_background">#E1E1E1</color>
+
+    <!--Welcome page-->
+    <color name="welcome_inactive_dot">#B8B8B8</color>
+    <color name="welcome_active_dot">#46B9FE</color>
+
+
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_black">#000000</color>
+    <color name="gray_100">#f5f5f5</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="red_900">#B71C1C</color>
+
+
+
+
+
+    <color name="cPrimary">#3683FC</color>
+    <color name="cPrimaryDark">#363bb4</color>
+    <color name="cAccent">#36e5fc</color>
+    <color name="cAccentDark">#3679b4</color>
+    <color name="colorPrimaryVariant">#4d36fc</color>
+    <color name="colorPrimaryVariantDark">#0024e7</color>
+
+    <color name="colorSecondary">#fcb036</color>
+    <color name="colorSecondaryDark">#c48100</color>
+    <color name="colorSecondaryVariant">#fc4d36</color>
+    <color name="colorSecondaryVariantDark">#ce3228</color>
+
+    <color name="colorBackgroundLight">#FFFFFF</color>
+    <color name="colorBackgroundDark">#121212</color>
+
+    <color name="colorSurfaceLight">#FFFFFF</color>
+    <color name="colorSurfaceDark">#121212</color>
+
+    <color name="colorError">#B71C1C</color>
+
+    <color name="colorOnPrimaryLight">#FFFFFF</color>
+    <color name="colorOnPrimaryDark">#FFFFFF</color>
+
+    <color name="colorOnSecondary">#000000</color>
+
+    <color name="colorOnBackgroundLight">#000000</color>
+    <color name="colorOnBackgroundDark">#FFFFFF</color>
+
+    <color name="colorOnSurfaceLight">#000000</color>
+    <color name="colorOnSurfaceDark">#FFFFFF</color>
+
+    <color name="colorOnError">#FFFFFF</color>
 </resources>

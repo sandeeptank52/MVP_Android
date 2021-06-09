@@ -2,6 +2,7 @@ package com.application.bmiobesity.model.db.paramSettings.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
@@ -28,10 +29,31 @@ data class MedCardParamSetting(
     @ColumnInfo(name = "img_res")
     var imgRes: String,
 
+    @SerializedName("measurement_frequency")
+    @ColumnInfo(name = "measurement_frequency")
+    var measurementFrequencyRes: String,
+
 
     @SerializedName("default_value")
     @ColumnInfo(name = "default_value")
-    var defaultValue: String,
+    var defaultValue: Int,
+    @SerializedName("default_value_imp")
+    @ColumnInfo(name = "default_value_imp")
+    var defaultValueImp: Int,
+
+    @SerializedName("min_imp_value")
+    @ColumnInfo(name = "min_imp_value")
+    var minImpValue: Int,
+    @SerializedName("max_imp_value")
+    @ColumnInfo(name = "max_imp_value")
+    var maxImpValue: Int,
+
+    @SerializedName("min_metric_value")
+    @ColumnInfo(name = "min_metric_value")
+    var minMetricValue: Int,
+    @SerializedName("max_metric_value")
+    @ColumnInfo(name = "max_metric_value")
+    var maxMetricValue: Int,
 
     @SerializedName("data_type")
     @ColumnInfo(name = "data_type")
@@ -49,6 +71,13 @@ data class MedCardParamSetting(
     @ColumnInfo(name = "display_type")
     var displayType: String,
 
+    @SerializedName("prefer_measuring_system")
+    @ColumnInfo(name = "prefer_measuring_system")
+    var preferMeasuringSystem: Int,
+
+    @SerializedName("possible_source_type")
+    @ColumnInfo(name = "possible_source_type")
+    var possibleSourceType: String,
 
     @SerializedName("source_type_id")
     @ColumnInfo(name = "source_type_id")
@@ -65,4 +94,7 @@ data class MedCardParamSetting(
     @SerializedName("molar_mass")
     @ColumnInfo(name = "molar_mass")
     var molarMass: Float
-)
+){
+    @Ignore
+    var values: MutableList<MedCardParamSimpleValue> = mutableListOf()
+}

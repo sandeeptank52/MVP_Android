@@ -10,28 +10,34 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/color_white">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/signInTextInputLayoutMail"
-            app:errorEnabled="true"
-            android:hint="@string/login_hint_email"
-            app:boxBackgroundColor="@android:color/white"
-            app:endIconMode="custom"
-            app:endIconDrawable="@drawable/sign_up_mail"
-            android:layout_marginTop="@dimen/standart_margin_top_logo"
             android:layout_width="@dimen/standart_width_field_logo"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/standart_margin_top_logo"
+            android:hint="@string/login_hint_email"
+            app:boxBackgroundColor="@color/color_white"
+            android:textColorHint="@color/color_black"
+            app:boxStrokeColor="@color/color_black"
+            app:boxStrokeErrorColor="@color/red_900"
+            app:endIconDrawable="@drawable/sign_up_mail"
+            app:endIconTint="@color/color_black"
+            app:endIconMode="custom"
+            app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signInTextInputEditTextMail"
-                android:focusable="true"
-                android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_black"
+                android:focusable="true"
+                android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -39,7 +45,11 @@
             android:id="@+id/signInTextInputLayoutPass"
             app:errorEnabled="true"
             android:hint="@string/login_hint_password"
-            app:boxBackgroundColor="@android:color/white"
+            app:boxBackgroundColor="@color/color_white"
+            android:textColorHint="@color/color_black"
+            app:boxStrokeColor="@color/color_black"
+            app:boxStrokeErrorColor="@color/red_900"
+            app:endIconTint="@color/color_black"
             app:endIconMode="password_toggle"
             android:layout_width="@dimen/standart_width_field_logo"
             android:layout_height="wrap_content"
@@ -50,6 +60,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signInTextInputEditTextPass"
                 android:focusable="true"
+                android:textColor="@color/color_black"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -68,6 +79,7 @@
         <TextView
             android:id="@+id/signInTextViewRememberPass"
             android:text="@string/switch_login_remember_password"
+            android:textColor="@color/color_black"
             android:gravity="center"
             android:layout_marginTop="@dimen/standart_margin_top_logo"
             android:layout_width="0dp"
@@ -89,51 +101,67 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/signInSwitchRememberPassword"/>
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/signInButtonGoogleSignIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/signInProgressBar" />
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signInButtonSignIn"
             android:text="@string/button_sign_in"
             android:enabled="false"
-            android:textColor="@android:color/white"
+            android:textColor="@color/color_white"
             android:background="@drawable/common_button_selector"
             android:layout_marginTop="@dimen/standart_margin_top_logo"
             android:layout_width="@dimen/standart_width_field_logo"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/signInProgressBar"/>
+
+        <TextView
+            android:id="@+id/signInTextViewOr"
+            android:text="@string/sign_in_or"
+            android:textColor="@color/color_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/signInButtonSignIn"/>
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/signInButtonGoogleSignIn"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:buttonSize="wide"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/signInTextViewOr" />
+
+        <TextView
+            android:id="@+id/signInTextViewSignUp"
+            android:text="@string/button_sign_up_text"
+            android:textColor="@color/color_black"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/signInButtonGoogleSignIn"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/signInButtonSignUp"
-            android:text="@string/button_sign_up"
-            android:textColor="@android:color/white"
-            android:background="@drawable/common_button_selector"
-            android:layout_marginTop="@dimen/standart_margin_top_logo"
-            android:layout_width="@dimen/standart_width_field_logo"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/signInButtonSignIn"/>
-
         <TextView
             android:id="@+id/signInTextViewForgotPass"
             android:text="@string/button_dont_remember_password"
             android:layout_marginTop="@dimen/standart_margin_top_logo"
+            android:textStyle="italic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/cPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/signInButtonSignUp"/>
+            app:layout_constraintTop_toBottomOf="@id/signInTextViewSignUp"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

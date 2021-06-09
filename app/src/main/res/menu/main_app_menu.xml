@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mainAppMenuSubs"
+        android:title="@string/main_app_menu_subscriptions"/>
+
+    <item
+        android:id="@+id/mainAppMenuSetting"
+        android:title="@string/main_app_menu_setting"/>
+
+    <item
+        android:id="@+id/mainAppMenuLogOut"
+        android:title="@string/main_app_menu_log_out"/>
+</menu>

@@ -28,7 +28,7 @@ class MainFragment : Fragment(R.layout.label_main_fragment) {
         mainBinding = LabelMainFragmentBinding.bind(view)
         animateLabelScreen()
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             labelModel.initAppPreference()
             when {
                 labelModel.isFirstTime() -> {

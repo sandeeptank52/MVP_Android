@@ -4,24 +4,27 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "medcard_param_simple_value")
+@Entity(tableName = "medcard_param_simple_values")
 data class MedCardParamSimpleValue(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0L,
+    var id: Long = 0L,
 
     @ColumnInfo(name = "timestamp")
-    val timestamp: Long,
+    var timestamp: Long = 0L,
 
     @ColumnInfo(name = "timestamp_start")
-    val timestampStart: Long = 0L,
+    var timestampStart: Long = 0L,
 
     @ColumnInfo(name = "timestamp_end")
-    val timestampEnd: Long = 0L,
+    var timestampEnd: Long = 0L,
 
     @ColumnInfo(name = "param_id")
-    val paramID: String,
+    var paramID: String,
 
     @ColumnInfo(name = "value")
-    val value: String
+    var value: Float?,
+
+    @ColumnInfo(name = "value_imp")
+    var valueImp: Float?
 )

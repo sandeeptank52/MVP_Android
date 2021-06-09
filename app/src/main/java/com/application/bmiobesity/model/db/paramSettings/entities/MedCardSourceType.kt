@@ -12,4 +12,8 @@ data class MedCardSourceType(
 
     @ColumnInfo(name = "title")
     val title: String
-)
+){
+    override fun toString(): String {
+        return title
+    }
+}

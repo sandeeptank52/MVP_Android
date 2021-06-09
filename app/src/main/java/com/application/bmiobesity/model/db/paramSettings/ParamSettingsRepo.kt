@@ -1,10 +1,9 @@
 package com.application.bmiobesity.model.db.paramSettings
 
 import android.content.Context
-import com.application.bmiobesity.model.db.paramSettings.entities.MedCardParamSetting
-import com.application.bmiobesity.model.db.paramSettings.entities.MedCardSourceType
-import com.application.bmiobesity.model.db.paramSettings.entities.ParamUnit
-import com.application.bmiobesity.model.db.paramSettings.entities.ResultCard
+import androidx.lifecycle.LiveData
+import com.application.bmiobesity.model.db.paramSettings.entities.*
+import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profile
 
 class ParamSettingsRepo private constructor(context: Context){
 
@@ -30,10 +29,37 @@ class ParamSettingsRepo private constructor(context: Context){
         paramSettingDAO.insertAllMedCardParamSetting(items)
     }
 
+    suspend fun updateParamSetting(item: MedCardParamSetting) = paramSettingDAO.updateMedCardParamSetting(item)
+
     suspend fun getAllResultCard() = paramSettingDAO.getAllFromResultCard()
     suspend fun getAllParamUnit() = paramSettingDAO.getAllFromParamUnit()
     suspend fun getAllMedCardSourceType() = paramSettingDAO.getAllFromMedCardSourceType()
     suspend fun getAllMedCardParamSetting() = paramSettingDAO.getAllFromMedCardParamSetting()
+
+    // Profile
+    suspend fun getProfileFromMail(mail: String): Profile = paramSettingDAO.getProfileFromMail(mail)
+    fun getProfileFromMailLive(mail: String): LiveData<Profile> = paramSettingDAO.getProfileFromMailLive(mail)
+    //suspend fun getAvailableDataFromMail(mail: String): AvailableData = paramSettingDAO.getAvailableData(mail)
+    //suspend fun getOnBoardingStepFromMail(mail: String): OnBoardingSteps = paramSettingDAO.getOnBoardStepsFromMail(mail)
+
+    suspend fun insertProfile(item: Profile) = paramSettingDAO.insertProfile(item)
+    //suspend fun insertAvailableData(item: AvailableData) = paramSettingDAO.insertAvailableData(item)
+    //suspend fun insertOnBoardingStep(item: OnBoardingSteps) = paramSettingDAO.insertOnBoardingStep(item)
+
+    suspend fun updateProfile(item: Profile) = paramSettingDAO.updateProfile(item)
+
+    suspend fun getAllSimpleValues(): List<MedCardParamSimpleValue> = paramSettingDAO.getAllSimpleValues()
+    suspend fun insertSimpleValue(item: MedCardParamSimpleValue) = paramSettingDAO.insertSimpleValue(item)
+    suspend fun getValuesFromParamID(paramID: String) = paramSettingDAO.getValuesFromParamID(paramID)
+    suspend fun insertSimpleValues(items: List<MedCardParamSimpleValue>) = paramSettingDAO.insertSimpleValues(items)
+    suspend fun updateSimpleValue(item: MedCardParamSimpleValue) = paramSettingDAO.updateSimpleValue(item)
+
+    suspend fun clearDbToDeleteUser(){
+        paramSettingDAO.deleteAllFromMedCardParamSetting()
+        paramSettingDAO.deleteAllFromSimpleValue()
+        paramSettingDAO.deleteAllFromProfile()
+        paramSettingDAO.deleteAllFromResultCard()
+    }
 
     companion object{
         @Volatile

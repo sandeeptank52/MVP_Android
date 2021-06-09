@@ -4,8 +4,10 @@ import android.app.Application
 import androidx.multidex.MultiDexApplication
 import com.application.bmiobesity.di.ApplicationComponent
 import com.application.bmiobesity.di.DaggerApplicationComponent
+import com.application.bmiobesity.services.google.billing.GoogleBillingClient
 
 class InTimeApp : MultiDexApplication() {
+
     companion object{
         lateinit var APPLICATION: Application
         lateinit var appComponent: ApplicationComponent

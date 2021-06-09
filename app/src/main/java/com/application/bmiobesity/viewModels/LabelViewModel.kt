@@ -4,6 +4,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.application.bmiobesity.InTimeApp
+import com.application.bmiobesity.R
 import com.application.bmiobesity.model.appSettings.AppPreference
 import com.application.bmiobesity.model.appSettings.AppSettingDataStore
 import com.application.bmiobesity.model.db.commonSettings.CommonSettingRepo
@@ -43,6 +44,7 @@ class LabelViewModel : ViewModel() {
         val deviceUUID = appSetting.getStringParam(AppSettingDataStore.PrefKeys.DEVICE_UUID).first()
         if (deviceUUID.isEmpty()) appSetting.setStringParam(AppSettingDataStore.PrefKeys.DEVICE_UUID, UUID.randomUUID().toString())
         appPreference = appSetting.getAppPreference().first()
+        appSetting.setBooleanParam(AppSettingDataStore.PrefKeys.FIRST_TIME, appPreference.firstTime)
     }
 
     suspend fun initParamSetting(){
@@ -116,6 +118,7 @@ class LabelViewModel : ViewModel() {
             val res: ArrayList<Genders> = ArrayList()
             for (i in gendersList.indices){
                 val temp = Genders(gendersList[i])
+                if (temp.value == "Undefined") temp.value = InTimeApp.APPLICATION.getString(R.string.gender_hint_not_say)
                 res.add(temp)
             }
             commonSettingRepo.setAllGenders(res)
@@ -133,9 +136,5 @@ class LabelViewModel : ViewModel() {
     }
     private suspend fun prepopulatePolicyFromLocal(){
         commonSettingRepo.setPolicy(localRepo.getPolicy(getCurrentLocale().locale))
-    }
-
-    override fun onCleared() {
-        super.onCleared()
     }
 }

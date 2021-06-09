@@ -6,24 +6,64 @@
     android:id="@+id/main_nav_graph"
     app:startDestination="@id/mainHomeNav">
 
+    <action
+        android:id="@+id/mainNavToSetting"
+        app:destination="@id/mainSettingNav"/>
+
+    <action
+        android:id="@+id/mainNavToSubs"
+        app:destination="@id/mainSubsNav"/>
+
     <fragment
         android:id="@+id/mainHomeNav"
         android:name="com.application.bmiobesity.view.mainActivity.home.HomeFragment"
-        tools:layout="@layout/main_home_fragment"/>
+        tools:layout="@layout/main_home_fragment">
+        <action
+            android:id="@+id/mainNavHomeToMedcard"
+            app:destination="@id/mainMedcardNav"/>
+        <action
+            android:id="@+id/mainNavHomeToProfile"
+            app:destination="@id/mainProfileNav"/>
+    </fragment>
 
     <fragment
         android:id="@+id/mainMedcardNav"
         android:name="com.application.bmiobesity.view.mainActivity.medcard.MedcardFragment"
-        tools:layout="@layout/main_medcard_fragment"/>
+        tools:layout="@layout/main_medcard_fragment">
+        <action
+            android:id="@+id/mainNavMedcardToHome"
+            app:destination="@id/mainHomeNav"/>
+        <action
+            android:id="@+id/mainNavMedcaedToProfile"
+            app:destination="@id/mainProfileNav"/>
+        <argument
+            android:name="isFirstTime"
+            app:argType="boolean"/>
+    </fragment>
 
     <fragment
         android:id="@+id/mainProfileNav"
         android:name="com.application.bmiobesity.view.mainActivity.profile.ProfileFragment"
-        tools:layout="@layout/main_profile_fragment"/>
+        tools:layout="@layout/main_profile_fragment">
+        <action
+            android:id="@+id/mainNavProfileToHome"
+            app:destination="@id/mainHomeNav"/>
+        <action
+            android:id="@+id/mainNavProfileToMedcard"
+            app:destination="@id/mainMedcardNav"/>
+        <argument
+            android:name="isFirstTime"
+            app:argType="boolean"/>
+    </fragment>
 
     <fragment
         android:id="@+id/mainSettingNav"
         android:name="com.application.bmiobesity.view.mainActivity.setting.SettingFragment"
         tools:layout="@layout/main_setting_fragment"/>
+
+    <fragment
+        android:id="@+id/mainSubsNav"
+        android:name="com.application.bmiobesity.view.mainActivity.subscriptions.SubscriptionsFragment"
+        tools:layout="@layout/main_subs_fragment"/>
 
 </navigation>

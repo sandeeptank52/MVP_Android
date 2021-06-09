@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/color_white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.mainActivity.home.favorite.HomeFavoriteFragment">
@@ -11,6 +12,7 @@
         android:id="@+id/favoriteRecyclerResultCard"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

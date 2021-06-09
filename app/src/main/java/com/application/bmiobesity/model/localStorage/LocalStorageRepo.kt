@@ -118,11 +118,19 @@ class LocalStorageRepo(private val mContext: Context) {
                 medCardParamSettingJSONArray.getJSONObject(i).getString("short_description_res"),
                 medCardParamSettingJSONArray.getJSONObject(i).getString("long_description_res"),
                 medCardParamSettingJSONArray.getJSONObject(i).getString("img_res"),
-                medCardParamSettingJSONArray.getJSONObject(i).getString("default_value"),
+                medCardParamSettingJSONArray.getJSONObject(i).getString("measurement_frequency"),
+                medCardParamSettingJSONArray.getJSONObject(i).getInt("default_value"),
+                medCardParamSettingJSONArray.getJSONObject(i).getInt("default_value_imp"),
+                medCardParamSettingJSONArray.getJSONObject(i).getInt("min_imp_value"),
+                medCardParamSettingJSONArray.getJSONObject(i).getInt("max_imp_value"),
+                medCardParamSettingJSONArray.getJSONObject(i).getInt("min_metric_value"),
+                medCardParamSettingJSONArray.getJSONObject(i).getInt("max_metric_value"),
                 medCardParamSettingJSONArray.getJSONObject(i).getString("data_type"),
                 medCardParamSettingJSONArray.getJSONObject(i).getString("comment"),
                 medCardParamSettingJSONArray.getJSONObject(i).getBoolean("status"),
                 medCardParamSettingJSONArray.getJSONObject(i).getString("display_type"),
+                medCardParamSettingJSONArray.getJSONObject(i).getInt("prefer_measuring_system"),
+                medCardParamSettingJSONArray.getJSONObject(i).getString("possible_source_type"),
                 medCardParamSettingJSONArray.getJSONObject(i).getString("source_type_id"),
                 medCardParamSettingJSONArray.getJSONObject(i).getString("source_type_id_multi"),
                 medCardParamSettingJSONArray.getJSONObject(i).getString("unit_id"),
@@ -137,7 +145,7 @@ class LocalStorageRepo(private val mContext: Context) {
         val input = mContext.resources.openRawResource(resID)
         val br = BufferedReader(InputStreamReader(input))
         val sb = StringBuilder()
-        var s: String? = ""
+        var s: String?
         s = br.readLine()
         while (s != null) {
             sb.append(s)
