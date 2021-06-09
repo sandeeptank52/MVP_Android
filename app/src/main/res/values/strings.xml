@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">BMI Disease Tracker</string>
-    <string name="server_client_id">403561407577-tbsv2nomg2981hd1b7cd2dt7bek43267.apps.googleusercontent.com</string>
+    <string name="app_name" translatable="false">Body Mass Index Disease Tracker</string>
+    <string name="app_name_short" translatable="false">BMI Disease Tracker</string>
+    <string name="server_client_id" translatable="false">403561407577-tbsv2nomg2981hd1b7cd2dt7bek43267.apps.googleusercontent.com</string>
 
     <!--hints-->
     <string name="login_hint_email">Email address</string>
@@ -11,18 +12,32 @@
     <string name="login_hint_passwordCheck_number">\u0020 1 number</string>
     <string name="login_hint_passwordCheck_symbol">\u0020 1 special symbol</string>
     <string name="login_hint_passwordCheck_match">passwords must match</string>
+    <string name="profile_hint_name">Name</string>
+    <string name="profile_hint_surname">Surname</string>
+    <string name="gender_hint_not_say">I will not say</string>
 
     <!--buttons-->
     <string name="button_sign_in">Sign In</string>
     <string name="button_sign_up">Sign Up</string>
     <string name="button_sign_up_text">Need an account?</string>
     <string name="button_next">Next</string>
+    <string name="button_skip">Skip</string>
+    <string name="button_got_it">Got it</string>
     <string name="button_dont_remember_password">Don\'t remember password</string>
     <string name="button_i_agree">I Agree</string>
     <string name="button_i_disagree">I Disagree</string>
     <string name="button_reset_pass">Reset</string>
     <string name="button_send">Send</string>
     <string name="button_accept">Accept</string>
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_yes">Yes</string>
+    <string name="button_no">No</string>
+    <string name="button_done">Done</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_subscribe">Subscribe</string>
+    <string name="button_subs_manage">Subscription management</string>
+    <string name="button_store">Store</string>
 
     <!--menu-->
     <string name="main_bottom_menu_home">Home</string>
@@ -33,16 +48,48 @@
     <string name="main_home_menu_analyze">Analyze</string>
     <string name="main_home_menu_recommendations">Recommendations</string>
 
+    <string name="main_app_menu_setting">Setting</string>
+    <string name="main_app_menu_subscriptions">Store</string>
+    <string name="main_app_menu_log_out">Log out</string>
+
     <!--switches-->
     <string name="switch_disclaimer">Don`t show again?</string>
     <string name="switch_login_remember_password">Remember password</string>
-    <string name="switch_sign_in_privacy_agree">I agree to the therms condition</string>
+    <string name="switch_sign_in_privacy_agree">I agree to the terms condition</string>
+
+    <!--main activity-->
+    <string name="main_subs_info">Trial version expires on %1$s</string>
+    <string name="main_subs_expire">Trial version expired</string>
+
+
+    <!--welcome fragment-->
+    <string name="welcome_1_main_text">Welcome to the first version of our application.\n\nIt is in a test mode, so we kindly ask you to forgive us for possible errors.\n\nPlease help us to improve this application by sending your feedback and any questions related to its use to <b>support@intime.digital</b></string>
+    <string name="welcome_1_public_beta" translatable="false">Public beta</string>
+    <string name="welcome_1_greeting">Greetings!</string>
+    <string name="welcome_1_check_box_text">I want to help make this product better</string>
+
+    <string name="welcome_2_title">collect all data\nin one place</string>
+    <string name="welcome_2_main_text">\tThis application is your personal digital bio-bank and health tracker with records storage history.\n\n\tAdd the data to the required fields and connect your fitness application or wearables to synchronize.\n\n\tToday you need to enroll your data manually, but tomorrow we will sync it.\n\n\tPlease keep your data updated.</string>
+
+    <string name="welcome_3_title">risk report and\nrecommendations</string>
+    <string name="welcome_3_main_text">\tApplication is designed to monitor in real-time the key parameters of your body to provide information on how they can affect longevity and the possibility of developing serious diseases in the future.\n\n\tOur AI server will calculate your personal risks based on collected data.\n\n\tFor better performance, we strongly recommend measuring yourself constantly even if there weren\'t significant events which influenced on your parameters changes.</string>
+
+    <string name="welcome_4_title">stay tuned</string>
+    <string name="welcome_4_main_text">\tThe most important thing is that the longer you measure and store your data, the more accurate the calculation of risks and forecasts will be.\n\n\tWe will increase the number of parameters in the future.\n\n\tTrack Early. Live Longer.</string>
+
+    <string name="welcome_5_title">help us</string>
+    <string name="welcome_5_main_text">\tPlease rate us in Google Play page and leave your comments. It will help others to find our app and get health value out of it.\n\n\tAlso, we want you to answer a few questions about our product.\n\n\tIf you can help us, we will send it to your e-mail.</string>
+    <string name="welcome_5_question_check_text">Receive a questionnaire</string>
+    <string name="welcome_5_update_check_text">Receive our updates and news</string>
 
     <!--disclaimer fragment-->
     <string name="disclaimer_title">Disclaimer!</string>
 
     <!--welcome text fragment-->
     <string name="welcome_title">Welcome!</string>
+
+    <!--sign in fragment-->
+    <string name="sign_in_or">---OR---</string>
 
     <!--sign up fragment-->
     <string name="policy_title">Accept the privacy policy</string>
@@ -55,12 +102,42 @@
 
     <!--reset password fragment-->
     <string name="reset_pass_title">New password</string>
-    <string name="reset_pass_text">Enter your new password, please, try to use a numbers and english letters in it.</string>
+    <string name="reset_pass_text">Enter your new password.</string>
     <string name="reset_pass_success">Password changed successfully!</string>
 
     <!--recommendations fragment-->
     <string name="recom_title_common">Common recommendations</string>
     <string name="recom_title_personal">Personal recommendations</string>
+    <string name="recom_subs_info">Trial version is expired. Please update your subscription.</string>
+
+    <!--profile fragment-->
+    <string name="profile_gender_title">Choice gender</string>
+    <string name="profile_height_title">Height</string>
+    <string name="profile_height_message">Please enter your height</string>
+    <string name="profile_smoker_title">Are you a smoker?</string>
+    <string name="profile_welcome_dialog_title">Welcome to the our app!</string>
+    <string name="profile_welcome_dialog_message">Hello, for the correct operation of our application, please fill in the basic information about yourself.</string>
+    <string name="profile_firs_time_msg">Please fill following fields and tap on the next button:\n</string>
+
+    <!--medcard fragment-->
+    <string name="medcard_card_item_source_type">Source type:</string>
+    <string name="medcard_card_item_measur_freq">Measurement frequency:</string>
+    <string name="medcard_card_item_last_update">Last update:</string>
+    <string name="medcard_dialog_source_type">Please enter source type:</string>
+    <string name="medcard_dialog_dot" translatable="false">,</string>
+    <string name="medcard_first_dialog_title">Last step!</string>
+    <string name="medcard_first_dialog_message">For the application to work correctly, please enter your medical data.</string>
+
+    <!--setting fragment-->
+    <string name="setting_delete_dialog_title">Deleting a profile</string>
+    <string name="setting_delete_dialog_message">By deleting your profile, you irrevocably lose all data on our website and in the mobile application. The operation is irreversible and you will no longer be able to log into your account.</string>
+    <string name="setting_measure_dialog_title">Choice measuring system</string>
+    <string name="setting_measure_metric">Metric</string>
+    <string name="setting_measure_imperial">Imperial</string>
+
+    <!--subscription fragment-->
+    <string name="subs_text_cost">Cost:</string>
+    <string name="subs_text_activated">Activated</string>
 
     <!--medcard parameters name-->
     <string name="medcard_name_weight">Weight</string>
@@ -74,6 +151,43 @@
     <string name="medcard_name_blood_pressure_dia">Blood pressure dia</string>
     <string name="medcard_name_cholesterol">Cholesterol</string>
     <string name="medcard_name_glucose">Glucose</string>
+
+    <string name="medcard_name_daily_minimum">Minimum</string>
+    <string name="medcard_name_daily_lower">Lower</string>
+    <string name="medcard_name_daily_medium">Medium</string>
+    <string name="medcard_name_daily_high">High</string>
+    <string name="medcard_name_daily_very_high">Very High</string>
+
+    <string name="medcard_daily_minimum_desc">Passive lifestyle</string>
+    <string name="medcard_daily_lower_desc">Light physical labor, walking</string>
+    <string name="medcard_daily_medium_desc">Physical labor or training 3–5 times a week</string>
+    <string name="medcard_daily_high_desc">Heavy physical labor or training 6–7 times a week</string>
+    <string name="medcard_daily_very_high_desc">I unload the wagons day and night</string>
+
+    <!--medcard measurement frequency-->
+    <string name="medcard_frequency_weight">once per week</string>
+    <string name="medcard_frequency_hip">once per two week or when weight changes</string>
+    <string name="medcard_frequency_waist">once per two week or when weight changes</string>
+    <string name="medcard_frequency_wrist">one time</string>
+    <string name="medcard_frequency_neck">once every six month</string>
+    <string name="medcard_frequency_heart_rate_alone">one or three times a day</string>
+    <string name="medcard_frequency_daily_activity_level">once per month</string>
+    <string name="medcard_frequency_blood_pressure_sys">one or three times a day</string>
+    <string name="medcard_frequency_blood_pressure_dia">one or three times a day</string>
+    <string name="medcard_frequency_cholesterol">once per month</string>
+    <string name="medcard_frequency_glucose">once per month</string>
+    <!--medcard long description-->
+    <string name="medcard_long_description_weight">Body mass</string>
+    <string name="medcard_long_description_hip">Hip circumference</string>
+    <string name="medcard_long_description_waist">Waist circumference</string>
+    <string name="medcard_long_description_wrist">Wrist circumference at narrowest point</string>
+    <string name="medcard_long_description_neck">Neck circumference</string>
+    <string name="medcard_long_description_heart_rate_alone">Heart rate</string>
+    <string name="medcard_long_description_daily_activity_level">Average level of physical activity throughout the day</string>
+    <string name="medcard_long_description_blood_pressure_sys">Systolic blood pressure – indicates how much pressure your blood is exerting against your artery walls when the heart beats</string>
+    <string name="medcard_long_description_blood_pressure_dia">Diastolic blood pressure – indicates how much pressure your blood is exerting against your artery walls while the heart is resting between beats.</string>
+    <string name="medcard_long_description_cholesterol">Cholesterol</string>
+    <string name="medcard_long_description_glucose">Glucose</string>
 
     <!--result card name-->
     <string name="result_card_name_bmi">BMI (Ketle index)</string>
@@ -89,9 +203,9 @@
     <!--parameters unit name-->
     <string name="unit_name_kg_si">kg</string>
     <string name="unit_name_kg_im">lb</string>
-    <string name="unit_name_sm_si">sm</string>
+    <string name="unit_name_sm_si">cm</string>
     <string name="unit_name_sm_im">in</string>
-    <string name="unit_name_mmrtst_si">mm Hg</string>
+    <string name="unit_name_mmrtst_si">mmHg</string>
     <string name="unit_name_mmrtst_im">kPa</string>
     <string name="unit_name_mmoll_si">mmol/l</string>
     <string name="unit_name_mmoll_im">mg/dL</string>
@@ -113,12 +227,16 @@
     <string name="error_form_fields_empty_password">Please enter password</string>
     <string name="error_form_fields_email_exist">Email already exist</string>
     <string name="error_form_field_email_not_registered">Email not registered</string>
+    <string name="error_form_profile_name">Enter your name</string>
+    <string name="error_form_profile_surname">Enter your surname</string>
 
     <!--images content description-->
-    <string name="login_title_image_description">Title image</string>
-    <string name="label_title_image_description">Logo our company</string>
-    <string name="favorite_menu_image_description">Menu favorite card</string>
-    <string name="favorite_icon_image_description">Icon favorite card</string>
+    <string name="login_title_image_description" translatable="false">Title image</string>
+    <string name="label_title_image_description" translatable="false">Logo our company</string>
+    <string name="favorite_menu_image_description" translatable="false">Menu favorite card</string>
+    <string name="favorite_icon_image_description" translatable="false">Icon favorite card</string>
+    <string name="profile_arrow_icon_description" translatable="false">Arrow</string>
+    <string name="image_description" translatable="false">image</string>
 
     <!--text-->
     <string name="text_welcome">Dear Customer! Welcome to the first version of the BMI Disease Tracker application. It is in a test mode, so  we  kindly  ask  you  to  forgive  us  for  possible  errors. Please  help  us to improve  this application  by  sending  your  feedback  and  any  questions  related  to  its  use  to support@intime.digital. At the moment, the application has a technical design that will be improved soon. The BMI Disease Tracker app is designed to monitor in real-time the key parameters of your body to provide information on how they can affect longevity and the possibility of developing serious diseases in the future. Please enter the required data manually in the  required  fields  and/or connect to your fitness application to synchronize data. If not all fields are provided, please add data manually. You can check your blood sugar and cholesterol data in your most recent medical tests if you do not remember your most recent results. Our AI server will calculate your personal risks based on the data collected and provide risk recommendations to reduce the likelihood of possible your wellbeing development. The more accurately you enter your data, the more accurate the results and recommendations will be. The frequency of risk and recommendation updates depends on how often the data in your fitness app is updated or you manually update it. In future releases, we plan to reduce the amount of manually entered data by expanding the number of supported fitness apps and individual devices to update risks and recommendations in real-time without any additional inconvenience. You are given a free period of 2 weeks for initial acquaintance with the application. Then you will be offered a monthly subscription, at a price less than a cup of coffee, for 1,99$ per month. The subscription price will grow for new customers, but for our first users who agreed to keep the application and use it even with minimal functionality, special conditions will remain for years. The most important thing is that the longer you measure your data, store, update it in the application by hand or through Google Fit / Health Kit or your smart wearable devices, the more accurate the calculation of risks and forecasts will be. We will be able to improve the accuracy and bring it up to 95%. Please note that this app is for informational and educational purposes only. It provides a "second opinion" and in the future, it will be possible to share the test results with your physician or find one through our partners. This is not a medical application and all decisions related to this application are entirely up to you. We will notify you of new updates, each of which is intended to provide you with more information about your health and how you can avoid the likelihood of developing certain diseases in the future. For more information, please visit: www.inTime.digital</string>
@@ -138,10 +256,11 @@
     <!--settings-->
     <string name="settings">Settings</string>
     <string name="connections">Connections</string>
-    <string name="countries">Countries</string>
+    <string name="countries">Country</string>
     <string name="delete_profile">Delete profile</string>
     <string name="more">More</string>
     <string name="communication_with_the_doctor">Communication with the doctor</string>
     <string name="help_n_support"><![CDATA[Help & Support]]></string>
     <string name="save">Save</string>
+    <string name="setting_measure">Measure setting</string>
 </resources>

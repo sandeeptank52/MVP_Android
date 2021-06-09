@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.createDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
@@ -85,6 +86,17 @@ class AppSettingDataStore private constructor(context: Context){
                     cryptoApi.decryptString(it[PrefKeys.DEVICE_UUID])
                 )
             }
+    }
+
+    suspend fun clearAllData(){
+        dataStore.edit {
+            it[PrefKeys.FIRST_TIME] = true
+            it[PrefKeys.SHOW_DISCLAIMER] = true
+            it[PrefKeys.REFRESH_TOKEN] = ""
+            it[PrefKeys.ACCESS_TOKEN] = ""
+            it[PrefKeys.USER_MAIL] = ""
+            it[PrefKeys.USER_PASS] = ""
+        }
     }
 
 

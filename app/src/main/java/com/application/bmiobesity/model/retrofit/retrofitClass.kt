@@ -41,7 +41,7 @@ data class SendLogin(var user: SendUser, var device: SendDevice)
 data class SendConfirmResetPass(var new_password1: String, var new_password2: String, var uid: String, var token: String)
 data class SendGoogleTokenId(var provider: String = "google-oauth2", var code: String)
 data class SendProfile(var first_name: String, var last_name: String, var email: String)
-data class SendUserProfile(var birth_date: String, var country: Int, var gender: Int, var height: Float, var smoker: Boolean, var measuring_system: Int)
+data class SendUserProfile(var birth_date: String, var country: Int, var gender: Int?, var height: Float, var smoker: Boolean, var measuring_system: Int)
 
 
 data class ResultSimpleCountry(val id: Int?, val value: String?)
@@ -60,6 +60,8 @@ data class ResultExist( val exist: Boolean?)
 data class ResultToken(val access: String?, val refresh: String?)
 data class ResultTokenFromGoogle(val token: String?, val refresh: String?)
 data class ResultRecommendation(val name: String?)
+data class ResultFirstTimeStamp(val timestamp: String?)
+data class ResultDeleteUser(val delete: String?)
 
 data class ResultMedCard(val weight:Float?,
                          val hip:Float?,
@@ -89,3 +91,25 @@ data class ResultAnalyze(val bmi: List<String>?,
                          val unfilled: String?,
                          val disease_risk: List<ResultDiseaseRisk>?,
                          val common_recomendations: List<ResultCommonRecommendation>?)
+
+data class UpdateResultDashBoard(
+                     var gender:Int?,
+                     var birth_date:String?,
+                     var country:Int?,
+                     var height:Float?,
+                     var weight:Float?,
+                     var hip:Float?,
+                     var waist:Float?,
+                     var wrist:Float?,
+                     var heart_rate_alone:Int?,
+                     var blood_pressure_sys:Int?,
+                     var blood_pressure_dia:Int?,
+                     var cholesterol:Float?,
+                     var glucose:Float?,
+                     var smoker:Boolean?,
+                     var locale: String?,
+                     var neck: Float?,
+                     var daily_activity_level: Float?,
+                     var measuring_system: Int?)
+
+data class UpdateResultAvatar(var image: String?)

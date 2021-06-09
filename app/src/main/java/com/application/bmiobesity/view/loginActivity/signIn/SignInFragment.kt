@@ -60,14 +60,16 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
 
     override fun onStart() {
         super.onStart()
-        val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(requireContext())
+        //val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(requireContext())
     }
 
     private fun initGoogleService(){
         val gso: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestScopes(Scope(Scopes.PROFILE), Scope(Scopes.EMAIL))
+            .requestScopes(Scope(Scopes.EMAIL), Scope(Scopes.PROFILE))
             .requestServerAuthCode(getString(R.string.server_client_id))
+            .requestEmail()
             .build()
+
         mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
         mGoogleSignInLauncher = registerForActivityResult(GoogleSignInContract()){
             googleSignInCallBack(it)
@@ -149,16 +151,20 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
     }
     private fun googleSignInCallBack(completedTask: Task<GoogleSignInAccount>){
         try {
-            val account = completedTask.result
-            val code = account?.serverAuthCode
-            val mail = account?.email
-            val firstName = account?.givenName
-            val lastName = account?.familyName
-            val photoUri = account?.photoUrl
-            val rememberPass = signInBinding?.signInSwitchRememberPassword?.isChecked ?: false
+            if (completedTask.isSuccessful){
+                val account = completedTask.result
+                val code = account?.serverAuthCode
+                val mail = account?.email
+                val firstName = account?.givenName
+                val lastName = account?.familyName
+                val photoUri = account?.photoUrl
+                val rememberPass = signInBinding?.signInSwitchRememberPassword?.isChecked ?: false
 
-            if (!code.isNullOrEmpty() && !mail.isNullOrEmpty()){
-                loginModel.signInActionWithGoogle(mail, code, rememberPass, firstName, lastName, photoUri)
+                if (!code.isNullOrEmpty() && !mail.isNullOrEmpty()){
+                    loginModel.signInActionWithGoogle(mail, code, rememberPass, firstName, lastName, photoUri)
+                }
+            } else {
+                setEnabledInterface(true)
             }
         } catch (e: ApiException){
 

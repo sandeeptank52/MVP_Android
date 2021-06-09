@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "medcard_param_simple_value")
+@Entity(tableName = "medcard_param_simple_values")
 data class MedCardParamSimpleValue(
 
     @PrimaryKey(autoGenerate = true)
@@ -23,5 +23,8 @@ data class MedCardParamSimpleValue(
     var paramID: String,
 
     @ColumnInfo(name = "value")
-    var value: Float
+    var value: Float?,
+
+    @ColumnInfo(name = "value_imp")
+    var valueImp: Float?
 )

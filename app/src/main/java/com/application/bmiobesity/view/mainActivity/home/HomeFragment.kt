@@ -2,6 +2,7 @@ package com.application.bmiobesity.view.mainActivity.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -29,12 +30,13 @@ class HomeFragment : Fragment(R.layout.main_home_fragment) {
 
     private fun init(){
         lifecycleScope.launch(Dispatchers.IO) {
-            /*val firstTime = mainModel.isFirstTimeAsync().await()
+            val firstTime = mainModel.isFirstTimeAsync().await()
             if (firstTime){
                 withContext(Dispatchers.Main) {
-                    findNavController().navigate(R.id.mainNavHomeToProfile)
+                    val bundle = bundleOf("isFirstTime" to true)
+                    findNavController().navigate(R.id.mainNavHomeToProfile, bundle)
                 }
-            }*/
+            }
         }
     }
 

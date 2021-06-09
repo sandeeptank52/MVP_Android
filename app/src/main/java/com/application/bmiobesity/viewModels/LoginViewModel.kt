@@ -41,12 +41,11 @@ class LoginViewModel : ViewModel() {
 
     // Sign In fragment
     fun signInAction(mail: String, pass: String, rememberPass: Boolean){
-
-        val user = SendUser(mail, pass)
-        val device = getDevice()
-        val login = SendLogin(user, device)
-        
         viewModelScope.launch {
+            val user = SendUser(mail, pass)
+            val device = getDevice()
+            val login = SendLogin(user, device)
+
             when(val resultToken = remoteRepo.getToken(login)){
                 is RetrofitResult.Success -> {
                     signInSuccess(resultToken.value, user, rememberPass)
@@ -84,13 +83,14 @@ class LoginViewModel : ViewModel() {
 
     // Sign Up fragment
     fun signUpAction(mail: String, pass: String){
-        val user = SendUser(mail, pass)
-        val device = getDevice()
-        val login = SendLogin(user, device)
-
         viewModelScope.launch {
+            val user = SendUser(mail, pass)
+            val device = getDevice()
+            val login = SendLogin(user, device)
+
             when (val resultToken = remoteRepo.signUp(login)){
                 is RetrofitResult.Success -> {
+                    appSetting.clearAllData()
                     signInSuccess(resultToken.value, user, false)
                     eventManager.signUpSuccessEvent(true)
                 }
@@ -157,8 +157,8 @@ class LoginViewModel : ViewModel() {
         }
         updateAppPreference()
     }
-    private fun getDevice() = SendDevice(
-        appPreference.deviceUUID,
+    private suspend fun getDevice() = SendDevice(
+        appSetting.getStringParam(AppSettingDataStore.PrefKeys.DEVICE_UUID).first(),
         AppSettingDataStore.Constants.OS_NAME,
         Build.VERSION.RELEASE,
         "${Build.BRAND} - ${Build.MODEL}",
@@ -176,8 +176,4 @@ class LoginViewModel : ViewModel() {
     fun checkPassSymbol(pass: CharSequence) = pass.contains("[!№;%:?()_+/*-.,|`~@#^&<>'{}$]".toRegex())
     fun checkPassConfirm(pass: CharSequence, passConfirm: CharSequence) = pass == passConfirm
     fun checkPassNotEmpty(pass: CharSequence) = pass.isNotEmpty()
-
-    override fun onCleared() {
-        super.onCleared()
-    }
 }

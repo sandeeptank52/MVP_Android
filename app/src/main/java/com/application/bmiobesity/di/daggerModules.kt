@@ -1,6 +1,7 @@
 package com.application.bmiobesity.di
 
 import android.content.Context
+import com.application.bmiobesity.common.parameters.MedCard
 import com.application.bmiobesity.model.appSettings.AppSettingDataStore
 import com.application.bmiobesity.model.db.commonSettings.CommonSettingRepo
 import com.application.bmiobesity.model.db.paramSettings.ParamSettingsRepo
@@ -38,6 +39,7 @@ interface ApplicationComponent{
     fun inject(viewModel: LabelViewModel)
     fun inject(viewModel: LoginViewModel)
     fun inject(viewModel: MainViewModel)
+    fun inject(medCard: MedCard)
     fun inject(tokenAuthenticator: RefreshTokenAuthenticator)
 }
 

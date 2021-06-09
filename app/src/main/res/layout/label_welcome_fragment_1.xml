@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.labelActivity.welcome.WelcomeFragment1">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white">
+
+        <ImageView
+            android:id="@+id/welcome1LogoImage"
+            android:src="@drawable/welcome_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:contentDescription="@string/image_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/welcome1TitleText"
+            android:text="@string/app_name_short"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/labelGradientBckSecond"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcome1LogoImage"/>
+
+        <TextView
+            android:id="@+id/welcome1PublicText"
+            android:text="@string/welcome_1_public_beta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/welcome1TitleText"
+            app:layout_constraintTop_toBottomOf="@id/welcome1TitleText"/>
+
+        <TextView
+            android:id="@+id/welcome1GreetingText"
+            android:text="@string/welcome_1_greeting"
+            android:layout_width="0dp"
+            android:textColor="@color/color_black"
+            android:textStyle="bold"
+            android:layout_marginVertical="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcome1PublicText"/>
+
+        <TextView
+            android:id="@+id/welcome1MainText"
+            android:text="@string/welcome_1_main_text"
+            android:layout_width="0dp"
+            android:layout_margin="16dp"
+            android:autoLink="all"
+            android:linksClickable="true"
+            android:textColor="@color/color_black"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcome1GreetingText"/>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/welcome1CheckBox"
+            android:text="@string/welcome_1_check_box_text"
+            android:textColor="@color/color_black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:checked="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcome1MainText"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

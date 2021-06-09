@@ -1,17 +1,55 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.DiseaseTrackerProduction" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorAccent</item>
         <item name="colorOnPrimary">@color/colorPrimary</item>
-        <!-- Secondary brand color. -->
+
         <item name="colorSecondary">@color/colorPrimary</item>
         <item name="colorSecondaryVariant">@color/colorAccent</item>
         <item name="colorOnSecondary">@color/colorPrimary</item>
-        <!-- Status bar color. -->
+
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+
     </style>
+
+    <style name="ThemeDatePkr" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorOnPrimary">@android:color/white</item>
+    </style>
+
+    <style name="testSpinner">
+        <item name="android:background">@color/color_white</item>
+    </style>
+
+    <style name="testPicker">
+        <item name="android:backgroundTint">@color/color_white</item>
+    </style>
+
+
+
+
+    <!--<style name="AppStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/cPrimaryDark</item>
+        <item name="colorOnPrimary">@color/colorOnPrimaryDark</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariantDark</item>
+
+        <item name="colorAccent">@color/cAccentDark</item>
+
+        <item name="colorSecondary">@color/colorSecondaryDark</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariantDark</item>
+
+        <item name="android:colorBackground">@color/colorBackgroundDark</item>
+        <item name="colorOnBackground">@color/colorOnBackgroundDark</item>
+
+        <item name="colorSurface">@color/colorSurfaceDark</item>
+        <item name="colorOnSurface">@color/colorOnSurfaceDark</item>
+
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/colorOnError</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorAccent</item>
+    </style>-->
 
 </resources>

@@ -1,5 +1,7 @@
 package com.application.bmiobesity.model.retrofit
 
+import okhttp3.ResponseBody
+
 class RemoteRepo private constructor(){
 
     private val intimeApi: InTimeDigitalApi = NetworkService.getNetworkService().getApi()
@@ -44,14 +46,6 @@ class RemoteRepo private constructor(){
         return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
     }
 
-    suspend fun refreshToken(refresh: SendRefreshToken) = safeApiCall { mRefreshToken(refresh) }
-    private suspend fun mRefreshToken(refresh: SendRefreshToken): RetrofitResult<ResultToken>{
-        val result = intimeApi.refreshTokenAsync(refresh).await()
-        if (result.isSuccessful)
-            return RetrofitResult.Success(result.body()!!, result.code(), result.message())
-        return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
-    }
-
     suspend fun getTokenFromGoogle(code: SendGoogleTokenId) = safeApiCall { mGetTokenFromGoogle(code) }
     private suspend fun mGetTokenFromGoogle(code: SendGoogleTokenId): RetrofitResult<ResultTokenFromGoogle>{
         val result = intimeApi.getGoogleAuthAsync(code).await()
@@ -80,6 +74,26 @@ class RemoteRepo private constructor(){
             return RetrofitResult.Success(result.body()!!, result.code(), result.message())
         return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
     }
+    suspend fun deleteProfile() = safeApiCall { mDeleteProfile() }
+    private suspend fun mDeleteProfile(): RetrofitResult<ResultDeleteUser>{
+        val result = intimeApi.deleteProfileAsync("").await()
+        if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
+        return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
+    }
+
+    suspend fun getUserProfile() = safeApiCall { mGetUserProfile() }
+    private suspend fun mGetUserProfile(): RetrofitResult<ResultUserProfile>{
+        val result = intimeApi.getUserProfileAsync("").await()
+        if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
+        return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
+    }
+    suspend fun patchUserProfile(userProfile: SendUserProfile) = safeApiCall { mPatchUserProfile(userProfile) }
+    private suspend fun mPatchUserProfile(userProfile: SendUserProfile): RetrofitResult<ResultUserProfile>{
+        val result = intimeApi.patchUserProfileAsync("", userProfile).await()
+        if (result.isSuccessful)
+            return RetrofitResult.Success(result.body()!!, result.code(), result.message())
+        return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
+    }
 
     suspend fun passwordReset(mail: SendEmail) = safeApiCall { mPasswordReset(mail) }
     private suspend fun mPasswordReset(mail: SendEmail): RetrofitResult<String>{
@@ -101,9 +115,9 @@ class RemoteRepo private constructor(){
         return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
     }
 
-    suspend fun getUserProfile() = safeApiCall { mGetUserProfile() }
-    private suspend fun mGetUserProfile(): RetrofitResult<ResultUserProfile>{
-        val result = intimeApi.getUserProfileAsync("").await()
+    suspend fun updateMedCard(medCard: ResultMedCard) = safeApiCall { mUpdateMedCard(medCard) }
+    private suspend fun mUpdateMedCard(medCard: ResultMedCard): RetrofitResult<ResultMedCard>{
+        val result = intimeApi.updateMedCardAsync("", medCard).await()
         if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
         return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
     }
@@ -125,6 +139,34 @@ class RemoteRepo private constructor(){
     suspend fun getRecommendations(locale: String) = safeApiCall { mGetRecommendations(locale) }
     private suspend fun mGetRecommendations(locale: String): RetrofitResult<List<ResultRecommendation>>{
         val result = intimeApi.getRecommendationsAsync("", locale).await()
+        if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
+        return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
+    }
+
+    suspend fun getDashBoard() = safeApiCall { mGetDashBoard() }
+    private suspend fun mGetDashBoard(): RetrofitResult<UpdateResultDashBoard>{
+        val result = intimeApi.getDashBoardAsync("").await()
+        if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
+        return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
+    }
+
+    suspend fun updateDashBoard(dashBoard: UpdateResultDashBoard) = safeApiCall { mUpdateDashBoard(dashBoard) }
+    private suspend fun mUpdateDashBoard(dashBoard: UpdateResultDashBoard): RetrofitResult<UpdateResultDashBoard>{
+        val result = intimeApi.patchDashBoardAsync("", dashBoard).await()
+        if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
+        return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
+    }
+
+    suspend fun getFirsTimeStamp() = safeApiCall { mGetFirsTimeStamp() }
+    private suspend fun mGetFirsTimeStamp(): RetrofitResult<ResultFirstTimeStamp>{
+        val result = intimeApi.getFirsTimeStampAsync("").await()
+        if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
+        return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
+    }
+
+    suspend fun patchAvatar(image: UpdateResultAvatar) = safeApiCall { mPatchAvatar(image) }
+    private suspend fun mPatchAvatar(image: UpdateResultAvatar): RetrofitResult<UpdateResultAvatar>{
+        val result = intimeApi.patchAvatarAsync("", image).await()
         if (result.isSuccessful) return RetrofitResult.Success(result.body()!!, result.code(), result.message())
         return RetrofitResult.Error(result.message(), result.code(), result.errorBody())
     }
