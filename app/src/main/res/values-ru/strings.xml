@@ -1,0 +1,252 @@
+<resources>
+    
+    <!--hints-->
+    <string name="login_hint_email">Email адрес</string>
+    <string name="login_hint_password">Пароль</string>
+    <string name="login_hint_confirm_password">Подтвердите пароль</string>
+    <string name="login_hint_passwordCheck">Пароль должен содержать:</string>
+    <string name="login_hint_passwordCheck_length">не менее 8 символов</string>
+    <string name="login_hint_passwordCheck_number">\u0020 1 цифру</string>
+    <string name="login_hint_passwordCheck_symbol">\u0020 1 специальный символ</string>
+    <string name="login_hint_passwordCheck_match">пароли должны совпадать</string>
+    <string name="profile_hint_name">Имя</string>
+    <string name="profile_hint_surname">Фамилия</string>
+    <string name="gender_hint_not_say">Не скажу</string>
+
+    <!--buttons-->
+    <string name="button_sign_in">Войти</string>
+    <string name="button_sign_up">Зарегистрироваться</string>
+    <string name="button_sign_up_text">Нужен аккаунт?</string>
+    <string name="button_next">Далее</string>
+    <string name="button_skip">Пропустить</string>
+    <string name="button_got_it">Понятно</string>
+    <string name="button_dont_remember_password">Не помню пароль</string>
+    <string name="button_i_agree">Я согласен</string>
+    <string name="button_i_disagree">Я не согласен</string>
+    <string name="button_reset_pass">Сброс</string>
+    <string name="button_send">Отправить</string>
+    <string name="button_accept">Принять</string>
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Отмена</string>
+    <string name="button_yes">Да</string>
+    <string name="button_no">Нет</string>
+    <string name="button_done">Выполнить</string>
+    <string name="button_delete">Удалить</string>
+    <string name="button_subscribe">Подписаться</string>
+    <string name="button_subs_manage">Управление подпиской</string>
+    <string name="button_store">Магазин</string>
+
+    <!--menu-->
+    <string name="main_bottom_menu_home">Домой</string>
+    <string name="main_bottom_menu_profile">Профиль</string>
+    <string name="main_bottom_menu_medcard">Мед карта</string>
+
+    <string name="main_home_menu_favorite">Избранное</string>
+    <string name="main_home_menu_analyze">Анализ</string>
+    <string name="main_home_menu_recommendations">Рекомендации</string>
+
+    <string name="main_app_menu_setting">Настройки</string>
+    <string name="main_app_menu_subscriptions">Магазин</string>
+    <string name="main_app_menu_log_out">Выйти</string>
+
+    <!--switches-->
+    <string name="switch_disclaimer">Не показывать снова?</string>
+    <string name="switch_login_remember_password">Запомнить пароль</string>
+    <string name="switch_sign_in_privacy_agree">Я согласен с условиями</string>
+
+    <!--main activity-->
+    <string name="main_subs_info">Срок пробной версии истекает %1$s</string>
+    <string name="main_subs_expire">Срок пробной версии истёк</string>
+
+    <!--welcome fragment-->
+    <string name="welcome_1_main_text">Добро пожаловать в первую версию нашего приложения.\n\nОно находится в тестовом режиме, поэтому мы просим простить нас за возможные ошибки.\n\nПожалуйста, помогите нам улучшить это приложение, отправив свои отзывы и любые вопросы, связанные с его использованием, по адресу <b>support@intime.digital</b></string>
+    <string name="welcome_1_greeting">Поздравляем!</string>
+    <string name="welcome_1_check_box_text">Я хочу помочь сделать этот продукт лучше</string>
+
+    <string name="welcome_2_title">хранить все данные\nв одном месте</string>
+    <string name="welcome_2_main_text">\tЭто приложение - ваш личный цифровой биобанк и трекер здоровья с историей хранения записей.\n\n\tДобавьте данные в обязательные поля и подключите фитнес-приложение или носимые устройства для синхронизации.\n\n\tСегодня Вам нужно зарегистрировать свои данные вручную, но завтра мы их синхронизируем.\n\n\tПожалуйста, обновляйте свои данные.</string>
+
+    <string name="welcome_3_title">Отчёт о рисках и\nрекомендации</string>
+    <string name="welcome_3_main_text">\tПриложение предназначено для мониторинга в режиме реального времени ключевых параметров вашего тела, чтобы предоставить информацию о том, как они могут повлиять на долголетие и возможность развития серьезных заболеваний в будущем.\n\n\tНаш AI-сервер рассчитает ваши личные риски на основе собранных данных.\n\n\tДля лучшей производительности мы настоятельно рекомендуем постоянно измерять свои данные, даже если не было значительных событий, которые повлияли на изменения ваших параметров.</string>
+
+    <string name="welcome_4_title">следите за обновлениями</string>
+    <string name="welcome_4_main_text">\tСамое главное, что чем дольше вы измеряете и храните свои данные, тем точнее будет расчет рисков и прогнозов.\n\n\tВ будущем мы увеличим количество параметров.\n\n\tОтслеживай раньше. Живи дольше.</string>
+
+    <string name="welcome_5_title">помогите нам</string>
+    <string name="welcome_5_main_text">\tПожалуйста, оцените нас на странице Google Play и оставьте свои комментарии. Это поможет другим найти наше приложение и извлечь из него пользу для здоровья.\n\n\tТакже мы хотим, чтобы вы ответили на несколько вопросов о нашем продукте.\n\n\tЕсли вы сможете нам помочь, мы отправим его на вашу электронную почту.</string>
+    <string name="welcome_5_question_check_text">Получить анкету</string>
+    <string name="welcome_5_update_check_text">Получать наши обновления и новости</string>
+
+    <!--disclaimer fragment-->
+    <string name="disclaimer_title">Дисклаймер!</string>
+
+    <!--welcome text fragment-->
+    <string name="welcome_title">Добро пожаловать!</string>
+
+    <!--sign up fragment-->
+    <string name="policy_title">Принять политику конфиденциальности</string>
+    <string name="sign_up_success">Для завершения регистрации вам необходимо перейти по ссылке, отправленной вам по электронной почте.</string>
+
+    <!--forgot password fragment-->
+    <string name="forgot_pass_text">Если вы забыли пароль, введите свой адрес электронной почты, и мы отправим на него проверочный код, после чего вы сможете сбросить свой пароль.</string>
+    <string name="forgot_pass_title">Сбросить пароль</string>
+    <string name="forgot_pass_sending_info">Для завершения сброса пароля вам необходимо перейти по ссылке, отправленной по электронной почте.</string>
+
+    <!--reset password fragment-->
+    <string name="reset_pass_title">Новый пароль</string>
+    <string name="reset_pass_text">Введите новый пароль</string>
+    <string name="reset_pass_success">Пароль успешно изменён!</string>
+
+    <!--recommendations fragment-->
+    <string name="recom_title_common">Общие рекомендации</string>
+    <string name="recom_title_personal">Персональные рекомендации</string>
+    <string name="recom_subs_info">Срок действия пробной версии истек. Обновите подписку.</string>
+
+    <!--profile fragment-->
+    <string name="profile_gender_title">Выберите пол</string>
+    <string name="profile_height_title">Рост</string>
+    <string name="profile_height_message">Пожалуйста, введите свой рост</string>
+    <string name="profile_smoker_title">Вы курите?</string>
+    <string name="profile_welcome_dialog_title">Добро пожаловать в наше приложение!</string>
+    <string name="profile_welcome_dialog_message">Здравствуйте, для корректной работы нашего приложения, пожалуйста, заполните основную информацию о себе.</string>
+    <string name="profile_firs_time_msg">Пожалуйста, заполните следующие поля и нажмите на кнопку \"Далее\":\n</string>
+
+    <!--medcard fragment-->
+    <string name="medcard_card_item_source_type">Источник данных:</string>
+    <string name="medcard_card_item_measur_freq">Частота измерений:</string>
+    <string name="medcard_card_item_last_update">Последнее обновление:</string>
+    <string name="medcard_dialog_source_type">Пожалуйста, укажите источник данных:</string>
+    <string name="medcard_first_dialog_title">Последний шаг!</string>
+    <string name="medcard_first_dialog_message">Для корректной работы приложения введите свои медицинские данные.</string>
+
+    <!--setting fragment-->
+    <string name="setting_delete_dialog_title">Удаление профиля</string>
+    <string name="setting_delete_dialog_message">Удаляя свой профиль Вы безвозвратно теряете все данные на нашем сайте и в мобильном приложении. Операция необратима и Вы больше не сможете войти в свой аккаунт.</string>
+    <string name="setting_measure_dialog_title">Выберите систему измерений</string>
+    <string name="setting_measure_metric">Метрическая</string>
+    <string name="setting_measure_imperial">Английская</string>
+
+    <!--subscription fragment-->
+    <string name="subs_text_cost">Цена:</string>
+    <string name="subs_text_activated">Активирована</string>
+
+    <!--medcard parameters name-->
+    <string name="medcard_name_weight">Вес</string>
+    <string name="medcard_name_hip">Бёдра</string>
+    <string name="medcard_name_waist">Талия</string>
+    <string name="medcard_name_wrist">Запястье</string>
+    <string name="medcard_name_neck">Шея</string>
+    <string name="medcard_name_heart_rate_alone">Сердечный ритм</string>
+    <string name="medcard_name_daily_activity_level">Уровень активности</string>
+    <string name="medcard_name_blood_pressure_sys">Давление систолическое</string>
+    <string name="medcard_name_blood_pressure_dia">Давление диастолическое</string>
+    <string name="medcard_name_cholesterol">Холестерин</string>
+    <string name="medcard_name_glucose">Глюкоза</string>
+
+    <string name="medcard_name_daily_minimum">Минимальный</string>
+    <string name="medcard_name_daily_lower">Низкий</string>
+    <string name="medcard_name_daily_medium">Средний</string>
+    <string name="medcard_name_daily_high">Высокий</string>
+    <string name="medcard_name_daily_very_high">Очень высокий</string>
+
+    <string name="medcard_daily_minimum_desc">Пассивный образ жизни</string>
+    <string name="medcard_daily_lower_desc">Легкий физический труд, пешие прогулки</string>
+    <string name="medcard_daily_medium_desc">Физический труд или тренировки 3–5 раз в неделю</string>
+    <string name="medcard_daily_high_desc">Тяжелый физический труд или тренировки 6–7 раз в неделю</string>
+    <string name="medcard_daily_very_high_desc">Разгружаю вагоны днем и ночью</string>
+
+    <!--medcard measurement frequency-->
+    <string name="medcard_frequency_weight">один раз в неделю</string>
+    <string name="medcard_frequency_hip">один раз в две недели, или при изменении веса</string>
+    <string name="medcard_frequency_waist">один раз в две недели, или при изменении веса</string>
+    <string name="medcard_frequency_wrist">однажды</string>
+    <string name="medcard_frequency_neck">каждые шесть месяцев</string>
+    <string name="medcard_frequency_heart_rate_alone">1–3 раза в день</string>
+    <string name="medcard_frequency_daily_activity_level">раз в месяц</string>
+    <string name="medcard_frequency_blood_pressure_sys">1–3 раза в день</string>
+    <string name="medcard_frequency_blood_pressure_dia">1–3 раза в день</string>
+    <string name="medcard_frequency_cholesterol">раз в месяц</string>
+    <string name="medcard_frequency_glucose">раз в месяц</string>
+    <!--medcard long description-->
+    <string name="medcard_long_description_weight">Масса тела</string>
+    <string name="medcard_long_description_hip">Окружность бёдер</string>
+    <string name="medcard_long_description_waist">Окружность талии</string>
+    <string name="medcard_long_description_wrist">Окружность запястья в самом узком месте</string>
+    <string name="medcard_long_description_neck">Окружность шеи</string>
+    <string name="medcard_long_description_heart_rate_alone">Сердечный ритм</string>
+    <string name="medcard_long_description_daily_activity_level">Средний уровень физической активности в течение дня</string>
+    <string name="medcard_long_description_blood_pressure_sys">Систолическое артериальное давление - показывает, какое давление ваша кровь оказывает на стенки артерий во время удара сердца.</string>
+    <string name="medcard_long_description_blood_pressure_dia">Диастолическое артериальное давление - показывает, какое давление ваша кровь оказывает на стенки артерий между ударами сердца.</string>
+    <string name="medcard_long_description_cholesterol">Уровень холестерина в крови</string>
+    <string name="medcard_long_description_glucose">Уровень глюкозы в крови</string>
+
+    <!--result card name-->
+    <string name="result_card_name_bmi">ИМТ (индекс Кетле)</string>
+    <string name="result_card_name_obesity_level">Уровень ожирения</string>
+    <string name="result_card_name_ideal_weight">Идеальный вес</string>
+    <string name="result_card_name_base_metabolism">Базовый метаболизм</string>
+    <string name="result_card_name_waist_to_hip_proportion">Соотношение талии и бедер </string>
+    <string name="result_card_name_passport_age">Биологический возраст</string>
+    <string name="result_card_name_common_risk_level">Уровень риска</string>
+    <string name="result_card_name_fat_percent">Процент подкожного жира</string>
+    <string name="result_card_name_body_type">Тип телосложения</string>
+
+    <!--parameters unit name-->
+    <string name="unit_name_kg_si">кг</string>
+    <string name="unit_name_kg_im">фунт</string>
+    <string name="unit_name_sm_si">см</string>
+    <string name="unit_name_sm_im">дюйм</string>
+    <string name="unit_name_mmrtst_si">мм рт.ст.</string>
+    <string name="unit_name_mmrtst_im">КПа</string>
+    <string name="unit_name_mmoll_si">ммоль/л</string>
+    <string name="unit_name_mmoll_im">мг/Дл</string>
+    <string name="unit_name_bpm_si">уд/мин</string>
+
+    <!--error messages-->
+    <string name="error_unauthorized">Неверные имя пользователя, или пароль</string>
+    <string name="error_not_found">Пользователь не найден</string>
+    <string name="error_token_invalid">Попробуйте снова</string>
+    <string name="error_connection">Нет интернет соединения</string>
+    <string name="error_connection_socket_timeout">Сервер не отвечает</string>
+    <string name="error_common">Что-то пошло не так, повторите попытку</string>
+    <string name="error_data_not_available">Данные не доступны</string>
+
+    <!--error message for form fields-->
+    <string name="error_form_fields_incorrect_email">Введите корректный email</string>
+    <string name="error_form_fields_incorrect_password">Введите корректный пароль</string>
+    <string name="error_form_fields_different_password">Введите одинаковые пароли</string>
+    <string name="error_form_fields_empty_password">Введите пароль</string>
+    <string name="error_form_fields_email_exist">Такой email уже существует</string>
+    <string name="error_form_field_email_not_registered">Email не зарегистрирован</string>
+    <string name="error_form_profile_name">Введите имя</string>
+    <string name="error_form_profile_surname">Введите фамилию</string>
+
+    
+
+    <!--text-->
+    <string name="text_welcome">Уважаемый Клиент! Вы скачали первую версию приложения BMI Disease Tracker. Она находится в тестовом режиме, поэтому мы просим простить нас за возможные ошибки. Пожалуйста, помогите нам улучшить это приложение, отправив на support@intime.digital свой отзыв и любые вопросы, связанные с его использованием. В данный момент приложение имеет технический дизайн, который вскоре будет улучшен. Приложение BMI Disease Tracker создано для мониторинга в режиме реального времени ключевых параметров Вашего организма для предоставления информации о том, как они могут повлиять на долголетие и возможность развития тяжелых заболеваний в будущем. Пожалуйста, укажите необходиые данные вручную в необходимых полях и/или подключитесь к Вашему фитнес приложению для синхронизации данных. Если не все поля были синхронизированы, пожалуйста, добавьте данные вручную. Вы можете проверить данные по уровню сахара и холестерина в крови в своих последних медицинских анализах, если не помните свои последние результаты. Наш AI-сервер рассчитает Ваши личные риски в зависимости от собранных данных и предоставит предложения относительно рисков и рекомендаций для уменьшения вероятности возможного развития заболеваний. Чем точнее Вы введете свои данные, тем точнее будут результаты и рекомендации. Частота обновления рисков и рекомендаций зависит от того как часто обновляются данные в Вашем фитнес приложении, или Вы обновляете их вручную. В следующих версиях мы планируем уменьшить количество данных вводимых вручную за счет расширения количества поддерживаемых фитнес-приложений и отдельных устройств для обновления рисков и рекомендаций в режиме реального времени без каких-либо дополнительных неудобств. Вам предоставляется бесплатный период 2 недели для первичного ознакомления с приложением. Далее Вам будет предложена ежемесячная подписка, по цене меньше кружки кофе, за 149 руб. в месяц. Стоимость подписки будет расти для новых клиентов, но для первых наших пользователей, которые согласились сохранить приложение и пользоваться им даже с минимальным функционалом специальные условия останутся на годы. Самое важное, что, чем дольше Вы будете замерять свои данные, хранить, обновлять их в приложении руками или через Google Fit / Health Kit или Ваши умные носимые устройства, то тем точнее будет расчет рисков и прогнозов. Мы сможем улучшить точность и довести ее до 95%. Пожалуйста, обратите внимание, что это приложение только для информационных и образовательных целей. Оно дает «второе мнение» и в будущем будет доступна возможность поделиться результатами анализа с Вашим лечащим врачом или найти врача через наших партнеров. Это не медицинское приложение и все решения, связанные с этим приложением, Вы принимаете самостоятельно. Мы будем уведомлять Вас о новых обновлениях, каждое из которых предназначено для предоставления Вам большей информации о состоянии Вашего здоровья и о том как Вы можете избежать вероятности развития некоторых заболеваний в будущем. Для получения дополнительной информации, пожалуйста, посетите: www.inTime.digital</string>
+    <string name="text_disclaimer">Наш сервис - это не медицинская услуга. Проконсультируйтесь у специалиста. Информация, представленная в этом приложении, предназначена только для информационных целей и не должна использоваться для диагностики или лечения. Наши услуги не заменяют профессиональное медицинское обслуживание. Если у вас есть или вы подозреваете, что у вас могут быть проблемы со здоровьем, проконсультируйтесь с врачом. Наши услуги - это второе / третье мнение, основанное на алгоритмах и статистике искусственного интеллекта. Мы проводим диагностику только вероятности развития заболеваний на основании данных о состоянии здоровья людей с аналогичными параметрами.</string>
+
+    <!--personal data parameters-->
+    <string name="personal_info">Персональная информация</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="date_of_birth">Дата рождения</string>
+    <string name="gender">Пол</string>
+    <string name="height">Рост</string>
+    <string name="smoker">Курильщик</string>
+    <string name="skin">Тип кожи</string>
+    <string name="diseases">Заболевания</string>
+
+    <!--settings-->
+    <string name="settings">Настройки</string>
+    <string name="connections">Соединения</string>
+    <string name="countries">Страна</string>
+    <string name="delete_profile">Удалить профиль</string>
+    <string name="more">Больше</string>
+    <string name="communication_with_the_doctor">Связаться с доктором</string>
+    <string name="help_n_support"><![CDATA[Помощь и поддержка]]></string>
+    <string name="save">Сохранить</string>
+    <string name="sign_in_or">---ИЛИ---</string>
+    <string name="setting_measure">Система измерения</string>
+</resources>

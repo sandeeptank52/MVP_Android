@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.application.bmiobesity.common.Event
 
 class EventManagerMain private constructor() : MainViewModelEvent,
-                                                MainActivityEvent{
+                                                MainActivityEvent,
+                                                MainSettingEvent{
 
     // Main activity
     // View Model side
@@ -18,7 +19,20 @@ class EventManagerMain private constructor() : MainViewModelEvent,
 
     override fun getPreloadSuccessEvent(): LiveData<Event<Boolean>> = preloadSuccess
 
+    // Setting fragment
+    // View Model side
+    private val mStartDeletingUser: MutableLiveData<Event<Boolean>> = MutableLiveData<Event<Boolean>>()
+    private val mEndDeletingUser: MutableLiveData<Event<Boolean>> = MutableLiveData<Event<Boolean>>()
 
+    override fun startUserDeleting(e: Boolean) = mStartDeletingUser.postValue(Event(e))
+    override fun endUserDeleting(e: Boolean) = mEndDeletingUser.postValue(Event(e))
+
+    // fragment Side
+    private val startDeletingUser: LiveData<Event<Boolean>> = mStartDeletingUser
+    private val endDeletingUser: LiveData<Event<Boolean>> = mEndDeletingUser
+
+    override fun getStartUserDeleting() = startDeletingUser
+    override fun getEndUserDeleting() = endDeletingUser
 
     companion object{
         @Volatile

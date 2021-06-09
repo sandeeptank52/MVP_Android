@@ -21,4 +21,8 @@ data class Genders(
         resultSimpleGender.id ?: 0,
         resultSimpleGender.value ?: ""
     )
+
+    override fun toString(): String {
+        return value
+    }
 }

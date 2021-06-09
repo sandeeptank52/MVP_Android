@@ -55,7 +55,7 @@ class RefreshTokenAuthenticator : Authenticator, Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
 
         val originalRequest = chain.request()
-        val authHeader = originalRequest.header("Authorization") ?: return chain.proceed(originalRequest)
+        originalRequest.header("Authorization") ?: return chain.proceed(originalRequest)
 
         synchronized(this){
             val newRequest = originalRequest.newBuilder()

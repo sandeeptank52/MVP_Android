@@ -13,7 +13,7 @@ class NetworkService private constructor(){
     private val interceptor = HttpLoggingInterceptor()
 
     init {
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        interceptor.level = HttpLoggingInterceptor.Level.NONE
 
         val client = OkHttpClient.Builder()
                 .addInterceptor(RefreshTokenAuthenticator())

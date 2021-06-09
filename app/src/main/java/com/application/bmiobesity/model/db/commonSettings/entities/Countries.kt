@@ -21,4 +21,8 @@ data class Countries(
         resultSimpleCountry.id ?: 0,
         resultSimpleCountry.value ?: ""
     )
+
+    override fun toString(): String {
+        return value
+    }
 }

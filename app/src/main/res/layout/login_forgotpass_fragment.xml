@@ -5,13 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_white"
     tools:context=".view.loginActivity.forgotPass.ForgotPassFragment">
 
     <TextView
         android:id="@+id/forgotPassTextViewTitle"
         android:text="@string/forgot_pass_title"
         android:textSize="22sp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/color_black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/standart_margin_top_logo"
@@ -27,6 +28,7 @@
         android:layout_marginTop="@dimen/standart_margin_top_logo"
         android:gravity="center_horizontal"
         android:text="@string/forgot_pass_text"
+        android:textColor="@color/color_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/forgotPassTextViewTitle" />
@@ -38,7 +40,11 @@
         android:layout_marginTop="@dimen/standart_margin_top_logo"
         app:errorEnabled="true"
         android:hint="@string/login_hint_email"
-        app:boxBackgroundColor="@android:color/white"
+        app:boxBackgroundColor="@color/color_white"
+        android:textColorHint="@color/color_black"
+        app:boxStrokeColor="@color/color_black"
+        app:boxStrokeErrorColor="@color/red_900"
+        app:endIconTint="@color/color_black"
         app:endIconMode="custom"
         app:endIconDrawable="@drawable/sign_up_mail"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +54,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/forgotPassTextInputEditTextMail"
             android:focusable="true"
+            android:textColor="@color/color_black"
             android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -70,7 +77,7 @@
         android:id="@+id/forgotPassButtonSend"
         android:text="@string/button_send"
         android:enabled="false"
-        android:textColor="@android:color/white"
+        android:textColor="@color/color_white"
         android:background="@drawable/common_button_selector"
         android:layout_marginTop="@dimen/standart_margin_top_logo"
         android:layout_width="@dimen/standart_width_field_logo"
@@ -78,7 +85,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/forgotPassProgressBar"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

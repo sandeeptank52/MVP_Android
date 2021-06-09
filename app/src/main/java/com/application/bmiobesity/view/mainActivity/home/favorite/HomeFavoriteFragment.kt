@@ -1,6 +1,7 @@
 package com.application.bmiobesity.view.mainActivity.home.favorite
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -36,7 +37,7 @@ class HomeFavoriteFragment : Fragment(R.layout.main_home_favorite_fragment) {
 
     private fun onClickResultCardMenu(card: ResultCard){
         if (card.description.isNotEmpty()){
-            Toast.makeText(requireContext(), card.description, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), card.description, Toast.LENGTH_LONG).show()
         }
     }
 
