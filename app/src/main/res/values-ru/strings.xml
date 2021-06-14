@@ -30,7 +30,7 @@
     <string name="button_cancel">Отмена</string>
     <string name="button_yes">Да</string>
     <string name="button_no">Нет</string>
-    <string name="button_done">Выполнить</string>
+    <string name="button_done">Рассчитать риски</string>
     <string name="button_delete">Удалить</string>
     <string name="button_subscribe">Подписаться</string>
     <string name="button_subs_manage">Управление подпиской</string>
@@ -159,7 +159,7 @@
     <string name="medcard_frequency_weight">один раз в неделю</string>
     <string name="medcard_frequency_hip">один раз в две недели, или при изменении веса</string>
     <string name="medcard_frequency_waist">один раз в две недели, или при изменении веса</string>
-    <string name="medcard_frequency_wrist">однажды</string>
+    <string name="medcard_frequency_wrist">каждые шесть месяцев</string>
     <string name="medcard_frequency_neck">каждые шесть месяцев</string>
     <string name="medcard_frequency_heart_rate_alone">1–3 раза в день</string>
     <string name="medcard_frequency_daily_activity_level">раз в месяц</string>
@@ -184,7 +184,7 @@
     <string name="result_card_name_bmi">ИМТ (индекс Кетле)</string>
     <string name="result_card_name_obesity_level">Уровень ожирения</string>
     <string name="result_card_name_ideal_weight">Идеальный вес</string>
-    <string name="result_card_name_base_metabolism">Базовый метаболизм</string>
+    <string name="result_card_name_base_metabolism">Базальный метаболизм</string>
     <string name="result_card_name_waist_to_hip_proportion">Соотношение талии и бедер </string>
     <string name="result_card_name_passport_age">Биологический возраст</string>
     <string name="result_card_name_common_risk_level">Уровень риска</string>

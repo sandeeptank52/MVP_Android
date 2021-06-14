@@ -33,7 +33,7 @@
     <string name="button_cancel">Cancel</string>
     <string name="button_yes">Yes</string>
     <string name="button_no">No</string>
-    <string name="button_done">Done</string>
+    <string name="button_done">Calculate risks</string>
     <string name="button_delete">Delete</string>
     <string name="button_subscribe">Subscribe</string>
     <string name="button_subs_manage">Subscription management</string>
@@ -168,7 +168,7 @@
     <string name="medcard_frequency_weight">once per week</string>
     <string name="medcard_frequency_hip">once per two week or when weight changes</string>
     <string name="medcard_frequency_waist">once per two week or when weight changes</string>
-    <string name="medcard_frequency_wrist">one time</string>
+    <string name="medcard_frequency_wrist">once every six mont</string>
     <string name="medcard_frequency_neck">once every six month</string>
     <string name="medcard_frequency_heart_rate_alone">one or three times a day</string>
     <string name="medcard_frequency_daily_activity_level">once per month</string>
@@ -193,7 +193,7 @@
     <string name="result_card_name_bmi">BMI (Ketle index)</string>
     <string name="result_card_name_obesity_level">Obesity level</string>
     <string name="result_card_name_ideal_weight">Ideal weight</string>
-    <string name="result_card_name_base_metabolism">Base metabolism</string>
+    <string name="result_card_name_base_metabolism">Basal metabolism</string>
     <string name="result_card_name_waist_to_hip_proportion">Waist to hip ratio</string>
     <string name="result_card_name_passport_age">Biological age</string>
     <string name="result_card_name_common_risk_level">Main risk level</string>
