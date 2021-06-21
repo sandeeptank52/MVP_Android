@@ -1,4 +1,7 @@
 <resources>
+    <string name="facebook_app_id" translatable="false">408379096985043</string>
+    <string name="facebook_client_token" translatable="false">e43a07afe12ba2a13dd7703c63c16f2d</string>
+
     <string name="app_name" translatable="false">Body Mass Index Disease Tracker</string>
     <string name="app_name_short" translatable="false">BMI Disease Tracker</string>
     <string name="server_client_id" translatable="false">403561407577-tbsv2nomg2981hd1b7cd2dt7bek43267.apps.googleusercontent.com</string>
