@@ -68,6 +68,7 @@ class RefreshTokenAuthenticator : Authenticator, Interceptor {
             val code = response.code
 
             if (code == 403){
+                response.close()
                 updateToken()
 
                 val validRequest = newRequest.newBuilder()
@@ -86,9 +87,11 @@ class RefreshTokenAuthenticator : Authenticator, Interceptor {
     private fun updateToken(){
         val sendRefresh = SendRefresh(REFRESH_TOKEN)
         val sendRefreshToken = SendRefreshToken(sendRefresh, sendDevice)
+
         val response = refreshService.getApi().refreshToken(sendRefreshToken).execute()
         val access = response.body()?.access
         val refresh = response.body()?.refresh
+
         if (!access.isNullOrEmpty() && !refresh.isNullOrEmpty()){
             this.ACCESS_TOKEN = access
             this.REFRESH_TOKEN = refresh

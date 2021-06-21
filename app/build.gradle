@@ -6,7 +6,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 def mainVersion = 2
 def featureVersion = 0
-def version_code = 1
+def version_code = 2
 
 android {
     signingConfigs {
@@ -78,6 +78,14 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:28.1.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
+
+    // facebook
+    implementation 'com.facebook.android:facebook-android-sdk:8.1.0'
+    implementation 'com.facebook.android:facebook-core:8.1.0'
+    implementation 'com.facebook.android:facebook-login:8.1.0'
+
+    // Yandex AppMetrica SDK
+    implementation 'com.yandex.android:mobmetricalib:3.21.0'
 
     // Material
     implementation 'com.google.android.material:material:1.3.0'
