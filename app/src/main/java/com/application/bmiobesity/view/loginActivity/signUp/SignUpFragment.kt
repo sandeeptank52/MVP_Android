@@ -219,7 +219,9 @@ class SignUpFragment : Fragment(R.layout.login_signup_fragment) {
         super.onDestroyView()
     }
     override fun onDestroy() {
-        if (!allDisposable.isDisposed) allDisposable.dispose()
+        allDisposable?.let {
+            if (!allDisposable.isDisposed) allDisposable.dispose()
+        }
         super.onDestroy()
     }
 

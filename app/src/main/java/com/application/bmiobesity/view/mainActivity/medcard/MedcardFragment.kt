@@ -81,7 +81,6 @@ class MedcardFragment : Fragment(R.layout.main_medcard_fragment) {
         initListeners()
     }
 
-
     private fun init(){
         sourceTypeSpinnerAdapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_dropdown_item, mainModel.medCardSourceType)
         val dailyLevels = arrayListOf<String>(

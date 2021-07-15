@@ -127,6 +127,7 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
             signInBinding?.signInTextInputEditTextMail?.setText(user.email)
             signInBinding?.signInTextInputEditTextPass?.setText(user.password)
             signInBinding?.signInSwitchRememberPassword?.isChecked = true
+            signInAction()
         })
         eventManager.getSignInShowErrorMessageEvent().observe(viewLifecycleOwner, EventObserver{
             setEnabledInterface(true)
@@ -208,7 +209,9 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
         super.onDestroyView()
     }
     override fun onDestroy() {
-        if (!allDisposable.isDisposed) allDisposable.dispose()
+        allDisposable?.let {
+            if (!allDisposable.isDisposed) allDisposable.dispose()
+        }
         super.onDestroy()
     }
 

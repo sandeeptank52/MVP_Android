@@ -135,7 +135,9 @@ class ForgotPassFragment : Fragment(R.layout.login_forgotpass_fragment) {
         super.onDestroyView()
     }
     override fun onDestroy() {
-        if (!allDisposable.isDisposed) allDisposable.dispose()
+        allDisposable?.let {
+            if (!allDisposable.isDisposed) allDisposable.dispose()
+        }
         super.onDestroy()
     }
 }

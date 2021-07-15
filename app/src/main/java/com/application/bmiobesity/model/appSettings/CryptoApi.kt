@@ -15,21 +15,23 @@ class CryptoApi private constructor(){
     private val androidStore = "AndroidKeyStore"
     private val intimeAlias = "intimeCrypto"
     private val keySize = 2048
+    private val transformation = "RSA/ECB/PKCS1Padding"
+    private val provider = "AndroidOpenSSL"
 
-    private val mKeyStore: KeyStore
+    private val mKeyStore: KeyStore = KeyStore.getInstance(androidStore).apply { load(null) }
 
     init {
-        mKeyStore = KeyStore.getInstance(androidStore).apply { load(null) }
         if (!mKeyStore.containsAlias(intimeAlias)) initKey()
     }
 
     fun encryptString(src: String): String{
         val public = mKeyStore.getCertificate(intimeAlias).publicKey
-        val encryptCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
+        val encryptCipher = Cipher.getInstance(transformation, provider)
         encryptCipher.init(Cipher.ENCRYPT_MODE, public)
 
         val srcSize = src.length
         val blockSize = encryptCipher.blockSize
+
         val srcByteArray = src.toByteArray()
 
         if (srcSize > blockSize){
@@ -63,7 +65,7 @@ class CryptoApi private constructor(){
     fun decryptString(src: String?): String{
         if (src.isNullOrEmpty()) return ""
         val private = mKeyStore.getKey(intimeAlias, null) as PrivateKey
-        val decryptCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
+        val decryptCipher = Cipher.getInstance(transformation)
         decryptCipher.init(Cipher.DECRYPT_MODE, private)
 
         val blockSize =  decryptCipher.getOutputSize(keySize)
@@ -98,7 +100,7 @@ class CryptoApi private constructor(){
         val paramSpec = KeyGenParameterSpec.Builder(
             intimeAlias,
             KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT).run {
-            setDigests(KeyProperties.DIGEST_SHA256, KeyProperties.DIGEST_SHA512)
+            setDigests(KeyProperties.DIGEST_SHA256)
             setKeySize(keySize)
             setBlockModes(KeyProperties.BLOCK_MODE_ECB)
             setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1)
