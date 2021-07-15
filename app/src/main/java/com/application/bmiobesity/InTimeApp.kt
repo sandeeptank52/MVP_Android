@@ -19,7 +19,7 @@ class InTimeApp : MultiDexApplication() {
         super.onCreate()
         APPLICATION = this
         appComponent = DaggerApplicationComponent.factory().create(applicationContext)
-        initYandexAppMetric()
+        //initYandexAppMetric()
     }
 
     private fun initYandexAppMetric(){
