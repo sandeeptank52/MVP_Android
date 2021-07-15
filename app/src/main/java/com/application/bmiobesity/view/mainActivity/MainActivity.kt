@@ -25,6 +25,7 @@ import com.application.bmiobesity.common.EventObserver
 import com.application.bmiobesity.common.eventManagerMain.EventManagerMain
 import com.application.bmiobesity.common.eventManagerMain.MainActivityEvent
 import com.application.bmiobesity.databinding.MainActivityBinding
+import com.application.bmiobesity.model.appSettings.AppSettingDataStore
 import com.application.bmiobesity.utils.getDateStrFromMS
 import com.application.bmiobesity.view.loginActivity.LoginActivity
 import com.application.bmiobesity.viewModels.MainViewModel
@@ -51,6 +52,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mainBinding = MainActivityBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
+
+        eventManager.getPreloadSuccessEvent().observe(this, EventObserver{
+            if (it) mainBinding.mainFrameLayoutWaiting.visibility = View.GONE
+        })
 
         lifecycle.addObserver(mainModel.billingClient)
 
@@ -96,9 +101,9 @@ class MainActivity : AppCompatActivity() {
                     addListeners()
                 } else {
                     mainBinding.mainBottomNavigationView.visibility = View.VISIBLE
-                    addListeners()
                     initMainBottomNav()
                     initMainMenu()
+                    addListeners()
                 }
             }
         }
@@ -129,9 +134,14 @@ class MainActivity : AppCompatActivity() {
         navController.navigate(R.id.mainNavToSetting)
     }
     private fun logOutMenuAction(){
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
-        finish()
+        lifecycleScope.launch(Dispatchers.IO) {
+            mainModel.appSetting.setStringParam(AppSettingDataStore.PrefKeys.USER_PASS, "")
+            withContext(Dispatchers.Main){
+                val intent = Intent(applicationContext, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 
     private fun setAvatar(url: String){
@@ -160,9 +170,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addListeners(){
-        eventManager.getPreloadSuccessEvent().observe(this, EventObserver{
+        /*eventManager.getPreloadSuccessEvent().observe(this, EventObserver{
             if (it) mainBinding.mainFrameLayoutWaiting.visibility = View.GONE
-        })
+        })*/
 
         mainBinding.mainImageViewAvatarIcon.setOnClickListener {
             when (PackageManager.PERMISSION_GRANTED) {

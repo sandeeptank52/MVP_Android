@@ -140,7 +140,9 @@ class ResetPassFragment : Fragment(R.layout.login_resetpass_fragment) {
         super.onDestroyView()
     }
     override fun onDestroy() {
-        if (!allDisposable.isDisposed) allDisposable.dispose()
+        allDisposable?.let {
+            if (!allDisposable.isDisposed) allDisposable.dispose()
+        }
         super.onDestroy()
     }
 
