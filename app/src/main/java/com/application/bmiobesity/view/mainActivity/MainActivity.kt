@@ -26,6 +26,7 @@ import com.application.bmiobesity.common.eventManagerMain.EventManagerMain
 import com.application.bmiobesity.common.eventManagerMain.MainActivityEvent
 import com.application.bmiobesity.databinding.MainActivityBinding
 import com.application.bmiobesity.model.appSettings.AppSettingDataStore
+import com.application.bmiobesity.services.google.signIn.GoogleSignInService
 import com.application.bmiobesity.utils.getDateStrFromMS
 import com.application.bmiobesity.view.loginActivity.LoginActivity
 import com.application.bmiobesity.viewModels.MainViewModel
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     private val eventManager: MainActivityEvent = EventManagerMain.getEventManager()
     private lateinit var navController: NavController
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var mGoogleSignInService: GoogleSignInService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,9 +103,9 @@ class MainActivity : AppCompatActivity() {
                     addListeners()
                 } else {
                     mainBinding.mainBottomNavigationView.visibility = View.VISIBLE
+                    addListeners()
                     initMainBottomNav()
                     initMainMenu()
-                    addListeners()
                 }
             }
         }
@@ -137,6 +139,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             mainModel.appSetting.setStringParam(AppSettingDataStore.PrefKeys.USER_PASS, "")
             withContext(Dispatchers.Main){
+                mGoogleSignInService.mGoogleSignInClient.signOut()
                 val intent = Intent(applicationContext, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -170,9 +173,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addListeners(){
-        /*eventManager.getPreloadSuccessEvent().observe(this, EventObserver{
+        eventManager.getPreloadSuccessEvent().observe(this, EventObserver{
             if (it) mainBinding.mainFrameLayoutWaiting.visibility = View.GONE
-        })*/
+        })
 
         mainBinding.mainImageViewAvatarIcon.setOnClickListener {
             when (PackageManager.PERMISSION_GRANTED) {

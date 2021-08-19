@@ -105,7 +105,7 @@ class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
 
     private fun addRX(){
         val nameDisposable = profileBinding?.nameEt?.textChanges()
-            ?.skipInitialValue()
+            //?.skipInitialValue()
             ?.subscribe {
                 if (it.isNullOrEmpty()){
                     setErrorEnabled(true)
@@ -116,18 +116,18 @@ class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
                 }
             }
         val nameFocusDisposable = profileBinding?.nameEt?.focusChanges()
-            ?.skipInitialValue()
+            //?.skipInitialValue()
             ?.subscribe {
-                if (!it && !nameIsHasError()){
+                /*if (!it && !nameIsHasError()){
                     profileBinding?.nameEt?.text?.toString()?.let { name ->
                         currentProfile.firstName = name
                         mainModel.patchProfile(currentProfile)
                     }
-                }
+                }*/
             }
 
         val surnameDisposable = profileBinding?.surnameEt?.textChanges()
-            ?.skipInitialValue()
+            //?.skipInitialValue()
             ?.subscribe {
                 if (it.isNullOrEmpty()){
                     setErrorEnabled(true)
@@ -138,14 +138,14 @@ class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
                 }
             }
         val surnameFocusDisposable = profileBinding?.surnameEt?.focusChanges()
-            ?.skipInitialValue()
+            //?.skipInitialValue()
             ?.subscribe {
-                if (!it && !surnameIsHasError()){
+                /*if (!it && !surnameIsHasError()){
                     profileBinding?.surnameEt?.text?.toString()?.let { surname ->
                         currentProfile.lastName = surname
                         mainModel.patchProfile(currentProfile)
                     }
-                }
+                }*/
             }
         allDisposable.addAll(nameDisposable, nameFocusDisposable, surnameDisposable, surnameFocusDisposable)
     }
@@ -331,6 +331,17 @@ class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
         val year = calendar.get(Calendar.YEAR).toString()
         return "${dayStr}.${mothStr}.${year}"
     }
+
+    private fun setNameEmptyError(){
+        val name = profileBinding?.nameEt?.text?.toString()
+        if (name.isNullOrEmpty()){
+            setErrorEnabled(true)
+            setNameError(getString(R.string.error_form_profile_name))
+        } else {
+            setNameError(null)
+            setErrorEnabled(false)
+        }
+    }
     private fun setErrorEnabled(enabled: Boolean){
         profileBinding?.nameInputText?.isErrorEnabled = enabled
         profileBinding?.surnameInputText?.isErrorEnabled = enabled
@@ -343,6 +354,7 @@ class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
     }
     private fun nameIsHasError(): Boolean = !profileBinding?.nameInputText?.error.isNullOrEmpty()
     private fun surnameIsHasError(): Boolean = !profileBinding?.surnameInputText?.error.isNullOrEmpty()
+
     private fun showFirstTimeDialog(firsTime: Boolean){
         if (firsTime){
             profileBinding?.profileFirstTimeButton?.visibility = View.VISIBLE
