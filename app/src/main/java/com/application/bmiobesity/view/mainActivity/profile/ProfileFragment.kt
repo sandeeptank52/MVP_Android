@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import android.widget.ListAdapter
 import android.widget.NumberPicker
 import androidx.core.os.bundleOf
@@ -14,7 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
 import com.application.bmiobesity.common.MeasuringSystem
-import com.application.bmiobesity.databinding.MainProfileFragmentBinding
+import com.application.bmiobesity.databinding.MainProfileFragmentV2Binding
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.AvailableData
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profile
 import com.application.bmiobesity.viewModels.MainViewModel
@@ -26,9 +25,9 @@ import com.jakewharton.rxbinding4.widget.textChanges
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.util.*
 
-class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
+class ProfileFragment : Fragment(R.layout.main_profile_fragment_v2) {
 
-    private var profileBinding: MainProfileFragmentBinding? = null
+    private var profileBinding: MainProfileFragmentV2Binding? = null
     private val mainModel: MainViewModel by activityViewModels()
 
     private lateinit var currentProfile: Profile
@@ -54,7 +53,7 @@ class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        profileBinding = MainProfileFragmentBinding.bind(view)
+        profileBinding = MainProfileFragmentV2Binding.bind(view)
 
         var isFirstTime: Boolean
 

@@ -15,7 +15,7 @@ import com.application.bmiobesity.view.loginActivity.LoginActivity
 import com.application.bmiobesity.viewModels.LabelViewModel
 import kotlinx.coroutines.*
 
-class MainFragment : Fragment(R.layout.label_main_fragment) {
+class MainFragment : Fragment(R.layout.label_main_fragment_v2) {
 
     private val mDelay: Long = 2500
     private val diffDelay: Long = 1000

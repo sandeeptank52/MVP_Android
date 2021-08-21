@@ -14,21 +14,22 @@ import com.android.billingclient.api.Purchase
 import com.application.bmiobesity.InTimeApp
 import com.application.bmiobesity.R
 import com.application.bmiobesity.databinding.MainHomeRecommendationFragmentBinding
+import com.application.bmiobesity.databinding.MainHomeRecommendationFragmentV2Binding
 import com.application.bmiobesity.model.retrofit.ResultCommonRecommendation
 import com.application.bmiobesity.model.retrofit.ResultRecommendation
 import com.application.bmiobesity.services.google.billing.GoogleBillingClient
 import com.application.bmiobesity.services.google.billing.PurchasesConfig
 import com.application.bmiobesity.viewModels.MainViewModel
 
-class HomeRecommendationFragment : Fragment(R.layout.main_home_recommendation_fragment) {
+class HomeRecommendationFragment : Fragment(R.layout.main_home_recommendation_fragment_v2) {
 
-    private var recBinding: MainHomeRecommendationFragmentBinding? = null
+    private var recBinding: MainHomeRecommendationFragmentV2Binding? = null
     private val mainModel: MainViewModel by activityViewModels()
     private var isExpired: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recBinding = MainHomeRecommendationFragmentBinding.bind(view)
+        recBinding = MainHomeRecommendationFragmentV2Binding.bind(view)
         initCommonRecycler()
         initPersonalRecycler()
         initListeners()

@@ -21,6 +21,7 @@ import com.application.bmiobesity.viewModels.LoginViewModel
 import com.application.bmiobesity.common.eventManager.EventManager
 import com.application.bmiobesity.common.eventManager.SignInFragmentEvent
 import com.application.bmiobesity.services.google.signIn.GoogleSignInService
+import com.application.bmiobesity.databinding.LoginSigninFragmentV2V2Binding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -35,9 +36,9 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 
-class SignInFragment : Fragment(R.layout.login_signin_fragment) {
+class SignInFragment : Fragment(R.layout.login_signin_fragment_v2_v2) {
 
-    private var signInBinding : LoginSigninFragmentBinding? = null
+    private var signInBinding : LoginSigninFragmentV2V2Binding? = null
 
     private lateinit var allDisposable: CompositeDisposable
     private lateinit var formState: CheckFormStateSignIn
@@ -51,7 +52,7 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        signInBinding = LoginSigninFragmentBinding.bind(view)
+        signInBinding = LoginSigninFragmentV2V2Binding.bind(view)
         init()
         addRX()
         addListeners()

@@ -14,14 +14,15 @@ import com.application.bmiobesity.common.MeasuringSystem
 import com.application.bmiobesity.common.eventManagerMain.EventManagerMain
 import com.application.bmiobesity.common.eventManagerMain.MainSettingEvent
 import com.application.bmiobesity.databinding.MainSettingFragmentBinding
+import com.application.bmiobesity.databinding.MainSettingFragmentV2Binding
 import com.application.bmiobesity.view.labelActivity.LabelActivity
 import com.application.bmiobesity.view.loginActivity.LoginActivity
 import com.application.bmiobesity.viewModels.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class SettingFragment : Fragment(R.layout.main_setting_fragment) {
+class SettingFragment : Fragment(R.layout.main_setting_fragment_v2) {
 
-    private var settingBinding: MainSettingFragmentBinding? = null
+    private var settingBinding: MainSettingFragmentV2Binding? = null
     private val mainModel: MainViewModel by activityViewModels()
     private val settingEvent: MainSettingEvent = EventManagerMain.getEventManager()
 
@@ -30,7 +31,7 @@ class SettingFragment : Fragment(R.layout.main_setting_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        settingBinding = MainSettingFragmentBinding.bind(view)
+        settingBinding = MainSettingFragmentV2Binding.bind(view)
 
         init()
         initLayoutListeners()

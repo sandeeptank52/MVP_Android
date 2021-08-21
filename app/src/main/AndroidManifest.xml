@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo_icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DiseaseTrackerProduction">
+        android:theme="@style/Theme.DiseaseTrackerProductionLight">
 
         <activity
             android:name=".view.labelActivity.LabelActivity"
