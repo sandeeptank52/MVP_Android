@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
-import com.application.bmiobesity.databinding.LabelMainFragmentBinding
+import com.application.bmiobesity.databinding.LabelMainFragmentV2Binding
 import com.application.bmiobesity.view.loginActivity.LoginActivity
 import com.application.bmiobesity.viewModels.LabelViewModel
 import kotlinx.coroutines.*
@@ -20,12 +20,12 @@ class MainFragment : Fragment(R.layout.label_main_fragment_v2) {
     private val mDelay: Long = 2500
     private val diffDelay: Long = 1000
 
-    private var mainBinding: LabelMainFragmentBinding? = null
+    private var mainBinding: LabelMainFragmentV2Binding? = null
     private val labelModel: LabelViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainBinding = LabelMainFragmentBinding.bind(view)
+        mainBinding = LabelMainFragmentV2Binding.bind(view)
         animateLabelScreen()
 
         lifecycleScope.launch(Dispatchers.IO) {

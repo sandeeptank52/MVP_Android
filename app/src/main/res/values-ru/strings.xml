@@ -18,7 +18,7 @@
     <string name="button_sign_up">Зарегистрироваться</string>
     <string name="button_sign_up_text">Нужен аккаунт?</string>
     <string name="button_next">Далее</string>
-    <string name="button_come_in">Войдите</string>
+    <string name="button_come_in">Войти</string>
     <string name="button_skip">Пропустить</string>
     <string name="button_got_it">Понятно</string>
     <string name="button_dont_remember_password">Не помню пароль</string>
