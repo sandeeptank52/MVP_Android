@@ -13,7 +13,34 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
     </style>
+    <style name="Theme.DiseaseTrackerProductionLight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/color_white</item>
+        <item name="colorPrimaryVariant">@color/colorAccent</item>
+        <item name="colorOnPrimary">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/colorPrimary</item>
+        <item name="colorSecondaryVariant">@color/colorAccent</item>
+        <item name="colorOnSecondary">@color/colorPrimary</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
+
+    </style>
+    <style name="Theme.DiseaseTrackerProductionCustom" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorAccent</item>
+        <item name="colorOnPrimary">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/colorPrimary</item>
+        <item name="colorSecondaryVariant">@color/colorAccent</item>
+        <item name="colorOnSecondary">@color/colorPrimary</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
+
+    </style>
     <style name="ThemeDatePkr" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="colorOnPrimary">@android:color/white</item>
     </style>

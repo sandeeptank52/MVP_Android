@@ -20,6 +20,8 @@ import com.application.bmiobesity.view.mainActivity.MainActivity
 import com.application.bmiobesity.viewModels.LoginViewModel
 import com.application.bmiobesity.common.eventManager.EventManager
 import com.application.bmiobesity.common.eventManager.SignInFragmentEvent
+import com.application.bmiobesity.services.google.signIn.GoogleSignInService
+import com.application.bmiobesity.databinding.LoginSigninFragmentV2V2Binding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -34,15 +36,15 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 
-class SignInFragment : Fragment(R.layout.login_signin_fragment) {
+class SignInFragment : Fragment(R.layout.login_signin_fragment_v2_v2) {
 
-    private var signInBinding : LoginSigninFragmentBinding? = null
+    private var signInBinding : LoginSigninFragmentV2V2Binding? = null
 
     private lateinit var allDisposable: CompositeDisposable
     private lateinit var formState: CheckFormStateSignIn
     private lateinit var finalFormStateSubj: Subject<Boolean>
 
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var mGoogleSignInService: GoogleSignInService
     private lateinit var mGoogleSignInLauncher: ActivityResultLauncher<GoogleSignInClient>
 
     private val loginModel: LoginViewModel by activityViewModels()
@@ -50,7 +52,7 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        signInBinding = LoginSigninFragmentBinding.bind(view)
+        signInBinding = LoginSigninFragmentV2V2Binding.bind(view)
         init()
         addRX()
         addListeners()
@@ -60,17 +62,15 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
 
     override fun onStart() {
         super.onStart()
-        //val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(requireContext())
+        val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(requireContext())
+        account?.let {
+            setEnabledInterface(false)
+            mGoogleSignInLauncher.launch(mGoogleSignInService.mGoogleSignInClient)
+        }
     }
 
     private fun initGoogleService(){
-        val gso: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestScopes(Scope(Scopes.EMAIL), Scope(Scopes.PROFILE))
-            .requestServerAuthCode(getString(R.string.server_client_id))
-            .requestEmail()
-            .build()
-
-        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+        mGoogleSignInService.initClient(requireContext())
         mGoogleSignInLauncher = registerForActivityResult(GoogleSignInContract()){
             googleSignInCallBack(it)
         }
@@ -78,6 +78,7 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
 
     private fun init(){
         loginModel.updateAppPreference()
+        mGoogleSignInService = GoogleSignInService.getGoogleSignInService()
         allDisposable = CompositeDisposable()
         formState = CheckFormStateSignIn()
         finalFormStateSubj = PublishSubject.create()
@@ -118,7 +119,7 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
         signInBinding?.signInButtonSignIn?.clicks()?.subscribe { signInAction() }
         signInBinding?.signInTextViewSignUp?.clicks()?.subscribe { signUpAction() }
         signInBinding?.signInTextViewForgotPass?.clicks()?.subscribe { forgotAction() }
-        signInBinding?.signInButtonGoogleSignIn?.clicks()?.subscribe { googleSignIn() }
+        signInBinding?.signInButtonGoogleSignIn?.clicks()?.subscribe { googleSignInAction() }
 
         eventManager.getSignInSuccessEvent().observe(viewLifecycleOwner, EventObserver{
             if (it) startMainActivity()
@@ -146,29 +147,34 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment) {
     }
     private fun signUpAction() = findNavController().navigate(R.id.loginNavSignInToSignUp)
     private fun forgotAction() = findNavController().navigate(R.id.loginNavSignInToForgotPass)
-    private fun googleSignIn(){
+    private fun googleSignInAction(){
         setEnabledInterface(false)
-        mGoogleSignInLauncher.launch(mGoogleSignInClient)
+        mGoogleSignInLauncher.launch(mGoogleSignInService.mGoogleSignInClient)
+    }
+    private fun googleSignIn(acc: GoogleSignInAccount){
+        val code = acc.serverAuthCode
+        val mail = acc.email
+        val firstName = acc.givenName
+        val lastName = acc.familyName
+        val photoUri = acc.photoUrl
+        val rememberPass = signInBinding?.signInSwitchRememberPassword?.isChecked ?: false
+        if (!code.isNullOrEmpty() && !mail.isNullOrEmpty()){
+            loginModel.signInActionWithGoogle(mail, code, rememberPass, firstName, lastName, photoUri)
+        }
     }
     private fun googleSignInCallBack(completedTask: Task<GoogleSignInAccount>){
         try {
             if (completedTask.isSuccessful){
                 val account = completedTask.result
-                val code = account?.serverAuthCode
-                val mail = account?.email
-                val firstName = account?.givenName
-                val lastName = account?.familyName
-                val photoUri = account?.photoUrl
-                val rememberPass = signInBinding?.signInSwitchRememberPassword?.isChecked ?: false
-
-                if (!code.isNullOrEmpty() && !mail.isNullOrEmpty()){
-                    loginModel.signInActionWithGoogle(mail, code, rememberPass, firstName, lastName, photoUri)
+                account?.let { acc ->
+                    mGoogleSignInService.mGoogleSignInAccount = acc
+                    googleSignIn(acc)
                 }
             } else {
                 setEnabledInterface(true)
             }
         } catch (e: ApiException){
-
+            setEnabledInterface(true)
         }
     }
 
