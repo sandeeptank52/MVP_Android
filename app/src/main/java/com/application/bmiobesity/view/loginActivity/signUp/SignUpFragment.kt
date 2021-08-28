@@ -20,6 +20,7 @@ import com.application.bmiobesity.view.mainActivity.MainActivity
 import com.application.bmiobesity.viewModels.LoginViewModel
 import com.application.bmiobesity.common.eventManager.EventManager
 import com.application.bmiobesity.common.eventManager.SignUpFragmentEvent
+import com.application.bmiobesity.databinding.LoginSignupFragmentV2Binding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxbinding4.view.focusChanges
@@ -29,9 +30,9 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 import java.util.*
 
-class SignUpFragment : Fragment(R.layout.login_signup_fragment) {
+class SignUpFragment : Fragment(R.layout.login_signup_fragment_v2) {
 
-    private var signUpBinding : LoginSignupFragmentBinding? = null
+    private var signUpBinding : LoginSignupFragmentV2Binding? = null
     private val loginModel: LoginViewModel by activityViewModels()
     private val eventManager: SignUpFragmentEvent = EventManager.getEventManager()
 
@@ -41,7 +42,7 @@ class SignUpFragment : Fragment(R.layout.login_signup_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        signUpBinding = LoginSignupFragmentBinding.bind(view)
+        signUpBinding = LoginSignupFragmentV2Binding.bind(view)
         init()
         addRX()
         addListeners()

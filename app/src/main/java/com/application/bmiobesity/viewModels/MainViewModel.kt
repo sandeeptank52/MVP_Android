@@ -2,7 +2,6 @@ package com.application.bmiobesity.viewModels
 
 import androidx.lifecycle.*
 import com.application.bmiobesity.InTimeApp
-import com.application.bmiobesity.common.MeasuringSystem
 import com.application.bmiobesity.common.ProfileManager
 import com.application.bmiobesity.model.appSettings.AppPreference
 import com.application.bmiobesity.model.appSettings.AppSettingDataStore
@@ -19,6 +18,7 @@ import com.application.bmiobesity.model.retrofit.*
 import com.application.bmiobesity.utils.getCurrentLocale
 import com.application.bmiobesity.common.eventManagerMain.EventManagerMain
 import com.application.bmiobesity.common.eventManagerMain.MainViewModelEvent
+import com.application.bmiobesity.common.parameters.AvailableParameters
 import com.application.bmiobesity.services.google.billing.GoogleBillingClient
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
@@ -66,6 +66,7 @@ class MainViewModel : ViewModel() {
     var medCard: MedCard
     lateinit var paramUnit: List<ParamUnit>
     lateinit var medCardSourceType: List<MedCardSourceType>
+    lateinit var medCardParamSetting: List<MedCardParamSetting>
 
     init {
         InTimeApp.appComponent.inject(this)
@@ -105,12 +106,12 @@ class MainViewModel : ViewModel() {
     private suspend fun updateParamUnit() = viewModelScope.launch(Dispatchers.IO) { paramUnit = paramSettingRepo.getAllParamUnit() }
     private suspend fun updateMedCardSourceType() = viewModelScope.launch(Dispatchers.IO) { medCardSourceType = paramSettingRepo.getAllMedCardSourceType() }
     private suspend fun updateMedCardParamSetting() = viewModelScope.launch(Dispatchers.IO) {
-        val parameters = paramSettingRepo.getAllMedCardParamSetting()
-        parameters.forEach {
+        medCardParamSetting = paramSettingRepo.getAllMedCardParamSetting()
+        medCardParamSetting.forEach {
             val simpleValues = paramSettingRepo.getValuesFromParamID(it.id)
             it.values = simpleValues as MutableList<MedCardParamSimpleValue>
         }
-        medCard.setParameters(parameters)
+        medCard.setParameters(medCardParamSetting)
     }
     private suspend fun updateLocal() = viewModelScope.launch(Dispatchers.IO) {
         val gendersJob = updateGenders()

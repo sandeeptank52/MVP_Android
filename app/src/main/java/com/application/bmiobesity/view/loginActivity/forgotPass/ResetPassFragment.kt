@@ -23,7 +23,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 
-class ResetPassFragment : Fragment(R.layout.login_resetpass_fragment) {
+class ResetPassFragment : Fragment(R.layout.login_resetpass_fragment_v2) {
 
     private var resetPassBinding: LoginResetpassFragmentBinding? = null
 

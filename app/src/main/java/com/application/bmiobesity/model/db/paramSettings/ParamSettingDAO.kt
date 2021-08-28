@@ -94,6 +94,7 @@ interface ParamSettingDAO {
 
     @Query("SELECT * FROM profile WHERE email = :mail")
     suspend fun getProfileFromMail(mail: String): Profile
+
     @Query("SELECT * FROM profile WHERE email = :mail")
     fun getProfileFromMailLive(mail: String): LiveData<Profile>
     /*@Query("SELECT * FROM on_boarding_steps WHERE email = :mail")
