@@ -213,7 +213,7 @@ class MedcardFragment : Fragment(R.layout.main_medcard_fragment) {
                 } else {
                     dialogSingleViewPicker.value = value
                 }
-                dialogBuilder.setPositiveButton(getString(R.string.button_ok)){_, _ -> setMetricValue(dialogSingleViewPicker.value.toFloat(), item)}
+                dialogBuilder.setPositiveButton(getString(R.string.button_ok)){_, _ -> setMetricValue(dialogSingleViewPicker.value.toFloat(), item) }
                 dialogBuilder.show()
             }
             MeasuringSystem.IMPERIAL.id -> {
@@ -226,7 +226,7 @@ class MedcardFragment : Fragment(R.layout.main_medcard_fragment) {
                 } else {
                     dialogSingleViewPicker.value = valueImp
                 }
-                dialogBuilder.setPositiveButton(getString(R.string.button_ok)){_, _ -> setImpValue(dialogSingleViewPicker.value.toFloat(), item)}
+                dialogBuilder.setPositiveButton(getString(R.string.button_ok)){_, _ -> setImpValue(dialogSingleViewPicker.value.toFloat(), item) }
                 dialogBuilder.show()
             }
         }

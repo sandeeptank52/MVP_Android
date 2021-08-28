@@ -48,6 +48,7 @@ class ParamSettingsRepo private constructor(context: Context){
 
     suspend fun updateProfile(item: Profile) = paramSettingDAO.updateProfile(item)
 
+    // Simple value
     suspend fun getAllSimpleValues(): List<MedCardParamSimpleValue> = paramSettingDAO.getAllSimpleValues()
     suspend fun insertSimpleValue(item: MedCardParamSimpleValue) = paramSettingDAO.insertSimpleValue(item)
     suspend fun getValuesFromParamID(paramID: String) = paramSettingDAO.getValuesFromParamID(paramID)

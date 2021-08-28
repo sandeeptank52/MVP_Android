@@ -7,6 +7,7 @@ import androidx.viewpager2.adapter.FragmentViewHolder
 import com.application.bmiobesity.view.mainActivity.home.analyze.HomeAnalyzeFragment
 import com.application.bmiobesity.view.mainActivity.home.favorite.HomeFavoriteFragment
 import com.application.bmiobesity.view.mainActivity.home.recommendation.HomeRecommendationFragment
+import com.application.bmiobesity.view.mainActivity.home.report.HomeReportFragment
 
 class HomeFragmentAdapter(fragmentActivity: FragmentActivity, private val titles: List<String>) : FragmentStateAdapter(fragmentActivity) {
 
@@ -19,6 +20,7 @@ class HomeFragmentAdapter(fragmentActivity: FragmentActivity, private val titles
             0 -> {HomeFavoriteFragment()}
             1 -> {HomeAnalyzeFragment()}
             2 -> {HomeRecommendationFragment()}
+            3 -> {HomeReportFragment()}
             else -> {HomeFavoriteFragment()}
         }
     }

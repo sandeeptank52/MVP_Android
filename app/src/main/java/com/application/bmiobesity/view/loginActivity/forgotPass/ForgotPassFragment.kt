@@ -16,6 +16,7 @@ import com.application.bmiobesity.common.EventObserver
 import com.application.bmiobesity.viewModels.LoginViewModel
 import com.application.bmiobesity.common.eventManager.EventManager
 import com.application.bmiobesity.common.eventManager.ForgotPassFragmentEvent
+import com.application.bmiobesity.databinding.LoginForgotpassFragmentV2Binding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxbinding4.widget.textChanges
@@ -24,9 +25,9 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 import kotlinx.coroutines.launch
 
-class ForgotPassFragment : Fragment(R.layout.login_forgotpass_fragment) {
+class ForgotPassFragment : Fragment(R.layout.login_forgotpass_fragment_v2) {
 
-    private var forgotPassBinding : LoginForgotpassFragmentBinding? = null
+    private var forgotPassBinding : LoginForgotpassFragmentV2Binding? = null
 
     private lateinit var allDisposable: CompositeDisposable
     private var stateMailField: Boolean = false
@@ -36,7 +37,7 @@ class ForgotPassFragment : Fragment(R.layout.login_forgotpass_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        forgotPassBinding = LoginForgotpassFragmentBinding.bind(view)
+        forgotPassBinding = LoginForgotpassFragmentV2Binding.bind(view)
         init()
         addRx()
         addListeners()
