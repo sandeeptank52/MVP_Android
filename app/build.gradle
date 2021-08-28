@@ -5,8 +5,8 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 def mainVersion = 2
-def featureVersion = 0
-def version_code = 4
+def featureVersion = 1
+def version_code = 0
 
 android {
     signingConfigs {
@@ -64,7 +64,7 @@ android {
 
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-   // implementation project(path: ':opencv')
+    //implementation project(path: ':opencv')
     def room_version = "2.3.0"
     def nav_version = "2.3.3"
     def billing_version = "3.0.3"
