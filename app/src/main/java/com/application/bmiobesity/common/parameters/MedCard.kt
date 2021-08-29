@@ -199,7 +199,7 @@ class MedCard {
             simpleValue.timestamp = Calendar.getInstance(TimeZone.getDefault()).timeInMillis
             //temp.add(simpleValue)
             it.values.add(simpleValue)
-            insertSimpleValueToDB(simpleValue)
+            //insertSimpleValueToDB(simpleValue)
         }
         waitingUpdatesParameters = parameters
         mParametersLive.postValue(parameters)

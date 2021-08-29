@@ -51,6 +51,7 @@
     <string name="main_home_menu_favorite">Favorite</string>
     <string name="main_home_menu_analyze">Analyze</string>
     <string name="main_home_menu_recommendations">Recommendations</string>
+    <string name="main_home_menu_report">Report</string>
 
     <string name="main_app_menu_setting">Setting</string>
     <string name="main_app_menu_subscriptions">Store</string>

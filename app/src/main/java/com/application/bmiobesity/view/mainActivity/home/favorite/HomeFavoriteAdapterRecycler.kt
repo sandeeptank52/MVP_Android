@@ -18,7 +18,7 @@ class HomeFavoriteAdapterRecycler(private val onClick: (ResultCard) -> Unit) : L
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFavoriteViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.main_home_favorite_card_view, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.main_home_favorite_card_view_v2, parent, false)
         return HomeFavoriteViewHolder(view, onClick)
     }
 

@@ -50,6 +50,7 @@
                 android:focusable="true"
                 android:fontFamily="@font/dmsans_regular"
                 android:hint="@string/login_hint_email"
+                android:textColorHint="@color/gray_800"
                 android:inputType="textEmailAddress"
                 android:paddingStart="60dp"
                 android:textColor="@color/color_black"
@@ -154,6 +155,7 @@
                 android:focusable="true"
                 android:fontFamily="@font/dmsans_regular"
                 android:hint="@string/login_hint_password"
+                android:textColorHint="@color/gray_800"
                 android:inputType="textPassword"
                 android:paddingStart="60dp"
                 android:textColor="@color/color_black"
@@ -225,6 +227,7 @@
                 android:hint="@string/login_hint_confirm_password"
                 android:inputType="textPassword"
                 android:paddingStart="60dp"
+                android:textColorHint="@color/gray_800"
                 android:textColor="@color/color_black"
                 tools:ignore="RtlSymmetry" />
         </com.google.android.material.textfield.TextInputLayout>

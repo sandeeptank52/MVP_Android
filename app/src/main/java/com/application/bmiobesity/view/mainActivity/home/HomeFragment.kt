@@ -28,10 +28,10 @@ class HomeFragment : Fragment(R.layout.main_home_fragment) {
         init()
     }
 
-    private fun init(){
+    private fun init() {
         lifecycleScope.launch(Dispatchers.IO) {
             val firstTime = mainModel.isFirstTimeAsync().await()
-            if (firstTime){
+            if (firstTime) {
                 withContext(Dispatchers.Main) {
                     val bundle = bundleOf("isFirstTime" to true)
                     findNavController().navigate(R.id.mainNavHomeToProfile, bundle)
@@ -40,15 +40,19 @@ class HomeFragment : Fragment(R.layout.main_home_fragment) {
         }
     }
 
-    private fun initViewPager(){
-        titles = arrayListOf(getString(R.string.main_home_menu_favorite),
-                getString(R.string.main_home_menu_analyze),
-                getString(R.string.main_home_menu_recommendations))
+    private fun initViewPager() {
+        titles = arrayListOf(
+            getString(R.string.main_home_menu_favorite),
+            getString(R.string.main_home_menu_analyze),
+            getString(R.string.main_home_menu_recommendations),
+            getString(R.string.main_home_menu_report),
+        )
 
         homeBinding?.mainHomeViewPager?.adapter = HomeFragmentAdapter(requireActivity(), titles)
         homeBinding?.mainHomeViewPager?.let {
             homeBinding?.mainHomeTabLayoutMenu?.let { it1 ->
-                TabLayoutMediator(it1, it
+                TabLayoutMediator(
+                    it1, it
                 ) { tab, position ->
                     tab.text = titles[position]
                 }.attach()

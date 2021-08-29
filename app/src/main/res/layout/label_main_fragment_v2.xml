@@ -30,10 +30,9 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/mainfragcircle"
             android:contentDescription="@string/image_description"
+            android:background="@drawable/mainfragcircle"
             android:scaleType="centerCrop" />
-
 
     </RelativeLayout>
     <ImageView
@@ -53,9 +52,8 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:alpha="0"
         android:indeterminate="true"
-        android:indeterminateTint="@color/color_white"
+        android:alpha="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelImageViewLogo" />
@@ -75,7 +73,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelProgressBar" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

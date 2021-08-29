@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
-import com.application.bmiobesity.databinding.LoginSigninFragmentBinding
 import com.application.bmiobesity.model.retrofit.RetrofitError
 import com.application.bmiobesity.services.google.signIn.GoogleSignInContract
 import com.application.bmiobesity.common.EventObserver
@@ -20,8 +19,8 @@ import com.application.bmiobesity.view.mainActivity.MainActivity
 import com.application.bmiobesity.viewModels.LoginViewModel
 import com.application.bmiobesity.common.eventManager.EventManager
 import com.application.bmiobesity.common.eventManager.SignInFragmentEvent
-import com.application.bmiobesity.services.google.signIn.GoogleSignInService
 import com.application.bmiobesity.databinding.LoginSigninFragmentV2V2Binding
+import com.application.bmiobesity.services.google.signIn.GoogleSignInService
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -192,8 +191,15 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment_v2_v2) {
         signInBinding?.signInTextViewSignUp?.isClickable = value
         signInBinding?.signInTextViewForgotPass?.isClickable = value
         signInBinding?.signInButtonGoogleSignIn?.isEnabled = value
-        if (value) signInBinding?.signInProgressBar?.visibility = View.GONE
-        else signInBinding?.signInProgressBar?.visibility = View.VISIBLE
+        if (value) {
+            signInBinding?.signInProgressBar?.visibility = View.GONE
+            signInBinding?.signInButtonGoogleSignIn?.background = resources.getDrawable(R.drawable.all_round_google_blue)
+        }
+        else {
+            signInBinding?.signInProgressBar?.visibility = View.VISIBLE
+            signInBinding?.signInButtonGoogleSignIn?.background = resources.getDrawable(R.drawable.transparent)
+        }
+
     }
     private fun startMainActivity(){
         val intent = Intent(context, MainActivity::class.java)

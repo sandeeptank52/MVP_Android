@@ -24,10 +24,9 @@ import com.application.bmiobesity.R
 import com.application.bmiobesity.common.EventObserver
 import com.application.bmiobesity.common.eventManagerMain.EventManagerMain
 import com.application.bmiobesity.common.eventManagerMain.MainActivityEvent
-import com.application.bmiobesity.databinding.MainActivityBinding
+import com.application.bmiobesity.databinding.MainActivityV2Binding
 import com.application.bmiobesity.model.appSettings.AppSettingDataStore
 import com.application.bmiobesity.services.google.signIn.GoogleSignInService
-import com.application.bmiobesity.databinding.MainActivityV2Binding
 import com.application.bmiobesity.utils.getDateStrFromMS
 import com.application.bmiobesity.view.loginActivity.LoginActivity
 import com.application.bmiobesity.viewModels.MainViewModel
@@ -51,12 +50,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var mGoogleSignInService: GoogleSignInService
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = MainActivityV2Binding.inflate(layoutInflater)
         setTheme(R.style.Theme_DiseaseTrackerProductionCustom)
         setContentView(mainBinding.root)
+         eventManager.getPreloadSuccessEvent().observe(this, EventObserver{
+            if (it) mainBinding.mainFrameLayoutWaiting.visibility = View.GONE
+        })
 
         eventManager.getPreloadSuccessEvent().observe(this, EventObserver{
             if (it) mainBinding.mainFrameLayoutWaiting.visibility = View.GONE
