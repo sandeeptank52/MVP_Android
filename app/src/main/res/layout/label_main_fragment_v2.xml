@@ -34,7 +34,6 @@
             android:background="@drawable/mainfragcircle"
             android:scaleType="centerCrop" />
 
-
     </RelativeLayout>
     <ImageView
         android:id="@+id/labelImageViewLogo"
@@ -74,7 +73,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelProgressBar" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

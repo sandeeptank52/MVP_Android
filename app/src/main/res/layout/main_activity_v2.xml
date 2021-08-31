@@ -72,11 +72,11 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:contentDescription="@string/image_description"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="15dp"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="@id/mainFrameLayoutTitle"
-        app:layout_constraintBottom_toBottomOf="@id/mainFrameLayoutTitle"
-        app:layout_constraintEnd_toEndOf="@id/mainFrameLayoutTitle"/>
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintStart_toStartOf="@id/mainFrameLayoutTitle"/>
 
     <ImageView
         android:id="@+id/mainImageViewAvatarIcon"

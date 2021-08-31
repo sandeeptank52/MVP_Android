@@ -154,8 +154,6 @@ dependencies {
     // MP Android Chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
-
-
     // MediaPipe deps
     implementation 'com.google.flogger:flogger:latest.release'
     implementation 'com.google.flogger:flogger-system-backend:latest.release'
