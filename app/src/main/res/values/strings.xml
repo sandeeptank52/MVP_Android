@@ -292,4 +292,35 @@
     <string name="personal_recomendations">Personal Recomendations</string>
     <string name="monthly_subscriptions">(Monthly Subscriptions)</string>
 
+    <!--science fragment-->
+    <string name="science">Science</string>
+    <string name="science_based">Science based</string>
+    <string name="science_disclaimer">The data and information collected by the application, the recommendations on medications and treatments are made by evidence-based medicine.</string>
+    <string name="science_intro_organizations">Our recommendations are supported by the following organizations:</string>
+    <string name="science_american_medical_association_name">American Medical Association (AMA)</string>
+    <string name="science_american_medical_association_link_text" translatable="false">American Medical Association | AMA</string>
+    <string name="science_american_medical_association_link_url" translatable="false">https://www.ama-assn.org/</string>
+    <string name="science_american_medical_association_content">is the largest and only national association that convenes 190+ state and specialty medical societies and other critical stakeholders. We get the latest news and articles in health care from the AMA.</string>
+    <string name="science_usa_gov_name" translatable="false">USA Gov</string>
+    <string name="science_usa_gov_link_text" translatable="false">Find Doctors and Medical Facilities | USA.Gov</string>
+    <string name="science_usa_gov_link_url" translatable="false">https://www.usa.gov/doctors</string>
+    <string name="science_usa_gov_content">is an interagency product administered by USAGov (formerly the Federal Citizen Information Center), a department of the U.S. government\'s General Services Administration. We use it to check if a doctor or health care facility is medicare-certified.</string>
+    <string name="science_pub_med_name" translatable="false">Pub Med</string>
+    <string name="science_pub_med_link_text" translatable="false">PubMed</string>
+    <string name="science_pub_med_link_url" translatable="false">https://pubmed.ncbi.nlm.nih.gov/</string>
+    <string name="science_pub_med_content">is a free search engine supporting the search and retrieval of biomedical and life sciences literature. We use it to get the peer-reviewed articles that grant our answers to your personalized requests.</string>
+    <string name="science_cochrane_library_name">Cochrane Library</string>
+    <string name="science_cochrane_library_link_text" translatable="false">CochraneLibrary</string>
+    <string name="science_cochrane_library_link_url" translatable="false">https://www.cochranelibrary.com/</string>
+    <string name="science_cochrane_library_content">is a collection of databases in medicine and other healthcare specialties provided by Cochrane (formerly the Cochrane Collaboration). We get systematic reviews and meta-analyses of medical researches and the reports of randomized controlled trials.</string>
+    <string name="science_clinical_trials_name" translatable="false">Clinical Trials Gov</string>
+    <string name="science_clinical_trials_link_text" translatable="false">Home - ClinicalTrials.Gov</string>
+    <string name="science_clinical_trials_link_url" translatable="false">https://clinicaltrials.gov/</string>
+    <string name="science_clinical_trials_content">is the largest database of privately and publicly funded clinical studies conducted around the world. We employ the data and reports from ClinicalTrials.gov to simulate clinical trials using artificial intelligence.</string>
+    <string name="science_mimic_name" translatable="false">Mimic-III</string>
+    <string name="science_mimic_link_text" translatable="false">The Medical Information Mart for Intensive Care</string>
+    <string name="science_mimic_link_url" translatable="false">https://mimic.mit.edu/</string>
+    <string name="science_mimic_content">is a large, freely-available database (Medical Information Mart for Intensive Care) comprising de-identified health-related data relating to patients admitted to critical care units at a large tertiary care hospital. The database includes demographics, vital sign measurements made at the bedside, laboratory test results, procedures, medications, caregiver notes, imaging reports, and mortality. We use the MIMIC-III data to learn our AI model to identify dependencies between biomarkers and diseases and to predict the development and spread of diseases.</string>
+
+
 </resources>

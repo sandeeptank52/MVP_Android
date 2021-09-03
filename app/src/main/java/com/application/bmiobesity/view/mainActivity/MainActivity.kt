@@ -55,9 +55,6 @@ class MainActivity : AppCompatActivity() {
         mainBinding = MainActivityV2Binding.inflate(layoutInflater)
         setTheme(R.style.Theme_DiseaseTrackerProductionCustom)
         setContentView(mainBinding.root)
-         eventManager.getPreloadSuccessEvent().observe(this, EventObserver{
-            if (it) mainBinding.mainFrameLayoutWaiting.visibility = View.GONE
-        })
 
         eventManager.getPreloadSuccessEvent().observe(this, EventObserver{
             if (it) mainBinding.mainFrameLayoutWaiting.visibility = View.GONE
@@ -114,6 +111,7 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     IndicatorUiUpdate(R.id.mainHomeNav)
                     mainBinding.mainBottomNavigationView.visibility = View.VISIBLE
+                    mainBinding.mainMenu.visibility = View.VISIBLE
                     mainBinding.mainImageViewAvatarIcon.visibility = View.GONE
                     mainBinding.mainEnterText.visibility = View.GONE
                     mainBinding.mainForMoreAccurrate.visibility = View.GONE
@@ -127,9 +125,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
-
     private fun initMainMenu(){
         mainBinding.mainMenu.setOnClickListener {
             val menu = PopupMenu(applicationContext, it)
@@ -137,6 +132,7 @@ class MainActivity : AppCompatActivity() {
             menu.setOnMenuItemClickListener{ menuItem ->
                 when (menuItem.itemId){
                     R.id.mainAppMenuSubs -> {subsMenuAction()}
+                    R.id.mainAppMenuScience -> {scienceMenuAction()}
                     R.id.mainAppMenuSetting -> {settingMenuAction()}
                     R.id.mainAppMenuLogOut -> {logOutMenuAction()}
                 }
@@ -152,6 +148,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun subsMenuAction(){
         navController.navigate(R.id.mainNavToSubs)
+    }
+    private fun scienceMenuAction() {
+        navController.navigate(R.id.mainNavToScience)
     }
     private fun settingMenuAction(){
         navController.navigate(R.id.mainNavToSetting)
