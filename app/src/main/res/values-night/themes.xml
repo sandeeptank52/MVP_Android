@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.DiseaseTrackerProduction" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.DiseaseTrackerProduction" parent="Theme.MaterialComponents.Light.NoActionBar">
 
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorAccent</item>
@@ -13,7 +13,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
     </style>
-    <style name="Theme.DiseaseTrackerProductionLight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.DiseaseTrackerProductionLight" parent="Theme.MaterialComponents.Light.NoActionBar">
 
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/color_white</item>
@@ -24,10 +24,10 @@
         <item name="colorOnSecondary">@color/colorPrimary</item>
         <item name="android:windowLightStatusBar">true</item>
 
-<!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
+        <!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
 
     </style>
-    <style name="Theme.DiseaseTrackerProductionCustom" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.DiseaseTrackerProductionCustom" parent="Theme.MaterialComponents.Light.NoActionBar">
 
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
@@ -41,18 +41,20 @@
         <!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
 
     </style>
-
     <style name="ThemeDatePkr" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="colorOnPrimary">@android:color/white</item>
     </style>
 
     <style name="testSpinner">
-        <item name="android:background">@color/color_black</item>
+        <item name="android:background">@color/color_white</item>
     </style>
 
     <style name="testPicker">
-        <item name="android:backgroundTint">@color/color_black</item>
+        <item name="android:backgroundTint">@color/color_white</item>
     </style>
+
+
+
 
     <!--<style name="AppStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/cPrimaryDark</item>
@@ -76,7 +78,5 @@
 
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorAccent</item>
     </style>-->
-
-
 
 </resources>

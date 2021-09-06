@@ -12,7 +12,7 @@
         android:id="@+id/disclaimerTextViewTitle"
         android:text="@string/disclaimer_title"
         android:textSize="22sp"
-        android:textColor="@color/color_black"
+        android:textColor="@color/labelGradientBckSecond"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/standart_margin_top_logo"
@@ -25,6 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/standart_margin_top_logo"
+        android:textSize="35sp"
         android:scrollbars="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,9 +36,9 @@
             android:id="@+id/disclaimerTextViewMainText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
             android:text="@string/text_disclaimer"
-            android:textColor="@color/color_black"
-            android:textSize="18sp" />
+            android:textColor="@color/color_black" />
 
     </androidx.core.widget.NestedScrollView>
 

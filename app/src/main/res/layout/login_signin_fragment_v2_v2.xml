@@ -124,6 +124,7 @@
 
 
         <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:background="@drawable/key"
@@ -133,7 +134,7 @@
             app:layout_constraintStart_toStartOf="@+id/passicon"
             app:layout_constraintTop_toTopOf="@+id/passicon" />
 
-        <Switch
+        <CheckBox
             android:id="@+id/signInSwitchRememberPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -174,7 +175,7 @@
             android:id="@+id/signInButtonSignIn"
             android:layout_width="250dp"
             android:layout_height="40dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/all_round_blue"
             android:enabled="false"
             android:fontFamily="@font/dmsans_regular"
@@ -190,6 +191,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:visibility="gone"
             android:text="@string/sign_in_or"
             android:fontFamily="@font/dmsans_medium"
             android:textColor="@color/color_black"
@@ -197,19 +199,68 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/signInButtonSignIn" />
 
-        <com.google.android.gms.common.SignInButton
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/bcg"
+            android:background="@drawable/all_round_google_blue"
+            app:layout_constraintBottom_toBottomOf="@+id/signInButtonGoogleSignIn"
+            app:layout_constraintStart_toStartOf="@+id/signInButtonGoogleSignIn"
+            app:layout_constraintTop_toTopOf="@+id/signInButtonGoogleSignIn"
+            app:layout_constraintEnd_toEndOf="@+id/signInButtonGoogleSignIn"
+            />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/all_round_white"
+            app:layout_constraintBottom_toBottomOf="@+id/signInButtonGoogleSignIn"
+            app:layout_constraintStart_toStartOf="@+id/signInButtonGoogleSignIn"
+            app:layout_constraintTop_toTopOf="@+id/signInButtonGoogleSignIn">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="23dp"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/image_description"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/google_logo" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+
+            android:fontFamily="@font/dmsans_bold"
+            android:text="@string/sign_in_with_google"
+            android:textColor="@color/color_white"
+            app:layout_constraintBottom_toBottomOf="@+id/signInButtonGoogleSignIn"
+            app:layout_constraintEnd_toEndOf="@+id/signInButtonGoogleSignIn"
+            app:layout_constraintStart_toStartOf="@+id/signInButtonGoogleSignIn"
+            app:layout_constraintTop_toTopOf="@+id/signInButtonGoogleSignIn" />
+
+        <Button
             android:id="@+id/signInButtonGoogleSignIn"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_marginTop="5dp"
-            app:colorScheme="dark"
-            android:background="@drawable/all_round_google_blue"
+            android:elevation="0dp"
+            app:layout_constraintCircleRadius="60dp"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            app:layout_goneMarginTop="10dp"
+            android:background="@color/transparent"
             android:paddingStart="10dp"
             android:paddingEnd="5dp"
-            app:buttonSize="wide"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/signInTextViewOr" />
+
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -224,21 +275,21 @@
             app:layout_constraintBottom_toTopOf="@+id/signInTextViewSignUp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
+
         <TextView
             android:id="@+id/signInTextViewSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:clickable="true"
             android:focusable="true"
-            android:text="@string/button_sign_up"
             android:fontFamily="@font/dmsans_medium"
+            android:layout_marginTop="80dp"
+            android:text="@string/button_sign_up"
             android:textColor="@color/colorPrimary"
-            android:layout_marginBottom="20dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signInButtonGoogleSignIn" />
 
         <TextView
             android:id="@+id/signInTextViewForgotPass"
@@ -250,6 +301,7 @@
             android:fontFamily="@font/dmsans_medium"
             android:text="@string/button_dont_remember_password"
             android:textColor="@color/color_black"
+            app:layout_constraintBottom_toBottomOf="@+id/signInSwitchRememberPassword"
             app:layout_constraintEnd_toEndOf="@+id/signInTextInputLayoutPass"
             app:layout_constraintTop_toBottomOf="@+id/signInTextInputLayoutPass" />
 

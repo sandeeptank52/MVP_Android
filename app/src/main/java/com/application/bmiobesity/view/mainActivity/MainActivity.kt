@@ -26,7 +26,6 @@ import com.application.bmiobesity.common.eventManagerMain.EventManagerMain
 import com.application.bmiobesity.common.eventManagerMain.MainActivityEvent
 import com.application.bmiobesity.databinding.MainActivityV2Binding
 import com.application.bmiobesity.model.appSettings.AppSettingDataStore
-import com.application.bmiobesity.services.google.signIn.GoogleSignInService
 import com.application.bmiobesity.utils.getDateStrFromMS
 import com.application.bmiobesity.view.loginActivity.LoginActivity
 import com.application.bmiobesity.viewModels.MainViewModel
@@ -48,9 +47,6 @@ class MainActivity : AppCompatActivity() {
     private val eventManager: MainActivityEvent = EventManagerMain.getEventManager()
     private lateinit var navController: NavController
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-    private lateinit var mGoogleSignInService: GoogleSignInService
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,10 +55,6 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_DiseaseTrackerProductionCustom)
         setContentView(mainBinding.root)
          eventManager.getPreloadSuccessEvent().observe(this, EventObserver{
-            if (it) mainBinding.mainFrameLayoutWaiting.visibility = View.GONE
-        })
-
-        eventManager.getPreloadSuccessEvent().observe(this, EventObserver{
             if (it) mainBinding.mainFrameLayoutWaiting.visibility = View.GONE
         })
 
@@ -122,6 +114,7 @@ class MainActivity : AppCompatActivity() {
                     mainBinding.mainForMoreAccurrate.visibility = View.GONE
                     mainBinding.mainImageViewAvatarIconCenter.visibility = View.VISIBLE
                     mainBinding.bottomNav.visibility = View.VISIBLE
+                    mainBinding.mainMenu.visibility = View.VISIBLE
                     initMainBottomNav()
                     initMainMenu()
                     addListeners()
@@ -139,8 +132,12 @@ class MainActivity : AppCompatActivity() {
             menu.menuInflater.inflate(R.menu.main_app_menu, menu.menu)
             menu.setOnMenuItemClickListener{ menuItem ->
                 when (menuItem.itemId){
-                    R.id.mainAppMenuSubs -> {subsMenuAction()}
-                    R.id.mainAppMenuSetting -> {settingMenuAction()}
+                    R.id.mainAppMenuSubs -> {
+                       subsMenuAction()
+                    }
+                    R.id.mainAppMenuSetting -> {
+                        settingMenuAction()
+                    }
                     R.id.mainAppMenuLogOut -> {logOutMenuAction()}
                 }
                 return@setOnMenuItemClickListener true
@@ -162,8 +159,8 @@ class MainActivity : AppCompatActivity() {
     private fun logOutMenuAction(){
         lifecycleScope.launch(Dispatchers.IO) {
             mainModel.appSetting.setStringParam(AppSettingDataStore.PrefKeys.USER_PASS, "")
+            mainModel.deleteProfile()
             withContext(Dispatchers.Main){
-                mGoogleSignInService.mGoogleSignInClient.signOut()
                 val intent = Intent(applicationContext, LoginActivity::class.java)
                 startActivity(intent)
                 finish()

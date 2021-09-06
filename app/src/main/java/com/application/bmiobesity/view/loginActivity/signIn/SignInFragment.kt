@@ -5,13 +5,16 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
+import com.application.bmiobesity.databinding.LoginSigninFragmentBinding
 import com.application.bmiobesity.model.retrofit.RetrofitError
 import com.application.bmiobesity.services.google.signIn.GoogleSignInContract
 import com.application.bmiobesity.common.EventObserver
@@ -20,7 +23,7 @@ import com.application.bmiobesity.viewModels.LoginViewModel
 import com.application.bmiobesity.common.eventManager.EventManager
 import com.application.bmiobesity.common.eventManager.SignInFragmentEvent
 import com.application.bmiobesity.databinding.LoginSigninFragmentV2V2Binding
-import com.application.bmiobesity.services.google.signIn.GoogleSignInService
+import com.application.bmiobesity.viewModels.LabelViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -34,6 +37,8 @@ import com.jakewharton.rxbinding4.widget.textChanges
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SignInFragment : Fragment(R.layout.login_signin_fragment_v2_v2) {
 
@@ -43,14 +48,16 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment_v2_v2) {
     private lateinit var formState: CheckFormStateSignIn
     private lateinit var finalFormStateSubj: Subject<Boolean>
 
-    private lateinit var mGoogleSignInService: GoogleSignInService
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var mGoogleSignInLauncher: ActivityResultLauncher<GoogleSignInClient>
 
     private val loginModel: LoginViewModel by activityViewModels()
     private val eventManager: SignInFragmentEvent = EventManager.getEventManager()
+    private val labelModel: LabelViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         signInBinding = LoginSigninFragmentV2V2Binding.bind(view)
         init()
         addRX()
@@ -61,15 +68,31 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment_v2_v2) {
 
     override fun onStart() {
         super.onStart()
-        val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(requireContext())
-        account?.let {
-            setEnabledInterface(false)
-            mGoogleSignInLauncher.launch(mGoogleSignInService.mGoogleSignInClient)
-        }
+        /*
+        * 03/09/2021
+        * */
+//        lifecycleScope.launch(Dispatchers.IO) {
+//            labelModel.initAppPreference()
+//            when {
+//                labelModel.isFirstTime() -> {
+//                    //is firsttime
+//                }
+//                else -> {
+//                    //Theres no need to progress
+//                }
+//            }
+//        }
+//        val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(requireContext())
     }
 
     private fun initGoogleService(){
-        mGoogleSignInService.initClient(requireContext())
+        val gso: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestScopes(Scope(Scopes.EMAIL), Scope(Scopes.PROFILE))
+            .requestServerAuthCode(getString(R.string.server_client_id))
+            .requestEmail()
+            .build()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
         mGoogleSignInLauncher = registerForActivityResult(GoogleSignInContract()){
             googleSignInCallBack(it)
         }
@@ -77,13 +100,13 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment_v2_v2) {
 
     private fun init(){
         loginModel.updateAppPreference()
-        mGoogleSignInService = GoogleSignInService.getGoogleSignInService()
         allDisposable = CompositeDisposable()
         formState = CheckFormStateSignIn()
         finalFormStateSubj = PublishSubject.create()
         val forgotText = SpannableString(getString(R.string.button_dont_remember_password))
         forgotText.setSpan(UnderlineSpan(), 0, forgotText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         signInBinding?.signInTextViewForgotPass?.text = forgotText
+
     }
 
     private fun addRX(){
@@ -118,7 +141,7 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment_v2_v2) {
         signInBinding?.signInButtonSignIn?.clicks()?.subscribe { signInAction() }
         signInBinding?.signInTextViewSignUp?.clicks()?.subscribe { signUpAction() }
         signInBinding?.signInTextViewForgotPass?.clicks()?.subscribe { forgotAction() }
-        signInBinding?.signInButtonGoogleSignIn?.clicks()?.subscribe { googleSignInAction() }
+        signInBinding?.signInButtonGoogleSignIn?.clicks()?.subscribe { googleSignIn() }
 
         eventManager.getSignInSuccessEvent().observe(viewLifecycleOwner, EventObserver{
             if (it) startMainActivity()
@@ -146,34 +169,29 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment_v2_v2) {
     }
     private fun signUpAction() = findNavController().navigate(R.id.loginNavSignInToSignUp)
     private fun forgotAction() = findNavController().navigate(R.id.loginNavSignInToForgotPass)
-    private fun googleSignInAction(){
+    private fun googleSignIn(){
         setEnabledInterface(false)
-        mGoogleSignInLauncher.launch(mGoogleSignInService.mGoogleSignInClient)
-    }
-    private fun googleSignIn(acc: GoogleSignInAccount){
-        val code = acc.serverAuthCode
-        val mail = acc.email
-        val firstName = acc.givenName
-        val lastName = acc.familyName
-        val photoUri = acc.photoUrl
-        val rememberPass = signInBinding?.signInSwitchRememberPassword?.isChecked ?: false
-        if (!code.isNullOrEmpty() && !mail.isNullOrEmpty()){
-            loginModel.signInActionWithGoogle(mail, code, rememberPass, firstName, lastName, photoUri)
-        }
+        mGoogleSignInLauncher.launch(mGoogleSignInClient)
     }
     private fun googleSignInCallBack(completedTask: Task<GoogleSignInAccount>){
         try {
             if (completedTask.isSuccessful){
                 val account = completedTask.result
-                account?.let { acc ->
-                    mGoogleSignInService.mGoogleSignInAccount = acc
-                    googleSignIn(acc)
+                val code = account?.serverAuthCode
+                val mail = account?.email
+                val firstName = account?.givenName
+                val lastName = account?.familyName
+                val photoUri = account?.photoUrl
+                val rememberPass = signInBinding?.signInSwitchRememberPassword?.isChecked ?: false
+
+                if (!code.isNullOrEmpty() && !mail.isNullOrEmpty()){
+                    loginModel.signInActionWithGoogle(mail, code, rememberPass, firstName, lastName, photoUri)
                 }
             } else {
                 setEnabledInterface(true)
             }
         } catch (e: ApiException){
-            setEnabledInterface(true)
+
         }
     }
 
@@ -193,11 +211,11 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment_v2_v2) {
         signInBinding?.signInButtonGoogleSignIn?.isEnabled = value
         if (value) {
             signInBinding?.signInProgressBar?.visibility = View.GONE
-            signInBinding?.signInButtonGoogleSignIn?.background = resources.getDrawable(R.drawable.all_round_google_blue)
+            signInBinding?.bcg?.background = resources.getDrawable(R.drawable.all_round_google_blue)
         }
         else {
             signInBinding?.signInProgressBar?.visibility = View.VISIBLE
-            signInBinding?.signInButtonGoogleSignIn?.background = resources.getDrawable(R.drawable.transparent)
+            signInBinding?.bcg?.background = resources.getDrawable(R.drawable.all_round_google_gray)
         }
 
     }

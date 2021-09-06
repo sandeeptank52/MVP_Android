@@ -4,14 +4,16 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
-import com.application.bmiobesity.databinding.LabelMainFragmentV2Binding
+import com.application.bmiobesity.databinding.LabelMainFragmentBinding
 import com.application.bmiobesity.view.loginActivity.LoginActivity
+import com.application.bmiobesity.view.mainActivity.MainActivity
 import com.application.bmiobesity.viewModels.LabelViewModel
 import kotlinx.coroutines.*
 
@@ -20,12 +22,12 @@ class MainFragment : Fragment(R.layout.label_main_fragment_v2) {
     private val mDelay: Long = 2500
     private val diffDelay: Long = 1000
 
-    private var mainBinding: LabelMainFragmentV2Binding? = null
+    private var mainBinding: LabelMainFragmentBinding? = null
     private val labelModel: LabelViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainBinding = LabelMainFragmentV2Binding.bind(view)
+        mainBinding = LabelMainFragmentBinding.bind(view)
         animateLabelScreen()
 
         lifecycleScope.launch(Dispatchers.IO) {
@@ -33,17 +35,25 @@ class MainFragment : Fragment(R.layout.label_main_fragment_v2) {
             when {
                 labelModel.isFirstTime() -> {
                     firstTime()
+//                    Log.d("Bug","first "+ labelModel.isFirstTime().toString())
                 }
                 labelModel.isNeedShowDisclaimer() -> {
                     showDisclaimer()
+//                    Log.d("Bug","need " + labelModel.isFirstTime().toString())
                 }
                 else -> {
-                    startLoginActivity()
+                    startMainActivity()
+//                    startLoginActivity()
+//                    Log.d("Bug", "log " + labelModel.isFirstTime().toString())
                 }
             }
         }
     }
-
+    private fun startMainActivity(){
+        val intent = Intent(context, MainActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
+    }
     private fun startLoginActivity(){
         lifecycleScope.launch(Dispatchers.IO) {
             val delayJob = async { delay(mDelay) }

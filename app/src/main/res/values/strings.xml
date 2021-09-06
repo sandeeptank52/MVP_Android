@@ -59,7 +59,7 @@
 
     <!--switches-->
     <string name="switch_disclaimer">Don`t show again?</string>
-    <string name="switch_login_remember_password">Remember</string>
+    <string name="switch_login_remember_password">Remember me</string>
     <string name="switch_sign_in_privacy_agree">I agree on terms and condition</string>
 
     <!--main activity-->
@@ -291,5 +291,6 @@
     <string name="walk_more_than_8000_steps_full">Walk more than 8000 steps per day is very important, it can improve health level and low weight and diseases risks.</string>
     <string name="personal_recomendations">Personal Recomendations</string>
     <string name="monthly_subscriptions">(Monthly Subscriptions)</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
 
 </resources>

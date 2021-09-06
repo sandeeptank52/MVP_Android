@@ -68,7 +68,7 @@
 
     <ImageView
         android:id="@+id/mainMenu"
-        android:src="@drawable/main_menu"
+        android:src="@drawable/more_vert_white"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:contentDescription="@string/image_description"

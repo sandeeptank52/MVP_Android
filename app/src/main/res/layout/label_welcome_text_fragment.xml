@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/welcomeTextViewTitle"
         android:text="@string/welcome_title"
-        android:textColor="@color/color_black"
+        android:textColor="@color/labelGradientBckSecond"
         android:textSize="22sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +34,6 @@
         <TextView
             android:id="@+id/welcomeTextViewMain"
             android:text="@string/text_welcome"
-            android:textSize="18sp"
             android:gravity="center"
             android:autoLink="web"
             android:linksClickable="true"
