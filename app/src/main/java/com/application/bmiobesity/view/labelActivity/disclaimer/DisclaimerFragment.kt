@@ -6,12 +6,13 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.LabelDisclaimerFragmentBinding
 import com.application.bmiobesity.model.appSettings.AppSettingDataStore
 import com.application.bmiobesity.view.loginActivity.LoginActivity
 import com.application.bmiobesity.viewModels.LabelViewModel
 
-class DisclaimerFragment : Fragment(R.layout.label_disclaimer_fragment) {
+class DisclaimerFragment : BaseFragment(R.layout.label_disclaimer_fragment) {
 
     private var disclaimerBinding: LabelDisclaimerFragmentBinding? = null
     private val labelModel: LabelViewModel by activityViewModels()

@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.common.EventObserver
 import com.application.bmiobesity.common.MeasuringSystem
 import com.application.bmiobesity.common.eventManagerMain.EventManagerMain
@@ -20,7 +21,7 @@ import com.application.bmiobesity.view.loginActivity.LoginActivity
 import com.application.bmiobesity.viewModels.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class SettingFragment : Fragment(R.layout.main_setting_fragment_v2) {
+class SettingFragment : BaseFragment(R.layout.main_setting_fragment_v2) {
 
     private var settingBinding: MainSettingFragmentV2Binding? = null
     private val mainModel: MainViewModel by activityViewModels()

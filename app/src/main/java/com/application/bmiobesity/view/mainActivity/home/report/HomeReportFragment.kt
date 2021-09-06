@@ -6,12 +6,13 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.MainHomeReportFragmentBinding
 import com.application.bmiobesity.model.db.paramSettings.entities.MedCardParamSetting
 import com.application.bmiobesity.model.db.paramSettings.entities.MedCardParamSimpleValue
 import com.application.bmiobesity.viewModels.MainViewModel
 
-class HomeReportFragment : Fragment(R.layout.main_home_report_fragment) {
+class HomeReportFragment : BaseFragment(R.layout.main_home_report_fragment) {
 
     private var binding: MainHomeReportFragmentBinding? = null
     private val mainModel: MainViewModel by activityViewModels()

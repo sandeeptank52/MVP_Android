@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.LoginConfirmEmailFragmentBinding
 
-class ConfirmEmailFragment : Fragment(R.layout.login_confirm_email_fragment) {
+class ConfirmEmailFragment : BaseFragment(R.layout.login_confirm_email_fragment) {
 
     private var confirmEmailBinding: LoginConfirmEmailFragmentBinding? = null
 

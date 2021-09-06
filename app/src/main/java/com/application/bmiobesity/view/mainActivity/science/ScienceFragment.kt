@@ -12,9 +12,10 @@ import android.text.style.StyleSpan
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.MainScienceFragmentBinding
 
-class ScienceFragment : Fragment(R.layout.main_science_fragment) {
+class ScienceFragment : BaseFragment(R.layout.main_science_fragment) {
 
     private var binding: MainScienceFragmentBinding? = null
 
