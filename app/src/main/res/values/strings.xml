@@ -322,5 +322,8 @@
     <string name="science_mimic_link_url" translatable="false">https://mimic.mit.edu/</string>
     <string name="science_mimic_content">is a large, freely-available database (Medical Information Mart for Intensive Care) comprising de-identified health-related data relating to patients admitted to critical care units at a large tertiary care hospital. The database includes demographics, vital sign measurements made at the bedside, laboratory test results, procedures, medications, caregiver notes, imaging reports, and mortality. We use the MIMIC-III data to learn our AI model to identify dependencies between biomarkers and diseases and to predict the development and spread of diseases.</string>
 
+    <!--app update-->
+    <string name="app_update_prompt">New version available</string>
+    <string name="app_update_button">Update</string>
 
 </resources>
