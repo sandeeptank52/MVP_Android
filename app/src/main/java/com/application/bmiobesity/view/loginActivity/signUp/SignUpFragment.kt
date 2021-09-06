@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.LoginSignupFragmentBinding
 import com.application.bmiobesity.model.retrofit.RetrofitError
 import com.application.bmiobesity.common.EventObserver
@@ -30,7 +31,7 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 import java.util.*
 
-class SignUpFragment : Fragment(R.layout.login_signup_fragment_v2) {
+class SignUpFragment : BaseFragment(R.layout.login_signup_fragment_v2) {
 
     private var signUpBinding : LoginSignupFragmentV2Binding? = null
     private val loginModel: LoginViewModel by activityViewModels()

@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.MainHomeFragmentBinding
 import com.application.bmiobesity.viewModels.MainViewModel
 import com.google.android.material.tabs.TabLayoutMediator
@@ -15,7 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HomeFragment : Fragment(R.layout.main_home_fragment) {
+class HomeFragment : BaseFragment(R.layout.main_home_fragment) {
 
     private var homeBinding: MainHomeFragmentBinding? = null
     private lateinit var titles: List<String>

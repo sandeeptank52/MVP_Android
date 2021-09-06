@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.common.MeasuringSystem
 import com.application.bmiobesity.common.parameters.AvailableParameters
 import com.application.bmiobesity.common.parameters.DailyActivityLevels
@@ -25,7 +26,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MedcardFragment : Fragment(R.layout.main_medcard_fragment) {
+class MedcardFragment : BaseFragment(R.layout.main_medcard_fragment) {
 
     private var medcardBinding: MainMedcardFragmentBinding? = null
     private val mainModel: MainViewModel by activityViewModels()

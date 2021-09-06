@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.LoginForgotpassFragmentBinding
 import com.application.bmiobesity.model.retrofit.RetrofitError
 import com.application.bmiobesity.model.retrofit.RetrofitResult
@@ -25,7 +26,7 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 import kotlinx.coroutines.launch
 
-class ForgotPassFragment : Fragment(R.layout.login_forgotpass_fragment_v2) {
+class ForgotPassFragment : BaseFragment(R.layout.login_forgotpass_fragment_v2) {
 
     private var forgotPassBinding : LoginForgotpassFragmentV2Binding? = null
 
