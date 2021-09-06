@@ -13,12 +13,14 @@
     <string name="profile_hint_surname">Фамилия</string>
     <string name="gender_hint_not_say">Не скажу</string>
 
+
     <!--buttons-->
     <string name="button_sign_in">Войти</string>
+    <string name="sign_in_with_google">Войти через Google</string>
     <string name="button_sign_up">Зарегистрироваться</string>
     <string name="button_sign_up_text">Нужен аккаунт?</string>
     <string name="button_next">Далее</string>
-    <string name="button_come_in">Войти</string>
+    <string name="button_come_in">Войдите</string>
     <string name="button_skip">Пропустить</string>
     <string name="button_got_it">Понятно</string>
     <string name="button_dont_remember_password">Не помню пароль</string>
@@ -45,6 +47,7 @@
     <string name="main_home_menu_favorite">Избранное</string>
     <string name="main_home_menu_analyze">Анализ</string>
     <string name="main_home_menu_recommendations">Рекомендации</string>
+    <string name="main_home_menu_report">Отчет</string>
 
     <string name="main_app_menu_setting">Настройки</string>
     <string name="main_app_menu_subscriptions">Магазин</string>
@@ -274,5 +277,4 @@
     <string name="save">Сохранить</string>
     <string name="sign_in_or">---ИЛИ---</string>
     <string name="setting_measure">Система измерения</string>
-    <string name="main_home_menu_report">Отчет</string>
 </resources>
