@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.LoginResetpassFragmentBinding
 import com.application.bmiobesity.model.retrofit.RetrofitError
 import com.application.bmiobesity.model.retrofit.SendConfirmResetPass
@@ -23,7 +24,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 
-class ResetPassFragment : Fragment(R.layout.login_resetpass_fragment_v2) {
+class ResetPassFragment : BaseFragment(R.layout.login_resetpass_fragment_v2) {
 
     private var resetPassBinding: LoginResetpassFragmentBinding? = null
 

@@ -10,12 +10,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.LabelWelcomeTextFragmentV2Binding
 import com.application.bmiobesity.databinding.LabelWelcomeTextFragmentV2V2Binding
 import com.application.bmiobesity.view.loginActivity.LoginActivity
 import com.application.bmiobesity.viewModels.LabelViewModel
 
-class WelcomeFragment : Fragment(R.layout.label_welcome_text_fragment_v2_v2) {
+class WelcomeFragment : BaseFragment(R.layout.label_welcome_text_fragment_v2_v2) {
 
     private var welcomeBinding2: LabelWelcomeTextFragmentV2V2Binding? = null
     private val labelModel: LabelViewModel by activityViewModels()

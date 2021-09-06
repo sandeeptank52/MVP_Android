@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.model.retrofit.RetrofitError
 import com.application.bmiobesity.services.google.signIn.GoogleSignInContract
 import com.application.bmiobesity.common.EventObserver
@@ -35,7 +36,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 
-class SignInFragment : Fragment(R.layout.login_signin_fragment_v2_v2) {
+class SignInFragment : BaseFragment(R.layout.login_signin_fragment_v2_v2) {
 
     private var signInBinding : LoginSigninFragmentV2V2Binding? = null
 

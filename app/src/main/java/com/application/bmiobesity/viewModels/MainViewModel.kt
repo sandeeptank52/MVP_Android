@@ -1,7 +1,11 @@
 package com.application.bmiobesity.viewModels
 
+import android.os.Bundle
 import androidx.lifecycle.*
 import com.application.bmiobesity.InTimeApp
+import com.application.bmiobesity.analytics.AnalyticsEvent
+import com.application.bmiobesity.analytics.EventParam
+import com.application.bmiobesity.analytics.EventValue
 import com.application.bmiobesity.common.ProfileManager
 import com.application.bmiobesity.model.appSettings.AppPreference
 import com.application.bmiobesity.model.appSettings.AppSettingDataStore
@@ -20,6 +24,7 @@ import com.application.bmiobesity.common.eventManagerMain.EventManagerMain
 import com.application.bmiobesity.common.eventManagerMain.MainViewModelEvent
 import com.application.bmiobesity.common.parameters.AvailableParameters
 import com.application.bmiobesity.services.google.billing.GoogleBillingClient
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
@@ -35,6 +40,8 @@ class MainViewModel : ViewModel() {
     lateinit var paramSettingRepo: ParamSettingsRepo
     @Inject
     lateinit var localStorageRepo: LocalStorageRepo
+    @Inject
+    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     val billingClient = GoogleBillingClient.getGoogleBilling(InTimeApp.APPLICATION)
 
@@ -150,7 +157,9 @@ class MainViewModel : ViewModel() {
                 mResultCard.postValue(temp)
             }
             is RetrofitResult.Error -> {
-
+                val bundle = Bundle()
+                bundle.putString(EventParam.ERROR_TYPE, result.errorMessage)
+                firebaseAnalytics.logEvent(AnalyticsEvent.GET_FAVORITE, bundle)
             }
         }
     }
@@ -162,7 +171,9 @@ class MainViewModel : ViewModel() {
                 mResultCommonRecommendations.postValue(result.value.common_recomendations)
             }
             is RetrofitResult.Error -> {
-
+                val bundle = Bundle()
+                bundle.putString(EventParam.ERROR_TYPE, result.errorMessage)
+                firebaseAnalytics.logEvent(AnalyticsEvent.GET_ANALYZE, bundle)
             }
         }
     }
@@ -173,7 +184,9 @@ class MainViewModel : ViewModel() {
                 mResultPersonalRecommendations.postValue(result.value)
             }
             is RetrofitResult.Error -> {
-
+                val bundle = Bundle()
+                bundle.putString(EventParam.ERROR_TYPE, result.errorMessage)
+                firebaseAnalytics.logEvent(AnalyticsEvent.GET_RECOMMENDATION, bundle)
             }
         }
     }
@@ -185,7 +198,9 @@ class MainViewModel : ViewModel() {
                 profileManager.updateAvailableMedCardData(resultMedCard.value)
             }
             is RetrofitResult.Error -> {
-
+                val bundle = Bundle()
+                bundle.putString(EventParam.ERROR_TYPE, resultMedCard.errorMessage)
+                firebaseAnalytics.logEvent(AnalyticsEvent.GET_MED_CARD, bundle)
             }
         }
     }
@@ -213,6 +228,9 @@ class MainViewModel : ViewModel() {
             }
             is RetrofitResult.Error -> {
                 medCard.errorUpdate()
+                val bundle = Bundle()
+                bundle.putString(EventParam.ERROR_TYPE, result.errorMessage)
+                firebaseAnalytics.logEvent(AnalyticsEvent.UPDATE_DASHBOARD, bundle)
             }
         }
     }
@@ -251,7 +269,9 @@ class MainViewModel : ViewModel() {
                 profile.loadFromProfile(resultProfile.value)
             }
             is RetrofitResult.Error -> {
-
+                val bundle = Bundle()
+                bundle.putString(EventParam.ERROR_TYPE, resultProfile.errorMessage)
+                firebaseAnalytics.logEvent(AnalyticsEvent.GET_PROFILE, bundle)
             }
         }
     }
@@ -261,7 +281,9 @@ class MainViewModel : ViewModel() {
                 profile.loadFromUserProfile(resultProfile.value)
             }
             is RetrofitResult.Error -> {
-
+                val bundle = Bundle()
+                bundle.putString(EventParam.ERROR_TYPE, resultProfile.errorMessage)
+                firebaseAnalytics.logEvent(AnalyticsEvent.GET_USER_PROFILE, bundle)
             }
         }
     }
@@ -274,7 +296,9 @@ class MainViewModel : ViewModel() {
                 }
             }
             is RetrofitResult.Error -> {
-
+                val bundle = Bundle()
+                bundle.putString(EventParam.ERROR_TYPE, result.errorMessage)
+                firebaseAnalytics.logEvent(AnalyticsEvent.GET_LOAD_FIRST_TIMESTAMP, bundle)
             }
         }
     }
@@ -289,7 +313,9 @@ class MainViewModel : ViewModel() {
                     updateAllResult()
                 }
                 is RetrofitResult.Error -> {
-
+                    val bundle = Bundle()
+                    bundle.putString(EventParam.ERROR_TYPE, result.errorMessage)
+                    firebaseAnalytics.logEvent(AnalyticsEvent.PATCH_PROFILE, bundle)
                 }
             }
 
@@ -300,7 +326,11 @@ class MainViewModel : ViewModel() {
                     profileManager.updateAvailableProfileData(profile)
                     updateAllResult()
                 }
-                is RetrofitResult.Error -> {}
+                is RetrofitResult.Error -> {
+                    val bundle = Bundle()
+                    bundle.putString(EventParam.ERROR_TYPE, result.errorMessage)
+                    firebaseAnalytics.logEvent(AnalyticsEvent.UPDATE_DASHBOARD, bundle)
+                }
             }
             /*
             when (val result = remoteRepo.patchUserProfile(userProfile = profile.getSendUserProfile())){
@@ -328,6 +358,9 @@ class MainViewModel : ViewModel() {
                     eventManager.endUserDeleting(true)
                 }
                 is RetrofitResult.Error -> {
+                    val bundle = Bundle()
+                    bundle.putString(EventParam.ERROR_TYPE, result.errorMessage)
+                    firebaseAnalytics.logEvent(AnalyticsEvent.DELETE_PROFILE, bundle)
                 }
             }
         }
@@ -343,7 +376,11 @@ class MainViewModel : ViewModel() {
                         profileManager.setAvatarUrl(it)
                     }
                 }
-                is RetrofitResult.Error -> {}
+                is RetrofitResult.Error -> {
+                    val bundle = Bundle()
+                    bundle.putString(EventParam.ERROR_TYPE, result.errorMessage)
+                    firebaseAnalytics.logEvent(AnalyticsEvent.PATCH_AVATAR, bundle)
+                }
             }
         }
     }
