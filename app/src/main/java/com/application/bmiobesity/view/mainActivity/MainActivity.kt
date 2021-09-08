@@ -32,6 +32,13 @@ import com.application.bmiobesity.view.loginActivity.LoginActivity
 import com.application.bmiobesity.viewModels.MainViewModel
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.InstallStateUpdatedListener
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.InstallStatus
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.coroutines.Dispatchers
@@ -49,6 +56,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var mGoogleSignInService: GoogleSignInService
+    private lateinit var mAppUpdateManager: AppUpdateManager
+    private lateinit var mInstallStateUpdatedListener: InstallStateUpdatedListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_DiseaseTrackerProductionCustom)
         setContentView(mainBinding.root)
 
-        eventManager.getPreloadSuccessEvent().observe(this, EventObserver{
+        eventManager.getPreloadSuccessEvent().observe(this, EventObserver {
             if (it) mainBinding.mainFrameLayoutWaiting.visibility = View.GONE
         })
 
@@ -64,22 +73,23 @@ class MainActivity : AppCompatActivity() {
 
         init()
 
-
-        requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()){isGranted ->
-            if (isGranted){
-                CropImage.activity()
-                    .setAspectRatio(1,1)
-                    .setRequestedSize(600, 600)
-                    .setCropShape(CropImageView.CropShape.OVAL)
-                    .start(this)
+        requestPermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+                if (isGranted) {
+                    CropImage.activity()
+                        .setAspectRatio(1, 1)
+                        .setRequestedSize(600, 600)
+                        .setCropShape(CropImageView.CropShape.OVAL)
+                        .start(this)
+                }
             }
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE
-            && resultCode == RESULT_OK && data != null){
+            && resultCode == RESULT_OK && data != null
+        ) {
 
             val result = CropImage.getActivityResult(data)
             val imageURI = result.uri
@@ -94,14 +104,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun init(){
+    private fun init() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment) as NavHostFragment
         navController = navHostFragment.navController
         lifecycleScope.launch(Dispatchers.IO) {
             val firstTime = mainModel.isFirstTimeAsync().await()
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
+                checkAvailableUpdate()
                 if (firstTime) {
                     mainBinding.mainBottomNavigationView.visibility = View.GONE
+                    mainBinding.mainMenu.visibility = View.GONE
                     mainBinding.mainImageViewAvatarIcon.visibility = View.VISIBLE
                     mainBinding.mainEnterText.visibility = View.VISIBLE
                     mainBinding.mainForMoreAccurrate.visibility = View.VISIBLE
@@ -109,7 +121,7 @@ class MainActivity : AppCompatActivity() {
                     mainBinding.bottomNav.visibility = View.GONE
                     addListeners()
                 } else {
-                    IndicatorUiUpdate(R.id.mainHomeNav)
+                    indicatorUIUpdate(R.id.mainHomeNav)
                     mainBinding.mainBottomNavigationView.visibility = View.VISIBLE
                     mainBinding.mainMenu.visibility = View.VISIBLE
                     mainBinding.mainImageViewAvatarIcon.visibility = View.GONE
@@ -141,12 +153,13 @@ class MainActivity : AppCompatActivity() {
             menu.show()
         }
     }
-    private fun initMainBottomNav(){
-        findViewById<BottomNavigationView>(R.id.mainBottomNavigationView).setupWithNavController(navController)
-
+    private fun initMainBottomNav() {
+        findViewById<BottomNavigationView>(R.id.mainBottomNavigationView).setupWithNavController(
+            navController
+        )
     }
 
-    private fun subsMenuAction(){
+    private fun subsMenuAction() {
         navController.navigate(R.id.mainNavToSubs)
     }
     private fun scienceMenuAction() {
@@ -155,10 +168,10 @@ class MainActivity : AppCompatActivity() {
     private fun settingMenuAction(){
         navController.navigate(R.id.mainNavToSetting)
     }
-    private fun logOutMenuAction(){
+    private fun logOutMenuAction() {
         lifecycleScope.launch(Dispatchers.IO) {
             mainModel.appSetting.setStringParam(AppSettingDataStore.PrefKeys.USER_PASS, "")
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 mGoogleSignInService.mGoogleSignInClient.signOut()
                 val intent = Intent(applicationContext, LoginActivity::class.java)
                 startActivity(intent)
@@ -167,7 +180,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setAvatar(url: String){
+    private fun setAvatar(url: String) {
         Glide.with(this)
             .load(url)
             .placeholder(R.drawable.avatar_icon)
@@ -179,43 +192,56 @@ class MainActivity : AppCompatActivity() {
             .circleCrop()
             .into(mainBinding.mainImageViewAvatarIconCenter)
     }
-    private fun setSubscriptionInfo(time: Long){
+    private fun setSubscriptionInfo(time: Long) {
         val currentDate = Date().time
         val expireDate = time + (14 * DateUtils.DAY_IN_MILLIS)
 
         val expireInfo = getString(R.string.main_subs_info, getDateStrFromMS(expireDate))
         val expired = getString(R.string.main_subs_expire)
 
-        if (currentDate < expireDate){
+        if (currentDate < expireDate) {
             mainBinding.mainTextViewSubsInfo.text = expireInfo
-            mainBinding.mainTextViewSubsInfo.setTextColor(resources.getColor(R.color.transparent, null))
+            mainBinding.mainTextViewSubsInfo.setTextColor(
+                resources.getColor(
+                    R.color.transparent,
+                    null
+                )
+            )
             mainModel.profileManager.trialPeriodExpired.postValue(false)
         } else {
             mainBinding.mainTextViewSubsInfo.text = expired
-            mainBinding.mainTextViewSubsInfo.setTextColor(resources.getColor(R.color.transparent, null))
+            mainBinding.mainTextViewSubsInfo.setTextColor(
+                resources.getColor(
+                    R.color.transparent,
+                    null
+                )
+            )
             mainModel.profileManager.trialPeriodExpired.postValue(true)
         }
     }
 
-    private fun addListeners(){
+    private fun addListeners() {
         /*eventManager.getPreloadSuccessEvent().observe(this, EventObserver{
             if (it) mainBinding.mainFrameLayoutWaiting.visibility = View.GONE
         })*/
         mainBinding.home.setOnClickListener {
-            IndicatorUiUpdate(R.id.mainHomeNav)
+            indicatorUIUpdate(R.id.mainHomeNav)
         }
         mainBinding.medsCard.setOnClickListener {
-            IndicatorUiUpdate(R.id.mainMedcardNav)
+            indicatorUIUpdate(R.id.mainMedcardNav)
         }
         mainBinding.profile.setOnClickListener {
-            IndicatorUiUpdate(R.id.mainProfileNav)
+            indicatorUIUpdate(R.id.mainProfileNav)
         }
         mainBinding.mainImageViewAvatarIcon.setOnClickListener {
 
             when (PackageManager.PERMISSION_GRANTED) {
-                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) -> {
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ) -> {
                     CropImage.activity()
-                        .setAspectRatio(1,1)
+                        .setAspectRatio(1, 1)
                         .setRequestedSize(600, 600)
                         .setCropShape(CropImageView.CropShape.OVAL)
                         .start(this)
@@ -230,7 +256,7 @@ class MainActivity : AppCompatActivity() {
             it?.let {
                 mainBinding.mainTextViewFirstName.text = it.firstName
                 mainBinding.mainTextViewLastName.text = it.lastName
-                if (it.imageURI.isNotEmpty()){
+                if (it.imageURI.isNotEmpty()) {
                     setAvatar(it.imageURI)
                 }
                 setSubscriptionInfo(it.firsTimeStamp * 1000)
@@ -239,29 +265,45 @@ class MainActivity : AppCompatActivity() {
 
         mainModel.billingClient.purchaseListLive.observe(this, { purchaseConfigs ->
             purchaseConfigs?.let { purchaseConfigList ->
-                val purchasePersonal = purchaseConfigList.find { it.sku == "test_sub" && it.purchaseState == Purchase.PurchaseState.PURCHASED }
-                if (purchasePersonal != null){
+                val purchasePersonal =
+                    purchaseConfigList.find { it.sku == "test_sub" && it.purchaseState == Purchase.PurchaseState.PURCHASED }
+                if (purchasePersonal != null) {
                     mainBinding.mainTextViewSubsInfo.visibility = View.GONE
                 } else {
                     mainBinding.mainTextViewSubsInfo.visibility = View.VISIBLE
                 }
             }
         })
+
+        mInstallStateUpdatedListener = InstallStateUpdatedListener { installState ->
+            if (installState.installStatus() == InstallStatus.DOWNLOADED) {
+                Snackbar.make(
+                    mainBinding.root,
+                    resources.getString(R.string.app_update_prompt),
+                    Snackbar.LENGTH_INDEFINITE
+                ).apply {
+                    setAction(resources.getString(R.string.app_update_button)) {
+                        mAppUpdateManager.completeUpdate()
+                    }
+                    show()
+                }
+            }
+        }
+        mAppUpdateManager.registerListener(mInstallStateUpdatedListener)
     }
 
-    private fun IndicatorUiUpdate(pos:Int){
-        if (pos==R.id.mainHomeNav){
+    private fun indicatorUIUpdate(pos: Int) {
+        if (pos == R.id.mainHomeNav) {
             navController.navigate(R.id.mainHomeNav)
             mainBinding.homeIndicator.visibility = View.VISIBLE
             mainBinding.profileIndicator.visibility = View.GONE
             mainBinding.medsCardIndicator.visibility = View.GONE
-        }else if (pos==R.id.mainMedcardNav){
+        } else if (pos == R.id.mainMedcardNav) {
             navController.navigate(R.id.mainMedcardNav)
             mainBinding.homeIndicator.visibility = View.GONE
             mainBinding.profileIndicator.visibility = View.GONE
             mainBinding.medsCardIndicator.visibility = View.VISIBLE
-        }
-        else{
+        } else {
             navController.navigate(R.id.mainProfileNav)
             mainBinding.homeIndicator.visibility = View.GONE
             mainBinding.profileIndicator.visibility = View.VISIBLE
@@ -269,6 +311,29 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkAvailableUpdate() {
+        mAppUpdateManager = AppUpdateManagerFactory.create(this)
+        mAppUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
+                appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)
+            ) {
+                try {
+                    // Start updating app in background
+                    mAppUpdateManager.startUpdateFlowForResult(
+                        appUpdateInfo,
+                        AppUpdateType.FLEXIBLE,
+                        this,
+                        100
+                    )
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
 
-
+    override fun onStop() {
+        mAppUpdateManager.unregisterListener(mInstallStateUpdatedListener)
+        super.onStop()
+    }
 }

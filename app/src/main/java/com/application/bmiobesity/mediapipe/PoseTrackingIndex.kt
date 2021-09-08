@@ -1,4 +1,4 @@
-package com.application.bmiobesity
+package com.application.bmiobesity.mediapipe
 
 enum class PoseTrackingIndex(val index: Int)  {
     NOSE(0),
