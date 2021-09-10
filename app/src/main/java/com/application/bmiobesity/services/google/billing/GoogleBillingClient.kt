@@ -6,11 +6,13 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.android.billingclient.api.*
 import com.google.gson.Gson
+import kotlinx.coroutines.*
+import java.util.concurrent.TimeUnit
 
-class GoogleBillingClient private constructor(private val app: Application): LifecycleObserver,
-                                                                            PurchasesUpdatedListener,
-                                                                            BillingClientStateListener,
-                                                                            SkuDetailsResponseListener{
+class GoogleBillingClient private constructor(private val app: Application) : LifecycleObserver,
+    PurchasesUpdatedListener,
+    BillingClientStateListener,
+    SkuDetailsResponseListener {
     private lateinit var billingClient: BillingClient
     private val LIST_OF_SKUS = listOf("test_sub")
 
@@ -23,37 +25,38 @@ class GoogleBillingClient private constructor(private val app: Application): Lif
     val purchaseListLive: LiveData<List<PurchasesConfig>> = mPurchaseListLive
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun create(){
+    fun create() {
         billingClient = BillingClient.newBuilder(app.applicationContext)
-                .setListener(this)
-                .enablePendingPurchases()
-                .build()
+            .setListener(this)
+            .enablePendingPurchases()
+            .build()
 
-        if (!billingClient.isReady){
+        if (!billingClient.isReady) {
             billingClient.startConnection(this)
         }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun destroy(){
-        if (billingClient.isReady){
+    fun destroy() {
+        if (billingClient.isReady) {
             billingClient.endConnection()
         }
     }
 
-    private fun querySkuDetails(){
+    private fun querySkuDetails() {
         val params = SkuDetailsParams.newBuilder()
-                .setSkusList(LIST_OF_SKUS)
-                .setType(BillingClient.SkuType.SUBS)
-                .build()
+            .setSkusList(LIST_OF_SKUS)
+            .setType(BillingClient.SkuType.SUBS)
+            .build()
         params.let {
             billingClient.querySkuDetailsAsync(params, this)
         }
     }
-    private fun queryPurchases(){
+
+    private fun queryPurchases() {
         val result = billingClient.queryPurchases(BillingClient.SkuType.SUBS)
         result.purchasesList?.let {
-            for (purchase in it){
+            for (purchase in it) {
                 val p = PurchasesConfig(purchase)
                 p.setUp(purchase)
                 mPurchaseList.add(p)
@@ -62,8 +65,9 @@ class GoogleBillingClient private constructor(private val app: Application): Lif
             mPurchaseListLive.postValue(mPurchaseList)
         }
     }
-    private fun acknowledgePurchase(p: Purchase){
-        if (!p.isAcknowledged){
+
+    private fun acknowledgePurchase(p: Purchase) {
+        if (!p.isAcknowledged) {
             val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
                 .setPurchaseToken(p.purchaseToken)
             billingClient.acknowledgePurchase(acknowledgePurchaseParams.build()) {
@@ -71,8 +75,9 @@ class GoogleBillingClient private constructor(private val app: Application): Lif
             }
         }
     }
-    private fun updateSkuConfig(p: Purchase){
-        if (p.purchaseState == Purchase.PurchaseState.PURCHASED){
+
+    private fun updateSkuConfig(p: Purchase) {
+        if (p.purchaseState == Purchase.PurchaseState.PURCHASED) {
             val skuDetail = mSkuDetailList[p.sku]
             skuDetail?.let {
                 it.isPurchased = true
@@ -83,29 +88,38 @@ class GoogleBillingClient private constructor(private val app: Application): Lif
         }
     }
 
-    fun launchBillingFlow(activity: Activity, params: BillingFlowParams): Int{
+    fun launchBillingFlow(activity: Activity, params: BillingFlowParams): Int {
         //val sku = params.sku
         //val oldSku = params.oldSku
         if (!billingClient.isReady) {
             Log.e(TAG, "launchBillingFlow: BillingClient is not ready")
+            create()
+            CoroutineScope(Dispatchers.IO).launch {
+                delay(200)
+                launchBillingFlow(activity, params)
+            }
         }
         val billingResult = billingClient.launchBillingFlow(activity, params)
         val responseCode = billingResult.responseCode
+        Log.e(TAG, "" + responseCode)
         //val debugMessage = billingResult.debugMessage
         return responseCode
     }
 
     // PurchasesUpdatedListener
-    override fun onPurchasesUpdated(billingResult: BillingResult, purchasesList: MutableList<Purchase>?) {
+    override fun onPurchasesUpdated(
+        billingResult: BillingResult,
+        purchasesList: MutableList<Purchase>?
+    ) {
         val responseCode = billingResult.responseCode
         //val debugMessage = billingResult.debugMessage
-        when (responseCode){
+        when (responseCode) {
             BillingClient.BillingResponseCode.OK -> {
 
-                if (!purchasesList.isNullOrEmpty()){
+                if (!purchasesList.isNullOrEmpty()) {
 
-                    for (purchase in purchasesList){
-                        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED){
+                    for (purchase in purchasesList) {
+                        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
                             acknowledgePurchase(purchase)
                             val p = PurchasesConfig(purchase)
                             p.setUp(purchase)
@@ -116,9 +130,12 @@ class GoogleBillingClient private constructor(private val app: Application): Lif
                     mPurchaseListLive.postValue(mPurchaseList)
                 }
             }
-            BillingClient.BillingResponseCode.USER_CANCELED -> {}
-            BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> {}
-            BillingClient.BillingResponseCode.DEVELOPER_ERROR -> {}
+            BillingClient.BillingResponseCode.USER_CANCELED -> {
+            }
+            BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> {
+            }
+            BillingClient.BillingResponseCode.DEVELOPER_ERROR -> {
+            }
         }
     }
 
@@ -126,28 +143,32 @@ class GoogleBillingClient private constructor(private val app: Application): Lif
     override fun onBillingSetupFinished(billingResult: BillingResult) {
         val responseCode = billingResult.responseCode
         //val debugMessage = billingResult.debugMessage
-        if (responseCode == BillingClient.BillingResponseCode.OK){
+        if (responseCode == BillingClient.BillingResponseCode.OK) {
             querySkuDetails()
             //queryPurchases()
         }
     }
+
     override fun onBillingServiceDisconnected() {
 
     }
 
     // SkuDetailsResponseListener
-    override fun onSkuDetailsResponse(billingResult: BillingResult, skuDetails: MutableList<SkuDetails>?) {
+    override fun onSkuDetailsResponse(
+        billingResult: BillingResult,
+        skuDetails: MutableList<SkuDetails>?
+    ) {
         val responseCode = billingResult.responseCode
         //val debugMessage = billingResult.debugMessage
 
-        when(responseCode){
+        when (responseCode) {
             BillingClient.BillingResponseCode.OK -> {
                 //val expectedSkuDetailsCount = LIST_OF_SKUS.size
-                if (skuDetails == null){
+                if (skuDetails == null) {
                     mSkuDetailListLive.postValue(emptyMap())
                 } else {
                     val itemsMap = HashMap<String, SkuDetailConfig>().apply {
-                        for (details in skuDetails){
+                        for (details in skuDetails) {
                             val skuConfig = SkuDetailConfig(details)
                             skuConfig.setUp(details)
                             put(details.sku, skuConfig)
@@ -175,14 +196,14 @@ class GoogleBillingClient private constructor(private val app: Application): Lif
         }
     }
 
-    companion object{
+    companion object {
         private const val TAG = "InTimeBilling"
 
         @Volatile
         private var INSTANCE: GoogleBillingClient? = null
 
-        fun getGoogleBilling(app: Application): GoogleBillingClient{
-            return INSTANCE ?: synchronized(this){
+        fun getGoogleBilling(app: Application): GoogleBillingClient {
+            return INSTANCE ?: synchronized(this) {
                 val instance = GoogleBillingClient(app)
                 INSTANCE = instance
                 instance
