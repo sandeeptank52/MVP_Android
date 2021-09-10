@@ -1,5 +1,6 @@
 package com.application.bmiobesity.model.retrofit
 
+import androidx.annotation.Keep
 import okhttp3.ResponseBody
 import java.lang.Exception
 
@@ -30,40 +31,40 @@ fun errorCheck(code: Int, message: String, responseBody: ResponseBody?): Retrofi
     }
 }
 
-data class CurrentLocale( val locale: String )
+@Keep data class CurrentLocale(val locale: String )
 
-data class SendEmail( val email: String)
-data class SendUser(var email:String, var password:String)
-data class SendRefresh(var refresh: String)
-data class SendDevice(var device_uuid:String, var os_name:String, var os_version:String, var device_model:String, var app_version:String)
-data class SendRefreshToken(var token: SendRefresh, var device: SendDevice)
-data class SendLogin(var user: SendUser, var device: SendDevice)
-data class SendConfirmResetPass(var new_password1: String, var new_password2: String, var uid: String, var token: String)
-data class SendGoogleTokenId(var provider: String = "google-oauth2", var code: String)
-data class SendProfile(var first_name: String, var last_name: String, var email: String)
-data class SendUserProfile(var birth_date: String, var country: Int, var gender: Int?, var height: Float, var smoker: Boolean, var measuring_system: Int)
+@Keep data class SendEmail(val email: String)
+@Keep data class SendUser(var email:String, var password:String)
+@Keep data class SendRefresh(var refresh: String)
+@Keep data class SendDevice(var device_uuid:String, var os_name:String, var os_version:String, var device_model:String, var app_version:String)
+@Keep data class SendRefreshToken(var token: SendRefresh, var device: SendDevice)
+@Keep data class SendLogin(var user: SendUser, var device: SendDevice)
+@Keep data class SendConfirmResetPass(var new_password1: String, var new_password2: String, var uid: String, var token: String)
+@Keep data class SendGoogleTokenId(var provider: String = "google-oauth2", var code: String)
+@Keep data class SendProfile(var first_name: String, var last_name: String, var email: String)
+@Keep data class SendUserProfile(var birth_date: String, var country: Int, var gender: Int?, var height: Float, var smoker: Boolean, var measuring_system: Int)
 
 
-data class ResultSimpleCountry(val id: Int?, val value: String?)
-data class ResultListCountries(val countries: List<ResultSimpleCountry>?)
+@Keep data class ResultSimpleCountry(val id: Int?, val value: String?)
+@Keep data class ResultListCountries(val countries: List<ResultSimpleCountry>?)
 
-data class ResultSimpleGender(val id: Int?, val value: String?)
-data class ResultListGenders(val genders: List<ResultSimpleGender>?)
+@Keep data class ResultSimpleGender(val id: Int?, val value: String?)
+@Keep data class ResultListGenders(val genders: List<ResultSimpleGender>?)
 
-data class ResultSimpleFavorites(val name: String?, val value: String?, val color: String?, val desc: String?)
-data class ResultFavorites(val params: List<ResultSimpleFavorites>?)
+@Keep data class ResultSimpleFavorites(val name: String?, val value: String?, val color: String?, val desc: String?)
+@Keep data class ResultFavorites(val params: List<ResultSimpleFavorites>?)
 
-data class ResultProfile(val first_name: String?, val last_name: String?, val email: String?, val image: String?)
-data class ResultUserProfile(val birth_date: String?, val country: Int?, val gender: Int?, val height: Float?, val smoker: Boolean?, val measuring_system: Int?)
-data class ResultPolicy( val policy: String? )
-data class ResultExist( val exist: Boolean?)
-data class ResultToken(val access: String?, val refresh: String?)
-data class ResultTokenFromGoogle(val token: String?, val refresh: String?)
-data class ResultRecommendation(val name: String?)
-data class ResultFirstTimeStamp(val timestamp: String?)
-data class ResultDeleteUser(val delete: String?)
+@Keep data class ResultProfile(val first_name: String?, val last_name: String?, val email: String?, val image: String?)
+@Keep data class ResultUserProfile(val birth_date: String?, val country: Int?, val gender: Int?, val height: Float?, val smoker: Boolean?, val measuring_system: Int?)
+@Keep data class ResultPolicy( val policy: String? )
+@Keep data class ResultExist( val exist: Boolean?)
+@Keep data class ResultToken(val access: String?, val refresh: String?)
+@Keep data class ResultTokenFromGoogle(val token: String?, val refresh: String?)
+@Keep data class ResultRecommendation(val name: String?)
+@Keep data class ResultFirstTimeStamp(val timestamp: String?)
+@Keep data class ResultDeleteUser(val delete: String?)
 
-data class ResultMedCard(val weight:Float?,
+@Keep data class ResultMedCard(val weight:Float?,
                          val hip:Float?,
                          val waist:Float?,
                          val wrist:Float?,
@@ -75,9 +76,9 @@ data class ResultMedCard(val weight:Float?,
                          val cholesterol:Float?,
                          val glucose:Float?)
 
-data class ResultCommonRecommendation(val message_short: String?, val message_long: String?, val importance_level: String?)
-data class ResultDiseaseRisk(val icd_id: Int?, val risk_string: String?, val message: String?, val risk_percents: String?, val recomendation: String?)
-data class ResultAnalyze(val bmi: List<String>?,
+@Keep data class ResultCommonRecommendation(val message_short: String?, val message_long: String?, val importance_level: String?)
+@Keep data class ResultDiseaseRisk(val icd_id: Int?, val risk_string: String?, val message: String?, val risk_percents: String?, val recomendation: String?)
+@Keep data class ResultAnalyze(val bmi: List<String>?,
                          val obesity_level: List<String>?,
                          val ideal_weight: Float?,
                          val base_metabolism: Int?,
@@ -92,7 +93,7 @@ data class ResultAnalyze(val bmi: List<String>?,
                          val disease_risk: List<ResultDiseaseRisk>?,
                          val common_recomendations: List<ResultCommonRecommendation>?)
 
-data class UpdateResultDashBoard(
+@Keep data class UpdateResultDashBoard(
                      var gender:Int?,
                      var birth_date:String?,
                      var country:Int?,
@@ -112,4 +113,4 @@ data class UpdateResultDashBoard(
                      var daily_activity_level: Float?,
                      var measuring_system: Int?)
 
-data class UpdateResultAvatar(var image: String?)
+@Keep data class UpdateResultAvatar(var image: String?)
