@@ -55,6 +55,9 @@ class HomeFragment : Fragment(R.layout.main_home_fragment) {
                 }.attach()
             }
         }
+        mainModel.selectedIndex.observe(viewLifecycleOwner, {
+            homeBinding?.mainHomeTabLayoutMenu?.getTabAt(it)?.select()
+        })
     }
 
     override fun onDestroyView() {

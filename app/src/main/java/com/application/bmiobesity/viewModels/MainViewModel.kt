@@ -67,6 +67,9 @@ class MainViewModel : ViewModel() {
     lateinit var paramUnit: List<ParamUnit>
     lateinit var medCardSourceType: List<MedCardSourceType>
     lateinit var medCardParamSetting: List<MedCardParamSetting>
+    // Selected tab index
+    private val mSelectIndex: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
+    val selectedIndex: LiveData<Int> = mSelectIndex
 
     init {
         InTimeApp.appComponent.inject(this)
@@ -346,6 +349,9 @@ class MainViewModel : ViewModel() {
                 is RetrofitResult.Error -> {}
             }
         }
+    }
+    fun setTabIndex(index: Int) {
+        mSelectIndex.postValue(index)
     }
 
     suspend fun isFirstTimeAsync(): Deferred<Boolean> = viewModelScope.async { appSetting.getBoolParam(AppSettingDataStore.PrefKeys.FIRST_TIME).first() }
