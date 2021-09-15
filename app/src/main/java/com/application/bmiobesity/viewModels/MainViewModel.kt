@@ -283,6 +283,7 @@ class MainViewModel : ViewModel() {
     }
     // Patch Profile
     fun patchProfile(profile: Profile){
+        // TODO: check for profile
           viewModelScope.launch(Dispatchers.IO) {
             when (val result = remoteRepo.patchProfile(profile = profile.getSendProfile())){
                 is RetrofitResult.Success -> {

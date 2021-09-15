@@ -1,46 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.labelActivity.welcome.WelcomeFragment3">
+    tools:context=".view.labelActivity.welcome.WelcomeFragment1">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/welcome3GuideLine"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_white">
+        android:layout_gravity="center"
+        android:background="@color/color_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/welcome3GuideLine"
+        app:layout_constraintVertical_bias="0">
 
         <TextView
-            android:id="@+id/welcome3TitleText"
-            android:text="@string/welcome_3_title"
+            android:id="@+id/welcome1TitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dmsans_bold"
+            android:gravity="center"
+            android:text="@string/disclaimer_title"
+            android:textAllCaps="false"
+            android:textColor="@color/labelGradientBckSecond"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/welcome1PublicText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textAllCaps="true"
-            android:textColor="@color/labelGradientBckSecond"
-            android:textStyle="bold"
-            android:textSize="35sp"
-            android:gravity="start"
-            android:layout_marginStart="16dp"
-            android:layout_marginVertical="40dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/dmsans_regular"
+            android:gravity="center"
+            android:text="@string/please_read_the_following"
+            android:textColor="@color/gray_800"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcome1TitleText" />
 
         <TextView
-            android:id="@+id/welcome3MainText"
-            android:text="@string/welcome_3_main_text"
+            android:id="@+id/welcome1GreetingText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/dmsans_bold"
+            android:gravity="center"
+            android:text="@string/our_service_is_not_a_medical_service"
+            android:textColor="@color/color_black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcome1PublicText" />
+
+        <TextView
+            android:id="@+id/welcome1MainText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="75dp"
-            android:textColor="@color/color_black"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="25dp"
+            android:autoLink="all"
+            android:fontFamily="@font/dmsans_regular"
+            android:linksClickable="true"
+            android:text="@string/welcome_frag_three_main_text"
+            android:textAlignment="center"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/welcome3TitleText"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcome1GreetingText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintVertical_bias="0.9">
+
+        <TextView
+            android:id="@+id/dontText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/dmsans_regular"
+            android:gravity="center"
+            android:text="@string/welcome_3_is_show_switch"
+            android:textColor="@color/color_black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Switch
+            android:id="@+id/welcome3SwitchDisclaimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:checked="true"
+            app:layout_constraintBottom_toBottomOf="@+id/dontText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/dontText"
+            app:layout_constraintTop_toTopOf="@+id/dontText"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

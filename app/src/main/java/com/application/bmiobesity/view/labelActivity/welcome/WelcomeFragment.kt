@@ -4,20 +4,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.application.bmiobesity.R
-import com.application.bmiobesity.databinding.LabelWelcomeTextFragmentV2Binding
-import com.application.bmiobesity.databinding.LabelWelcomeTextFragmentV2V2Binding
+import com.application.bmiobesity.databinding.LabelWelcomeTextFragmentBinding
 import com.application.bmiobesity.view.loginActivity.LoginActivity
+import com.application.bmiobesity.view.mainActivity.MainActivity
 import com.application.bmiobesity.viewModels.LabelViewModel
+import kotlinx.coroutines.*
 
-class WelcomeFragment : Fragment(R.layout.label_welcome_text_fragment_v2_v2) {
+class WelcomeFragment : Fragment(R.layout.label_welcome_text_fragment) {
 
-    private var welcomeBinding2: LabelWelcomeTextFragmentV2V2Binding? = null
+    private var welcomeBinding: LabelWelcomeTextFragmentBinding? = null
     private val labelModel: LabelViewModel by activityViewModels()
 
     private var pagerItemCount = 5
@@ -26,121 +28,131 @@ class WelcomeFragment : Fragment(R.layout.label_welcome_text_fragment_v2_v2) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        welcomeBinding2 = LabelWelcomeTextFragmentV2V2Binding.bind(view)
+        welcomeBinding = LabelWelcomeTextFragmentBinding.bind(view)
         init()
         initListeners()
     }
 
-    private fun init(){
+    private fun init() {
         pagerAdapter = WelcomeFragmentAdapter(requireActivity())
         pagerItemCount = pagerAdapter.itemCount
-        welcomeBinding2?.welcomeViewPager?.adapter = pagerAdapter
-        dots = Array(pagerItemCount){
+        welcomeBinding?.welcomeViewPager?.adapter = pagerAdapter
+        dots = Array(pagerItemCount) {
             val item = TextView(requireContext())
             item.text = HtmlCompat.fromHtml("&#8226;", HtmlCompat.FROM_HTML_MODE_LEGACY)
             item.textSize = 35f
             item.visibility = View.GONE
             item.setTextColor(resources.getColor(R.color.welcome_inactive_dot, null))
-            welcomeBinding2?.welcomeDotsLayout?.addView(item)
+            welcomeBinding?.welcomeDotsLayout?.addView(item)
             return@Array item
         }
     }
 
-    private fun initListeners(){
-
-        welcomeBinding2?.welcomeViewPager?.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
+    private fun initListeners() {
+        welcomeBinding?.welcomeViewPager?.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
+
                 setCurrentColorDots(position)
-                if (position == 0){
-                    welcomeBinding2?.welcomeNextButton?.visibility = View.GONE
-                    welcomeBinding2?.welcomeSkipButton?.visibility = View.GONE
-                    welcomeBinding2?.dotone?.background = resources.getDrawable(R.drawable.coloureddot)
-                    welcomeBinding2?.dottwo?.background = resources.getDrawable(R.drawable.justdot)
-                    welcomeBinding2?.dotthree?.background = resources.getDrawable(R.drawable.justdot)
-                    welcomeBinding2?.dotfour?.background = resources.getDrawable(R.drawable.justdot)
-                    welcomeBinding2?.dotfive?.background = resources.getDrawable(R.drawable.justdot)
+                val colouredDot =
+                    ResourcesCompat.getDrawable(resources, R.drawable.coloureddot, null)
+                val justDot = ResourcesCompat.getDrawable(resources, R.drawable.justdot, null)
 
-                    welcomeBinding2?.dotone?.visibility = View.VISIBLE
-                    welcomeBinding2?.dottwo?.visibility = View.VISIBLE
-                    welcomeBinding2?.dotthree?.visibility = View.VISIBLE
-                    welcomeBinding2?.dotfour?.visibility = View.VISIBLE
-                    welcomeBinding2?.dotfive?.visibility = View.VISIBLE
-                }
-                else if (position==1){
-                    welcomeBinding2?.welcomeNextButton?.visibility = View.GONE
-                    welcomeBinding2?.welcomeSkipButton?.visibility = View.GONE
-                    welcomeBinding2?.dotone?.background = resources.getDrawable(R.drawable.justdot)
-                    welcomeBinding2?.dottwo?.background = resources.getDrawable(R.drawable.coloureddot)
-                    welcomeBinding2?.dotthree?.background = resources.getDrawable(R.drawable.justdot)
-                    welcomeBinding2?.dotfour?.background = resources.getDrawable(R.drawable.justdot)
-                    welcomeBinding2?.dotfive?.background = resources.getDrawable(R.drawable.justdot)
+                when (position) {
+                    0 -> {
+                        welcomeBinding?.welcomeNextButton?.visibility = View.GONE
+                        welcomeBinding?.welcomeSkipButton?.visibility = View.GONE
+                        welcomeBinding?.dotone?.background = colouredDot
+                        welcomeBinding?.dottwo?.background = justDot
+                        welcomeBinding?.dotthree?.background = justDot
+                        welcomeBinding?.dotfour?.background = justDot
+                        welcomeBinding?.dotfive?.background = justDot
 
-                    welcomeBinding2?.dotone?.visibility = View.VISIBLE
-                    welcomeBinding2?.dottwo?.visibility = View.VISIBLE
-                    welcomeBinding2?.dotthree?.visibility = View.VISIBLE
-                    welcomeBinding2?.dotfour?.visibility = View.VISIBLE
-                    welcomeBinding2?.dotfive?.visibility = View.VISIBLE
-                }
-                else if (position==2){
-                    welcomeBinding2?.welcomeNextButton?.visibility = View.GONE
-                    welcomeBinding2?.welcomeSkipButton?.visibility = View.GONE
-                    welcomeBinding2?.dotone?.background = resources.getDrawable(R.drawable.justdot)
-                    welcomeBinding2?.dottwo?.background = resources.getDrawable(R.drawable.justdot)
-                    welcomeBinding2?.dotthree?.background = resources.getDrawable(R.drawable.coloureddot)
-                    welcomeBinding2?.dotfour?.background = resources.getDrawable(R.drawable.justdot)
-                    welcomeBinding2?.dotfive?.background = resources.getDrawable(R.drawable.justdot)
-                    welcomeBinding2?.dotone?.visibility = View.VISIBLE
-                    welcomeBinding2?.dottwo?.visibility = View.VISIBLE
-                    welcomeBinding2?.dotthree?.visibility = View.VISIBLE
-                    welcomeBinding2?.dotfour?.visibility = View.VISIBLE
-                    welcomeBinding2?.dotfive?.visibility = View.VISIBLE
-                }
-                else if (position==3){
-                    welcomeBinding2?.welcomeNextButton?.visibility = View.GONE
-                    welcomeBinding2?.welcomeSkipButton?.visibility = View.GONE
-                    welcomeBinding2?.dotone?.background = resources.getDrawable(R.drawable.justdot)
-                    welcomeBinding2?.dottwo?.background = resources.getDrawable(R.drawable.justdot)
-                    welcomeBinding2?.dotthree?.background = resources.getDrawable(R.drawable.justdot)
-                    welcomeBinding2?.dotfour?.background = resources.getDrawable(R.drawable.coloureddot)
-                    welcomeBinding2?.dotfive?.background = resources.getDrawable(R.drawable.justdot)
-                    welcomeBinding2?.dotone?.visibility = View.VISIBLE
-                    welcomeBinding2?.dottwo?.visibility = View.VISIBLE
-                    welcomeBinding2?.dotthree?.visibility = View.VISIBLE
-                    welcomeBinding2?.dotfour?.visibility = View.VISIBLE
-                    welcomeBinding2?.dotfive?.visibility = View.VISIBLE
-                }
-                else {
-                    welcomeBinding2?.welcomeNextButton?.text = resources.getString(R.string.button_come_in)
-                    welcomeBinding2?.welcomeNextButton?.visibility = View.VISIBLE
-                    welcomeBinding2?.welcomeSkipButton?.visibility = View.GONE
-                    welcomeBinding2?.dotone?.visibility = View.GONE
-                    welcomeBinding2?.dottwo?.visibility = View.GONE
-                    welcomeBinding2?.dotthree?.visibility = View.GONE
-                    welcomeBinding2?.dotfour?.visibility = View.GONE
-                    welcomeBinding2?.dotfive?.visibility = View.GONE
+                        welcomeBinding?.dotone?.visibility = View.VISIBLE
+                        welcomeBinding?.dottwo?.visibility = View.VISIBLE
+                        welcomeBinding?.dotthree?.visibility = View.VISIBLE
+                        welcomeBinding?.dotfour?.visibility = View.VISIBLE
+                        welcomeBinding?.dotfive?.visibility = View.VISIBLE
+                    }
+                    1 -> {
+                        welcomeBinding?.welcomeNextButton?.visibility = View.GONE
+                        welcomeBinding?.welcomeSkipButton?.visibility = View.GONE
+                        welcomeBinding?.dotone?.background = justDot
+                        welcomeBinding?.dottwo?.background = colouredDot
+                        welcomeBinding?.dotthree?.background = justDot
+                        welcomeBinding?.dotfour?.background = justDot
+                        welcomeBinding?.dotfive?.background = justDot
+
+                        welcomeBinding?.dotone?.visibility = View.VISIBLE
+                        welcomeBinding?.dottwo?.visibility = View.VISIBLE
+                        welcomeBinding?.dotthree?.visibility = View.VISIBLE
+                        welcomeBinding?.dotfour?.visibility = View.VISIBLE
+                        welcomeBinding?.dotfive?.visibility = View.VISIBLE
+                    }
+                    2 -> {
+                        welcomeBinding?.welcomeNextButton?.visibility = View.GONE
+                        welcomeBinding?.welcomeSkipButton?.visibility = View.GONE
+                        welcomeBinding?.dotone?.background = justDot
+                        welcomeBinding?.dottwo?.background = justDot
+                        welcomeBinding?.dotthree?.background = colouredDot
+                        welcomeBinding?.dotfour?.background = justDot
+                        welcomeBinding?.dotfive?.background = justDot
+
+                        welcomeBinding?.dotone?.visibility = View.VISIBLE
+                        welcomeBinding?.dottwo?.visibility = View.VISIBLE
+                        welcomeBinding?.dotthree?.visibility = View.VISIBLE
+                        welcomeBinding?.dotfour?.visibility = View.VISIBLE
+                        welcomeBinding?.dotfive?.visibility = View.VISIBLE
+                    }
+                    3 -> {
+                        welcomeBinding?.welcomeNextButton?.visibility = View.GONE
+                        welcomeBinding?.welcomeSkipButton?.visibility = View.GONE
+                        welcomeBinding?.dotone?.background = justDot
+                        welcomeBinding?.dottwo?.background = justDot
+                        welcomeBinding?.dotthree?.background = justDot
+                        welcomeBinding?.dotfour?.background = colouredDot
+                        welcomeBinding?.dotfive?.background = justDot
+
+                        welcomeBinding?.dotone?.visibility = View.VISIBLE
+                        welcomeBinding?.dottwo?.visibility = View.VISIBLE
+                        welcomeBinding?.dotthree?.visibility = View.VISIBLE
+                        welcomeBinding?.dotfour?.visibility = View.VISIBLE
+                        welcomeBinding?.dotfive?.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        welcomeBinding?.welcomeNextButton?.text =
+                            resources.getString(R.string.button_come_in)
+                        welcomeBinding?.welcomeNextButton?.visibility = View.VISIBLE
+                        welcomeBinding?.welcomeSkipButton?.visibility = View.GONE
+                        welcomeBinding?.dotone?.visibility = View.GONE
+                        welcomeBinding?.dottwo?.visibility = View.GONE
+                        welcomeBinding?.dotthree?.visibility = View.GONE
+                        welcomeBinding?.dotfour?.visibility = View.GONE
+                        welcomeBinding?.dotfive?.visibility = View.GONE
+                    }
                 }
             }
         })
 
-        welcomeBinding2?.welcomeNextButton?.setOnClickListener {
+        welcomeBinding?.welcomeNextButton?.setOnClickListener {
             val nextPage = getCurrentPage() + 1
-            if (nextPage < dots.size){
-                welcomeBinding2?.welcomeViewPager?.currentItem = nextPage
+            if (nextPage < dots.size) {
+                welcomeBinding?.welcomeViewPager?.currentItem = nextPage
             } else {
-                startLoginActivity()
+                startActivity()
             }
         }
 
-        welcomeBinding2?.welcomeSkipButton?.setOnClickListener { startLoginActivity() }
+        welcomeBinding?.welcomeSkipButton?.setOnClickListener { startActivity() }
     }
 
-    private fun getCurrentPage(): Int{
-        return welcomeBinding2?.welcomeViewPager?.currentItem ?: 0
+    private fun getCurrentPage(): Int {
+        return welcomeBinding?.welcomeViewPager?.currentItem ?: 0
     }
 
-    private fun setCurrentColorDots(position: Int){
-        if (dots.isNotEmpty() && position < dots.size){
+    private fun setCurrentColorDots(position: Int) {
+        if (dots.isNotEmpty() && position < dots.size) {
             dots.forEach {
                 it.setTextColor(resources.getColor(R.color.welcome_inactive_dot, null))
             }
@@ -148,18 +160,31 @@ class WelcomeFragment : Fragment(R.layout.label_welcome_text_fragment_v2_v2) {
         }
     }
 
-    private fun startLoginActivity(){
-        if (labelModel.isNeedShowDisclaimer()){
-            findNavController().navigate(R.id.welcomeToDisclaimer)
-        } else {
-            val intent = Intent(context, LoginActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
+    private fun startActivity() {
+        when {
+            labelModel.isFirstTime() -> {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val initJob = async {
+                        labelModel.initParamSetting()
+                    }
+                    initJob.join()
+                    withContext(Dispatchers.Main) {
+                        val intent = Intent(context, LoginActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
+                    }
+                }
+            }
+            else -> {
+                val intent = Intent(context, MainActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            }
         }
     }
 
     override fun onDestroyView() {
-        welcomeBinding2 = null
+        welcomeBinding = null
         super.onDestroyView()
     }
 }

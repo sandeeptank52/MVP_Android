@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayoutId"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_white"
-    android:id="@+id/mainLayoutId"
     tools:context=".view.mainActivity.MainActivity">
-
-
 
     <FrameLayout
         android:id="@+id/mainFrameLayoutWaiting"
@@ -44,12 +41,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/dmsans_medium"
         android:text="@string/enter_your_data"
         android:textColor="@color/color_white"
         android:textSize="20sp"
-        android:fontFamily="@font/dmsans_medium"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/mainFrameLayoutTitle" />
 
@@ -59,32 +56,32 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
         android:layout_marginStart="20dp"
-        android:text="@string/for_more_a_accurate_analysis"
-        android:textColor="@color/color_white"
         android:fontFamily="@font/dmsans_regular"
+        android:text="@string/for_more_accurate_analysis"
+        android:textColor="@color/color_white"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainEnterText" />
 
     <ImageView
         android:id="@+id/mainMenu"
-        android:src="@drawable/more_vert_white"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:contentDescription="@string/image_description"
         android:layout_marginEnd="10dp"
+        android:contentDescription="@string/image_description"
+        android:src="@drawable/more_vert_white"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@id/mainFrameLayoutTitle"
         app:layout_constraintBottom_toBottomOf="@id/mainFrameLayoutTitle"
-        app:layout_constraintEnd_toEndOf="@id/mainFrameLayoutTitle"/>
+        app:layout_constraintEnd_toEndOf="@id/mainFrameLayoutTitle"
+        app:layout_constraintTop_toTopOf="@id/mainFrameLayoutTitle" />
 
     <ImageView
         android:id="@+id/mainImageViewAvatarIcon"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:contentDescription="@string/image_description"
         android:layout_marginEnd="20dp"
+        android:contentDescription="@string/image_description"
         android:src="@drawable/avatar_icon"
         app:layout_constraintBottom_toBottomOf="@id/mainFrameLayoutTitle"
         app:layout_constraintEnd_toEndOf="@+id/mainFrameLayoutTitle"
@@ -104,9 +101,9 @@
         app:layout_constraintTop_toTopOf="@id/mainFrameLayoutTitle" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomNav"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:id="@+id/bottomNav"
         android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/mainFrameLayoutTitle"
         app:layout_constraintEnd_toEndOf="parent"
@@ -122,28 +119,29 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <ImageButton
+            android:id="@+id/home"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:id="@+id/home"
-            android:contentDescription="@string/image_description"
-
             android:background="@color/transparent"
+
+            android:contentDescription="@string/image_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
+            android:id="@+id/homeIndicator"
             android:layout_width="0dp"
             android:layout_height="3dp"
+            android:layout_marginBottom="2dp"
             android:background="@drawable/white"
             android:contentDescription="@string/image_description"
-            android:id="@+id/homeIndicator"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="2dp"
-            />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:layout_width="16dp"
@@ -154,56 +152,60 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="parent" />
+
         <ImageButton
+            android:id="@+id/profile"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:id="@+id/profile"
             android:background="@color/transparent"
             android:contentDescription="@string/image_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
+            android:id="@+id/profileIndicator"
             android:layout_width="0dp"
             android:layout_height="3dp"
+            android:layout_marginBottom="2dp"
             android:background="@drawable/white"
-            android:id="@+id/profileIndicator"
+            android:contentDescription="@string/image_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            android:contentDescription="@string/image_description"
-            android:layout_marginBottom="2dp"
             app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
         <ImageView
             android:layout_width="18dp"
             android:layout_height="16dp"
             android:background="@drawable/bag"
+            android:contentDescription="@string/image_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/image_description"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="parent" />
+
         <ImageButton
+            android:id="@+id/medsCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:id="@+id/medsCard"
             android:background="@color/transparent"
             android:contentDescription="@string/image_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
+            android:id="@+id/medsCardIndicator"
             android:layout_width="0dp"
             android:layout_height="3dp"
             android:layout_marginBottom="2dp"
-            android:contentDescription="@string/image_description"
             android:background="@drawable/white"
-            android:id="@+id/medsCardIndicator"
+            android:contentDescription="@string/image_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline3"/>
+            app:layout_constraintStart_toStartOf="@+id/guideline3" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -223,68 +225,66 @@
 
     <TextView
         android:id="@+id/mainTextViewFirstName"
-        android:layout_marginHorizontal="8dp"
-        android:textSize="20sp"
-        android:textColor="@color/transparent"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:textColor="@color/transparent"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/mainFrameLayoutTitle"
         app:layout_constraintStart_toEndOf="@id/mainImageViewAvatarIcon"
-        app:layout_constraintTop_toTopOf="@id/mainFrameLayoutTitle"
-        app:layout_constraintBottom_toBottomOf="@id/mainFrameLayoutTitle"/>
+        app:layout_constraintTop_toTopOf="@id/mainFrameLayoutTitle" />
 
     <TextView
         android:id="@+id/enter_data"
-        android:layout_marginHorizontal="8dp"
-        android:textSize="20sp"
-        android:textColor="@color/transparent"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enter_your_data"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="8dp"
         android:fontFamily="@font/dmsans_medium"
-        />
+        android:text="@string/enter_your_data"
+        android:textColor="@color/transparent"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/mainTextViewLastName"
-        android:layout_marginHorizontal="8dp"
-        android:textSize="20sp"
-        android:textColor="@color/transparent"
         android:layout_width="wrap_content"
-        android:visibility="gone"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:textColor="@color/transparent"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/mainFrameLayoutTitle"
         app:layout_constraintStart_toEndOf="@id/mainTextViewFirstName"
-        app:layout_constraintTop_toTopOf="@id/mainFrameLayoutTitle"
-        app:layout_constraintBottom_toBottomOf="@id/mainFrameLayoutTitle"/>
+        app:layout_constraintTop_toTopOf="@id/mainFrameLayoutTitle" />
 
     <TextView
         android:id="@+id/mainTextViewSubsInfo"
         android:layout_width="0dp"
-        android:textStyle="italic"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:visibility="gone"
         android:layout_marginBottom="5dp"
         android:textColor="@color/transparent"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/mainImageViewAvatarIcon"
+        android:textStyle="italic"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/mainFrameLayoutTitle"
         app:layout_constraintEnd_toEndOf="@id/mainFrameLayoutTitle"
-        app:layout_constraintBottom_toBottomOf="@id/mainFrameLayoutTitle"/>
+        app:layout_constraintStart_toEndOf="@id/mainImageViewAvatarIcon" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/mainNavHostFragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/main_nav"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mainBottomNavigationView"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainBottomNavigationView"
+        app:navGraph="@navigation/main_nav" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

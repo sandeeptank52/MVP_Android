@@ -8,7 +8,7 @@ import com.application.bmiobesity.databinding.LoginCheckpinFragmentBinding
 
 class CheckPinFragment : Fragment(R.layout.login_checkpin_fragment) {
 
-    private var checkPinBinding : LoginCheckpinFragmentBinding? = null
+    private var checkPinBinding: LoginCheckpinFragmentBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -122,10 +122,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
-
-
     private fun initMainMenu(){
         mainBinding.mainMenu.setOnClickListener {
             val menu = PopupMenu(applicationContext, it)
