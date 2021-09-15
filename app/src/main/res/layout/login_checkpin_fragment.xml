@@ -7,4 +7,88 @@
     android:layout_height="match_parent"
     tools:context=".view.loginActivity.checkPin.CheckPinFragment">
 
+    <TextView
+        android:id="@+id/welcome1TitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/dmsans_bold"
+        android:gravity="center"
+        android:text="Touch ID to Enter"
+        android:textAllCaps="false"
+        android:textColor="@color/color_black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewFinger"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/welcome1PublicText"
+        android:layout_marginTop="10dp"
+        android:text="(Press your thumb on the marker)"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textColor="@color/gray_800"
+        android:fontFamily="@font/dmsans_regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/welcome1TitleText"/>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/downorit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewlogo"
+        android:layout_width="93dp"
+        android:layout_height="49dp"
+        android:background="@drawable/sign_up_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+    <ImageView
+        android:id="@+id/imageViewFinger"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/fingerprint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewPicture"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:background="@drawable/shutterstock"
+        app:layout_constraintBottom_toTopOf="@+id/welcome1TitleText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/forgotPassButtonSend"
+        android:text="Use Passcode"
+        android:enabled="false"
+        android:background="@drawable/all_round_white"
+        android:textColor="@color/color_black"
+        android:layout_width="180dp"
+        android:textSize="18sp"
+        android:fontFamily="@font/dmsans_medium"
+        android:textAllCaps="false"
+        android:layout_height="40dp"
+        android:elevation="15dp"
+        app:layout_constraintBottom_toTopOf="@id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewFinger" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

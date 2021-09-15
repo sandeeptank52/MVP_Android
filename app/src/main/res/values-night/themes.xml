@@ -11,6 +11,7 @@
         <item name="colorOnSecondary">@color/colorPrimary</item>
 
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:autofilledHighlight" tools:targetApi="o">@android:color/transparent</item>
 
     </style>
     <style name="Theme.DiseaseTrackerProductionLight" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -23,6 +24,7 @@
         <item name="colorSecondaryVariant">@color/colorAccent</item>
         <item name="colorOnSecondary">@color/colorPrimary</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:autofilledHighlight" tools:targetApi="o">@android:color/transparent</item>
 
         <!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
 
@@ -37,6 +39,7 @@
         <item name="colorSecondaryVariant">@color/colorAccent</item>
         <item name="colorOnSecondary">@color/colorPrimary</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:autofilledHighlight" tools:targetApi="o">@android:color/transparent</item>
 
         <!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
 
@@ -52,8 +55,6 @@
     <style name="testPicker">
         <item name="android:backgroundTint">@color/color_white</item>
     </style>
-
-
 
 
     <!--<style name="AppStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">

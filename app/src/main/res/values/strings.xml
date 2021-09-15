@@ -14,7 +14,7 @@
     <string name="login_hint_passwordCheck_length">at least 8 characters</string>
     <string name="login_hint_passwordCheck_number">\u0020 1 number</string>
     <string name="login_hint_passwordCheck_symbol">\u0020 1 special symbol</string>
-    <string name="login_hint_passwordCheck_match">passwords must match</string>
+    <string name="login_hint_passwordCheck_match">Passwords must match</string>
     <string name="profile_hint_name">Name</string>
     <string name="profile_hint_surname">Surname</string>
     <string name="gender_hint_not_say">I will not say</string>
@@ -78,14 +78,15 @@
 
     <string name="welcome_3_title">risk report and\nrecommendations</string>
     <string name="welcome_3_main_text">\tApplication is designed to monitor in real-time the key parameters of your body to provide information on how they can affect longevity and the possibility of developing serious diseases in the future.\n\n\tOur AI server will calculate your personal risks based on collected data.\n\n\tFor better performance, we strongly recommend measuring yourself constantly even if there weren\'t significant events which influenced on your parameters changes.</string>
+    <string name="welcome_3_is_show_switch">Don\'t show again</string>
 
-    <string name="welcome_4_title">stay tuned</string>
-    <string name="welcome_4_main_text">\tThe most important thing is that the longer you measure and store your data, the more accurate the calculation of risks and forecasts will be.\n\n\tWe will increase the number of parameters in the future.\n\n\tTrack Early. Live Longer.</string>
+    <string name="welcome_4_title">help us</string>
+    <string name="welcome_4_main_text">\tPlease rate us in Google Play page and leave your comments. It will help others to find our app and get health value out of it.\n\n\tAlso, we want you to answer a few questions about our product.\n\n\tIf you can help us, we will send it to your e-mail.</string>
+    <string name="welcome_4_question_check_text">Receive a questionnaire</string>
+    <string name="welcome_4_update_check_text">Receive our updates and news</string>
 
-    <string name="welcome_5_title">help us</string>
-    <string name="welcome_5_main_text">\tPlease rate us in Google Play page and leave your comments. It will help others to find our app and get health value out of it.\n\n\tAlso, we want you to answer a few questions about our product.\n\n\tIf you can help us, we will send it to your e-mail.</string>
-    <string name="welcome_5_question_check_text">Receive a questionnaire</string>
-    <string name="welcome_5_update_check_text">Receive our updates and news</string>
+    <string name="welcome_5_title">Stay tuned</string>
+    <string name="welcome_5_main_text">\tThe most important thing is that the longer you measure and store your data, the more accurate the calculation of risks and forecasts will be.\n\n\tWe will increase the number of parameters in the future.\n\n\tTrack Early. Live Longer.</string>
 
     <string name="warning">Warning!</string>
     <string name="please_read_the_following">(Please read the following)</string>
@@ -101,7 +102,7 @@
     <string name="welcome_title">Welcome!</string>
 
     <!--sign in fragment-->
-    <string name="sign_in_or">---OR---</string>
+    <string name="sign_in_or">Or Login with</string>
     <string name="create_an_account">Create an account?</string>
 
     <!--sign up fragment-->
@@ -110,7 +111,7 @@
     <string name="already_have_an_account">Already have an account?</string>
 
     <!--forgot password fragment-->
-    <string name="forgot_pass_text">If you have forgotten your password enter\nyour e-mail address and we send you a\nverification code, then you can reset your\npassword.</string>
+    <string name="forgot_pass_text">If you have forgotten your password, please enter your e-mail address and we will send you a verification code, then you can reset your password.</string>
     <string name="forgot_pass_title">Reset password</string>
     <string name="forgot_pass_sending_info">To complete the reset your password you need follow the link sent to you by email</string>
 
@@ -119,7 +120,7 @@
     <string name="reset_pass_text">Enter your new password.</string>
     <string name="reset_pass_success">Password changed successfully!</string>
     <string name="confirm">Confirm</string>
-    <string name="new_pass_warning_text">Enter your new passord, please, try to\nuse a numbers and english letters in it,\nyou need to enter from 6 to 10 symbols.</string>
+    <string name="new_pass_warning_text">Enter new password, at least 8 characters, including 1 number and 1 special symbol</string>
 
     <!--recommendations fragment-->
     <string name="recom_title_common">Common recommendations</string>
@@ -127,13 +128,14 @@
     <string name="recom_subs_info">Trial version is expired. Please update your subscription.</string>
 
     <!--profile fragment-->
-    <string name="profile_gender_title">Choice gender</string>
+    <string name="profile_gender_title">Your gender</string>
     <string name="profile_height_title">Height</string>
     <string name="profile_height_message">Please enter your height</string>
     <string name="profile_smoker_title">Are you a smoker?</string>
-    <string name="profile_welcome_dialog_title">Welcome to the our app!</string>
-    <string name="profile_welcome_dialog_message">Hello, for the correct operation of our application, please fill in the basic information about yourself.</string>
-    <string name="profile_firs_time_msg">Please fill following fields and tap on the next button:\n</string>
+    <string name="profile_welcome_dialog_title">Welcome to BMI Disease Tracker!</string>
+    <string name="profile_welcome_dialog_message">For accurate operation of the application, please fill in basic information about yourself.</string>
+    <string name="profile_firs_time_msg">Please fill in the following fields:\n</string>
+    <string name="profile_save_successfully">Save profile successfully!</string>
 
     <!--medcard fragment-->
     <string name="medcard_card_item_source_type">Source type:</string>
@@ -280,7 +282,7 @@
     <string name="save">Save</string>
     <string name="setting_measure">Measure setting</string>
     <string name="enter_your_data">Enter Your Data</string>
-    <string name="for_more_a_accurate_analysis">For More A Accurate Analysis</string>
+    <string name="for_more_accurate_analysis">For More Accurate Analysis</string>
     <string name="_60">60%</string>
     <string name="the_probability_of_dying">The probability of dying\nin the next 10 years from\ncardiovascular diseases.</string>
     <string name="your_cancer_risks_are">Your cancer risks are same like other\npeople with normal weight.</string>
