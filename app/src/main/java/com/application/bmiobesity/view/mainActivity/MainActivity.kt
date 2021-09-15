@@ -169,12 +169,12 @@ class MainActivity : AppCompatActivity() {
             .load(url)
             .placeholder(R.drawable.avatar_icon)
             .circleCrop()
-            .into(mainBinding.mainImageViewAvatarIcon)
-        Glide.with(this)
-            .load(url)
-            .placeholder(R.drawable.avatar_icon)
-            .circleCrop()
             .into(mainBinding.mainImageViewAvatarIconCenter)
+        Glide.with(this)
+                .load(url)
+                .placeholder(R.drawable.avatar_icon)
+                .circleCrop()
+                .into(mainBinding.mainImageViewAvatarIcon)
     }
     private fun setSubscriptionInfo(time: Long){
         val currentDate = Date().time
@@ -216,6 +216,22 @@ class MainActivity : AppCompatActivity() {
                         .setRequestedSize(600, 600)
                         .setCropShape(CropImageView.CropShape.OVAL)
                         .start(this)
+                }
+                else -> {
+                    requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+                }
+            }
+        }
+
+        mainBinding.mainImageViewAvatarIconCenter.setOnClickListener {
+
+            when (PackageManager.PERMISSION_GRANTED) {
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) -> {
+                    CropImage.activity()
+                            .setAspectRatio(1,1)
+                            .setRequestedSize(600, 600)
+                            .setCropShape(CropImageView.CropShape.OVAL)
+                            .start(this)
                 }
                 else -> {
                     requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
