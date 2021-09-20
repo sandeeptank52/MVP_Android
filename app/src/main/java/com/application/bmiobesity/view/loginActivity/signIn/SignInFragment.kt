@@ -15,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.common.EventObserver
 import com.application.bmiobesity.common.eventManager.EventManager
 import com.application.bmiobesity.common.eventManager.SignInFragmentEvent
@@ -41,7 +42,7 @@ import io.reactivex.rxjava3.subjects.Subject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SignInFragment : Fragment(R.layout.login_signin_fragment_v2_v2) {
+class SignInFragment : BaseFragment(R.layout.login_signin_fragment_v2_v2) {
 
     private var signInBinding : LoginSigninFragmentV2V2Binding? = null
 

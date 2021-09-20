@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.common.EventObserver
 import com.application.bmiobesity.common.eventManager.EventManager
 import com.application.bmiobesity.common.eventManager.ResetPassFragmentEvent
@@ -23,7 +24,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 
-class ResetPassFragment : Fragment(R.layout.login_resetpass_fragment) {
+class ResetPassFragment : BaseFragment(R.layout.login_resetpass_fragment) {
 
     private var resetPassBinding: LoginResetpassFragmentBinding? = null
 
