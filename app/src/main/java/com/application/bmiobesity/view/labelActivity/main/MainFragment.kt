@@ -10,94 +10,99 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
-import com.application.bmiobesity.databinding.LabelMainFragmentV2Binding
+import com.application.bmiobesity.databinding.LabelMainFragmentBinding
 import com.application.bmiobesity.view.loginActivity.LoginActivity
+import com.application.bmiobesity.view.mainActivity.MainActivity
 import com.application.bmiobesity.viewModels.LabelViewModel
 import kotlinx.coroutines.*
 
-class MainFragment : Fragment(R.layout.label_main_fragment_v2) {
+class MainFragment : Fragment(R.layout.label_main_fragment) {
 
     private val mDelay: Long = 2500
     private val diffDelay: Long = 1000
 
-    private var mainBinding: LabelMainFragmentV2Binding? = null
+    private var mainBinding: LabelMainFragmentBinding? = null
     private val labelModel: LabelViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainBinding = LabelMainFragmentV2Binding.bind(view)
+        mainBinding = LabelMainFragmentBinding.bind(view)
         animateLabelScreen()
 
         lifecycleScope.launch(Dispatchers.IO) {
             labelModel.initAppPreference()
+            labelModel.initCommonSetting()
+
             when {
-                labelModel.isFirstTime() -> {
-                    firstTime()
-                }
                 labelModel.isNeedShowDisclaimer() -> {
                     showDisclaimer()
                 }
-                else -> {
+                labelModel.isFirstTime() -> {
                     startLoginActivity()
+                }
+                else -> {
+                    startMainActivity()
                 }
             }
         }
     }
 
-    private fun startLoginActivity(){
+    private fun showDisclaimer() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val delayJob = async { delay(mDelay) }
+            delayJob.join()
+
+            withContext(Dispatchers.Main) {
+                findNavController().navigate(R.id.mainToWelcome)
+            }
+        }
+    }
+    private fun startLoginActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             val delayJob = async { delay(mDelay) }
             val initJob = async {
-                labelModel.initCommonSetting()
+                labelModel.initParamSetting()
             }
             delayJob.join()
             initJob.join()
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 val intent = Intent(context, LoginActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
             }
         }
     }
-
-    private fun showDisclaimer(){
+    private fun startMainActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             val delayJob = async { delay(mDelay) }
-            val initJob = async {
-                labelModel.initCommonSetting()
-            }
             delayJob.join()
-            initJob.join()
-            withContext(Dispatchers.Main){
-                findNavController().navigate(R.id.mainToDisclaimer)
+
+            withContext(Dispatchers.Main) {
+                val intent = Intent(context, MainActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
             }
         }
     }
 
-    private fun firstTime(){
-        lifecycleScope.launch(Dispatchers.IO) {
-            val delayJob = async { delay(mDelay) }
-            val initJob = async {
-                labelModel.initParamSetting()
-                labelModel.initCommonSetting()
-            }
-            delayJob.join()
-            initJob.join()
-            withContext(Dispatchers.Main){
-                findNavController().navigate(R.id.mainToWelcome)
-            }
-        }
-    }
+    private fun animateLabelScreen() {
+        val animatorImageX =
+            ObjectAnimator.ofFloat(mainBinding?.labelImageViewLogo, "scaleX", 0f, 1f)
+                .setDuration((mDelay - diffDelay))
+        val animatorImageY =
+            ObjectAnimator.ofFloat(mainBinding?.labelImageViewLogo, "scaleY", 0f, 1f)
+                .setDuration((mDelay - diffDelay))
 
-    private fun animateLabelScreen(){
-        val animatorImageX = ObjectAnimator.ofFloat(mainBinding?.labelImageViewLogo, "scaleX", 0f, 1f).setDuration((mDelay - diffDelay))
-        val animatorImageY = ObjectAnimator.ofFloat(mainBinding?.labelImageViewLogo, "scaleY", 0f, 1f).setDuration((mDelay - diffDelay))
-
-        val animatorTextAlpha = ObjectAnimator.ofFloat(mainBinding?.labelTextViewAppName, "alpha", 0f, 1f).setDuration((mDelay - diffDelay))
-        val animatorProgressAlpha = ObjectAnimator.ofFloat(mainBinding?.labelProgressBar, "alpha", 0f, 1f).setDuration((mDelay - diffDelay))
+        val animatorTextAlpha =
+            ObjectAnimator.ofFloat(mainBinding?.labelTextViewAppName, "alpha", 0f, 1f)
+                .setDuration((mDelay - diffDelay))
+        val animatorProgressAlpha =
+            ObjectAnimator.ofFloat(mainBinding?.labelProgressBar, "alpha", 0f, 1f)
+                .setDuration((mDelay - diffDelay))
 
         val animatorSet = AnimatorSet()
-        animatorSet.play(animatorImageX).with(animatorImageY).before(animatorTextAlpha).before(animatorProgressAlpha)
+        animatorSet.play(animatorImageX).with(animatorImageY).before(animatorTextAlpha)
+            .before(animatorProgressAlpha)
 
         animatorSet.start()
     }

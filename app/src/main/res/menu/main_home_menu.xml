@@ -13,8 +13,4 @@
         android:id="@+id/mainHomeRecommendationNav"
         android:title="@string/main_home_menu_recommendations"/>
 
-    <item
-        android:id="@+id/mainHomeReportNav"
-        android:title="@string/main_home_menu_report" />
-
 </menu>

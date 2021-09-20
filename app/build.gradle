@@ -1,12 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 def mainVersion = 2
-def featureVersion = 1
-def version_code = 4
+def featureVersion = 0
+def version_code = 5
 
 android {
     signingConfigs {
@@ -41,10 +42,13 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    dataBinding {
+        enabled true
+    }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug{
@@ -64,7 +68,7 @@ android {
 
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    //implementation project(path: ':opencv')
+   // implementation project(path: ':opencv')
     def room_version = "2.3.0"
     def nav_version = "2.3.3"
     def billing_version = "3.0.3"
@@ -73,8 +77,6 @@ dependencies {
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // google services
-    implementation 'com.google.android.play:core:1.10.1'
-    implementation 'com.google.android.play:core-ktx:1.8.1'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation "com.android.billingclient:billing:$billing_version"
     implementation "com.android.billingclient:billing-ktx:$billing_version"
@@ -155,6 +157,8 @@ dependencies {
 
     // MP Android Chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+
 
     // MediaPipe deps
     implementation 'com.google.flogger:flogger:latest.release'

@@ -14,10 +14,6 @@
         android:id="@+id/mainNavToSubs"
         app:destination="@id/mainSubsNav"/>
 
-    <action
-        android:id="@+id/mainNavToScience"
-        app:destination="@id/mainScienceNav" />
-
     <fragment
         android:id="@+id/mainHomeNav"
         android:name="com.application.bmiobesity.view.mainActivity.home.HomeFragment"
@@ -69,10 +65,5 @@
         android:id="@+id/mainSubsNav"
         android:name="com.application.bmiobesity.view.mainActivity.subscriptions.SubscriptionsFragment"
         tools:layout="@layout/main_subs_fragment"/>
-
-    <fragment
-        android:id="@+id/mainScienceNav"
-        android:name="com.application.bmiobesity.view.mainActivity.science.ScienceFragment"
-        tools:layout="@layout/main_science_fragment" />
 
 </navigation>

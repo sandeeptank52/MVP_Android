@@ -20,7 +20,7 @@ interface CommonSettingDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllCountries(items: List<Countries>)
-    @Query("SELECT * FROM countries")
+    @Query("SELECT * FROM countries ORDER BY value ASC")
     fun getAllCountries(): List<Countries>
     @Query("DELETE FROM countries")
     fun deleteAllCountries()
