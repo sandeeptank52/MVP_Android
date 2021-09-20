@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,23 +7,23 @@
 
     <TextView
         android:id="@+id/medCardDialogTitle"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:textStyle="italic"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/dmsans_medium"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <NumberPicker
         android:id="@+id/medCardDialogPicker"
+        style="@style/testPicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/color_white"
         android:solidColor="@color/color_white"
-        style="@style/testPicker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/medCardDialogTitle" />
@@ -32,70 +31,71 @@
     <TextView
         android:id="@+id/medCardDialogUnit"
         android:layout_width="0dp"
-        android:textColor="@color/color_black"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:textColor="@color/color_black"
         android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@id/medCardDialogDescription"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/medCardDialogPicker"
-        app:layout_constraintTop_toBottomOf="@id/medCardDialogTitle"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/medCardDialogTitle" />
 
     <TextView
         android:id="@+id/medCardDialogDescription"
         android:layout_width="0dp"
-        android:textColor="@color/color_black"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/dmsans_regular"
+        android:textColor="@color/color_black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/medCardDialogPicker"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/medCardDialogPicker" />
 
     <View
         android:id="@+id/medCardDialogDivider1"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/gray_100"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/gray_100"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/medCardDialogDescription"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/medCardDialogDescription" />
 
     <TextView
         android:id="@+id/medCardDialogEnterSourceType"
-        android:text="@string/medcard_dialog_source_type"
-        android:textColor="@color/color_black"
         android:layout_width="0dp"
-        android:textSize="12sp"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginVertical="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/dmsans_regular"
+        android:text="@string/medcard_dialog_source_type"
+        android:textColor="@color/color_black"
+        app:layout_constraintBottom_toTopOf="@id/medCardDialogDivider2"
         app:layout_constraintEnd_toStartOf="@id/medCardDialogSpinnerSourceType"
-        app:layout_constraintTop_toBottomOf="@id/medCardDialogDivider1"
-        app:layout_constraintBottom_toTopOf="@id/medCardDialogDivider2"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/medCardDialogDivider1" />
 
     <Spinner
         android:id="@+id/medCardDialogSpinnerSourceType"
-        android:layout_width="0dp"
         style="@style/testSpinner"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="8dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintStart_toEndOf="@id/medCardDialogEnterSourceType"
-        app:layout_constraintTop_toBottomOf="@id/medCardDialogDivider1"
+        app:layout_constraintBottom_toTopOf="@id/medCardDialogDivider2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/medCardDialogDivider2"/>
+        app:layout_constraintStart_toEndOf="@id/medCardDialogEnterSourceType"
+        app:layout_constraintTop_toBottomOf="@id/medCardDialogDivider1" />
 
     <View
         android:id="@+id/medCardDialogDivider2"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/gray_100"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/gray_100"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/medCardDialogSpinnerSourceType" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
