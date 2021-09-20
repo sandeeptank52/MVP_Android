@@ -6,13 +6,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.LabelWelcomeFragment3Binding
 import com.application.bmiobesity.model.appSettings.AppSettingDataStore
 import com.application.bmiobesity.viewModels.LabelViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class WelcomeFragment3 : Fragment(R.layout.label_welcome_fragment_3) {
+class WelcomeFragment3 : BaseFragment(R.layout.label_welcome_fragment_3) {
 
     private var welcomeBinding3: LabelWelcomeFragment3Binding? = null
     private val labelModel: LabelViewModel by activityViewModels()

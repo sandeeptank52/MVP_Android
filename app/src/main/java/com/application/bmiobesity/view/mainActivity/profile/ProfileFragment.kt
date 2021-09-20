@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.common.MeasuringSystem
 import com.application.bmiobesity.databinding.MainProfileFragmentBinding
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.AvailableData
@@ -31,7 +32,7 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 import java.util.*
 
-class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
+class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
 
     private var profileBinding: MainProfileFragmentBinding? = null
     private val mainModel: MainViewModel by activityViewModels()
