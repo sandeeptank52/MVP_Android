@@ -186,7 +186,7 @@
     <string name="medcard_frequency_weight">once per week</string>
     <string name="medcard_frequency_hip">once per two week or when weight changes</string>
     <string name="medcard_frequency_waist">once per two week or when weight changes</string>
-    <string name="medcard_frequency_wrist">once every six mont</string>
+    <string name="medcard_frequency_wrist">once every six month</string>
     <string name="medcard_frequency_neck">once every six month</string>
     <string name="medcard_frequency_heart_rate_alone">one or three times a day</string>
     <string name="medcard_frequency_daily_activity_level">once per month</string>

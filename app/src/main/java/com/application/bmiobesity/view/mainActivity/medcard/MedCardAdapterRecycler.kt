@@ -6,8 +6,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +18,8 @@ import com.application.bmiobesity.model.db.paramSettings.entities.MedCardSourceT
 import com.application.bmiobesity.model.db.paramSettings.entities.ParamUnit
 import com.application.bmiobesity.utils.getDateStrFromMS
 import com.application.bmiobesity.utils.getTimeStrFromMS
+import com.google.android.material.card.MaterialCardView
+import java.lang.StringBuilder
 import java.util.*
 
 class MedCardAdapterRecycler(private val units: List<ParamUnit>,
@@ -40,15 +40,16 @@ class MedCardAdapterRecycler(private val units: List<ParamUnit>,
                             private val units: List<ParamUnit>,
                             private val srcType: List<MedCardSourceType>,
                             val onClick: (MedCardParamSetting) -> Unit) : RecyclerView.ViewHolder(itemView){
+
         private var currentCard: MedCardParamSetting? = null
         private val title: TextView = itemView.findViewById(R.id.medCardItemTitle)
         private val paramValue: TextView = itemView.findViewById(R.id.medCardItemValue)
-        private val valueUnit: TextView = itemView.findViewById(R.id.medCardItemUnit)
+        //private val valueUnit: TextView = itemView.findViewById(R.id.medCardItemUnit)
         private val sourceTypeValue: TextView = itemView.findViewById(R.id.medCardItemSourceTypeValue)
         private val measurementFrequency: TextView = itemView.findViewById(R.id.medCardItemMeasurementFrequencyValue)
         private val lastTime: TextView = itemView.findViewById(R.id.medCardItemLastTime)
         private val lastDate: TextView = itemView.findViewById(R.id.medCardItemLastDate)
-        private val card: CardView = itemView.findViewById(R.id.medCardItemCardView)
+        private val cardView: MaterialCardView = itemView.findViewById(R.id.medCardItemMaterialCardView)
         private val divider: View = itemView.findViewById(R.id.medCardItemDivider)
 
         init {
@@ -100,19 +101,25 @@ class MedCardAdapterRecycler(private val units: List<ParamUnit>,
 
                             if (!valueStr.isNullOrEmpty()){
                                 paramValue.text = valueStr
-                                card.foreground = null
+                                cardView.strokeColor = Color.parseColor("#f5f5f5")
                                 divider.setBackgroundColor(Color.parseColor("#f5f5f5"))
                             } else {
                                 paramValue.text = "---"
-                                card.foreground = ResourcesCompat.getDrawable(InTimeApp.APPLICATION.resources, R.drawable.medcard_item_error_border, null)
-                                divider.setBackgroundColor(Color.RED)
+                                cardView.strokeColor = InTimeApp.APPLICATION.resources.getColor(android.R.color.holo_red_dark, null)
+                                divider.setBackgroundColor(InTimeApp.APPLICATION.resources.getColor(android.R.color.holo_red_dark, null))
                             }
 
                             if (unit != null && unit.nameImperialRes.isNotEmpty()){
                                 val unitRes = InTimeApp.APPLICATION.resources.getIdentifier(unit.nameImperialRes, "string", "com.application.bmiobesity")
-                                valueUnit.setText(unitRes)
+                                val stringBuilder = StringBuilder(
+                                    paramValue.text.toString()
+                                            + " "
+                                            + InTimeApp.APPLICATION.resources.getText(unitRes).toString()
+                                )
+                                paramValue.text = stringBuilder.toString()
+                                //valueUnit.setText(unitRes)
                             } else {
-                                valueUnit.text = ""
+                                //valueUnit.text = ""
                             }
                         }
 
@@ -121,19 +128,25 @@ class MedCardAdapterRecycler(private val units: List<ParamUnit>,
 
                             if (!valueStr.isNullOrEmpty()){
                                 paramValue.text = valueStr
-                                card.foreground = null
+                                cardView.strokeColor = Color.parseColor("#f5f5f5")
                                 divider.setBackgroundColor(Color.parseColor("#f5f5f5"))
                             } else {
                                 paramValue.text = "---"
-                                card.foreground = ResourcesCompat.getDrawable(InTimeApp.APPLICATION.resources, R.drawable.medcard_item_error_border, null)
-                                divider.setBackgroundColor(Color.RED)
+                                cardView.strokeColor = InTimeApp.APPLICATION.resources.getColor(android.R.color.holo_red_dark, null)
+                                divider.setBackgroundColor(InTimeApp.APPLICATION.resources.getColor(android.R.color.holo_red_dark, null))
                             }
 
                             if (unit != null && unit.nameMetricRes.isNotEmpty()){
                                 val unitRes = InTimeApp.APPLICATION.resources.getIdentifier(unit.nameMetricRes, "string", "com.application.bmiobesity")
-                                valueUnit.setText(unitRes)
+                                val stringBuilder = StringBuilder(
+                                    paramValue.text.toString()
+                                            + " "
+                                            + InTimeApp.APPLICATION.resources.getText(unitRes).toString()
+                                )
+                                paramValue.text = stringBuilder.toString()
+                                //valueUnit.setText(unitRes)
                             } else {
-                                valueUnit.text = ""
+                                //valueUnit.text = ""
                             }
                         }
                     }
@@ -150,7 +163,7 @@ class MedCardAdapterRecycler(private val units: List<ParamUnit>,
                     }
                     val nameId = InTimeApp.APPLICATION.resources.getIdentifier(dailyActivity.nameRes, "string", "com.application.bmiobesity")
                     paramValue.setText(nameId)
-                    valueUnit.text = ""
+                    //valueUnit.text = ""
                 }
             }
 

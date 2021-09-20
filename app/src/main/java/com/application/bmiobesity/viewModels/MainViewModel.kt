@@ -1,8 +1,14 @@
 package com.application.bmiobesity.viewModels
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.application.bmiobesity.InTimeApp
 import com.application.bmiobesity.common.ProfileManager
+import com.application.bmiobesity.common.eventManagerMain.EventManagerMain
+import com.application.bmiobesity.common.eventManagerMain.MainViewModelEvent
+import com.application.bmiobesity.common.parameters.MedCard
 import com.application.bmiobesity.model.appSettings.AppPreference
 import com.application.bmiobesity.model.appSettings.AppSettingDataStore
 import com.application.bmiobesity.model.db.commonSettings.CommonSettingRepo
@@ -13,13 +19,9 @@ import com.application.bmiobesity.model.db.paramSettings.ParamSettingsRepo
 import com.application.bmiobesity.model.db.paramSettings.entities.*
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profile
 import com.application.bmiobesity.model.localStorage.LocalStorageRepo
-import com.application.bmiobesity.common.parameters.MedCard
 import com.application.bmiobesity.model.retrofit.*
-import com.application.bmiobesity.utils.getCurrentLocale
-import com.application.bmiobesity.common.eventManagerMain.EventManagerMain
-import com.application.bmiobesity.common.eventManagerMain.MainViewModelEvent
-import com.application.bmiobesity.common.parameters.AvailableParameters
 import com.application.bmiobesity.services.google.billing.GoogleBillingClient
+import com.application.bmiobesity.utils.getCurrentLocale
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
@@ -27,12 +29,16 @@ import javax.inject.Inject
 class MainViewModel : ViewModel() {
     @Inject
     lateinit var remoteRepo: RemoteRepo
+
     @Inject
     lateinit var appSetting: AppSettingDataStore
+
     @Inject
     lateinit var commonSettingRepo: CommonSettingRepo
+
     @Inject
     lateinit var paramSettingRepo: ParamSettingsRepo
+
     @Inject
     lateinit var localStorageRepo: LocalStorageRepo
 
@@ -54,6 +60,7 @@ class MainViewModel : ViewModel() {
     // Analyze screen
     private val mResultRiskAnalyze: MutableLiveData<List<ResultDiseaseRisk>> by lazy { MutableLiveData<List<ResultDiseaseRisk>>() }
     val resultRiskAnalyze: LiveData<List<ResultDiseaseRisk>> = mResultRiskAnalyze
+
     // Recommendations screen
     // Common
     private val mResultCommonRecommendations: MutableLiveData<List<ResultCommonRecommendation>> by lazy { MutableLiveData<List<ResultCommonRecommendation>>() }
@@ -67,6 +74,7 @@ class MainViewModel : ViewModel() {
     lateinit var paramUnit: List<ParamUnit>
     lateinit var medCardSourceType: List<MedCardSourceType>
     lateinit var medCardParamSetting: List<MedCardParamSetting>
+
     // Selected tab index
     private val mSelectIndex: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
     val selectedIndex: LiveData<Int> = mSelectIndex
@@ -95,15 +103,13 @@ class MainViewModel : ViewModel() {
             getMedCardJob.join()
             updateAnalyzeServerJob.join()
             updateRecomServerJob.join()
-
-            test()
         }
     }
 
     // Load parameters from DB
-    private suspend fun updateGenders() = viewModelScope.launch(Dispatchers.IO) { genders =  commonSettingRepo.getAllGenders() }
-    private suspend fun updateCountries() = viewModelScope.launch(Dispatchers.IO) { countries =  commonSettingRepo.getAllCountries() }
-    private suspend fun updatePolicy() = viewModelScope.launch(Dispatchers.IO) { policy =  commonSettingRepo.getAllPolicy() }
+    private suspend fun updateGenders() = viewModelScope.launch(Dispatchers.IO) { genders = commonSettingRepo.getAllGenders() }
+    private suspend fun updateCountries() = viewModelScope.launch(Dispatchers.IO) { countries = commonSettingRepo.getAllCountries() }
+    private suspend fun updatePolicy() = viewModelScope.launch(Dispatchers.IO) { policy = commonSettingRepo.getAllPolicy() }
     private suspend fun updateAppPreference() = viewModelScope.launch(Dispatchers.IO) { appPreference = appSetting.getAppPreference().first() }
     private suspend fun updateResultCardDB() = viewModelScope.launch(Dispatchers.IO) { mResultCard.postValue(paramSettingRepo.getAllResultCard()) }
     private suspend fun updateParamUnit() = viewModelScope.launch(Dispatchers.IO) { paramUnit = paramSettingRepo.getAllParamUnit() }
@@ -137,59 +143,57 @@ class MainViewModel : ViewModel() {
     }
 
     // Update result from server
-    private suspend fun updateAllResult(){
+    private suspend fun updateAllResult() {
         updateResultCardServer(getCurrentLocale().locale)
         updateAnalyzeServer(getCurrentLocale().locale)
         updateRecommendationsServer(getCurrentLocale().locale)
     }
     // Update favorite screen
-    private suspend fun updateResultCardServer(locale: String) = viewModelScope.launch(Dispatchers.IO) {
-        when (val result = remoteRepo.getFavorites(locale)){
-            is RetrofitResult.Success -> {
-                val temp = mResultCard.value
-                temp?.forEach { card ->
-                    card.setValues(result.value.params?.find { it.name == card.id })
+    private suspend fun updateResultCardServer(locale: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val result = remoteRepo.getFavorites(locale)) {
+                is RetrofitResult.Success -> {
+                    val temp = mResultCard.value
+                    temp?.forEach { card ->
+                        card.setValues(result.value.params?.find { it.name == card.id })
+                    }
+                    mResultCard.postValue(temp)
                 }
-                mResultCard.postValue(temp)
-            }
-            is RetrofitResult.Error -> {
-
+                is RetrofitResult.Error -> {}
             }
         }
-    }
     // Update disease risk and common recommendations
-    private suspend fun updateAnalyzeServer(locale: String) = viewModelScope.launch(Dispatchers.IO) {
-        when (val result = remoteRepo.getResultAnalyze(locale)){
-            is RetrofitResult.Success -> {
-                mResultRiskAnalyze.postValue(result.value.disease_risk)
-                mResultCommonRecommendations.postValue(result.value.common_recomendations)
-            }
-            is RetrofitResult.Error -> {
-
+    private suspend fun updateAnalyzeServer(locale: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val result = remoteRepo.getResultAnalyze(locale)) {
+                is RetrofitResult.Success -> {
+                    mResultRiskAnalyze.postValue(result.value.disease_risk)
+                    mResultCommonRecommendations.postValue(result.value.common_recomendations)
+                }
+                is RetrofitResult.Error -> {}
             }
         }
-    }
     // Update personal recommendations
-    private suspend fun updateRecommendationsServer(locale: String) = viewModelScope.launch(Dispatchers.IO) {
-        when (val result = remoteRepo.getRecommendations(locale)){
-            is RetrofitResult.Success -> {
-                mResultPersonalRecommendations.postValue(result.value)
-            }
-            is RetrofitResult.Error -> {
+    private suspend fun updateRecommendationsServer(locale: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val result = remoteRepo.getRecommendations(locale)) {
+                is RetrofitResult.Success -> {
+                    mResultPersonalRecommendations.postValue(result.value)
+                }
+                is RetrofitResult.Error -> {
 
+                }
             }
         }
-    }
+
     // Update Medical card
     private suspend fun getMedCard() = viewModelScope.launch(Dispatchers.IO) {
-        when (val resultMedCard = remoteRepo.getMedCard()){
+        when (val resultMedCard = remoteRepo.getMedCard()) {
             is RetrofitResult.Success -> {
                 medCard.setValues(resultMedCard.value)
                 profileManager.updateAvailableMedCardData(resultMedCard.value)
             }
-            is RetrofitResult.Error -> {
-
-            }
+            is RetrofitResult.Error -> {}
         }
     }
     fun updateMedCard() = viewModelScope.launch(Dispatchers.IO) {
@@ -207,7 +211,7 @@ class MainViewModel : ViewModel() {
         }*/
 
         val mCard = medCard.getDashBoardMedCard()
-        when (val result = remoteRepo.updateDashBoard(mCard)){
+        when (val result = remoteRepo.updateDashBoard(mCard)) {
             is RetrofitResult.Success -> {
                 //medCard.setValues(resultMedCard.value)
                 medCard.successUpdate()
@@ -221,7 +225,7 @@ class MainViewModel : ViewModel() {
     }
 
     // Update User Profile
-    private suspend fun setUpProfileManager(): Job{
+    private suspend fun setUpProfileManager(): Job {
         return viewModelScope.launch(Dispatchers.IO) {
             val currentMail = getCurrentMailAsync().await()
 
@@ -240,91 +244,80 @@ class MainViewModel : ViewModel() {
             profileManager.updateAvailableProfileData(tempProfile)
         }
     }
-    private suspend fun updateProfileDB (item: Profile){
+    private suspend fun updateProfileDB(item: Profile) {
         val temp = paramSettingRepo.getProfileFromMail(item.email)
-        if (temp == null){
+        if (temp == null) {
             paramSettingRepo.insertProfile(item)
         } else {
             paramSettingRepo.updateProfile(item)
         }
     }
     private suspend fun loadProfile(profile: Profile) = viewModelScope.launch(Dispatchers.IO) {
-        when (val resultProfile = remoteRepo.getProfile()){
+        when (val resultProfile = remoteRepo.getProfile()) {
             is RetrofitResult.Success -> {
                 profile.loadFromProfile(resultProfile.value)
             }
-            is RetrofitResult.Error -> {
-
-            }
+            is RetrofitResult.Error -> {}
         }
     }
     private suspend fun loadUserProfile(profile: Profile) = viewModelScope.launch(Dispatchers.IO) {
-        when (val resultProfile = remoteRepo.getUserProfile()){
+        when (val resultProfile = remoteRepo.getUserProfile()) {
             is RetrofitResult.Success -> {
                 profile.loadFromUserProfile(resultProfile.value)
             }
-            is RetrofitResult.Error -> {
-
-            }
+            is RetrofitResult.Error -> {}
         }
     }
-    private suspend fun loadFirsTimeStamp(profile: Profile) = viewModelScope.launch(Dispatchers.IO) {
-        when (val result = remoteRepo.getFirsTimeStamp()){
-            is RetrofitResult.Success -> {
-                val value = result.value.timestamp
-                value?.let {
-                    profile.firsTimeStamp = it.substringBefore('.').toLong()
+    private suspend fun loadFirsTimeStamp(profile: Profile) =
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val result = remoteRepo.getFirsTimeStamp()) {
+                is RetrofitResult.Success -> {
+                    val value = result.value.timestamp
+                    value?.let {
+                        profile.firsTimeStamp = it.substringBefore('.').toLong()
+                    }
                 }
-            }
-            is RetrofitResult.Error -> {
-
+                is RetrofitResult.Error -> {}
             }
         }
-    }
+
     // Patch Profile
-    fun patchProfile(profile: Profile){
-        // TODO: check for profile
-          viewModelScope.launch(Dispatchers.IO) {
-            when (val result = remoteRepo.patchProfile(profile = profile.getSendProfile())){
+    fun patchProfile(profile: Profile) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val result = remoteRepo.patchProfile(profile = profile.getSendProfile())) {
                 is RetrofitResult.Success -> {
                     profile.loadFromProfile(result.value)
                     profileManager.setProfile(profile)
                     profileManager.updateAvailableProfileData(profile)
                     updateAllResult()
                 }
-                is RetrofitResult.Error -> {
-
-                }
-            }
-
-            when (val result = remoteRepo.updateDashBoard(profile.getSendDashBoard())){
-                is RetrofitResult.Success -> {
-                    profile.loadFromDashBoard(result.value)
-                    profileManager.setProfile(profile)
-                    profileManager.updateAvailableProfileData(profile)
-                    updateAllResult()
-                }
                 is RetrofitResult.Error -> {}
             }
-            /*
-            when (val result = remoteRepo.patchUserProfile(userProfile = profile.getSendUserProfile())){
+            when (val result = remoteRepo.patchUserProfile(userProfile = profile.getSendUserProfile())) {
                 is RetrofitResult.Success -> {
                     profile.loadFromUserProfile(result.value)
                     profileManager.setProfile(profile)
                     profileManager.updateAvailableProfileData(profile)
                     updateAllResult()
                 }
-                is RetrofitResult.Error -> {
-
+                is RetrofitResult.Error -> {}
+            }
+            when (val result = remoteRepo.updateDashBoard(profile.getSendDashBoard())) {
+                is RetrofitResult.Success -> {
+                    profile.loadFromDashBoard(result.value)
+                    profileManager.setProfile(profile)
+                    profileManager.updateAvailableProfileData(profile)
+                    updateAllResult()
                 }
-            }*/
-
+                is RetrofitResult.Error -> {
+                }
+            }
         }
     }
     // Delete profile
-    fun deleteProfile(){
+    fun deleteProfile() {
         viewModelScope.launch(Dispatchers.IO) {
-            when (val result = remoteRepo.deleteProfile()){
+            when (val result = remoteRepo.deleteProfile()) {
                 is RetrofitResult.Success -> {
                     eventManager.startUserDeleting(true)
                     appSetting.clearAllData()
@@ -336,34 +329,37 @@ class MainViewModel : ViewModel() {
             }
         }
     }
-
     // Avatar
-    fun patchAvatar(imageBase64: String){
+    fun patchAvatar(imageBase64: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            when (val result = remoteRepo.patchAvatar(UpdateResultAvatar(imageBase64))){
+            when (val result = remoteRepo.patchAvatar(UpdateResultAvatar(imageBase64))) {
                 is RetrofitResult.Success -> {
                     val imageUrl = result.value.image
                     imageUrl?.let {
                         profileManager.setAvatarUrl(it)
                     }
                 }
-                is RetrofitResult.Error -> {}
+                is RetrofitResult.Error -> {
+                }
             }
         }
     }
+
     fun setTabIndex(index: Int) {
         mSelectIndex.postValue(index)
     }
 
-    suspend fun isFirstTimeAsync(): Deferred<Boolean> = viewModelScope.async { appSetting.getBoolParam(AppSettingDataStore.PrefKeys.FIRST_TIME).first() }
-    private suspend fun getCurrentMailAsync(): Deferred<String> = viewModelScope.async { appSetting.getStringParam(AppSettingDataStore.PrefKeys.USER_MAIL).first() }
-    suspend fun setFirstTime(ft: Boolean): Job{
+    suspend fun isFirstTimeAsync(): Deferred<Boolean> = viewModelScope.async {
+        appSetting.getBoolParam(AppSettingDataStore.PrefKeys.FIRST_TIME).first()
+    }
+
+    private suspend fun getCurrentMailAsync(): Deferred<String> = viewModelScope.async {
+        appSetting.getStringParam(AppSettingDataStore.PrefKeys.USER_MAIL).first()
+    }
+
+    suspend fun setFirstTime(ft: Boolean): Job {
         return viewModelScope.launch(Dispatchers.IO) {
             appSetting.setBooleanParam(AppSettingDataStore.PrefKeys.FIRST_TIME, ft)
         }
-    }
-
-    private fun test(){
-        val i = 0
     }
 }

@@ -165,6 +165,7 @@ class HomeReportAdapterRecycler(
             xAxis?.granularity = 2F
             xAxis?.labelCount = 4
             xAxis?.valueFormatter = DateAxisValueFormatter()
+            xAxis?.labelRotationAngle = -60F
         }
 
         private fun setYAxis() {
@@ -184,7 +185,7 @@ class HomeReportAdapterRecycler(
             lineDataSet.highLightColor = context.resources.getColor(R.color.colorPrimary, null)
             lineDataSet.color = context.resources.getColor(R.color.colorPrimary, null)
             lineDataSet.lineWidth = 1.5F
-            lineDataSet.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+            lineDataSet.mode = LineDataSet.Mode.LINEAR
             return lineDataSet
         }
 
@@ -193,7 +194,7 @@ class HomeReportAdapterRecycler(
             binding.reportCardViewLineChart.description?.isEnabled = false
             binding.reportCardViewLineChart.legend?.isEnabled = false
             binding.reportCardViewLineChart.setPinchZoom(true)
-            binding.reportCardViewLineChart.animateX(500)
+            binding.reportCardViewLineChart.animateX(1000)
             binding.reportCardViewLineChart.invalidate()
         }
 
