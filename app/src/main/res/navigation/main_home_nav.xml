@@ -21,9 +21,4 @@
         android:name="com.application.bmiobesity.view.mainActivity.home.recommendation.HomeRecommendationFragment"
         tools:layout="@layout/main_home_recommendation_fragment"/>
 
-    <fragment
-        android:id="@+id/mainHomeReportNav"
-        android:name="com.application.bmiobesity.view.mainActivity.home.report.HomeReportFragment"
-        tools:layout="@layout/main_home_report_fragment" />
-
 </navigation>

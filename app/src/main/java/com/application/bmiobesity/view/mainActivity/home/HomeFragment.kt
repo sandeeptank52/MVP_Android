@@ -8,7 +8,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
-import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.MainHomeFragmentBinding
 import com.application.bmiobesity.viewModels.MainViewModel
 import com.google.android.material.tabs.TabLayoutMediator
@@ -16,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HomeFragment : BaseFragment(R.layout.main_home_fragment) {
+class HomeFragment : Fragment(R.layout.main_home_fragment) {
 
     private var homeBinding: MainHomeFragmentBinding? = null
     private lateinit var titles: List<String>
@@ -29,10 +28,10 @@ class HomeFragment : BaseFragment(R.layout.main_home_fragment) {
         init()
     }
 
-    private fun init() {
+    private fun init(){
         lifecycleScope.launch(Dispatchers.IO) {
             val firstTime = mainModel.isFirstTimeAsync().await()
-            if (firstTime) {
+            if (firstTime){
                 withContext(Dispatchers.Main) {
                     val bundle = bundleOf("isFirstTime" to true)
                     findNavController().navigate(R.id.mainNavHomeToProfile, bundle)
@@ -41,24 +40,24 @@ class HomeFragment : BaseFragment(R.layout.main_home_fragment) {
         }
     }
 
-    private fun initViewPager() {
-        titles = arrayListOf(
-            getString(R.string.main_home_menu_favorite),
-            getString(R.string.main_home_menu_analyze),
-            getString(R.string.main_home_menu_recommendations),
-            getString(R.string.main_home_menu_report),
-        )
+    private fun initViewPager(){
+        titles = arrayListOf(getString(R.string.main_home_menu_favorite),
+                getString(R.string.main_home_menu_analyze),
+                getString(R.string.main_home_menu_recommendations),
+                getString(R.string.main_home_menu_report))
 
         homeBinding?.mainHomeViewPager?.adapter = HomeFragmentAdapter(requireActivity(), titles)
         homeBinding?.mainHomeViewPager?.let {
             homeBinding?.mainHomeTabLayoutMenu?.let { it1 ->
-                TabLayoutMediator(
-                    it1, it
+                TabLayoutMediator(it1, it
                 ) { tab, position ->
                     tab.text = titles[position]
                 }.attach()
             }
         }
+        mainModel.selectedIndex.observe(viewLifecycleOwner, {
+            homeBinding?.mainHomeTabLayoutMenu?.getTabAt(it)?.select()
+        })
     }
 
     override fun onDestroyView() {

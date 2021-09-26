@@ -8,17 +8,19 @@
     <string name="login_hint_passwordCheck_length">не менее 8 символов</string>
     <string name="login_hint_passwordCheck_number">\u0020 1 цифру</string>
     <string name="login_hint_passwordCheck_symbol">\u0020 1 специальный символ</string>
-    <string name="login_hint_passwordCheck_match">пароли должны совпадать</string>
+    <string name="login_hint_passwordCheck_match">Пароли должны совпадать</string>
     <string name="profile_hint_name">Имя</string>
     <string name="profile_hint_surname">Фамилия</string>
     <string name="gender_hint_not_say">Не скажу</string>
 
+
     <!--buttons-->
     <string name="button_sign_in">Войти</string>
+    <string name="sign_in_with_google">Войти через Google</string>
     <string name="button_sign_up">Зарегистрироваться</string>
     <string name="button_sign_up_text">Нужен аккаунт?</string>
     <string name="button_next">Далее</string>
-    <string name="button_come_in">Войти</string>
+    <string name="button_come_in">Войдите</string>
     <string name="button_skip">Пропустить</string>
     <string name="button_got_it">Понятно</string>
     <string name="button_dont_remember_password">Не помню пароль</string>
@@ -45,6 +47,7 @@
     <string name="main_home_menu_favorite">Избранное</string>
     <string name="main_home_menu_analyze">Анализ</string>
     <string name="main_home_menu_recommendations">Рекомендации</string>
+    <string name="main_home_menu_report">Отчет</string>
 
     <string name="main_app_menu_setting">Настройки</string>
     <string name="main_app_menu_subscriptions">Магазин</string>
@@ -69,14 +72,15 @@
 
     <string name="welcome_3_title">Отчёт о рисках и\nрекомендации</string>
     <string name="welcome_3_main_text">\tПриложение предназначено для мониторинга в режиме реального времени ключевых параметров вашего тела, чтобы предоставить информацию о том, как они могут повлиять на долголетие и возможность развития серьезных заболеваний в будущем.\n\n\tНаш AI-сервер рассчитает ваши личные риски на основе собранных данных.\n\n\tДля лучшей производительности мы настоятельно рекомендуем постоянно измерять свои данные, даже если не было значительных событий, которые повлияли на изменения ваших параметров.</string>
+    <string name="welcome_3_is_show_switch">Больше не показывать</string>
 
-    <string name="welcome_4_title">следите за обновлениями</string>
-    <string name="welcome_4_main_text">\tСамое главное, что чем дольше вы измеряете и храните свои данные, тем точнее будет расчет рисков и прогнозов.\n\n\tВ будущем мы увеличим количество параметров.\n\n\tОтслеживай раньше. Живи дольше.</string>
+    <string name="welcome_4_title">помогите нам</string>
+    <string name="welcome_4_main_text">\tПожалуйста, оцените нас на странице Google Play и оставьте свои комментарии. Это поможет другим найти наше приложение и извлечь из него пользу для здоровья.\n\n\tТакже мы хотим, чтобы вы ответили на несколько вопросов о нашем продукте.\n\n\tЕсли вы сможете нам помочь, мы отправим его на вашу электронную почту.</string>
+    <string name="welcome_4_question_check_text">Получить анкету</string>
+    <string name="welcome_4_update_check_text">Получать наши обновления и новости</string>
 
-    <string name="welcome_5_title">помогите нам</string>
-    <string name="welcome_5_main_text">\tПожалуйста, оцените нас на странице Google Play и оставьте свои комментарии. Это поможет другим найти наше приложение и извлечь из него пользу для здоровья.\n\n\tТакже мы хотим, чтобы вы ответили на несколько вопросов о нашем продукте.\n\n\tЕсли вы сможете нам помочь, мы отправим его на вашу электронную почту.</string>
-    <string name="welcome_5_question_check_text">Получить анкету</string>
-    <string name="welcome_5_update_check_text">Получать наши обновления и новости</string>
+    <string name="welcome_5_title">Cледите за обновлениями</string>
+    <string name="welcome_5_main_text">\tСамое главное, что чем дольше вы измеряете и храните свои данные, тем точнее будет расчет рисков и прогнозов.\n\n\tВ будущем мы увеличим количество параметров.\n\n\tОтслеживай раньше. Живи дольше.</string>
 
     <string name="warning">предупреждение!</string>
     <string name="please_read_the_following">(Пожалуйста, прочтите следующее)</string>
@@ -106,7 +110,7 @@
     <string name="reset_pass_title">Новый пароль</string>
     <string name="reset_pass_text">Введите новый пароль</string>
     <string name="reset_pass_success">Пароль успешно изменён!</string>
-    <string name="new_pass_warning_text">Введите новый пароль, попробуйте\nиспользовать в нем цифры и английские буквы,\nвам нужно ввести от 6 до 10 символов.</string>
+    <string name="new_pass_warning_text">Введите новый пароль, состоящий не менее чем из 8 символов, включая 1 цифру и 1 специальный символ.</string>
 
     <!--recommendations fragment-->
     <string name="recom_title_common">Общие рекомендации</string>
@@ -118,9 +122,10 @@
     <string name="profile_height_title">Рост</string>
     <string name="profile_height_message">Пожалуйста, введите свой рост</string>
     <string name="profile_smoker_title">Вы курите?</string>
-    <string name="profile_welcome_dialog_title">Добро пожаловать в наше приложение!</string>
+    <string name="profile_welcome_dialog_title">Добро пожаловать в BMI Disease Tracker!</string>
     <string name="profile_welcome_dialog_message">Здравствуйте, для корректной работы нашего приложения, пожалуйста, заполните основную информацию о себе.</string>
-    <string name="profile_firs_time_msg">Пожалуйста, заполните следующие поля и нажмите на кнопку \"Далее\":\n</string>
+    <string name="profile_firs_time_msg">Пожалуйста, заполните следующие поля:\n</string>
+    <string name="profile_save_successfully">Сохраните профиль успешно!</string>
 
     <!--medcard fragment-->
     <string name="medcard_card_item_source_type">Источник данных:</string>
@@ -137,7 +142,7 @@
     <string name="setting_measure_metric">Метрическая</string>
     <string name="setting_measure_imperial">Английская</string>
     <string name="enter_your_data">Введите свои данные</string>
-    <string name="for_more_a_accurate_analysis">Для более точного анализа</string>
+    <string name="for_more_accurate_analysis">Для более точного анализа</string>
 
 
     <!--subscription fragment-->
@@ -272,27 +277,6 @@
     <string name="communication_with_the_doctor">Связаться с доктором</string>
     <string name="help_n_support"><![CDATA[Помощь и поддержка]]></string>
     <string name="save">Сохранить</string>
-    <string name="sign_in_or">---ИЛИ---</string>
+    <string name="sign_in_or">Или</string>
     <string name="setting_measure">Система измерения</string>
-    <string name="main_home_menu_report">Отчет</string>
-
-    <!--science fragment-->
-    <string name="science">Научные данные</string>
-    <string name="science_based">На основе науки</string>
-    <string name="science_disclaimer">Любая информация, собираемая данным приложением, а также рекомендации по применению лекарственных препаратов и методов лечения, подтверждены доказательной медициной.</string>
-    <string name="science_intro_organizations">Следующие организации поддерживают наши рекомендации:</string>
-    <string name="science_american_medical_association_name">Американская медицинская ассоциация</string>
-    <string name="science_american_medical_association_content">самая большая ассоциация врачей в США. Она объединяет более 190 государственных и специализированных медицинских обществ, а также других ключевых субъектов. С сайта АМА мы получаем самые свежие новости и статьи в области здравоохранения.</string>
-    <string name="science_usa_gov_content">официальный веб-портал отдела “USAgov” в Управлении общих служб правительства США (ранее он назывался “Федеральный гражданский информационный центр”). На этом портале мы проверяем, есть ли у врача или медицинского учреждения сертификаты или свидетельства об аккредитации.</string>
-    <string name="science_pub_med_content">бесплатная поисковая система для нахождения и скачивания публикаций по биомедицине и другим наукам о жизни. С её помощью мы находим рецензируемые статьи, подтверждающие ответы, которые мы выдаём на ваши персонализированные запросы.</string>
-    <string name="science_cochrane_library_name">Кокрейновская библиотека</string>
-    <string name="science_cochrane_library_content">набор баз данных по медицине и здравоохранению, предоставленных международной некоммерческой организацией “Кокрейн” (Cochrane, а ранее — “Кокрейновское сотрудничество“). Мы используем систематические обзоры “Кокрейна”, мета-анализы исследований и отчёты о рандомизированных контролируемых испытаниях.</string>
-    <string name="science_clinical_trials_content">крупнейшая база данных клинических испытаний, проводимых по всему миру и финансируемых как государством, так и частным сектором. Мы используем эти данные и отчёты для моделирования клинических испытаний с помощью системы искусственного интеллекта.</string>
-    <string name="science_mimic_content">большое хранилище бесплатной медицинской информации по интенсивной терапии (Medical Information Mart for Intensive Care). В нём содержатся анонимизированные медицинские данные пациентов, которые поступили в отделение интенсивной терапии крупных лечебных учреждений, оказывающих высокоспециализированную помощь. Эта база включает демографические данные, показатели жизненно-важных функций, результаты лабораторных тестов, процедур и применения лекарственных препаратов, записи специалистов по уходу за больными, медицинские снимки, данные о смертности. Мы используем данные базы MIMIC-III для обучения нашей модели искусственного интеллекта выявлять зависимости между биомаркерами и заболеваниями, а потом прогнозировать развитие и распространение болезней.</string>
-
-    <!--app update-->
-    <string name="app_update_prompt">Доступна новая версия</string>
-    <string name="app_update_button">Обновить</string>
-
-
 </resources>

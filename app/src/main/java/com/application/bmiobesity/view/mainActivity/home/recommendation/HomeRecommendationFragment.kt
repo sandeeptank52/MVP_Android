@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.android.billingclient.api.Purchase
 import com.application.bmiobesity.InTimeApp
 import com.application.bmiobesity.R
-import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.MainHomeRecommendationFragmentBinding
 import com.application.bmiobesity.databinding.MainHomeRecommendationFragmentV2Binding
 import com.application.bmiobesity.model.retrofit.ResultCommonRecommendation
@@ -22,7 +21,7 @@ import com.application.bmiobesity.services.google.billing.GoogleBillingClient
 import com.application.bmiobesity.services.google.billing.PurchasesConfig
 import com.application.bmiobesity.viewModels.MainViewModel
 
-class HomeRecommendationFragment : BaseFragment(R.layout.main_home_recommendation_fragment_v2) {
+class HomeRecommendationFragment : Fragment(R.layout.main_home_recommendation_fragment_v2) {
 
     private var recBinding: MainHomeRecommendationFragmentV2Binding? = null
     private val mainModel: MainViewModel by activityViewModels()

@@ -8,12 +8,11 @@ import androidx.fragment.app.Fragment
 import com.android.billingclient.api.BillingFlowParams
 import com.application.bmiobesity.InTimeApp
 import com.application.bmiobesity.R
-import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.MainSubsFragmentBinding
 import com.application.bmiobesity.services.google.billing.GoogleBillingClient
 import com.application.bmiobesity.services.google.billing.SkuDetailConfig
 
-class SubscriptionsFragment : BaseFragment(R.layout.main_subs_fragment) {
+class SubscriptionsFragment : Fragment(R.layout.main_subs_fragment) {
     private var subsBinding: MainSubsFragmentBinding? = null
     private lateinit var googleBillingClient: GoogleBillingClient
 

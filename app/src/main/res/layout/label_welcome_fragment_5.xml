@@ -1,67 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".view.labelActivity.welcome.WelcomeFragment5">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:background="@color/color_white">
 
         <TextView
             android:id="@+id/welcome5TitleText"
-            android:text="@string/welcome_5_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAllCaps="true"
-            android:textColor="@color/labelGradientBckSecond"
-            android:textStyle="bold"
-            android:textSize="35sp"
-            android:gravity="start"
-            android:layout_marginVertical="40dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-            android:id="@+id/welcome5MainText"
-            android:text="@string/welcome_5_main_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="75dp"
-            android:textColor="@color/color_black"
-            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/dmsans_bold"
+            android:text="@string/welcome_5_title"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/labelGradientBckSecond"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/welcome5TitleText"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/welcome5QuestionCheckBox"
-            android:text="@string/welcome_5_question_check_text"
-            android:textColor="@color/color_black"
+        <TextView
+            android:id="@+id/welcome5MainText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:layout_margin="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/welcome5MainText"/>
-
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/welcome5UpdateCheckBox"
-            android:text="@string/welcome_5_update_check_text"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/dmsans_regular"
+            android:text="@string/welcome_5_main_text"
             android:textColor="@color/color_black"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:layout_margin="10dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/welcome5QuestionCheckBox"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcome5TitleText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,86 +7,82 @@
     android:orientation="vertical"
     tools:context=".view.labelActivity.welcome.WelcomeFragment1">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/welcome1GuideLine"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_white">
-
-        <ImageView
-            android:id="@+id/welcome1LogoImage"
-            android:src="@drawable/welcome_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:contentDescription="@string/image_description"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        android:background="@color/color_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/welcome1GuideLine"
+        app:layout_constraintVertical_bias="0">
 
         <TextView
             android:id="@+id/welcome1TitleText"
-            android:text="@string/app_name_short"
             android:layout_width="wrap_content"
-            android:gravity="center"
-            android:textAllCaps="true"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/labelGradientBckSecond"
-            android:textStyle="bold"
-            android:textSize="20sp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/dmsans_bold"
+            android:gravity="center"
+            android:text="@string/disclaimer_title"
+            android:textAllCaps="false"
+            android:textColor="@color/labelGradientBckSecond"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/welcome1LogoImage"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/welcome1PublicText"
-            android:text="@string/welcome_1_public_beta"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:textSize="12sp"
+            android:fontFamily="@font/dmsans_regular"
+            android:gravity="center"
+            android:text="@string/please_read_the_following"
+            android:textColor="@color/gray_800"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/welcome1TitleText"
-            app:layout_constraintTop_toBottomOf="@id/welcome1TitleText"/>
+            app:layout_constraintTop_toBottomOf="@id/welcome1TitleText" />
 
         <TextView
             android:id="@+id/welcome1GreetingText"
-            android:text="@string/welcome_1_greeting"
             android:layout_width="0dp"
-            android:textColor="@color/color_black"
-            android:textStyle="bold"
-            android:layout_marginVertical="16dp"
-            android:layout_marginStart="16dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/dmsans_bold"
+            android:gravity="center"
+            android:text="@string/our_service_is_not_a_medical_service"
+            android:textColor="@color/color_black"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/welcome1PublicText"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcome1PublicText" />
 
         <TextView
             android:id="@+id/welcome1MainText"
-            android:text="@string/welcome_1_main_text"
             android:layout_width="0dp"
-            android:layout_margin="16dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="16dp"
             android:autoLink="all"
+            android:fontFamily="@font/dmsans_regular"
             android:linksClickable="true"
-            android:textColor="@color/color_black"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/welcome_frag_one_main_text"
+            android:textAlignment="center"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/welcome1GreetingText"/>
-
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/welcome1CheckBox"
-            android:text="@string/welcome_1_check_box_text"
-            android:textColor="@color/color_black"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:checked="true"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/welcome1MainText"/>
+            app:layout_constraintTop_toBottomOf="@id/welcome1GreetingText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

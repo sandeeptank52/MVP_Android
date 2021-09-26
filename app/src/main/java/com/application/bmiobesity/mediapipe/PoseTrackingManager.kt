@@ -1,8 +1,10 @@
 package com.application.bmiobesity.mediapipe
 
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.application.bmiobesity.PoseTrackingIndex
 import com.application.bmiobesity.utils.calculateAngle
 import com.application.bmiobesity.utils.calculateDistance
 import com.google.mediapipe.formats.proto.LandmarkProto

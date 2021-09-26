@@ -1,39 +1,46 @@
 package com.application.bmiobesity.view.mainActivity.profile
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.ListAdapter
 import android.widget.NumberPicker
+import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
-import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.common.MeasuringSystem
-import com.application.bmiobesity.databinding.MainProfileFragmentV2Binding
+import com.application.bmiobesity.databinding.MainProfileFragmentBinding
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.AvailableData
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profile
+import com.application.bmiobesity.utils.convertDateLongToString
+import com.application.bmiobesity.utils.convertDateStringToMs
 import com.application.bmiobesity.viewModels.MainViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.jakewharton.rxbinding4.view.focusChanges
+import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxbinding4.widget.textChanges
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.subjects.PublishSubject
+import io.reactivex.rxjava3.subjects.Subject
 import java.util.*
 
-class ProfileFragment : BaseFragment(R.layout.main_profile_fragment_v2) {
+class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
 
-    private var profileBinding: MainProfileFragmentV2Binding? = null
+    private var profileBinding: MainProfileFragmentBinding? = null
     private val mainModel: MainViewModel by activityViewModels()
 
     private lateinit var currentProfile: Profile
     private var currentMeasuringSystem = MeasuringSystem.METRIC
     private lateinit var allDisposable: CompositeDisposable
+    private lateinit var availableData: AvailableData
+    private lateinit var availableDataSubject: Subject<Boolean>
 
     private lateinit var datePicker: MaterialDatePicker<Long>
     private lateinit var datePickerBuilder: MaterialDatePicker.Builder<Long>
@@ -52,105 +59,109 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment_v2) {
     private lateinit var countriesAdapter: ListAdapter
     private lateinit var dialogCountriesBuilder: MaterialAlertDialogBuilder
 
+    private var isFirstTime: Boolean = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        profileBinding = MainProfileFragmentV2Binding.bind(view)
-
-        var isFirstTime: Boolean
+        profileBinding = MainProfileFragmentBinding.bind(view)
 
         arguments?.let {
             isFirstTime = it.getBoolean("isFirstTime")
-            showFirstTimeDialog(isFirstTime)
+            //showFirstTimeMsgVisibility(isFirstTime)
             if (isFirstTime) showInfoDialog()
         }
 
         init()
         addRX()
 
-        initDatePicker("")
-        initGendersDialog(0)
-        initHeightDialog(70)
-        initSmokerDialog(0)
-        initCountriesDialog(1)
-
         initListeners()
         setLayoutListeners()
     }
 
-    private fun showInfoDialog(){
+    private fun showInfoDialog() {
         val infoDialog = MaterialAlertDialogBuilder(requireContext())
-        infoDialog.setPositiveButton(getString(R.string.button_ok)){_, _ -> }
+        infoDialog.setPositiveButton(getString(R.string.button_ok)) { _, _ -> }
         infoDialog.setTitle(getString(R.string.profile_welcome_dialog_title))
         infoDialog.setMessage(getString(R.string.profile_welcome_dialog_message))
         infoDialog.show()
     }
-    
-    private fun init(){
+
+    @SuppressLint("InflateParams")
+    private fun init() {
+        allDisposable = CompositeDisposable()
+        availableData = AvailableData("")
+        availableDataSubject = PublishSubject.create()
+
+        // Init date picker calendar
         val calendar = Calendar.getInstance(TimeZone.getDefault())
-        calendar.set(1891, 5, 1)
+        val currentYear = calendar.get(Calendar.YEAR)
+        calendar.set(Calendar.YEAR, currentYear - 150)
         val startTime = calendar.timeInMillis
         calendar.clear()
-        calendar.set(2011, 3, 1)
+        calendar.set(Calendar.YEAR, currentYear - 1)
         val endTime = calendar.timeInMillis
         datePickerConstraintsBuilder = CalendarConstraints.Builder()
         datePickerConstraintsBuilder.setStart(startTime)
         datePickerConstraintsBuilder.setEnd(endTime)
-        allDisposable = CompositeDisposable()
-        gendersAdapter = ArrayAdapter(requireContext(), android.R.layout.select_dialog_singlechoice, mainModel.genders)
+
+        // Init adapters
         dialogHeightView = layoutInflater.inflate(R.layout.main_profile_dialog_height, null)
         heightNumberPicker = dialogHeightView.findViewById(R.id.profileHeightNumberPicker)
-        smokerAdapter = ArrayAdapter(requireContext(), android.R.layout.select_dialog_singlechoice, arrayOf(getString(R.string.button_yes), getString(R.string.button_no)))
-        countriesAdapter = ArrayAdapter(requireContext(), android.R.layout.select_dialog_singlechoice, mainModel.countries)
+        gendersAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.select_dialog_singlechoice,
+            mainModel.genders
+        )
+        smokerAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.select_dialog_singlechoice,
+            arrayOf(getString(R.string.button_yes), getString(R.string.button_no))
+        )
+        countriesAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.select_dialog_singlechoice,
+            mainModel.countries
+        )
     }
-
-    private fun addRX(){
+    private fun addRX() {
         val nameDisposable = profileBinding?.nameEt?.textChanges()
-            //?.skipInitialValue()
+            ?.skipInitialValue()
             ?.subscribe {
-                if (it.isNullOrEmpty()){
-                    setErrorEnabled(true)
+                currentProfile.firstName = it.toString()
+                updateAvailableProfile(currentProfile)
+
+                if (it.isNullOrEmpty()) {
                     setNameError(getString(R.string.error_form_profile_name))
                 } else {
                     setNameError(null)
-                    setErrorEnabled(false)
                 }
-            }
-        val nameFocusDisposable = profileBinding?.nameEt?.focusChanges()
-            //?.skipInitialValue()
-            ?.subscribe {
-                /*if (!it && !nameIsHasError()){
-                    profileBinding?.nameEt?.text?.toString()?.let { name ->
-                        currentProfile.firstName = name
-                        mainModel.patchProfile(currentProfile)
-                    }
-                }*/
             }
 
         val surnameDisposable = profileBinding?.surnameEt?.textChanges()
-            //?.skipInitialValue()
+            ?.skipInitialValue()
             ?.subscribe {
-                if (it.isNullOrEmpty()){
-                    setErrorEnabled(true)
+                currentProfile.lastName = it.toString()
+                updateAvailableProfile(currentProfile)
+
+                if (it.isNullOrEmpty()) {
                     setSurnameError((getString(R.string.error_form_profile_surname)))
                 } else {
                     setSurnameError(null)
-                    setErrorEnabled(false)
                 }
             }
-        val surnameFocusDisposable = profileBinding?.surnameEt?.focusChanges()
-            //?.skipInitialValue()
-            ?.subscribe {
-                /*if (!it && !surnameIsHasError()){
-                    profileBinding?.surnameEt?.text?.toString()?.let { surname ->
-                        currentProfile.lastName = surname
-                        mainModel.patchProfile(currentProfile)
-                    }
-                }*/
-            }
-        allDisposable.addAll(nameDisposable, nameFocusDisposable, surnameDisposable, surnameFocusDisposable)
+
+        val availableDataDisposable = availableDataSubject.subscribe {
+            setEnabledConfirmButton(it)
+        }
+
+        allDisposable.addAll(
+            nameDisposable,
+            surnameDisposable,
+            availableDataDisposable
+        )
     }
 
-    private fun initDatePicker(date: String){
+    private fun showDatePickerDialog(date: String) {
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         datePickerBuilder = MaterialDatePicker.Builder.datePicker()
         if (date.isEmpty()) datePickerBuilder.setSelection(calendar.timeInMillis)
@@ -163,134 +174,128 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment_v2) {
             it?.let {
                 profileBinding?.profileBirthDateTextView?.text = convertDateLongToString(it)
                 currentProfile.birthDate = convertDateLongToString(it)
-                mainModel.patchProfile(currentProfile)
+                updateAvailableProfile(currentProfile)
             }
         }
+        datePicker.show(childFragmentManager, "")
     }
-    private fun initGendersDialog(item: Int){
-        dialogGendersBuilder = MaterialAlertDialogBuilder(requireContext())
-        dialogGendersBuilder.setTitle(getString(R.string.profile_gender_title))
-        dialogGendersBuilder.setPositiveButton(getString(R.string.button_ok)){_, _ -> }
-        dialogGendersBuilder.setSingleChoiceItems(gendersAdapter, item) { _, which ->
-            profileBinding?.profileGenderTextView?.text = mainModel.genders[which].value
-            currentProfile.gender = which + 1
-            mainModel.patchProfile(currentProfile)
-        }
-    }
-    private fun initHeightDialog(valuePicker: Int){
+    private fun showHeightDialog(valuePicker: Int) {
+        // Set number picker attributes
+        heightNumberPicker.minValue = 50
+        heightNumberPicker.maxValue = 260
+        heightNumberPicker.wrapSelectorWheel = true
+        heightNumberPicker.value = if (valuePicker < 50) 160 else valuePicker
+
+        // Set dialog attributes
         dialogHeightBuilder = MaterialAlertDialogBuilder(requireContext())
         dialogHeightBuilder.setTitle(getString(R.string.profile_height_title))
         dialogHeightBuilder.setMessage(R.string.profile_height_message)
         dialogHeightBuilder.setView(dialogHeightView)
-        dialogHeightBuilder.setPositiveButton(getString(R.string.button_ok)){_, _ ->
-            currentProfile.height = heightNumberPicker.value.toFloat()
-            mainModel.patchProfile(currentProfile)
+        dialogHeightBuilder.setPositiveButton(getString(R.string.button_ok)) { _, _ ->
+            val newHeight = heightNumberPicker.value.toFloat()
+            val newHeightText = "$newHeight cm"
+            profileBinding?.profileHeightTextView?.text = newHeightText
+            currentProfile.height = newHeight
+            updateAvailableProfile(currentProfile)
         }
-        dialogHeightBuilder.setNegativeButton(getString(R.string.button_cancel)){_, _ ->}
+        dialogHeightBuilder.setNegativeButton(getString(R.string.button_cancel)) { _, _ -> }
         dialogHeightBuilder.setOnDismissListener {
             val parent = dialogHeightView.parent as ViewGroup
             parent.removeView(dialogHeightView)
         }
-
-        heightNumberPicker.minValue = 50
-        heightNumberPicker.maxValue = 260
-
-        heightNumberPicker.wrapSelectorWheel = true
-        heightNumberPicker.value = if (valuePicker < 50) 70 else valuePicker
-        heightNumberPicker.setOnValueChangedListener { _, _, newVal ->
-            val newHeight = "$newVal cm"
-            profileBinding?.profileHeightTextView?.text = newHeight
-        }
-
-        //(NumberPicker::class.java.getDeclaredField("mInputText").apply { isAccessible = true }.get(heightNumberPicker) as EditText).filters = emptyArray()
+        dialogHeightBuilder.show()
     }
-    private fun initSmokerDialog(item: Int){
-        dialogSmokerBuilder = MaterialAlertDialogBuilder(requireContext())
-        dialogSmokerBuilder.setTitle(getString(R.string.profile_smoker_title))
-        dialogSmokerBuilder.setPositiveButton(getString(R.string.button_ok)){_, _ ->}
-        dialogSmokerBuilder.setSingleChoiceItems(smokerAdapter, item){_, which ->
-            val smokeStr = if (which == 0) getString(R.string.button_yes) else getString(R.string.button_no)
-            profileBinding?.profileSmokeTextView?.text = smokeStr
-            currentProfile.smoker = which == 0
-            mainModel.patchProfile(currentProfile)
+    private fun showCountriesDialog(countryID: Int) {
+        var country = mainModel.countries.find { country ->
+            if (countryID == 0) {
+                country.id == 1
+            } else {
+                country.id == countryID
+            }
         }
-    }
-    private fun initCountriesDialog(item: Int){
+        var countryIndex = mainModel.countries.indexOf(country)
         dialogCountriesBuilder = MaterialAlertDialogBuilder(requireContext())
         dialogCountriesBuilder.setTitle("")
-        dialogCountriesBuilder.setPositiveButton(getString(R.string.button_ok)){_, _ ->}
-        dialogCountriesBuilder.setSingleChoiceItems(countriesAdapter, item){_, which ->
-            profileBinding?.profileCountriesTextView?.text = mainModel.countries[which].value
-            currentProfile.country = which
-            mainModel.patchProfile(currentProfile)
+        dialogCountriesBuilder.setPositiveButton(getString(R.string.button_ok)) { _, _ ->
+            country = mainModel.countries[countryIndex]
+            profileBinding?.profileCountriesTextView?.text = country?.value
+            currentProfile.country = country?.id!!
+            updateAvailableProfile(currentProfile)
         }
+        dialogCountriesBuilder.setSingleChoiceItems(countriesAdapter, countryIndex) { _, which ->
+            countryIndex = which
+        }
+        dialogCountriesBuilder.show()
+    }
+    private fun showSmokerDialog(item: Int) {
+        var index = item
+        dialogSmokerBuilder = MaterialAlertDialogBuilder(requireContext())
+        dialogSmokerBuilder.setTitle(getString(R.string.profile_smoker_title))
+        dialogSmokerBuilder.setSingleChoiceItems(smokerAdapter, item) { _, which ->
+            index = which
+        }
+        dialogSmokerBuilder.setPositiveButton(getString(R.string.button_ok)) { _, _ ->
+            val smokeStr =
+                if (index == 0) getString(R.string.button_yes)
+                else getString(R.string.button_no)
+            profileBinding?.profileSmokeTextView?.text = smokeStr
+            currentProfile.smoker = index == 0
+            updateAvailableProfile(currentProfile)
+        }
+        dialogSmokerBuilder.show()
+    }
+    private fun showGendersDialog(item: Int) {
+        var index = item
+        dialogGendersBuilder = MaterialAlertDialogBuilder(requireContext())
+        dialogGendersBuilder.setTitle(getString(R.string.profile_gender_title))
+        dialogGendersBuilder.setSingleChoiceItems(gendersAdapter, item) { _, which ->
+            index = which
+        }
+        dialogGendersBuilder.setPositiveButton(getString(R.string.button_ok)) { _, _ ->
+            profileBinding?.profileGenderTextView?.text = mainModel.genders[index].value
+            currentProfile.gender = index + 1
+            updateAvailableProfile(currentProfile)
+        }
+        dialogGendersBuilder.show()
     }
 
-    private fun initListeners(){
+    private fun initListeners() {
+        profileBinding?.profileFirstTimeButton?.clicks()?.subscribe {
+            mainModel.patchProfile(currentProfile)
+
+            if (isFirstTime) {
+                val bundle = bundleOf("isFirstTime" to true)
+                findNavController().navigate(R.id.mainNavProfileToMedcard, bundle)
+            } else {
+                Toast.makeText(requireActivity(), resources.getString(R.string.profile_save_successfully), Toast.LENGTH_SHORT).show()
+            }
+        }
+
         mainModel.profileManager.currentProfile.observe(viewLifecycleOwner, {
-            it?.let {
-                currentProfile = it
+            it?.let { profile ->
+                currentProfile = profile
+                updateAvailableProfile(profile)
 
-                profileBinding?.nameEt?.setText(it.firstName)
-                profileBinding?.surnameEt?.setText(it.lastName)
+                // Set text views
+                profileBinding?.nameEt?.setText(profile.firstName)
+                profileBinding?.surnameEt?.setText(profile.lastName)
+                profileBinding?.profileBirthDateTextView?.text = profile.birthDate
+                profileBinding?.profileGenderTextView?.text = mainModel.genders[profile.gender - 1].value
 
-                profileBinding?.profileBirthDateTextView?.text = it.birthDate
-                initDatePicker(it.birthDate)
-
-                profileBinding?.profileGenderTextView?.text = mainModel.genders[it.gender - 1].value
-                initGendersDialog(it.gender - 1)
-
-                val height = "${it.height} cm"
+                val height = "${profile.height} cm"
                 profileBinding?.profileHeightTextView?.text = height
-                initHeightDialog(it.height.toInt())
 
-                val smokeStr = if (it.smoker) getString(R.string.button_yes) else getString(R.string.button_no)
+                val smokeStr =
+                    if (profile.smoker) getString(R.string.button_yes)
+                    else getString(R.string.button_no)
                 profileBinding?.profileSmokeTextView?.text = smokeStr
-                val smokerItemChoices = if (it.smoker) 0 else 1
-                initSmokerDialog(smokerItemChoices)
 
-                profileBinding?.profileCountriesTextView?.text = mainModel.countries[it.country].value
-                initCountriesDialog(it.country)
+                val country = mainModel.countries.find { country ->
+                    country.id == profile.country
+                }
+                profileBinding?.profileCountriesTextView?.text = country?.value
             }
         })
-
-        mainModel.profileManager.currentAvailableData.observe(viewLifecycleOwner, {
-            it?.let {
-                profileBinding?.profileFirstTimeButton?.isEnabled = it.getProfileAvailable()
-                createFirsTimeMsg(it)
-            }
-        })
-
-        profileBinding?.nameEt?.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE){
-                if (!nameIsHasError()){
-                    profileBinding?.nameEt?.text?.toString()?.let { name ->
-                        currentProfile.firstName = name
-                        mainModel.patchProfile(currentProfile)
-                    }
-                }
-                return@setOnEditorActionListener true
-            }
-            return@setOnEditorActionListener false
-        }
-
-        profileBinding?.surnameEt?.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE){
-                if (!surnameIsHasError()){
-                    profileBinding?.surnameEt?.text?.toString()?.let { surname ->
-                        currentProfile.lastName = surname
-                        mainModel.patchProfile(currentProfile)
-                    }
-                }
-                return@setOnEditorActionListener true
-            }
-            return@setOnEditorActionListener false
-        }
-
-        profileBinding?.profileFirstTimeButton?.setOnClickListener {
-            val bundle = bundleOf("isFirstTime" to true)
-            findNavController().navigate(R.id.mainNavProfileToMedcard, bundle)
-        }
 
         mainModel.profileManager.currentMeasurementSystem.observe(viewLifecycleOwner, {
             it?.let {
@@ -299,91 +304,105 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment_v2) {
         })
     }
 
-    private fun setLayoutListeners(){
-        profileBinding?.profileBirthDateConstraint?.setOnClickListener { datePicker.show(childFragmentManager, "") }
-        profileBinding?.profileGenderConstraint?.setOnClickListener { dialogGendersBuilder.show() }
-        profileBinding?.profileHeightConstraint?.setOnClickListener { dialogHeightBuilder.show() }
-        profileBinding?.profileSmokerConstraint?.setOnClickListener { dialogSmokerBuilder.show() }
-        profileBinding?.profileCountriesConstraint?.setOnClickListener { dialogCountriesBuilder.show() }
+    private fun updateAvailableProfile(profile: Profile) {
+        availableData.updateAvailableProfile(profile)
+        availableDataSubject.onNext(availableData.getProfileAvailable())
     }
 
-    private fun convertDateStringToMs(date: String): Long{
-        val calendar = Calendar.getInstance(TimeZone.getDefault())
-        if(date.isNotEmpty()){
-            val splitDate = date.split(".")
-            if(splitDate.size == 3){
-                val day = splitDate[0].toInt()
-                val month = splitDate[1].toInt() - 1
-                val year = splitDate[2].toInt()
-                calendar.set(year, month, day)
-                return calendar.timeInMillis
-            }
+    private fun setLayoutListeners() {
+        profileBinding?.profileBirthDateConstraint?.setOnClickListener {
+            showDatePickerDialog(currentProfile.birthDate)
         }
-        return calendar.timeInMillis
-    }
-    private fun convertDateLongToString(date: Long): String{
-        val calendar = Calendar.getInstance(TimeZone.getDefault())
-        calendar.timeInMillis = date
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-        val dayStr = if (day > 9) day.toString() else "0${day}"
-        val month = (calendar.get(Calendar.MONTH) + 1)
-        val mothStr = if (month > 9) month.toString() else "0${month}"
-        val year = calendar.get(Calendar.YEAR).toString()
-        return "${dayStr}.${mothStr}.${year}"
+        profileBinding?.profileHeightConstraint?.setOnClickListener {
+            showHeightDialog(currentProfile.height.toInt())
+        }
+        profileBinding?.profileCountriesConstraint?.setOnClickListener {
+            showCountriesDialog(currentProfile.country)
+        }
+        profileBinding?.profileGenderConstraint?.setOnClickListener {
+            showGendersDialog(currentProfile.gender - 1)
+        }
+
+        profileBinding?.profileSmokerConstraint?.setOnClickListener {
+            val smokerItemChoices = if (currentProfile.smoker) 0 else 1
+            showSmokerDialog(smokerItemChoices)
+        }
     }
 
-    private fun setNameEmptyError(){
-        val name = profileBinding?.nameEt?.text?.toString()
-        if (name.isNullOrEmpty()){
-            setErrorEnabled(true)
-            setNameError(getString(R.string.error_form_profile_name))
-        } else {
-            setNameError(null)
-            setErrorEnabled(false)
-        }
-    }
-    private fun setErrorEnabled(enabled: Boolean){
-        profileBinding?.nameInputText?.isErrorEnabled = enabled
-        profileBinding?.surnameInputText?.isErrorEnabled = enabled
-    }
-    private fun setNameError(msg: String?){
+    private fun setNameError(msg: String?) {
         profileBinding?.nameInputText?.error = msg
+        if (msg == null) {
+            profileBinding?.nameInputText?.hint = resources.getString(R.string.profile_hint_name)
+        } else {
+            profileBinding?.nameInputText?.hint = msg
+        }
     }
-    private fun setSurnameError(msg: String?){
+    private fun setSurnameError(msg: String?) {
         profileBinding?.surnameInputText?.error = msg
+        if (msg == null) {
+            profileBinding?.surnameInputText?.hint =
+                resources.getString(R.string.profile_hint_surname)
+        } else {
+            profileBinding?.surnameInputText?.hint = msg
+        }
     }
-    private fun nameIsHasError(): Boolean = !profileBinding?.nameInputText?.error.isNullOrEmpty()
-    private fun surnameIsHasError(): Boolean = !profileBinding?.surnameInputText?.error.isNullOrEmpty()
+    private fun setEnabledConfirmButton(isEnabled: Boolean) {
+        profileBinding?.profileFirstTimeButton?.isEnabled = isEnabled
+        if (isEnabled) {
+            profileBinding?.profileFirstTimeButton?.background = ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.all_round_blue,
+                null
+            )
+            profileBinding?.profileFirstTimeButton?.setTextColor(
+                resources.getColor(
+                    R.color.color_white,
+                    null
+                )
+            )
+        } else {
+            profileBinding?.profileFirstTimeButton?.background = ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.all_round_gray,
+                null
+            )
+            profileBinding?.profileFirstTimeButton?.setTextColor(
+                resources.getColor(
+                    R.color.colorPrimary,
+                    null
+                )
+            )
+        }
+    }
 
-    private fun showFirstTimeDialog(firsTime: Boolean){
-        if (firsTime){
-            profileBinding?.profileFirstTimeButton?.visibility = View.VISIBLE
-            profileBinding?.profileFirstTimeInfo?.visibility = View.VISIBLE
-        } else {
-            profileBinding?.profileFirstTimeButton?.visibility = View.GONE
-            profileBinding?.profileFirstTimeInfo?.visibility = View.GONE
-        }
-    }
-    private fun createFirsTimeMsg(data: AvailableData){
-        if (!data.getProfileAvailable()){
-            val msgBuilder = StringBuilder()
-            msgBuilder.append(getString(R.string.profile_firs_time_msg))
-            if (!data.firstNameAvailable) msgBuilder.append("${getString(R.string.name)}  ")
-            if (!data.lastNameAvailable) msgBuilder.append("${getString(R.string.surname)}  ")
-            if (!data.genderAvailable) msgBuilder.append("${getString(R.string.gender)}  ")
-            if (!data.heightAvailable) msgBuilder.append("${getString(R.string.height)}  ")
-            if (!data.countryAvailable) msgBuilder.append("${getString(R.string.countries)}  ")
-            profileBinding?.profileFirstTimeInfo?.text = msgBuilder.toString()
-            msgBuilder.clear()
-        } else {
-            profileBinding?.profileFirstTimeInfo?.text = ""
-        }
-    }
+//    private fun showFirstTimeMsgVisibility(firsTime: Boolean) {
+//        if (firsTime) {
+//            profileBinding?.profileFirstTimeInfo?.visibility = View.VISIBLE
+//        } else {
+//            profileBinding?.profileFirstTimeInfo?.visibility = View.GONE
+//        }
+//    }
+//    private fun createFirsTimeMsg(data: AvailableData) {
+//        if (!data.getProfileAvailable()) {
+//            val msgBuilder = StringBuilder()
+//            msgBuilder.append(getString(R.string.profile_firs_time_msg))
+//            if (!data.firstNameAvailable) msgBuilder.append("${getString(R.string.name)}  ")
+//            if (!data.lastNameAvailable) msgBuilder.append("${getString(R.string.surname)}  ")
+//            if (!data.genderAvailable) msgBuilder.append("${getString(R.string.gender)}  ")
+//            if (!data.heightAvailable) msgBuilder.append("${getString(R.string.height)}  ")
+//            if (!data.countryAvailable) msgBuilder.append("${getString(R.string.countries)}  ")
+//            profileBinding?.profileFirstTimeInfo?.text = msgBuilder.toString()
+//            msgBuilder.clear()
+//        } else {
+//            profileBinding?.profileFirstTimeInfo?.text = ""
+//        }
+//    }
 
     override fun onDestroyView() {
         profileBinding = null
         super.onDestroyView()
     }
+
     override fun onDestroy() {
         if (!allDisposable.isDisposed) allDisposable.dispose()
         super.onDestroy()

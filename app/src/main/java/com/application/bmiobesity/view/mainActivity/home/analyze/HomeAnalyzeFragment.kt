@@ -6,13 +6,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.application.bmiobesity.R
-import com.application.bmiobesity.base.BaseFragment
-import com.application.bmiobesity.databinding.MainHomeAnalyzeFragmentBinding
 import com.application.bmiobesity.databinding.MainHomeAnalyzeFragmentV2Binding
 import com.application.bmiobesity.model.retrofit.ResultDiseaseRisk
 import com.application.bmiobesity.viewModels.MainViewModel
 
-class HomeAnalyzeFragment : BaseFragment(R.layout.main_home_analyze_fragment_v2) {
+class HomeAnalyzeFragment : Fragment(R.layout.main_home_analyze_fragment_v2) {
 
     private var analyzeBinding: MainHomeAnalyzeFragmentV2Binding? = null
     private val mainModel: MainViewModel by activityViewModels()
@@ -20,6 +18,8 @@ class HomeAnalyzeFragment : BaseFragment(R.layout.main_home_analyze_fragment_v2)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         analyzeBinding = MainHomeAnalyzeFragmentV2Binding.bind(view)
+        analyzeBinding!!.vm = mainModel
+        analyzeBinding!!.lifecycleOwner = this
         initRecycler()
     }
 

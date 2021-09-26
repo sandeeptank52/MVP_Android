@@ -22,6 +22,32 @@ fun getTimeStrFromMS(ms: Long): String{
     return SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date(ms))
 }
 
+fun convertDateStringToMs(date: String): Long {
+    val calendar = Calendar.getInstance(TimeZone.getDefault())
+    if (date.isNotEmpty()) {
+        val splitDate = date.split(".")
+        if (splitDate.size == 3) {
+            val day = splitDate[0].toInt()
+            val month = splitDate[1].toInt() - 1
+            val year = splitDate[2].toInt()
+            calendar.set(year, month, day)
+            return calendar.timeInMillis
+        }
+    }
+    return calendar.timeInMillis
+}
+
+fun convertDateLongToString(date: Long): String {
+    val calendar = Calendar.getInstance(TimeZone.getDefault())
+    calendar.timeInMillis = date
+    val day = calendar.get(Calendar.DAY_OF_MONTH)
+    val dayStr = if (day > 9) day.toString() else "0${day}"
+    val month = (calendar.get(Calendar.MONTH) + 1)
+    val mothStr = if (month > 9) month.toString() else "0${month}"
+    val year = calendar.get(Calendar.YEAR).toString()
+    return "${dayStr}.${mothStr}.${year}"
+}
+
 fun numberToWithoutDigit(n: Float): Float{
     val decFormat = DecimalFormat("#")
     decFormat.decimalFormatSymbols = DecimalFormatSymbols(Locale.ENGLISH)
