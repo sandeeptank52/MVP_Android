@@ -1,24 +1,18 @@
 package com.application.bmiobesity.view.mainActivity.home.recommendation
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.android.billingclient.api.Purchase
-import com.application.bmiobesity.InTimeApp
 import com.application.bmiobesity.R
 import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.MainHomeRecommendationFragmentBinding
 import com.application.bmiobesity.databinding.MainHomeRecommendationFragmentV2Binding
 import com.application.bmiobesity.model.retrofit.ResultCommonRecommendation
 import com.application.bmiobesity.model.retrofit.ResultRecommendation
-import com.application.bmiobesity.services.google.billing.GoogleBillingClient
 import com.application.bmiobesity.services.google.billing.PurchasesConfig
 import com.application.bmiobesity.viewModels.MainViewModel
 
@@ -31,6 +25,8 @@ class HomeRecommendationFragment : BaseFragment(R.layout.main_home_recommendatio
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recBinding = MainHomeRecommendationFragmentV2Binding.bind(view)
+        recBinding?.vm = mainModel
+        recBinding?.lifecycleOwner = this
         initCommonRecycler()
         initPersonalRecycler()
         initListeners()

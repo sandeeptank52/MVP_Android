@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.application.bmiobesity.common.NavigationId"/>
 
         <variable
             name="vm"
@@ -156,7 +157,7 @@
                <androidx.constraintlayout.widget.ConstraintLayout
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
-                   android:onClick="@{() -> vm.setTabIndex(3)}">
+                   android:onClick="@{() -> vm.setNavigation(NavigationId.REPORT_FRAGMENT)}">
 
                    <TextView
                        android:id="@+id/view_report"

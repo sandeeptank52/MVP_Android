@@ -3,6 +3,7 @@ package com.application.bmiobesity.view.mainActivity.home.report
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.application.bmiobesity.R
@@ -12,7 +13,7 @@ import com.application.bmiobesity.model.db.paramSettings.entities.MedCardParamSe
 import com.application.bmiobesity.model.db.paramSettings.entities.MedCardParamSimpleValue
 import com.application.bmiobesity.viewModels.MainViewModel
 
-class HomeReportFragment : BaseFragment(R.layout.main_home_report_fragment) {
+class HomeReportFragment : DialogFragment(R.layout.main_home_report_fragment) {
 
     private var binding: MainHomeReportFragmentBinding? = null
     private val mainModel: MainViewModel by activityViewModels()
@@ -21,9 +22,13 @@ class HomeReportFragment : BaseFragment(R.layout.main_home_report_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = MainHomeReportFragmentBinding.bind(view)
-
+        binding?.vm = mainModel
+        binding?.lifecycleOwner = this
         initAdapter()
         initListener()
+    }
+    override fun getTheme(): Int {
+        return R.style.FullScreenDialog
     }
 
     private fun initAdapter() {
@@ -67,4 +72,5 @@ class HomeReportFragment : BaseFragment(R.layout.main_home_report_fragment) {
         binding = null
         super.onDestroyView()
     }
+
 }

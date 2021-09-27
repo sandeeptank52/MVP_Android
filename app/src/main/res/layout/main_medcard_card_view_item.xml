@@ -1,71 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/medCardItemMaterialCardView"
+    android:id="@+id/medCardItemCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
-    android:layout_marginVertical="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:stateListAnimator="@animator/medcard_cardview_animator"
     app:cardBackgroundColor="@color/color_white"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="0dp"
-    app:strokeColor="@color/gray_100"
-    app:strokeWidth="2dp">
+    app:cardCornerRadius="10dp"
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/color_white"
         android:padding="15dp">
 
-        <RelativeLayout
-            android:id="@+id/medCardItemLayout1"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/medCardItemTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="@font/dmsans_medium"
+            android:textColor="@color/color_black"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/medCardItemTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/dmsans_medium"
-                android:textColor="@color/color_black"
-                android:textSize="18sp" />
+        <TextView
+            android:id="@+id/medCardItemValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/dmsans_regular"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/medCardItemTitle"
+            app:layout_constraintTop_toTopOf="@id/medCardItemTitle" />
 
-            <TextView
-                android:id="@+id/medCardItemValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_toStartOf="@id/medCardItemEdit"
-                android:layout_toEndOf="@id/medCardItemTitle"
-                android:fontFamily="@font/dmsans_regular"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/medCardItemUnit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_toStartOf="@id/medCardItemEdit"
-                android:layout_toEndOf="@id/medCardItemValue"
-                android:fontFamily="@font/dmsans_regular"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:visibility="gone" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/medCardItemEdit"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_edit"
-                android:tint="@color/colorPrimary" />
-
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/medCardItemUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/dmsans_regular"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/medCardItemValue"
+            app:layout_constraintTop_toTopOf="@id/medCardItemTitle" />
 
         <View
             android:id="@+id/medCardItemDivider"
@@ -75,7 +60,7 @@
             android:background="@color/gray_100"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/medCardItemLayout1" />
+            app:layout_constraintTop_toBottomOf="@id/medCardItemTitle" />
 
         <TextView
             android:id="@+id/medCardItemMeasurementFrequency"
@@ -160,4 +145,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.google.android.material.card.MaterialCardView>
+</androidx.cardview.widget.CardView>

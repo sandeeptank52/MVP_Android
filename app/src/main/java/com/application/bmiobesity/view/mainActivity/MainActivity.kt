@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     private val mainModel: MainViewModel by viewModels()
     private val eventManager: MainActivityEvent = EventManagerMain.getEventManager()
     private lateinit var navController: NavController
-    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +54,8 @@ class MainActivity : AppCompatActivity() {
         mainBinding = MainActivityV2Binding.inflate(layoutInflater)
         setTheme(R.style.Theme_DiseaseTrackerProductionCustom)
         setContentView(mainBinding.root)
+        mainBinding.vm = mainModel
+        mainBinding.lifecycleOwner = this
          eventManager.getPreloadSuccessEvent().observe(this, EventObserver{
             if (it) mainBinding.mainFrameLayoutWaiting.visibility = View.GONE
         })
@@ -202,10 +204,10 @@ class MainActivity : AppCompatActivity() {
             IndicatorUiUpdate(R.id.mainHomeNav)
         }
         mainBinding.medsCard.setOnClickListener {
-            IndicatorUiUpdate(R.id.mainMedcardNav)
+            IndicatorUiUpdate(R.id.mainRecommendationNav)
         }
         mainBinding.profile.setOnClickListener {
-            IndicatorUiUpdate(R.id.mainProfileNav)
+            IndicatorUiUpdate(R.id.mainAnalyzeNav)
         }
         mainBinding.mainImageViewAvatarIcon.setOnClickListener {
 
@@ -223,21 +225,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        mainBinding.mainImageViewAvatarIconCenter.setOnClickListener {
-
-            when (PackageManager.PERMISSION_GRANTED) {
-                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) -> {
-                    CropImage.activity()
-                            .setAspectRatio(1,1)
-                            .setRequestedSize(600, 600)
-                            .setCropShape(CropImageView.CropShape.OVAL)
-                            .start(this)
-                }
-                else -> {
-                    requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-                }
-            }
-        }
+//        mainBinding.mainImageViewAvatarIconCenter.setOnClickListener {
+//
+//            when (PackageManager.PERMISSION_GRANTED) {
+//                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) -> {
+//                    CropImage.activity()
+//                            .setAspectRatio(1,1)
+//                            .setRequestedSize(600, 600)
+//                            .setCropShape(CropImageView.CropShape.OVAL)
+//                            .start(this)
+//                }
+//                else -> {
+//                    requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+//                }
+//            }
+//        }
 
         mainModel.profileManager.currentProfile.observe(this, {
             it?.let {
@@ -260,6 +262,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+        mainModel.navigationId.observe(this, { id ->  navController.navigate(id)})
+        mainModel.backNavigation.observe(this, {isConfirm -> navController.popBackStack()})
     }
 
     private fun IndicatorUiUpdate(pos:Int){
@@ -268,14 +272,14 @@ class MainActivity : AppCompatActivity() {
             mainBinding.homeIndicator.visibility = View.VISIBLE
             mainBinding.profileIndicator.visibility = View.GONE
             mainBinding.medsCardIndicator.visibility = View.GONE
-        }else if (pos==R.id.mainMedcardNav){
-            navController.navigate(R.id.mainMedcardNav)
+        }else if (pos==R.id.mainRecommendationNav){
+            navController.navigate(R.id.mainRecommendationNav)
             mainBinding.homeIndicator.visibility = View.GONE
             mainBinding.profileIndicator.visibility = View.GONE
             mainBinding.medsCardIndicator.visibility = View.VISIBLE
         }
         else{
-            navController.navigate(R.id.mainProfileNav)
+            navController.navigate(R.id.mainAnalyzeNav)
             mainBinding.homeIndicator.visibility = View.GONE
             mainBinding.profileIndicator.visibility = View.VISIBLE
             mainBinding.medsCardIndicator.visibility = View.GONE
