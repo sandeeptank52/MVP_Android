@@ -26,7 +26,9 @@ class WelcomeFragment3 : BaseFragment(R.layout.label_welcome_fragment_3) {
             labelModel.setBooleanParam(AppSettingDataStore.PrefKeys.SHOW_DISCLAIMER, false)
         }
         welcomeBinding3?.welcome3SwitchDisclaimer?.setOnCheckedChangeListener { _, isChecked ->
-            labelModel.setBooleanParam(AppSettingDataStore.PrefKeys.SHOW_DISCLAIMER, !isChecked)
+            lifecycleScope.launch(Dispatchers.IO) {
+                labelModel.setBooleanParam(AppSettingDataStore.PrefKeys.SHOW_DISCLAIMER, !isChecked)
+            }
         }
     }
 

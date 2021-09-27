@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.application.bmiobesity.R
@@ -71,9 +70,11 @@ class MedcardFragment : BaseFragment(R.layout.main_medcard_fragment) {
             isFirstTime = it.getBoolean("isFirstTime")
             if (isFirstTime) {
                 medcardBinding?.medCardButtonDone?.visibility = View.VISIBLE
+                medcardBinding?.mainMedCardDivider?.visibility = View.VISIBLE
                 showFirsTimeInfoDialog()
             } else {
                 medcardBinding?.medCardButtonDone?.visibility = View.GONE
+                medcardBinding?.mainMedCardDivider?.visibility = View.GONE
             }
         }
 
@@ -84,7 +85,7 @@ class MedcardFragment : BaseFragment(R.layout.main_medcard_fragment) {
 
     private fun init(){
         sourceTypeSpinnerAdapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_dropdown_item, mainModel.medCardSourceType)
-        val dailyLevels = arrayListOf<String>(
+        val dailyLevels = arrayListOf(
             getString(R.string.medcard_name_daily_minimum),
             getString(R.string.medcard_name_daily_lower),
             getString(R.string.medcard_name_daily_medium),
@@ -113,7 +114,7 @@ class MedcardFragment : BaseFragment(R.layout.main_medcard_fragment) {
         dialogListViewSourceSpinner = dialogListView.findViewById(R.id.medCardListDialogSpinnerSourceType)
         dialogListViewValueSpinner = dialogListView.findViewById(R.id.medCardListDialogSpinnerValue)
         dialogListViewValueSpinner.adapter = dialogListSpinnerAdapter
-        //
+        // Set adapters
         dialogSingleViewSourceSpinner.adapter = sourceTypeSpinnerAdapter
         dialogDoubleViewSourceSpinner.adapter = sourceTypeSpinnerAdapter
         dialogListViewSourceSpinner.adapter = sourceTypeSpinnerAdapter
