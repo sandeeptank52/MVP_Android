@@ -279,4 +279,10 @@
     <string name="save">Сохранить</string>
     <string name="sign_in_or">Или</string>
     <string name="setting_measure">Система измерения</string>
+    <string name="settings_description">Change your settings</string>
+    <string name="health_indicators">Health indicators</string>
+    <string name="communication">Communication</string>
+    <string name="additional_settings">Additional Settings</string>
+    <string name="country">Country</string>
+    <string name="subscription">Subscription</string>
 </resources>

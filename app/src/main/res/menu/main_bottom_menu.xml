@@ -7,7 +7,7 @@
         android:title="@string/main_bottom_menu_home"/>
 
     <item
-        android:id="@+id/mainProfileNav"
+        android:id="@+id/mainRecommendationNav"
         android:icon="@drawable/profile_icon"
         android:title="@string/main_bottom_menu_profile"/>
 

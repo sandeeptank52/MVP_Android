@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.application.bmiobesity.InTimeApp
 import com.application.bmiobesity.analytics.AnalyticsEvent
 import com.application.bmiobesity.analytics.EventParam
+import com.application.bmiobesity.common.NavigationId
 import com.application.bmiobesity.common.ProfileManager
 import com.application.bmiobesity.common.eventManagerMain.EventManagerMain
 import com.application.bmiobesity.common.eventManagerMain.MainViewModelEvent
@@ -91,6 +92,14 @@ class MainViewModel : ViewModel() {
     private val mSelectIndex: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
     val selectedIndex: LiveData<Int> = mSelectIndex
 
+    // Navigation
+    private val mNavigationId: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
+    val navigationId: LiveData<Int> = mNavigationId
+
+    // BackNavigation
+    private val mBackNavigation: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
+    val backNavigation: LiveData<Boolean> = mBackNavigation
+
     init {
         InTimeApp.appComponent.inject(this)
 
@@ -117,7 +126,6 @@ class MainViewModel : ViewModel() {
             updateRecomServerJob.join()
         }
     }
-
     // Load parameters from DB
     private suspend fun updateGenders() =
         viewModelScope.launch(Dispatchers.IO) { genders = commonSettingRepo.getAllGenders() }
@@ -373,6 +381,7 @@ class MainViewModel : ViewModel() {
                     profileManager.updateAvailableProfileData(profile)
                     updateAllResult()
                 }
+
                 is RetrofitResult.Error -> {
                     val bundle = Bundle()
                     bundle.putString(EventParam.ERROR_TYPE, result.errorMessage)
@@ -413,7 +422,6 @@ class MainViewModel : ViewModel() {
             }
         }
     }
-
     // Avatar
     fun patchAvatar(imageBase64: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -437,6 +445,11 @@ class MainViewModel : ViewModel() {
         mSelectIndex.postValue(index)
     }
 
+    fun setNavigation(nav: NavigationId) {
+        if (nav.id != 0)
+            mNavigationId.postValue(nav.id)
+    }
+
     suspend fun isFirstTimeAsync(): Deferred<Boolean> = viewModelScope.async {
         appSetting.getBoolParam(AppSettingDataStore.PrefKeys.FIRST_TIME).first()
     }
@@ -450,4 +463,8 @@ class MainViewModel : ViewModel() {
             appSetting.setBooleanParam(AppSettingDataStore.PrefKeys.FIRST_TIME, ft)
         }
     }
+   fun backNav(isNavConfirm: Boolean) {
+        mBackNavigation.postValue(isNavConfirm)
+    }
+
 }

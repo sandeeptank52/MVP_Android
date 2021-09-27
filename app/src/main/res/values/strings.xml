@@ -273,6 +273,7 @@
 
     <!--settings-->
     <string name="settings">Settings</string>
+    <string name="settings_description">Change your settings</string>
     <string name="connections">Connections</string>
     <string name="countries">Country</string>
     <string name="delete_profile">Delete profile</string>
@@ -294,5 +295,11 @@
     <string name="personal_recomendations">Personal Recomendations</string>
     <string name="monthly_subscriptions">(Monthly Subscriptions)</string>
     <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="health_indicators">Health indicators</string>
+    <string name="communication">Communication</string>
+    <string name="additional_settings">Additional Settings</string>
+    <string name="country">Country</string>
+    <string name="subscription">Subscription</string>
+
 
 </resources>
