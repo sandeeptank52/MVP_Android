@@ -364,7 +364,7 @@ class MainViewModel : ViewModel() {
                     profile.loadFromProfile(result.value)
                     profileManager.setProfile(profile)
                     profileManager.updateAvailableProfileData(profile)
-                    updateAllResult()
+                    //updateAllResult()
                 }
                 is RetrofitResult.Error -> {
                     val bundle = Bundle()
