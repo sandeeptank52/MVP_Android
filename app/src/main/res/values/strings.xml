@@ -81,7 +81,7 @@
     <string name="welcome_3_is_show_switch">Don\'t show again</string>
 
     <string name="welcome_4_title">help us</string>
-    <string name="welcome_4_main_text">\tPlease rate us in Google Play page and leave your comments. It will help others to find our app and get health value out of it.\n\n\tAlso, we want you to answer a few questions about our product.\n\n\tIf you can help us, we will send it to your e-mail.</string>
+    <string name="welcome_4_main_text">\tPlease rate us on Google Play page and leave your comments. It will help others to find our app and get health value out of it.\n\n\tAlso, we want you to answer a few questions about our product.\n\n\tIf you can help us, we will send it to your e-mail.</string>
     <string name="welcome_4_question_check_text">Receive a questionnaire</string>
     <string name="welcome_4_update_check_text">Receive our updates and news</string>
 
@@ -292,7 +292,7 @@
     <string name="consult_a_specialist">Consult a specialist. It is not a\nmedical application.</string>
     <string name="walk_more_than_8k">Walk more than 8k steps per day</string>
     <string name="walk_more_than_8000_steps_full">Walk more than 8000 steps per day is very important, it can improve health level and low weight and diseases risks.</string>
-    <string name="personal_recomendations">Personal Recomendations</string>
+    <string name="personal_recomendations">Personal Recommendations</string>
     <string name="monthly_subscriptions">(Monthly Subscriptions)</string>
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="health_indicators">Health indicators</string>

@@ -1,15 +1,14 @@
 package com.application.bmiobesity.view.mainActivity.home.recommendation
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.android.billingclient.api.Purchase
 import com.application.bmiobesity.R
 import com.application.bmiobesity.base.BaseFragment
-import com.application.bmiobesity.databinding.MainHomeRecommendationFragmentBinding
 import com.application.bmiobesity.databinding.MainHomeRecommendationFragmentV2Binding
 import com.application.bmiobesity.model.retrofit.ResultCommonRecommendation
 import com.application.bmiobesity.model.retrofit.ResultRecommendation
@@ -32,42 +31,56 @@ class HomeRecommendationFragment : BaseFragment(R.layout.main_home_recommendatio
         initListeners()
     }
 
-    private fun initCommonRecycler(){
+    @SuppressLint("NotifyDataSetChanged")
+    private fun initCommonRecycler() {
         val adapter = HomeRecomCommonAdapterRecycler { commonClickAction(it) }
         recBinding?.recommendationsCommonRecycler?.adapter = adapter
         mainModel.resultCommonRecommendations.observe(viewLifecycleOwner, {
             it?.let {
+                if (it.isNullOrEmpty()) {
+                    showCommonError(true)
+                } else {
+                    showCommonError(false)
+                }
                 adapter.submitList(it as MutableList<ResultCommonRecommendation>)
                 adapter.notifyDataSetChanged()
             }
         })
     }
-    private fun initPersonalRecycler(){
-        val adapter = HomeRecomPersonalAdapterRecycler {personalClickAction(it)}
+    @SuppressLint("NotifyDataSetChanged")
+    private fun initPersonalRecycler() {
+        val adapter = HomeRecomPersonalAdapterRecycler { personalClickAction(it) }
         recBinding?.recommendationsPersonalRecycler?.adapter = adapter
         mainModel.resultPersonalRecommendations.observe(viewLifecycleOwner, {
             it?.let {
+                if (it.isNullOrEmpty()) {
+                    showPersonalError(true)
+                } else {
+                    showPersonalError(false)
+                }
                 adapter.submitList(it as MutableList<ResultRecommendation>)
                 adapter.notifyDataSetChanged()
             }
         })
     }
 
-    private fun commonClickAction(item: ResultCommonRecommendation){
+    private fun commonClickAction(item: ResultCommonRecommendation) {
 
     }
-    private fun personalClickAction(item: ResultRecommendation){
+    private fun personalClickAction(item: ResultRecommendation) {
 
     }
 
-    private fun initListeners(){
+    private fun initListeners() {
         val purchaseLiveData = mainModel.billingClient.purchaseListLive
         val expireLiveData = mainModel.profileManager.trialPeriodExpired
 
         val billingObserver = Observer<List<PurchasesConfig>> { purchaseConfigs ->
             purchaseConfigs?.let { purchaseConfigList ->
-                val purchasePersonal = purchaseConfigList.find { it.sku == "test_sub" && it.purchaseState == Purchase.PurchaseState.PURCHASED }
-                if (purchasePersonal != null){
+                val purchasePersonal = purchaseConfigList.find {
+                    it.sku == "test_sub" && it.purchaseState == Purchase.PurchaseState.PURCHASED
+                }
+                if (purchasePersonal != null) {
                     showSubsInfo(false)
                 } else {
                     if (isExpired) showSubsInfo(true)
@@ -75,7 +88,7 @@ class HomeRecommendationFragment : BaseFragment(R.layout.main_home_recommendatio
                 }
             }
         }
-        val expireTrialPeriodObserver = Observer<Boolean>{
+        val expireTrialPeriodObserver = Observer<Boolean> {
             it?.let {
                 isExpired = it
             }
@@ -92,13 +105,31 @@ class HomeRecommendationFragment : BaseFragment(R.layout.main_home_recommendatio
         }
     }
 
-    private fun showSubsInfo(show: Boolean){
-        if (show){
+    private fun showSubsInfo(show: Boolean) {
+        if (show) {
             recBinding?.recomPersonalGroup?.visibility = View.GONE
             recBinding?.recomSubsInfo?.visibility = View.VISIBLE
         } else {
             recBinding?.recomSubsInfo?.visibility = View.GONE
             recBinding?.recomPersonalGroup?.visibility = View.VISIBLE
+        }
+    }
+    private fun showCommonError(isDataUnavailable: Boolean) {
+        if (isDataUnavailable) {
+            recBinding?.recommendationsCommonRecycler?.visibility = View.GONE
+            recBinding?.recommendationCommonErrorPrompt?.visibility = View.VISIBLE
+        } else {
+            recBinding?.recommendationsCommonRecycler?.visibility = View.VISIBLE
+            recBinding?.recommendationCommonErrorPrompt?.visibility = View.GONE
+        }
+    }
+    private fun showPersonalError(isDataUnavailable: Boolean) {
+        if (isDataUnavailable) {
+            recBinding?.recommendationsPersonalRecycler?.visibility = View.GONE
+            recBinding?.recommendationPersonalErrorPrompt?.visibility = View.VISIBLE
+        } else {
+            recBinding?.recommendationsPersonalRecycler?.visibility = View.VISIBLE
+            recBinding?.recommendationPersonalErrorPrompt?.visibility = View.GONE
         }
     }
 

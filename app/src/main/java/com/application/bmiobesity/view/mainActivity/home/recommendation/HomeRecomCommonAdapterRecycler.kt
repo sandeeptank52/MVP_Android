@@ -10,10 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.application.bmiobesity.R
 import com.application.bmiobesity.model.retrofit.ResultCommonRecommendation
 
-class HomeRecomCommonAdapterRecycler(private val onClick: (ResultCommonRecommendation) -> Unit): ListAdapter<ResultCommonRecommendation, HomeRecomCommonAdapterRecycler.HomeRecomCommonViewHolder>(HomeRecomDiffCallback) {
+class HomeRecomCommonAdapterRecycler(
+    private val onClick: (ResultCommonRecommendation) -> Unit
+) : ListAdapter<ResultCommonRecommendation, HomeRecomCommonAdapterRecycler.HomeRecomCommonViewHolder>(
+    HomeRecomDiffCallback
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRecomCommonViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.main_home_recommendation_card_view, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.main_home_recommendation_card_view_common,
+            parent,
+            false
+        )
         return HomeRecomCommonViewHolder(view, onClick)
     }
 
@@ -22,9 +30,14 @@ class HomeRecomCommonAdapterRecycler(private val onClick: (ResultCommonRecommend
         holder.bind(item)
     }
 
-    class HomeRecomCommonViewHolder(itemView: View, val onClick: (ResultCommonRecommendation) -> Unit): RecyclerView.ViewHolder(itemView){
+    class HomeRecomCommonViewHolder(
+        itemView: View,
+        val onClick: (ResultCommonRecommendation) -> Unit
+    ) : RecyclerView.ViewHolder(itemView) {
+
         private var currentRecom: ResultCommonRecommendation? = null
-        private val message: TextView = itemView.findViewById(R.id.recommendationCardViewText)
+        private val shortMsgTextView: TextView = itemView.findViewById(R.id.recommendationCardViewCommonMsgShort)
+        private val longMsgTextView: TextView = itemView.findViewById(R.id.recommendationCardViewCommonMsgLong)
 
         init {
             itemView.setOnClickListener {
@@ -34,24 +47,33 @@ class HomeRecomCommonAdapterRecycler(private val onClick: (ResultCommonRecommend
             }
         }
 
-        fun bind(recom: ResultCommonRecommendation){
+        fun bind(recom: ResultCommonRecommendation) {
             currentRecom = recom
             val msgShort = recom.message_short
             val msgLong = recom.message_long
 
-            if (!msgShort.isNullOrEmpty() && !msgLong.isNullOrEmpty()){
-                val msg = "${msgShort}\n\n${msgLong}"
-                message.text = msg
+            if (!msgShort.isNullOrEmpty()) {
+                shortMsgTextView.text = msgShort
+            }
+            if (!msgLong.isNullOrEmpty()) {
+                longMsgTextView.text = msgLong
             }
         }
     }
 
-    object HomeRecomDiffCallback: DiffUtil.ItemCallback<ResultCommonRecommendation>(){
-        override fun areItemsTheSame(oldItem: ResultCommonRecommendation, newItem: ResultCommonRecommendation): Boolean {
+    object HomeRecomDiffCallback : DiffUtil.ItemCallback<ResultCommonRecommendation>() {
+
+        override fun areItemsTheSame(
+            oldItem: ResultCommonRecommendation,
+            newItem: ResultCommonRecommendation
+        ): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: ResultCommonRecommendation, newItem: ResultCommonRecommendation): Boolean {
+        override fun areContentsTheSame(
+            oldItem: ResultCommonRecommendation,
+            newItem: ResultCommonRecommendation
+        ): Boolean {
             return (oldItem.message_short == newItem.message_short && oldItem.message_long == newItem.message_long)
         }
 

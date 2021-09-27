@@ -13,19 +13,30 @@
         android:layout_height="0dp"
         android:paddingVertical="5dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/medCardButtonDone"
+        app:layout_constraintBottom_toTopOf="@id/mainMedCardDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/mainMedCardDivider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/gray_100"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/medCardButtonDone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/medCardButtonDone"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_margin="16dp"
+        android:layout_margin="10dp"
         android:background="@drawable/all_round_blue"
         android:enabled="false"
-        android:fontFamily="@font/dmsans_medium"
+        android:fontFamily="@font/dmsans_bold"
         android:foreground="?attr/selectableItemBackground"
         android:text="@string/button_done"
         android:textColor="@color/color_white"
@@ -33,7 +44,6 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mainMedCardRecycler" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

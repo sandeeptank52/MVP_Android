@@ -1,7 +1,6 @@
 package com.application.bmiobesity.viewModels
 
 import android.os.Bundle
-import androidx.lifecycle.*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -373,8 +372,7 @@ class MainViewModel : ViewModel() {
                     firebaseAnalytics.logEvent(AnalyticsEvent.PATCH_PROFILE, bundle)
                 }
             }
-            when (val result =
-                remoteRepo.patchUserProfile(userProfile = profile.getSendUserProfile())) {
+            when (val result = remoteRepo.patchUserProfile(userProfile = profile.getSendUserProfile())) {
                 is RetrofitResult.Success -> {
                     profile.loadFromUserProfile(result.value)
                     profileManager.setProfile(profile)
