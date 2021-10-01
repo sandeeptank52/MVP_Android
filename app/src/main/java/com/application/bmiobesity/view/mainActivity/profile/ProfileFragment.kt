@@ -123,7 +123,7 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
         countriesAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.select_dialog_singlechoice,
-            mainModel.countries
+            mainModel.countries.filter { c -> c.value.isNotEmpty()}
         )
     }
     private fun addRX() {

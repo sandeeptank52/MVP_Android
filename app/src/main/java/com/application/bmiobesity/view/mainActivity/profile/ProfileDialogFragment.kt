@@ -146,7 +146,7 @@ class ProfileDialogFragment : DialogFragment(R.layout.main_profile_dialog_fragme
         countriesAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.select_dialog_singlechoice,
-            mainModel.countries
+            mainModel.countries.filter { c -> c.value.isNotEmpty()}
         )
         sourceTypeSpinnerAdapter = ArrayAdapter(
             requireContext(),
