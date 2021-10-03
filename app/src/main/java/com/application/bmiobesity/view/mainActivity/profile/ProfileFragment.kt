@@ -100,10 +100,10 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
         // Init date picker calendar
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         val currentYear = calendar.get(Calendar.YEAR)
-        calendar.set(Calendar.YEAR, currentYear - 150)
+        calendar.set(Calendar.YEAR, currentYear - 122)
         val startTime = calendar.timeInMillis
         calendar.clear()
-        calendar.set(Calendar.YEAR, currentYear - 1)
+        calendar.set(Calendar.YEAR, currentYear - 5)
         val endTime = calendar.timeInMillis
         datePickerConstraintsBuilder = CalendarConstraints.Builder()
         datePickerConstraintsBuilder.setStart(startTime)
