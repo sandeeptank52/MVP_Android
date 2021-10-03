@@ -123,10 +123,10 @@ class ProfileDialogFragment : DialogFragment(R.layout.main_profile_dialog_fragme
         // Init date picker calendar
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         val currentYear = calendar.get(Calendar.YEAR)
-        calendar.set(Calendar.YEAR, currentYear - 150)
+        calendar.set(Calendar.YEAR, currentYear - 122)
         val startTime = calendar.timeInMillis
         calendar.clear()
-        calendar.set(Calendar.YEAR, currentYear - 1)
+        calendar.set(Calendar.YEAR, currentYear - 5)
         val endTime = calendar.timeInMillis
         datePickerConstraintsBuilder = CalendarConstraints.Builder()
         datePickerConstraintsBuilder.setStart(startTime)
@@ -250,10 +250,6 @@ class ProfileDialogFragment : DialogFragment(R.layout.main_profile_dialog_fragme
         dialogHeightBuilder.show()
     }
 
-    fun showWeightDialog() {
-
-    }
-
     fun showCountriesDialog() {
         // Get country from id
         val countryID = currentProfile.country
@@ -270,6 +266,7 @@ class ProfileDialogFragment : DialogFragment(R.layout.main_profile_dialog_fragme
             profileBinding?.profileCountriesTextView?.text = country?.value
             currentProfile.country = country?.id!!
             updateAvailableProfile(currentProfile)
+            mainModel.patchProfile(currentProfile)
         }
         countryDialog.show(parentFragmentManager, "country_dialog")
     }

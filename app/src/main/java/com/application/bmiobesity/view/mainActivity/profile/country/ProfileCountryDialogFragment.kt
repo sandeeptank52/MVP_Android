@@ -30,7 +30,6 @@ class ProfileCountryDialogFragment(
 
     private var binding: MainProfileCountryDialogFragmentBinding? = null
     private val mainModel: MainViewModel by activityViewModels()
-    private var timer: Timer = Timer()
     private lateinit var allDisposable: CompositeDisposable
     private lateinit var adapter: ProfileCountryAdapterRecycler
 
@@ -48,8 +47,7 @@ class ProfileCountryDialogFragment(
     }
 
     private fun initAdapter() {
-        adapter = ProfileCountryAdapterRecycler(initialCountry)
-        adapter.submitList(mainModel.countries)
+        adapter = ProfileCountryAdapterRecycler(initialCountry, mainModel.countries.filter { c -> c.value.isNotEmpty()})
         binding?.profileCountryDialogRecyclerCountries?.adapter = adapter
     }
 
@@ -72,13 +70,6 @@ class ProfileCountryDialogFragment(
             }
         }
 
-        mainModel.countriesQuery.observe(viewLifecycleOwner, { countries ->
-            binding?.profileCountryDialogProgressBarLoading?.visibility = View.GONE
-
-            // Observe list of countries
-            adapter.submitList(countries)
-            adapter.notifyDataSetChanged()
-        })
     }
 
     private fun addRx() {
@@ -86,26 +77,10 @@ class ProfileCountryDialogFragment(
 
         val searchDisposable = binding?.profileCountryDialogEditTextSearch?.textChanges()
             ?.subscribe {
-                binding?.profileCountryDialogProgressBarLoading?.visibility = View.VISIBLE
-
-                // Query countries
-                val param = it.toString()
-                onQueryTextChange(param)
+                adapter.filter!!.filter(it.toString())
             }
 
         allDisposable.addAll(searchDisposable)
-    }
-
-    private fun onQueryTextChange(param: String) {
-        timer.cancel()
-        timer = Timer()
-        timer.schedule(object : TimerTask() {
-            override fun run() {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    mainModel.getCountriesByParam(param)
-                }
-            }
-        }, 1000)
     }
 
     override fun onDestroyView() {
