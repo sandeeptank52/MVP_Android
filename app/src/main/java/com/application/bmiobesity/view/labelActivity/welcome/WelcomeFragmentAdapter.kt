@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class WelcomeFragmentAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int {
-        return 5
+        return 3
     }
 
     override fun createFragment(position: Int): Fragment {
@@ -14,8 +14,6 @@ class WelcomeFragmentAdapter(fragmentActivity: FragmentActivity) : FragmentState
             0 -> {WelcomeFragment1()}
             1 -> {WelcomeFragment2()}
             2 -> {WelcomeFragment3()}
-            3 -> {WelcomeFragment4()}
-            4 -> {WelcomeFragment5()}
             else -> {WelcomeFragment1()}
         }
     }

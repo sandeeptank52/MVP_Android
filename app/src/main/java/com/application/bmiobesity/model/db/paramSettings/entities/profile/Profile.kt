@@ -71,7 +71,7 @@ data class Profile(
         this.measuringSystem = dashBoard.measuring_system ?: 1
     }
 
-    fun getSendProfile(): SendProfile = SendProfile(this.firstName, this.lastName, this.email)
+    fun getSendProfile(): SendProfile = SendProfile(this.firstName, this.lastName, this.email, this.birthDate,  if (this.height > 0) this.height else null, this.smoker, if (this.country > 0) this.country else null, 1)
     fun getSendUserProfile(): SendUserProfile = SendUserProfile( if (this.birthDate.isEmpty()) null else this.birthDate, if (this.country > 0) this.country else null, this.gender, if (this.height > 0) this.height else null, this.smoker, 1)
     fun getSendDashBoard(): UpdateResultDashBoard{
         return UpdateResultDashBoard(
