@@ -6,17 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.application.bmiobesity.InTimeApp
 import com.application.bmiobesity.R
 import com.application.bmiobesity.model.retrofit.ResultDiseaseRisk
+import com.google.android.material.card.MaterialCardView
 
-class HomeAnalyzeAdapterRecycler(private val onClick: (ResultDiseaseRisk) -> Unit) : ListAdapter<ResultDiseaseRisk, HomeAnalyzeAdapterRecycler.HomeAnalyzeViewHolder>(HomeAnalyzeDiffCallback) {
+class HomeAnalyzeAdapterRecycler(
+    private val onClick: (ResultDiseaseRisk) -> Unit
+) : ListAdapter<ResultDiseaseRisk, HomeAnalyzeAdapterRecycler.HomeAnalyzeViewHolder>(
+    HomeAnalyzeDiffCallback
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeAnalyzeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.main_home_analyze_card_view, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.main_home_analyze_card_view_v2,
+            parent,
+            false
+        )
         return HomeAnalyzeViewHolder(view, onClick)
     }
 
@@ -25,11 +34,16 @@ class HomeAnalyzeAdapterRecycler(private val onClick: (ResultDiseaseRisk) -> Uni
         holder.bind(risk)
     }
 
-    class HomeAnalyzeViewHolder(itemView: View, val onClick: (ResultDiseaseRisk) -> Unit) : RecyclerView.ViewHolder(itemView){
+    class HomeAnalyzeViewHolder(
+        itemView: View, val onClick: (ResultDiseaseRisk) -> Unit
+    ) : RecyclerView.ViewHolder(itemView) {
+
         private var currentResultRisk: ResultDiseaseRisk? = null
         private val message: TextView = itemView.findViewById(R.id.analyzeCardViewText)
-        private val card: CardView = itemView.findViewById(R.id.analyzeCardView)
         private val percentText: TextView = itemView.findViewById(R.id.analyzeCardViewTextPercent)
+        private val card: MaterialCardView = itemView.findViewById(R.id.analyzeCardView)
+        private val cardPercentTextContainer: CardView =
+            itemView.findViewById(R.id.analyzeCardViewTextPercentContainer)
 
         init {
             itemView.setOnClickListener {
@@ -39,34 +53,37 @@ class HomeAnalyzeAdapterRecycler(private val onClick: (ResultDiseaseRisk) -> Uni
             }
         }
 
-        fun bind(risk: ResultDiseaseRisk){
+        fun bind(risk: ResultDiseaseRisk) {
             currentResultRisk = risk
 
             val msg = risk.message
             val color = risk.risk_string
             val percent = risk.risk_percents
 
-            if (!msg.isNullOrEmpty()){
+            if (!msg.isNullOrEmpty()) {
                 message.text = msg
 
                 if (!percent.isNullOrEmpty()) {
                     val txt = "$percent %"
-                    percentText.visibility = View.VISIBLE
+                    cardPercentTextContainer.visibility = View.VISIBLE
                     percentText.text = txt
                 } else {
-                    percentText.visibility = View.GONE
+                    cardPercentTextContainer.visibility = View.GONE
                 }
 
-                if (!color.isNullOrEmpty()){
-                    card.setCardBackgroundColor(Color.parseColor(color))
+                if (!color.isNullOrEmpty()) {
+                    card.strokeColor = Color.parseColor(color)
+                    cardPercentTextContainer.setCardBackgroundColor(Color.parseColor(color))
                 } else {
-                    card.setCardBackgroundColor(Color.WHITE)
+                    card.strokeColor = InTimeApp.APPLICATION.getColor(R.color.gray_400)
+                    cardPercentTextContainer.setCardBackgroundColor(InTimeApp.APPLICATION.getColor(R.color.gray_400))
                 }
             }
         }
     }
 
-    object HomeAnalyzeDiffCallback : DiffUtil.ItemCallback<ResultDiseaseRisk>(){
+    object HomeAnalyzeDiffCallback : DiffUtil.ItemCallback<ResultDiseaseRisk>() {
+
         override fun areItemsTheSame(
             oldItem: ResultDiseaseRisk,
             newItem: ResultDiseaseRisk
