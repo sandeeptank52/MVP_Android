@@ -18,10 +18,12 @@ import com.application.bmiobesity.R
 import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.common.MeasuringSystem
 import com.application.bmiobesity.databinding.MainProfileFragmentBinding
+import com.application.bmiobesity.model.db.commonSettings.entities.Countries
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.AvailableData
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profile
 import com.application.bmiobesity.utils.convertDateLongToString
 import com.application.bmiobesity.utils.convertDateStringToMs
+import com.application.bmiobesity.view.mainActivity.profile.country.ProfileCountryDialogFragment
 import com.application.bmiobesity.viewModels.MainViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -209,26 +211,22 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
         dialogHeightBuilder.show()
     }
     private fun showCountriesDialog(countryID: Int) {
-        var country = mainModel.countries.find { country ->
+        // Get country from id
+        var country: Countries? =
             if (countryID == 0) {
-                country.id == 1
+                null
             } else {
-                country.id == countryID
+                mainModel.countries.find { country -> country.id == countryID }
             }
-        }
-        var countryIndex = mainModel.countries.indexOf(country)
-        dialogCountriesBuilder = MaterialAlertDialogBuilder(requireContext())
-        dialogCountriesBuilder.setTitle("")
-        dialogCountriesBuilder.setPositiveButton(getString(R.string.button_ok)) { _, _ ->
-            country = mainModel.countries[countryIndex]
+
+        // Show country dialog
+        val countryDialog = ProfileCountryDialogFragment(country) {
+            country = it
             profileBinding?.profileCountriesTextView?.text = country?.value
             currentProfile.country = country?.id!!
             updateAvailableProfile(currentProfile)
         }
-        dialogCountriesBuilder.setSingleChoiceItems(countriesAdapter, countryIndex) { _, which ->
-            countryIndex = which
-        }
-        dialogCountriesBuilder.show()
+        countryDialog.show(parentFragmentManager, "country_dialog")
     }
     private fun showSmokerDialog(item: Int) {
         var index = item

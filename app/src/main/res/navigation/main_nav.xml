@@ -52,7 +52,7 @@
     <fragment
         android:id="@+id/mainRecommendationNav"
         android:name="com.application.bmiobesity.view.mainActivity.home.recommendation.HomeRecommendationFragment"
-        tools:layout="@layout/main_home_recommendation_fragment">
+        tools:layout="@layout/main_home_recommendation_fragment_v2">
         <action
             android:id="@+id/mainNavProfileToHome"
             app:destination="@id/mainHomeNav" />
@@ -80,7 +80,7 @@
     <dialog
         android:id="@+id/mainProfileNav"
         android:name="com.application.bmiobesity.view.mainActivity.profile.ProfileDialogFragment"
-        tools:layout="@layout/main_profile_fragment">
+        tools:layout="@layout/main_profile_dialog_fragment">
     </dialog>
     <dialog
         android:id="@+id/mainSettingNav"

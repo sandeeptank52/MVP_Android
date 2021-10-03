@@ -16,6 +16,7 @@ import com.application.bmiobesity.common.MeasuringSystem
 import com.application.bmiobesity.common.parameters.AvailableParameters
 import com.application.bmiobesity.common.parameters.DailyActivityLevels
 import com.application.bmiobesity.databinding.MainProfileDialogFragmentBinding
+import com.application.bmiobesity.model.db.commonSettings.entities.Countries
 import com.application.bmiobesity.model.db.paramSettings.entities.MedCardParamSetting
 import com.application.bmiobesity.model.db.paramSettings.entities.MedCardSourceType
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.AvailableData
@@ -23,6 +24,7 @@ import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profil
 import com.application.bmiobesity.utils.*
 import com.application.bmiobesity.view.mainActivity.MainActivity
 import com.application.bmiobesity.view.mainActivity.medcard.MedCardAdapterRecycler
+import com.application.bmiobesity.view.mainActivity.profile.country.ProfileCountryDialogFragment
 import com.application.bmiobesity.viewModels.MainViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -253,30 +255,26 @@ class ProfileDialogFragment : DialogFragment(R.layout.main_profile_dialog_fragme
     }
 
     fun showCountriesDialog() {
+        // Get country from id
         val countryID = currentProfile.country
-        var country = mainModel.countries.find { country ->
+        var country: Countries? =
             if (countryID == 0) {
-                country.id == 1
+                null
             } else {
-                country.id == countryID
+                mainModel.countries.find { country -> country.id == countryID }
             }
-        }
-        var countryIndex = mainModel.countries.indexOf(country)
-        dialogCountriesBuilder = MaterialAlertDialogBuilder(requireContext())
-        dialogCountriesBuilder.setTitle("")
-        dialogCountriesBuilder.setPositiveButton(getString(R.string.button_ok)) { _, _ ->
-            country = mainModel.countries[countryIndex]
+
+        // Show country dialog
+        val countryDialog = ProfileCountryDialogFragment(country) {
+            country = it
             profileBinding?.profileCountriesTextView?.text = country?.value
             currentProfile.country = country?.id!!
             updateAvailableProfile(currentProfile)
-            mainModel.patchProfile(currentProfile)
         }
-        dialogCountriesBuilder.setSingleChoiceItems(countriesAdapter, countryIndex) { _, which ->
-            countryIndex = which
-        }
-        dialogCountriesBuilder.show()
+        countryDialog.show(parentFragmentManager, "country_dialog")
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setupRecyclerView() {
         val medCardAdapter = MedCardProfileAdapterRecycler(
             mainModel.paramUnit,
