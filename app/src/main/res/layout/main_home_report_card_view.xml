@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
-                android:fontFamily="@font/dmsans_regular"
+                android:fontFamily="@font/dmsans_medium"
                 android:textColor="@color/color_black"
                 android:textSize="17sp" />
 
@@ -35,7 +35,7 @@
                 android:id="@+id/reportCardViewUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/dmsans_regular"
+                android:fontFamily="@font/dmsans_medium"
                 android:textColor="@color/color_black"
                 android:textSize="17sp" />
         </LinearLayout>

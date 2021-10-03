@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/mainHomeAnalyzeNav"
         android:name="com.application.bmiobesity.view.mainActivity.home.analyze.HomeAnalyzeFragment"
-        tools:layout="@layout/main_home_analyze_fragment"/>
+        tools:layout="@layout/main_home_analyze_fragment_v2"/>
 
     <fragment
         android:id="@+id/mainHomeFavoriteNav"
@@ -19,6 +19,6 @@
     <fragment
         android:id="@+id/mainHomeRecommendationNav"
         android:name="com.application.bmiobesity.view.mainActivity.home.recommendation.HomeRecommendationFragment"
-        tools:layout="@layout/main_home_recommendation_fragment"/>
+        tools:layout="@layout/main_home_recommendation_fragment_v2"/>
 
 </navigation>
