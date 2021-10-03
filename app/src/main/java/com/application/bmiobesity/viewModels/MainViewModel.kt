@@ -99,6 +99,10 @@ class MainViewModel : ViewModel() {
     private val mBackNavigation: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
     val backNavigation: LiveData<Boolean> = mBackNavigation
 
+    // Countries queries
+    private val mCountriesQuery: MutableLiveData<List<Countries>> by lazy { MutableLiveData<List<Countries>>() }
+    val countriesQuery: LiveData<List<Countries>> = mCountriesQuery
+
     init {
         InTimeApp.appComponent.inject(this)
 
@@ -125,7 +129,12 @@ class MainViewModel : ViewModel() {
             updateRecomServerJob.join()
         }
     }
+
     // Load parameters from DB
+    suspend fun getCountriesByParam(param: String) = viewModelScope.launch(Dispatchers.IO) {
+        mCountriesQuery.postValue(commonSettingRepo.getCountriesByParam(param))
+    }
+
     private suspend fun updateGenders() =
         viewModelScope.launch(Dispatchers.IO) { genders = commonSettingRepo.getAllGenders() }
 
@@ -372,7 +381,8 @@ class MainViewModel : ViewModel() {
                     firebaseAnalytics.logEvent(AnalyticsEvent.PATCH_PROFILE, bundle)
                 }
             }
-            when (val result = remoteRepo.patchUserProfile(userProfile = profile.getSendUserProfile())) {
+            when (val result =
+                remoteRepo.patchUserProfile(userProfile = profile.getSendUserProfile())) {
                 is RetrofitResult.Success -> {
                     profile.loadFromUserProfile(result.value)
                     profileManager.setProfile(profile)
@@ -420,6 +430,7 @@ class MainViewModel : ViewModel() {
             }
         }
     }
+
     // Avatar
     fun patchAvatar(imageBase64: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -461,7 +472,8 @@ class MainViewModel : ViewModel() {
             appSetting.setBooleanParam(AppSettingDataStore.PrefKeys.FIRST_TIME, ft)
         }
     }
-   fun backNav(isNavConfirm: Boolean) {
+
+    fun backNav(isNavConfirm: Boolean) {
         mBackNavigation.postValue(isNavConfirm)
     }
 
