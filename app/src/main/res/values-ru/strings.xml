@@ -20,7 +20,7 @@
     <string name="button_sign_up">Зарегистрироваться</string>
     <string name="button_sign_up_text">Нужен аккаунт?</string>
     <string name="button_next">Далее</string>
-    <string name="button_come_in">Войдите</string>
+    <string name="button_come_in">Войти</string>
     <string name="button_skip">Пропустить</string>
     <string name="button_got_it">Понятно</string>
     <string name="button_dont_remember_password">Не помню пароль</string>
@@ -104,7 +104,7 @@
     <string name="forgot_pass_text">Если вы забыли пароль, введите свой адрес электронной почты, и мы отправим на него проверочный код, после чего вы сможете сбросить свой пароль.</string>
     <string name="forgot_pass_title">Сбросить пароль</string>
     <string name="forgot_pass_sending_info">Для завершения сброса пароля вам необходимо перейти по ссылке, отправленной по электронной почте.</string>
-    <string name="confirm">Подтверждать</string>
+    <string name="confirm">Подтвердить</string>
 
     <!--reset password fragment-->
     <string name="reset_pass_title">Новый пароль</string>
@@ -125,7 +125,7 @@
     <string name="profile_welcome_dialog_title">Добро пожаловать в BMI Disease Tracker!</string>
     <string name="profile_welcome_dialog_message">Здравствуйте, для корректной работы нашего приложения, пожалуйста, заполните основную информацию о себе.</string>
     <string name="profile_firs_time_msg">Пожалуйста, заполните следующие поля:\n</string>
-    <string name="profile_save_successfully">Сохраните профиль успешно!</string>
+    <string name="profile_save_successfully">Профиль успешно сохранён!</string>
 
     <!--medcard fragment-->
     <string name="medcard_card_item_source_type">Источник данных:</string>
