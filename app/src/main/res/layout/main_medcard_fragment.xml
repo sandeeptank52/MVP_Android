@@ -21,9 +21,9 @@
     <View
         android:id="@+id/mainMedCardDivider"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:layout_marginBottom="15dp"
-        android:background="@color/gray_100"
+        android:background="@color/gray_400"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/medCardButtonDone"
         app:layout_constraintEnd_toEndOf="parent"
