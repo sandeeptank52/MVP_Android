@@ -10,15 +10,12 @@ import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
 import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.common.MeasuringSystem
 import com.application.bmiobesity.databinding.MainProfileFragmentBinding
-import com.application.bmiobesity.model.db.commonSettings.entities.Countries
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.AvailableData
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profile
 import com.application.bmiobesity.utils.convertDateLongToString
@@ -61,7 +58,6 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
     private lateinit var dialogSmokerBuilder: MaterialAlertDialogBuilder
 
     private lateinit var countriesAdapter: ListAdapter
-    private lateinit var dialogCountriesBuilder: MaterialAlertDialogBuilder
 
     private var isFirstTime: Boolean = false
 
@@ -210,20 +206,11 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
         }
         dialogHeightBuilder.show()
     }
-    private fun showCountriesDialog(countryID: Int) {
-        // Get country from id
-        var country: Countries? =
-            if (countryID == 0) {
-                null
-            } else {
-                mainModel.countries.find { country -> country.id == countryID }
-            }
-
+    private fun showCountriesDialog() {
         // Show country dialog
-        val countryDialog = ProfileCountryDialogFragment(country) {
-            country = it
-            profileBinding?.profileCountriesTextView?.text = country?.value
-            currentProfile.country = country?.id!!
+        val countryDialog = ProfileCountryDialogFragment { country ->
+            profileBinding?.profileCountriesTextView?.text = country.value
+            currentProfile.country = country.id
             updateAvailableProfile(currentProfile)
         }
         countryDialog.show(parentFragmentManager, "country_dialog")
@@ -318,7 +305,7 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
             showHeightDialog(currentProfile.height.toInt())
         }
         profileBinding?.profileCountriesConstraint?.setOnClickListener {
-            showCountriesDialog(currentProfile.country)
+            showCountriesDialog()
         }
         profileBinding?.profileGenderConstraint?.setOnClickListener {
             showGendersDialog(currentProfile.gender - 1)

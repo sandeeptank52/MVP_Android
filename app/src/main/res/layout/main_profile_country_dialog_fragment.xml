@@ -12,54 +12,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/profileCountryDialogCardViewClose"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="15dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/gray_100"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/profileCountryDialogCardViewClose"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/gray_100"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="0dp">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_close"
+                android:tint="@color/colorPrimary" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_close"
-                    android:tint="@color/colorPrimary" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/profileCountryDialogButtonOk"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/colorPrimary"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="0dp">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="15dp"
-                    android:fontFamily="@font/dmsans_medium"
-                    android:text="@string/save"
-                    android:textColor="@color/color_white"
-                    android:textSize="16sp" />
-
-            </androidx.cardview.widget.CardView>
-
-        </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
@@ -95,15 +65,6 @@
                 android:textSize="16sp" />
 
         </com.google.android.material.card.MaterialCardView>
-
-        <ProgressBar
-            android:id="@+id/profileCountryDialogProgressBarLoading"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone"
-            android:indeterminateTint="@color/colorPrimary"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/profileCountryDialogRecyclerCountries"
