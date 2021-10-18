@@ -11,6 +11,10 @@
     <string name="login_hint_passwordCheck_match">Пароли должны совпадать</string>
     <string name="profile_hint_name">Имя</string>
     <string name="profile_hint_surname">Фамилия</string>
+    <string name="profile_hint_date_of_birth">Твой день рождения</string>
+    <string name="profile_hint_gender">Ваш пол</string>
+    <string name="profile_hint_country">Твоя страна</string>
+    <string name="profile_hint_height">Ваш рост</string>
     <string name="gender_hint_not_say">Не скажу</string>
 
 
@@ -144,10 +148,13 @@
     <string name="enter_your_data">Введите свои данные</string>
     <string name="for_more_accurate_analysis">Для более точного анализа</string>
 
-
     <!--subscription fragment-->
     <string name="subs_text_cost">Цена:</string>
     <string name="subs_text_activated">Активирована</string>
+
+    <!--services fragment-->
+    <string name="services_title">Услуги</string>
+    <string name="services_doctor">Доктор</string>
 
     <!--medcard parameters name-->
     <string name="medcard_name_weight">Вес</string>
@@ -286,8 +293,7 @@
     <string name="communication">Коммуникация</string>
     <string name="additional_settings">Дополнительные настройки</string>
     <string name="subscription">Подписка</string>
-    <string name="profile_hint_date_of_birth">Твой день рождения</string>
-    <string name="profile_hint_gender">Ваш пол</string>
-    <string name="profile_hint_country">Твоя страна</string>
-    <string name="profile_hint_height">Ваш рост</string>
+    <string name="coming_soon">Скоро будет!</string>
+
+
 </resources>

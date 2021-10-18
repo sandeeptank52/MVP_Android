@@ -106,14 +106,14 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_doctor"
+                android:id="@+id/constraint_services"
                 android:layout_width="match_parent"
                 android:background="@drawable/profile_constraint_selector"
                 android:layout_height="@dimen/settings_size">
 
 
                 <ImageView
-                    android:id="@+id/contact_dr_image"
+                    android:id="@+id/contact_services_image"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="@dimen/settings_padding_start"
@@ -123,7 +123,7 @@
                     app:srcCompat="@drawable/phone_icon" />
 
                 <TextView
-                    android:id="@+id/contact_dr_tv"
+                    android:id="@+id/contact_services_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -135,12 +135,12 @@
                     android:textSize="16sp"
                     android:fontFamily="@font/roboto_bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/doctor_arrow"
-                    app:layout_constraintStart_toEndOf="@+id/contact_dr_image"
+                    app:layout_constraintEnd_toStartOf="@+id/services_arrow"
+                    app:layout_constraintStart_toEndOf="@+id/contact_services_image"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/doctor_arrow"
+                    android:id="@+id/services_arrow"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginEnd="16dp"

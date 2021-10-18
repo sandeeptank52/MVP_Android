@@ -161,6 +161,11 @@
     <string name="subs_text_cost">Cost:</string>
     <string name="subs_text_activated">Activated</string>
 
+    <!--services fragment-->
+    <string name="services_title">Services</string>
+    <string name="services_doctor">Doctor</string>
+
+
     <!--medcard parameters name-->
     <string name="medcard_name_weight">Weight</string>
     <string name="medcard_name_hip">Hip</string>
@@ -306,6 +311,6 @@
     <string name="communication">Communication</string>
     <string name="additional_settings">Additional Settings</string>
     <string name="subscription">Subscription</string>
-
+    <string name="coming_soon">Coming soon!</string>
 
 </resources>
