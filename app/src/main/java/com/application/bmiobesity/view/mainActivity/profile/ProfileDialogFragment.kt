@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
@@ -16,14 +15,12 @@ import com.application.bmiobesity.common.MeasuringSystem
 import com.application.bmiobesity.common.parameters.AvailableParameters
 import com.application.bmiobesity.common.parameters.DailyActivityLevels
 import com.application.bmiobesity.databinding.MainProfileDialogFragmentBinding
-import com.application.bmiobesity.model.db.commonSettings.entities.Countries
 import com.application.bmiobesity.model.db.paramSettings.entities.MedCardParamSetting
 import com.application.bmiobesity.model.db.paramSettings.entities.MedCardSourceType
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.AvailableData
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profile
 import com.application.bmiobesity.utils.*
 import com.application.bmiobesity.view.mainActivity.MainActivity
-import com.application.bmiobesity.view.mainActivity.medcard.MedCardAdapterRecycler
 import com.application.bmiobesity.view.mainActivity.profile.country.ProfileCountryDialogFragment
 import com.application.bmiobesity.viewModels.MainViewModel
 import com.google.android.material.datepicker.CalendarConstraints
@@ -63,7 +60,6 @@ class ProfileDialogFragment : DialogFragment(R.layout.main_profile_dialog_fragme
     private lateinit var dialogSmokerBuilder: MaterialAlertDialogBuilder
 
     private lateinit var countriesAdapter: ListAdapter
-    private lateinit var dialogCountriesBuilder: MaterialAlertDialogBuilder
 
     private lateinit var sourceTypeSpinnerAdapter: ArrayAdapter<MedCardSourceType>
     private lateinit var dialogListSpinnerAdapter: ArrayAdapter<String>
@@ -155,7 +151,7 @@ class ProfileDialogFragment : DialogFragment(R.layout.main_profile_dialog_fragme
             android.R.layout.simple_spinner_dropdown_item,
             mainModel.medCardSourceType
         )
-        val dailyLevels = arrayListOf<String>(
+        val dailyLevels = arrayListOf(
             getString(R.string.medcard_name_daily_minimum),
             getString(R.string.medcard_name_daily_lower),
             getString(R.string.medcard_name_daily_medium),
@@ -251,20 +247,10 @@ class ProfileDialogFragment : DialogFragment(R.layout.main_profile_dialog_fragme
     }
 
     fun showCountriesDialog() {
-        // Get country from id
-        val countryID = currentProfile.country
-        var country: Countries? =
-            if (countryID == 0) {
-                null
-            } else {
-                mainModel.countries.find { country -> country.id == countryID }
-            }
-
         // Show country dialog
-        val countryDialog = ProfileCountryDialogFragment(country) {
-            country = it
-            profileBinding?.profileCountriesTextView?.text = country?.value
-            currentProfile.country = country?.id!!
+        val countryDialog = ProfileCountryDialogFragment { country ->
+            profileBinding?.profileCountriesTextView?.text = country.value
+            currentProfile.country = country.id
             updateAvailableProfile(currentProfile)
             mainModel.patchProfile(currentProfile)
         }
@@ -278,7 +264,7 @@ class ProfileDialogFragment : DialogFragment(R.layout.main_profile_dialog_fragme
             mainModel.medCardSourceType
         ) { onClickMedCard(it) }
         profileBinding?.profileRecycler?.adapter = medCardAdapter
-        profileBinding?.profileRecycler?.isNestedScrollingEnabled = false;
+        profileBinding?.profileRecycler?.isNestedScrollingEnabled = false
         mainModel.medCard.parametersLive.observe(viewLifecycleOwner, {
             it?.let {
                 medCardAdapter.submitList(it.values.toList() as MutableList<MedCardParamSetting>)
@@ -446,10 +432,6 @@ class ProfileDialogFragment : DialogFragment(R.layout.main_profile_dialog_fragme
     override fun onDestroyView() {
         profileBinding = null
         super.onDestroyView()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     private fun onClickMedCard(item: MedCardParamSetting) {

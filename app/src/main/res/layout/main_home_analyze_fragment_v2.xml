@@ -38,19 +38,28 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:visibility="gone"
+            android:paddingTop="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/analyzeLinearLayoutReportContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/analyzeDivider"/>
+
+        <View
+            android:id="@+id/analyzeDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_400"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/analyzeLinearLayoutReportContainer" />
 
         <LinearLayout
             android:id="@+id/analyzeLinearLayoutReportContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="15dp"
-            android:paddingVertical="15dp"
+            android:padding="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
