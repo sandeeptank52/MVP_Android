@@ -10,15 +10,12 @@ import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
 import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.common.MeasuringSystem
 import com.application.bmiobesity.databinding.MainProfileFragmentBinding
-import com.application.bmiobesity.model.db.commonSettings.entities.Countries
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.AvailableData
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profile
 import com.application.bmiobesity.utils.convertDateLongToString
@@ -28,12 +25,14 @@ import com.application.bmiobesity.viewModels.MainViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxbinding4.widget.textChanges
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 import java.util.*
+import android.content.res.ColorStateList
 
 class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
 
@@ -61,7 +60,6 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
     private lateinit var dialogSmokerBuilder: MaterialAlertDialogBuilder
 
     private lateinit var countriesAdapter: ListAdapter
-    private lateinit var dialogCountriesBuilder: MaterialAlertDialogBuilder
 
     private var isFirstTime: Boolean = false
 
@@ -72,7 +70,6 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
         profileBinding?.lifecycleOwner = this
         arguments?.let {
             isFirstTime = it.getBoolean("isFirstTime")
-            //showFirstTimeMsgVisibility(isFirstTime)
             if (isFirstTime) showInfoDialog()
         }
 
@@ -210,20 +207,11 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
         }
         dialogHeightBuilder.show()
     }
-    private fun showCountriesDialog(countryID: Int) {
-        // Get country from id
-        var country: Countries? =
-            if (countryID == 0) {
-                null
-            } else {
-                mainModel.countries.find { country -> country.id == countryID }
-            }
-
+    private fun showCountriesDialog() {
         // Show country dialog
-        val countryDialog = ProfileCountryDialogFragment(country) {
-            country = it
-            profileBinding?.profileCountriesTextView?.text = country?.value
-            currentProfile.country = country?.id!!
+        val countryDialog = ProfileCountryDialogFragment { country ->
+            profileBinding?.profileCountriesTextView?.text = country.value
+            currentProfile.country = country.id
             updateAvailableProfile(currentProfile)
         }
         countryDialog.show(parentFragmentManager, "country_dialog")
@@ -260,6 +248,11 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
         dialogGendersBuilder.show()
     }
 
+    private fun updateAvailableProfile(profile: Profile) {
+        availableData.updateAvailableProfile(profile)
+        availableDataSubject.onNext(availableData.getProfileAvailable())
+    }
+
     private fun initListeners() {
         profileBinding?.profileFirstTimeButton?.clicks()?.subscribe {
             mainModel.patchProfile(currentProfile)
@@ -277,7 +270,6 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
                 currentProfile = profile
                 updateAvailableProfile(profile)
 
-                // Set text views
                 profileBinding?.nameEt?.setText(profile.firstName)
                 profileBinding?.surnameEt?.setText(profile.lastName)
                 profileBinding?.profileBirthDateTextView?.text = profile.birthDate
@@ -304,47 +296,59 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
             }
         })
     }
-
-    private fun updateAvailableProfile(profile: Profile) {
-        availableData.updateAvailableProfile(profile)
-        availableDataSubject.onNext(availableData.getProfileAvailable())
-    }
-
     private fun setLayoutListeners() {
-        profileBinding?.profileBirthDateConstraint?.setOnClickListener {
+        profileBinding?.profileBirthDateCardView?.setOnClickListener {
             showDatePickerDialog(currentProfile.birthDate)
         }
-        profileBinding?.profileHeightConstraint?.setOnClickListener {
+        profileBinding?.profileHeightCardView?.setOnClickListener {
             showHeightDialog(currentProfile.height.toInt())
         }
-        profileBinding?.profileCountriesConstraint?.setOnClickListener {
-            showCountriesDialog(currentProfile.country)
+        profileBinding?.profileCountriesCardView?.setOnClickListener {
+            showCountriesDialog()
         }
-        profileBinding?.profileGenderConstraint?.setOnClickListener {
+        profileBinding?.profileGenderCardView?.setOnClickListener {
             showGendersDialog(currentProfile.gender - 1)
         }
-
-        profileBinding?.profileSmokerConstraint?.setOnClickListener {
+        profileBinding?.profileSmokeCardView?.setOnClickListener {
             val smokerItemChoices = if (currentProfile.smoker) 0 else 1
             showSmokerDialog(smokerItemChoices)
         }
     }
 
+    private fun setHintTextColor(textInputLayout: TextInputLayout?, color: Int) {
+        val states = arrayOf(intArrayOf())
+        val colors = intArrayOf(color)
+        val colorStateList = ColorStateList(states, colors)
+        textInputLayout?.hintTextColor = colorStateList
+    }
     private fun setNameError(msg: String?) {
-        profileBinding?.nameInputText?.error = msg
         if (msg == null) {
             profileBinding?.nameInputText?.hint = resources.getString(R.string.profile_hint_name)
+            setHintTextColor(
+                profileBinding?.nameInputText,
+                resources.getColor(R.color.colorPrimary, null)
+            )
         } else {
             profileBinding?.nameInputText?.hint = msg
+            setHintTextColor(
+                profileBinding?.nameInputText,
+                resources.getColor(R.color.red_900, null)
+            )
         }
     }
     private fun setSurnameError(msg: String?) {
-        profileBinding?.surnameInputText?.error = msg
         if (msg == null) {
-            profileBinding?.surnameInputText?.hint =
-                resources.getString(R.string.profile_hint_surname)
+            profileBinding?.surnameInputText?.hint = resources.getString(R.string.profile_hint_surname)
+            setHintTextColor(
+                profileBinding?.surnameInputText,
+                resources.getColor(R.color.colorPrimary, null)
+            )
         } else {
             profileBinding?.surnameInputText?.hint = msg
+            setHintTextColor(
+                profileBinding?.surnameInputText,
+                resources.getColor(R.color.red_900, null)
+            )
         }
     }
     private fun setEnabledConfirmButton(isEnabled: Boolean) {
@@ -352,7 +356,7 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
         if (isEnabled) {
             profileBinding?.profileFirstTimeButton?.background = ResourcesCompat.getDrawable(
                 resources,
-                R.drawable.all_round_blue,
+                R.drawable.common_button_pressed,
                 null
             )
             profileBinding?.profileFirstTimeButton?.setTextColor(
@@ -364,7 +368,7 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
         } else {
             profileBinding?.profileFirstTimeButton?.background = ResourcesCompat.getDrawable(
                 resources,
-                R.drawable.all_round_gray,
+                R.drawable.common_button_disable,
                 null
             )
             profileBinding?.profileFirstTimeButton?.setTextColor(
@@ -375,29 +379,6 @@ class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
             )
         }
     }
-
-//    private fun showFirstTimeMsgVisibility(firsTime: Boolean) {
-//        if (firsTime) {
-//            profileBinding?.profileFirstTimeInfo?.visibility = View.VISIBLE
-//        } else {
-//            profileBinding?.profileFirstTimeInfo?.visibility = View.GONE
-//        }
-//    }
-//    private fun createFirsTimeMsg(data: AvailableData) {
-//        if (!data.getProfileAvailable()) {
-//            val msgBuilder = StringBuilder()
-//            msgBuilder.append(getString(R.string.profile_firs_time_msg))
-//            if (!data.firstNameAvailable) msgBuilder.append("${getString(R.string.name)}  ")
-//            if (!data.lastNameAvailable) msgBuilder.append("${getString(R.string.surname)}  ")
-//            if (!data.genderAvailable) msgBuilder.append("${getString(R.string.gender)}  ")
-//            if (!data.heightAvailable) msgBuilder.append("${getString(R.string.height)}  ")
-//            if (!data.countryAvailable) msgBuilder.append("${getString(R.string.countries)}  ")
-//            profileBinding?.profileFirstTimeInfo?.text = msgBuilder.toString()
-//            msgBuilder.clear()
-//        } else {
-//            profileBinding?.profileFirstTimeInfo?.text = ""
-//        }
-//    }
 
     override fun onDestroyView() {
         profileBinding = null

@@ -134,30 +134,22 @@ class MainViewModel : ViewModel() {
     suspend fun getCountriesByParam(param: String) = viewModelScope.launch(Dispatchers.IO) {
         mCountriesQuery.postValue(commonSettingRepo.getCountriesByParam(param))
     }
-
     private suspend fun updateGenders() =
         viewModelScope.launch(Dispatchers.IO) { genders = commonSettingRepo.getAllGenders() }
-
     private suspend fun updateCountries() =
         viewModelScope.launch(Dispatchers.IO) { countries = commonSettingRepo.getAllCountries() }
-
     private suspend fun updatePolicy() =
         viewModelScope.launch(Dispatchers.IO) { policy = commonSettingRepo.getAllPolicy() }
-
     private suspend fun updateAppPreference() = viewModelScope.launch(Dispatchers.IO) {
         appPreference = appSetting.getAppPreference().first()
     }
-
     private suspend fun updateResultCardDB() =
         viewModelScope.launch(Dispatchers.IO) { mResultCard.postValue(paramSettingRepo.getAllResultCard()) }
-
     private suspend fun updateParamUnit() =
         viewModelScope.launch(Dispatchers.IO) { paramUnit = paramSettingRepo.getAllParamUnit() }
-
     private suspend fun updateMedCardSourceType() = viewModelScope.launch(Dispatchers.IO) {
         medCardSourceType = paramSettingRepo.getAllMedCardSourceType()
     }
-
     private suspend fun updateMedCardParamSetting() = viewModelScope.launch(Dispatchers.IO) {
         medCardParamSetting = paramSettingRepo.getAllMedCardParamSetting()
         medCardParamSetting.forEach {
@@ -381,8 +373,7 @@ class MainViewModel : ViewModel() {
                     firebaseAnalytics.logEvent(AnalyticsEvent.PATCH_PROFILE, bundle)
                 }
             }
-            when (val result =
-                remoteRepo.patchUserProfile(userProfile = profile.getSendUserProfile())) {
+            when (val result = remoteRepo.patchUserProfile(userProfile = profile.getSendUserProfile())) {
                 is RetrofitResult.Success -> {
                     profile.loadFromUserProfile(result.value)
                     profileManager.setProfile(profile)
@@ -430,7 +421,6 @@ class MainViewModel : ViewModel() {
             }
         }
     }
-
     // Avatar
     fun patchAvatar(imageBase64: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -476,5 +466,4 @@ class MainViewModel : ViewModel() {
     fun backNav(isNavConfirm: Boolean) {
         mBackNavigation.postValue(isNavConfirm)
     }
-
 }

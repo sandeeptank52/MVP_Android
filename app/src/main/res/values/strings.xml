@@ -15,8 +15,12 @@
     <string name="login_hint_passwordCheck_number">\u0020 1 number</string>
     <string name="login_hint_passwordCheck_symbol">\u0020 1 special symbol</string>
     <string name="login_hint_passwordCheck_match">Passwords must match</string>
-    <string name="profile_hint_name">Name</string>
+    <string name="profile_hint_name">Firstname</string>
     <string name="profile_hint_surname">Surname</string>
+    <string name="profile_hint_date_of_birth">Your birthday</string>
+    <string name="profile_hint_gender">Your gender</string>
+    <string name="profile_hint_country">Your country</string>
+    <string name="profile_hint_height">Your height</string>
     <string name="gender_hint_not_say">I will not say</string>
 
     <!--buttons-->
