@@ -5,18 +5,18 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.LabelMainFragmentBinding
 import com.application.bmiobesity.view.loginActivity.LoginActivity
 import com.application.bmiobesity.view.mainActivity.MainActivity
 import com.application.bmiobesity.viewModels.LabelViewModel
 import kotlinx.coroutines.*
 
-class MainFragment : Fragment(R.layout.label_main_fragment) {
+class MainFragment : BaseFragment(R.layout.label_main_fragment) {
 
     private val mDelay: Long = 2500
     private val diffDelay: Long = 1000

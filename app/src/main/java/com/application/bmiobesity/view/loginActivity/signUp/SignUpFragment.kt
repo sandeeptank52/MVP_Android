@@ -7,10 +7,10 @@ import android.text.style.UnderlineSpan
 import android.view.View
 import android.webkit.WebView
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.common.EventObserver
 import com.application.bmiobesity.common.eventManager.EventManager
 import com.application.bmiobesity.common.eventManager.SignUpFragmentEvent
@@ -27,7 +27,7 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 import java.util.*
 
-class SignUpFragment : Fragment(R.layout.login_signup_fragment) {
+class SignUpFragment : BaseFragment(R.layout.login_signup_fragment) {
 
     private var signUpBinding: LoginSignupFragmentBinding? = null
     private val loginModel: LoginViewModel by activityViewModels()

@@ -6,23 +6,23 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.HtmlCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.LabelWelcomeTextFragmentBinding
 import com.application.bmiobesity.view.loginActivity.LoginActivity
 import com.application.bmiobesity.view.mainActivity.MainActivity
 import com.application.bmiobesity.viewModels.LabelViewModel
 import kotlinx.coroutines.*
 
-class WelcomeFragment : Fragment(R.layout.label_welcome_text_fragment) {
+class WelcomeFragment : BaseFragment(R.layout.label_welcome_text_fragment) {
 
     private var welcomeBinding: LabelWelcomeTextFragmentBinding? = null
     private val labelModel: LabelViewModel by activityViewModels()
 
-    private var pagerItemCount = 5
+    private var pagerItemCount = 3
     private lateinit var pagerAdapter: WelcomeFragmentAdapter
     private lateinit var dots: Array<TextView>
 
@@ -66,14 +66,9 @@ class WelcomeFragment : Fragment(R.layout.label_welcome_text_fragment) {
                         welcomeBinding?.dotone?.background = colouredDot
                         welcomeBinding?.dottwo?.background = justDot
                         welcomeBinding?.dotthree?.background = justDot
-                        welcomeBinding?.dotfour?.background = justDot
-                        welcomeBinding?.dotfive?.background = justDot
-
                         welcomeBinding?.dotone?.visibility = View.VISIBLE
                         welcomeBinding?.dottwo?.visibility = View.VISIBLE
                         welcomeBinding?.dotthree?.visibility = View.VISIBLE
-                        welcomeBinding?.dotfour?.visibility = View.VISIBLE
-                        welcomeBinding?.dotfive?.visibility = View.VISIBLE
                     }
                     1 -> {
                         welcomeBinding?.welcomeNextButton?.visibility = View.GONE
@@ -81,44 +76,18 @@ class WelcomeFragment : Fragment(R.layout.label_welcome_text_fragment) {
                         welcomeBinding?.dotone?.background = justDot
                         welcomeBinding?.dottwo?.background = colouredDot
                         welcomeBinding?.dotthree?.background = justDot
-                        welcomeBinding?.dotfour?.background = justDot
-                        welcomeBinding?.dotfive?.background = justDot
-
                         welcomeBinding?.dotone?.visibility = View.VISIBLE
                         welcomeBinding?.dottwo?.visibility = View.VISIBLE
                         welcomeBinding?.dotthree?.visibility = View.VISIBLE
-                        welcomeBinding?.dotfour?.visibility = View.VISIBLE
-                        welcomeBinding?.dotfive?.visibility = View.VISIBLE
                     }
                     2 -> {
-                        welcomeBinding?.welcomeNextButton?.visibility = View.GONE
+                        welcomeBinding?.welcomeNextButton?.text =
+                            resources.getString(R.string.button_come_in)
+                        welcomeBinding?.welcomeNextButton?.visibility = View.VISIBLE
                         welcomeBinding?.welcomeSkipButton?.visibility = View.GONE
-                        welcomeBinding?.dotone?.background = justDot
-                        welcomeBinding?.dottwo?.background = justDot
-                        welcomeBinding?.dotthree?.background = colouredDot
-                        welcomeBinding?.dotfour?.background = justDot
-                        welcomeBinding?.dotfive?.background = justDot
-
-                        welcomeBinding?.dotone?.visibility = View.VISIBLE
-                        welcomeBinding?.dottwo?.visibility = View.VISIBLE
-                        welcomeBinding?.dotthree?.visibility = View.VISIBLE
-                        welcomeBinding?.dotfour?.visibility = View.VISIBLE
-                        welcomeBinding?.dotfive?.visibility = View.VISIBLE
-                    }
-                    3 -> {
-                        welcomeBinding?.welcomeNextButton?.visibility = View.GONE
-                        welcomeBinding?.welcomeSkipButton?.visibility = View.GONE
-                        welcomeBinding?.dotone?.background = justDot
-                        welcomeBinding?.dottwo?.background = justDot
-                        welcomeBinding?.dotthree?.background = justDot
-                        welcomeBinding?.dotfour?.background = colouredDot
-                        welcomeBinding?.dotfive?.background = justDot
-
-                        welcomeBinding?.dotone?.visibility = View.VISIBLE
-                        welcomeBinding?.dottwo?.visibility = View.VISIBLE
-                        welcomeBinding?.dotthree?.visibility = View.VISIBLE
-                        welcomeBinding?.dotfour?.visibility = View.VISIBLE
-                        welcomeBinding?.dotfive?.visibility = View.VISIBLE
+                        welcomeBinding?.dotone?.visibility = View.GONE
+                        welcomeBinding?.dottwo?.visibility = View.GONE
+                        welcomeBinding?.dotthree?.visibility = View.GONE
                     }
                     else -> {
                         welcomeBinding?.welcomeNextButton?.text =
@@ -128,8 +97,6 @@ class WelcomeFragment : Fragment(R.layout.label_welcome_text_fragment) {
                         welcomeBinding?.dotone?.visibility = View.GONE
                         welcomeBinding?.dottwo?.visibility = View.GONE
                         welcomeBinding?.dotthree?.visibility = View.GONE
-                        welcomeBinding?.dotfour?.visibility = View.GONE
-                        welcomeBinding?.dotfive?.visibility = View.GONE
                     }
                 }
             }

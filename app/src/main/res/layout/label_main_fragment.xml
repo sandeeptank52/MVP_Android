@@ -63,19 +63,19 @@
 
     <TextView
         android:id="@+id/labelTextViewAppName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:alpha="0"
         android:fontFamily="@font/dmsans_medium"
         android:gravity="center"
+        android:text="@string/app_name_short"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/color_white"
         android:textSize="@dimen/label_appName_textSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/labelProgressBar"
+        app:layout_constraintStart_toStartOf="@id/labelProgressBar"
         app:layout_constraintTop_toBottomOf="@+id/labelProgressBar" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

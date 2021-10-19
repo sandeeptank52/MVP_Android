@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
@@ -8,22 +7,27 @@
 
     <action
         android:id="@+id/mainNavToSetting"
-        app:destination="@id/mainSettingNav"/>
+        app:destination="@id/mainSettingNav" />
 
     <action
         android:id="@+id/mainNavToSubs"
-        app:destination="@id/mainSubsNav"/>
-
+        app:destination="@id/mainSubsNav" />
+    <action
+        android:id="@+id/mainNavToReport"
+        app:destination="@id/mainReportNav" />
     <fragment
         android:id="@+id/mainHomeNav"
-        android:name="com.application.bmiobesity.view.mainActivity.home.HomeFragment"
+        android:name="com.application.bmiobesity.view.mainActivity.home.favorite.HomeFavoriteFragment"
         tools:layout="@layout/main_home_fragment">
         <action
             android:id="@+id/mainNavHomeToMedcard"
-            app:destination="@id/mainMedcardNav"/>
+            app:destination="@id/mainAnalyzeNav" />
         <action
             android:id="@+id/mainNavHomeToProfile"
-            app:destination="@id/mainProfileNav"/>
+            app:destination="@id/mainProfileFragmentNav" />
+        <action
+            android:id="@+id/mainNavHomeToRecommendation"
+            app:destination="@id/mainRecommendationNav" />
     </fragment>
 
     <fragment
@@ -32,17 +36,35 @@
         tools:layout="@layout/main_medcard_fragment">
         <action
             android:id="@+id/mainNavMedcardToHome"
-            app:destination="@id/mainHomeNav"/>
+            app:destination="@id/mainHomeNav" />
         <action
             android:id="@+id/mainNavMedcaedToProfile"
-            app:destination="@id/mainProfileNav"/>
+            app:destination="@id/mainProfileFragmentNav" />
         <argument
             android:name="isFirstTime"
-            app:argType="boolean"/>
+            app:argType="boolean" />
     </fragment>
-
     <fragment
-        android:id="@+id/mainProfileNav"
+        android:id="@+id/mainAnalyzeNav"
+        android:name="com.application.bmiobesity.view.mainActivity.home.analyze.HomeAnalyzeFragment"
+        tools:layout="@layout/main_medcard_fragment">
+    </fragment>
+    <fragment
+        android:id="@+id/mainRecommendationNav"
+        android:name="com.application.bmiobesity.view.mainActivity.home.recommendation.HomeRecommendationFragment"
+        tools:layout="@layout/main_home_recommendation_fragment_v2">
+        <action
+            android:id="@+id/mainNavProfileToHome"
+            app:destination="@id/mainHomeNav" />
+        <action
+            android:id="@+id/mainNavProfileToMedcard"
+            app:destination="@id/mainMedcardNav" />
+        <argument
+            android:name="isFirstTime"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainProfileFragmentNav"
         android:name="com.application.bmiobesity.view.mainActivity.profile.ProfileFragment"
         tools:layout="@layout/main_profile_fragment">
         <action
@@ -55,15 +77,22 @@
             android:name="isFirstTime"
             app:argType="boolean"/>
     </fragment>
-
-    <fragment
+    <dialog
+        android:id="@+id/mainProfileNav"
+        android:name="com.application.bmiobesity.view.mainActivity.profile.ProfileDialogFragment"
+        tools:layout="@layout/main_profile_dialog_fragment">
+    </dialog>
+    <dialog
         android:id="@+id/mainSettingNav"
         android:name="com.application.bmiobesity.view.mainActivity.setting.SettingFragment"
-        tools:layout="@layout/main_setting_fragment"/>
-
-    <fragment
+        tools:layout="@layout/main_setting_fragment" />
+    <dialog
+        android:id="@+id/mainReportNav"
+        android:name="com.application.bmiobesity.view.mainActivity.home.report.HomeReportFragment"
+        tools:layout="@layout/main_home_report_fragment" />
+    <dialog
         android:id="@+id/mainSubsNav"
         android:name="com.application.bmiobesity.view.mainActivity.subscriptions.SubscriptionsFragment"
-        tools:layout="@layout/main_subs_fragment"/>
+        tools:layout="@layout/main_subs_fragment" />
 
 </navigation>

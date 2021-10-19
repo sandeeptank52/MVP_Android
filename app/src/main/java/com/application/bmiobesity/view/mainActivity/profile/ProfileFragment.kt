@@ -10,28 +10,31 @@ import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.common.MeasuringSystem
 import com.application.bmiobesity.databinding.MainProfileFragmentBinding
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.AvailableData
 import com.application.bmiobesity.model.db.paramSettings.entities.profile.Profile
 import com.application.bmiobesity.utils.convertDateLongToString
 import com.application.bmiobesity.utils.convertDateStringToMs
+import com.application.bmiobesity.view.mainActivity.profile.country.ProfileCountryDialogFragment
 import com.application.bmiobesity.viewModels.MainViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxbinding4.widget.textChanges
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 import java.util.*
+import android.content.res.ColorStateList
 
-class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
+class ProfileFragment : BaseFragment(R.layout.main_profile_fragment) {
 
     private var profileBinding: MainProfileFragmentBinding? = null
     private val mainModel: MainViewModel by activityViewModels()
@@ -57,17 +60,16 @@ class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
     private lateinit var dialogSmokerBuilder: MaterialAlertDialogBuilder
 
     private lateinit var countriesAdapter: ListAdapter
-    private lateinit var dialogCountriesBuilder: MaterialAlertDialogBuilder
 
     private var isFirstTime: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         profileBinding = MainProfileFragmentBinding.bind(view)
-
+        profileBinding?.vm = mainModel
+        profileBinding?.lifecycleOwner = this
         arguments?.let {
             isFirstTime = it.getBoolean("isFirstTime")
-            //showFirstTimeMsgVisibility(isFirstTime)
             if (isFirstTime) showInfoDialog()
         }
 
@@ -95,10 +97,10 @@ class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
         // Init date picker calendar
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         val currentYear = calendar.get(Calendar.YEAR)
-        calendar.set(Calendar.YEAR, currentYear - 150)
+        calendar.set(Calendar.YEAR, currentYear - 122)
         val startTime = calendar.timeInMillis
         calendar.clear()
-        calendar.set(Calendar.YEAR, currentYear - 1)
+        calendar.set(Calendar.YEAR, currentYear - 5)
         val endTime = calendar.timeInMillis
         datePickerConstraintsBuilder = CalendarConstraints.Builder()
         datePickerConstraintsBuilder.setStart(startTime)
@@ -120,7 +122,7 @@ class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
         countriesAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.select_dialog_singlechoice,
-            mainModel.countries
+            mainModel.countries.filter { c -> c.value.isNotEmpty()}
         )
     }
     private fun addRX() {
@@ -205,27 +207,14 @@ class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
         }
         dialogHeightBuilder.show()
     }
-    private fun showCountriesDialog(countryID: Int) {
-        var country = mainModel.countries.find { country ->
-            if (countryID == 0) {
-                country.id == 1
-            } else {
-                country.id == countryID
-            }
-        }
-        var countryIndex = mainModel.countries.indexOf(country)
-        dialogCountriesBuilder = MaterialAlertDialogBuilder(requireContext())
-        dialogCountriesBuilder.setTitle("")
-        dialogCountriesBuilder.setPositiveButton(getString(R.string.button_ok)) { _, _ ->
-            country = mainModel.countries[countryIndex]
-            profileBinding?.profileCountriesTextView?.text = country?.value
-            currentProfile.country = country?.id!!
+    private fun showCountriesDialog() {
+        // Show country dialog
+        val countryDialog = ProfileCountryDialogFragment { country ->
+            profileBinding?.profileCountriesTextView?.text = country.value
+            currentProfile.country = country.id
             updateAvailableProfile(currentProfile)
         }
-        dialogCountriesBuilder.setSingleChoiceItems(countriesAdapter, countryIndex) { _, which ->
-            countryIndex = which
-        }
-        dialogCountriesBuilder.show()
+        countryDialog.show(parentFragmentManager, "country_dialog")
     }
     private fun showSmokerDialog(item: Int) {
         var index = item
@@ -259,6 +248,11 @@ class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
         dialogGendersBuilder.show()
     }
 
+    private fun updateAvailableProfile(profile: Profile) {
+        availableData.updateAvailableProfile(profile)
+        availableDataSubject.onNext(availableData.getProfileAvailable())
+    }
+
     private fun initListeners() {
         profileBinding?.profileFirstTimeButton?.clicks()?.subscribe {
             mainModel.patchProfile(currentProfile)
@@ -276,7 +270,6 @@ class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
                 currentProfile = profile
                 updateAvailableProfile(profile)
 
-                // Set text views
                 profileBinding?.nameEt?.setText(profile.firstName)
                 profileBinding?.surnameEt?.setText(profile.lastName)
                 profileBinding?.profileBirthDateTextView?.text = profile.birthDate
@@ -303,47 +296,59 @@ class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
             }
         })
     }
-
-    private fun updateAvailableProfile(profile: Profile) {
-        availableData.updateAvailableProfile(profile)
-        availableDataSubject.onNext(availableData.getProfileAvailable())
-    }
-
     private fun setLayoutListeners() {
-        profileBinding?.profileBirthDateConstraint?.setOnClickListener {
+        profileBinding?.profileBirthDateCardView?.setOnClickListener {
             showDatePickerDialog(currentProfile.birthDate)
         }
-        profileBinding?.profileHeightConstraint?.setOnClickListener {
+        profileBinding?.profileHeightCardView?.setOnClickListener {
             showHeightDialog(currentProfile.height.toInt())
         }
-        profileBinding?.profileCountriesConstraint?.setOnClickListener {
-            showCountriesDialog(currentProfile.country)
+        profileBinding?.profileCountriesCardView?.setOnClickListener {
+            showCountriesDialog()
         }
-        profileBinding?.profileGenderConstraint?.setOnClickListener {
+        profileBinding?.profileGenderCardView?.setOnClickListener {
             showGendersDialog(currentProfile.gender - 1)
         }
-
-        profileBinding?.profileSmokerConstraint?.setOnClickListener {
+        profileBinding?.profileSmokeCardView?.setOnClickListener {
             val smokerItemChoices = if (currentProfile.smoker) 0 else 1
             showSmokerDialog(smokerItemChoices)
         }
     }
 
+    private fun setHintTextColor(textInputLayout: TextInputLayout?, color: Int) {
+        val states = arrayOf(intArrayOf())
+        val colors = intArrayOf(color)
+        val colorStateList = ColorStateList(states, colors)
+        textInputLayout?.hintTextColor = colorStateList
+    }
     private fun setNameError(msg: String?) {
-        profileBinding?.nameInputText?.error = msg
         if (msg == null) {
             profileBinding?.nameInputText?.hint = resources.getString(R.string.profile_hint_name)
+            setHintTextColor(
+                profileBinding?.nameInputText,
+                resources.getColor(R.color.colorPrimary, null)
+            )
         } else {
             profileBinding?.nameInputText?.hint = msg
+            setHintTextColor(
+                profileBinding?.nameInputText,
+                resources.getColor(R.color.red_900, null)
+            )
         }
     }
     private fun setSurnameError(msg: String?) {
-        profileBinding?.surnameInputText?.error = msg
         if (msg == null) {
-            profileBinding?.surnameInputText?.hint =
-                resources.getString(R.string.profile_hint_surname)
+            profileBinding?.surnameInputText?.hint = resources.getString(R.string.profile_hint_surname)
+            setHintTextColor(
+                profileBinding?.surnameInputText,
+                resources.getColor(R.color.colorPrimary, null)
+            )
         } else {
             profileBinding?.surnameInputText?.hint = msg
+            setHintTextColor(
+                profileBinding?.surnameInputText,
+                resources.getColor(R.color.red_900, null)
+            )
         }
     }
     private fun setEnabledConfirmButton(isEnabled: Boolean) {
@@ -351,7 +356,7 @@ class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
         if (isEnabled) {
             profileBinding?.profileFirstTimeButton?.background = ResourcesCompat.getDrawable(
                 resources,
-                R.drawable.all_round_blue,
+                R.drawable.common_button_pressed,
                 null
             )
             profileBinding?.profileFirstTimeButton?.setTextColor(
@@ -363,7 +368,7 @@ class ProfileFragment : Fragment(R.layout.main_profile_fragment) {
         } else {
             profileBinding?.profileFirstTimeButton?.background = ResourcesCompat.getDrawable(
                 resources,
-                R.drawable.all_round_gray,
+                R.drawable.common_button_disable,
                 null
             )
             profileBinding?.profileFirstTimeButton?.setTextColor(

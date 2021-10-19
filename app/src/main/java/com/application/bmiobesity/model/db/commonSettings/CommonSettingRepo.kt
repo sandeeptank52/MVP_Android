@@ -1,6 +1,7 @@
 package com.application.bmiobesity.model.db.commonSettings
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.application.bmiobesity.model.db.commonSettings.entities.*
 
 class CommonSettingRepo private constructor(context: Context){

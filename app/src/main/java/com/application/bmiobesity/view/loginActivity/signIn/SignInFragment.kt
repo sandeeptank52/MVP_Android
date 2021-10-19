@@ -5,25 +5,21 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.UnderlineSpan
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.common.EventObserver
 import com.application.bmiobesity.common.eventManager.EventManager
 import com.application.bmiobesity.common.eventManager.SignInFragmentEvent
+import com.application.bmiobesity.databinding.LoginSigninFragmentBinding
 import com.application.bmiobesity.model.retrofit.RetrofitError
 import com.application.bmiobesity.services.google.signIn.GoogleSignInContract
 import com.application.bmiobesity.view.mainActivity.MainActivity
 import com.application.bmiobesity.viewModels.LoginViewModel
-import com.application.bmiobesity.databinding.LoginSigninFragmentV2V2Binding
-import com.application.bmiobesity.viewModels.LabelViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -38,12 +34,10 @@ import com.jakewharton.rxbinding4.widget.textChanges
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-class SignInFragment : Fragment(R.layout.login_signin_fragment_v2_v2) {
+class SignInFragment : BaseFragment(R.layout.login_signin_fragment) {
 
-    private var signInBinding : LoginSigninFragmentV2V2Binding? = null
+    private var signInBinding : LoginSigninFragmentBinding? = null
 
     private lateinit var allDisposable: CompositeDisposable
     private lateinit var formState: CheckFormStateSignIn
@@ -54,12 +48,11 @@ class SignInFragment : Fragment(R.layout.login_signin_fragment_v2_v2) {
 
     private val loginModel: LoginViewModel by activityViewModels()
     private val eventManager: SignInFragmentEvent = EventManager.getEventManager()
-    private val labelModel: LabelViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        signInBinding = LoginSigninFragmentBinding.bind(view)
 
-        signInBinding = LoginSigninFragmentV2V2Binding.bind(view)
         init()
         addRX()
         addListeners()

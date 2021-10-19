@@ -14,11 +14,18 @@ import com.application.bmiobesity.R
 import com.application.bmiobesity.model.db.paramSettings.entities.ResultCard
 import com.application.bmiobesity.utils.getFormatData
 
-class HomeFavoriteAdapterRecycler(private val onClick: (ResultCard) -> Unit) : ListAdapter<ResultCard, HomeFavoriteAdapterRecycler.HomeFavoriteViewHolder>(ResultCardDiffCallback) {
-
+class HomeFavoriteAdapterRecycler(
+    private val onClick: (ResultCard) -> Unit
+) : ListAdapter<ResultCard, HomeFavoriteAdapterRecycler.HomeFavoriteViewHolder>(
+    ResultCardDiffCallback
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFavoriteViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.main_home_favorite_card_view_v2, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.main_home_favorite_card_view,
+            parent,
+            false
+        )
         return HomeFavoriteViewHolder(view, onClick)
     }
 
@@ -27,7 +34,12 @@ class HomeFavoriteAdapterRecycler(private val onClick: (ResultCard) -> Unit) : L
         holder.bind(favoriteCard)
     }
 
-    class HomeFavoriteViewHolder(itemView: View, val onClick: (ResultCard) -> Unit) : RecyclerView.ViewHolder(itemView){
+    class HomeFavoriteViewHolder(
+        itemView: View, val onClick: (ResultCard) -> Unit
+    ) : RecyclerView.ViewHolder(
+        itemView
+    ) {
+
         private val favoriteCardImage: ImageView = itemView.findViewById(R.id.favoriteCardViewIcon)
         private val favoriteCardTitle: TextView = itemView.findViewById(R.id.favoriteCardViewTitle)
         private val favoriteCardValue: TextView = itemView.findViewById(R.id.favoriteCardViewValue)
@@ -42,13 +54,25 @@ class HomeFavoriteAdapterRecycler(private val onClick: (ResultCard) -> Unit) : L
             }
         }
 
-        fun bind(card: ResultCard){
+        fun bind(card: ResultCard) {
             currentCard = card
 
             // Resource ID
-            val idImage = InTimeApp.APPLICATION.resources.getIdentifier(card.imgRes, "drawable", "com.application.bmiobesity")
-            val idTitle = InTimeApp.APPLICATION.resources.getIdentifier(card.nameRes, "string", "com.application.bmiobesity")
-            val idErrorNotAvailable = InTimeApp.APPLICATION.resources.getIdentifier("error_data_not_available", "string", "com.application.bmiobesity")
+            val idImage = InTimeApp.APPLICATION.resources.getIdentifier(
+                card.imgRes,
+                "drawable",
+                "com.application.bmiobesity"
+            )
+            val idTitle = InTimeApp.APPLICATION.resources.getIdentifier(
+                card.nameRes,
+                "string",
+                "com.application.bmiobesity"
+            )
+            val idErrorNotAvailable = InTimeApp.APPLICATION.resources.getIdentifier(
+                "error_data_not_available",
+                "string",
+                "com.application.bmiobesity"
+            )
 
             favoriteCardImage.setImageResource(idImage)
             favoriteCardTitle.setText(idTitle)
@@ -57,14 +81,22 @@ class HomeFavoriteAdapterRecycler(private val onClick: (ResultCard) -> Unit) : L
             val resultValue = card.value
             val resultColor = card.valueColour
 
-            if (resultValue.isNotEmpty()){
-                if (card.id == "fat_percent"){
+            if (resultValue.isNotEmpty()) {
+                if (card.id == "fat_percent") {
                     val split = resultValue.split(Regex(","))
                     favoriteCardValue.text = split[0]
-                    if(resultColor.isNotEmpty()) favoriteCardValue.setTextColor(Color.parseColor(resultColor))
+                    if (resultColor.isNotEmpty()) favoriteCardValue.setTextColor(
+                        Color.parseColor(
+                            resultColor
+                        )
+                    )
                 } else {
                     favoriteCardValue.text = resultValue
-                    if(resultColor.isNotEmpty()) favoriteCardValue.setTextColor(Color.parseColor(resultColor))
+                    if (resultColor.isNotEmpty()) favoriteCardValue.setTextColor(
+                        Color.parseColor(
+                            resultColor
+                        )
+                    )
                 }
             } else {
                 favoriteCardValue.setText(idErrorNotAvailable)
@@ -73,9 +105,9 @@ class HomeFavoriteAdapterRecycler(private val onClick: (ResultCard) -> Unit) : L
         }
     }
 
-    object ResultCardDiffCallback : DiffUtil.ItemCallback<ResultCard>(){
+    object ResultCardDiffCallback : DiffUtil.ItemCallback<ResultCard>() {
         override fun areItemsTheSame(oldItem: ResultCard, newItem: ResultCard): Boolean {
-           return oldItem == newItem
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: ResultCard, newItem: ResultCard): Boolean {

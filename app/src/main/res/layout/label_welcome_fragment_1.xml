@@ -7,82 +7,152 @@
     android:orientation="vertical"
     tools:context=".view.labelActivity.welcome.WelcomeFragment1">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/welcome1GuideLine"
-        android:layout_width="0dp"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintBottom_toTopOf="@id/text_return_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginVertical="20dp"
+            android:background="@color/color_white">
+
+            <TextView
+                android:id="@+id/welcome1TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dmsans_bold"
+                android:gravity="center"
+                android:text="@string/disclaimer_title"
+                android:textAllCaps="false"
+                android:textColor="@color/labelGradientBckSecond"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/welcome1PublicText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dmsans_regular"
+                android:gravity="center"
+                android:text="@string/please_read_the_following"
+                android:textColor="@color/gray_800"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/welcome1TitleText" />
+
+            <TextView
+                android:id="@+id/welcome1GreetingText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/dmsans_bold"
+                android:gravity="center"
+                android:text="@string/our_service_is_not_a_medical_service"
+                android:textColor="@color/color_black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/welcome1PublicText" />
+
+            <TextView
+                android:id="@+id/welcome1MainText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="16dp"
+                android:autoLink="all"
+                android:fontFamily="@font/dmsans_regular"
+                android:linksClickable="true"
+                android:text="@string/welcome_frag_one_main_text"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/welcome1GreetingText" />
+
+            <TextView
+                android:id="@+id/welcome2MainText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:autoLink="all"
+                android:fontFamily="@font/dmsans_regular"
+                android:linksClickable="true"
+                android:text="@string/welcome_frag_two_main_text"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/welcome1MainText" />
+
+            <TextView
+                android:id="@+id/welcome3MainText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="10dp"
+                android:autoLink="all"
+                android:fontFamily="@font/dmsans_regular"
+                android:linksClickable="true"
+                android:text="@string/welcome_frag_three_main_text"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/welcome2MainText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:id="@+id/text_return_layout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/color_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/welcome1GuideLine"
-        app:layout_constraintVertical_bias="0">
+        app:layout_constraintVertical_bias="0.9">
 
         <TextView
-            android:id="@+id/welcome1TitleText"
-            android:layout_width="wrap_content"
+            android:id="@+id/dontText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/dmsans_bold"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/dmsans_regular"
             android:gravity="center"
-            android:text="@string/disclaimer_title"
-            android:textAllCaps="false"
-            android:textColor="@color/labelGradientBckSecond"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/welcome_3_is_show_switch"
+            android:textColor="@color/color_black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/welcome1PublicText"
-            android:layout_width="0dp"
+        <Switch
+            android:id="@+id/welcomeSwitchDisclaimer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/dmsans_regular"
-            android:gravity="center"
-            android:text="@string/please_read_the_following"
-            android:textColor="@color/gray_800"
+            android:layout_marginStart="5dp"
+            android:checked="true"
+            app:layout_constraintBottom_toBottomOf="@+id/dontText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/welcome1TitleText" />
-
-        <TextView
-            android:id="@+id/welcome1GreetingText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/dmsans_bold"
-            android:gravity="center"
-            android:text="@string/our_service_is_not_a_medical_service"
-            android:textColor="@color/color_black"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/welcome1PublicText" />
-
-        <TextView
-            android:id="@+id/welcome1MainText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="16dp"
-            android:autoLink="all"
-            android:fontFamily="@font/dmsans_regular"
-            android:linksClickable="true"
-            android:text="@string/welcome_frag_one_main_text"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/welcome1GreetingText" />
-
+            app:layout_constraintStart_toEndOf="@+id/dontText"
+            app:layout_constraintTop_toTopOf="@+id/dontText"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

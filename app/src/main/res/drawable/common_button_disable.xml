@@ -5,6 +5,6 @@
 
     <corners android:radius="6dp"/>
 
-    <solid android:color="@color/button_disable"/>
+    <solid android:color="@color/gray_100"/>
 
 </shape>

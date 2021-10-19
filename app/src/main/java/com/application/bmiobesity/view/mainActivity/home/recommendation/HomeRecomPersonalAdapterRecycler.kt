@@ -13,7 +13,7 @@ import com.application.bmiobesity.model.retrofit.ResultRecommendation
 class HomeRecomPersonalAdapterRecycler(private val onClick: (ResultRecommendation) -> Unit): ListAdapter<ResultRecommendation, HomeRecomPersonalAdapterRecycler.HomeRecomPersonalViewHolder>(HomeRecomPersonalDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRecomPersonalViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.main_home_recommendation_card_view, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.main_home_recommendation_card_view_personal, parent, false)
         return HomeRecomPersonalViewHolder(view, onClick)
     }
 

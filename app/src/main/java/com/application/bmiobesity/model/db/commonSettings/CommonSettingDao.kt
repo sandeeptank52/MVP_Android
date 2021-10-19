@@ -1,5 +1,6 @@
 package com.application.bmiobesity.model.db.commonSettings
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy

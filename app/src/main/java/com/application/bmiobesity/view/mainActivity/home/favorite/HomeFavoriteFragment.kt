@@ -4,16 +4,23 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.InTimeApp
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.databinding.MainHomeFavoriteFragmentBinding
 import com.application.bmiobesity.model.db.paramSettings.entities.ResultCard
 import com.application.bmiobesity.viewModels.MainViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.internal.notify
 
-class HomeFavoriteFragment : Fragment(R.layout.main_home_favorite_fragment) {
+class HomeFavoriteFragment : BaseFragment(R.layout.main_home_favorite_fragment) {
 
     private var favoriteBinding: MainHomeFavoriteFragmentBinding? = null
     private val mainModel: MainViewModel by activityViewModels()
@@ -33,6 +40,15 @@ class HomeFavoriteFragment : Fragment(R.layout.main_home_favorite_fragment) {
                 favoriteAdapter.notifyDataSetChanged()
             }
         })
+        lifecycleScope.launch(Dispatchers.IO) {
+            val firstTime = mainModel.isFirstTimeAsync().await()
+            if (firstTime){
+                withContext(Dispatchers.Main) {
+                    val bundle = bundleOf("isFirstTime" to true)
+                    findNavController().navigate(R.id.mainNavHomeToProfile, bundle)
+                }
+            }
+        }
     }
 
     private fun onClickResultCardMenu(card: ResultCard){

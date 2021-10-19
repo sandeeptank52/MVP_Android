@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,25 +7,25 @@
 
     <TextView
         android:id="@+id/medCardDoubleDialogTitle"
-        android:textColor="@color/color_black"
-        android:textSize="20sp"
-        android:textStyle="italic"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/dmsans_medium"
+        android:textColor="@color/color_black"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <NumberPicker
         android:id="@+id/medCardDoubleDialogPicker"
+        style="@style/testPicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/color_white"
         android:solidColor="@color/color_white"
-        style="@style/testPicker"
         app:layout_constraintEnd_toStartOf="@id/medCardDoubleDialogDot"
-        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogTitle"/>
+        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogTitle" />
 
     <TextView
         android:id="@+id/medCardDoubleDialogDot"
@@ -43,81 +42,82 @@
 
     <NumberPicker
         android:id="@+id/medCardDoubleDialogPicker2"
+        style="@style/testPicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/color_white"
         android:solidColor="@color/color_white"
-        style="@style/testPicker"
         app:layout_constraintStart_toEndOf="@id/medCardDoubleDialogDot"
-        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogTitle"/>
+        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogTitle" />
 
     <TextView
         android:id="@+id/medCardDoubleDialogUnit"
         android:layout_width="0dp"
-        android:textColor="@color/color_black"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:textColor="@color/color_black"
         android:textSize="13sp"
-        app:layout_constraintStart_toEndOf="@id/medCardDoubleDialogPicker2"
-        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogTitle"
         app:layout_constraintBottom_toTopOf="@id/medCardDoubleDialogDescription"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/medCardDoubleDialogPicker2"
+        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogTitle" />
 
     <TextView
         android:id="@+id/medCardDoubleDialogDescription"
         android:layout_width="0dp"
-        android:textColor="@color/color_black"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/dmsans_regular"
+        android:textColor="@color/color_black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogPicker"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogPicker" />
 
     <View
         android:id="@+id/medCardDoubleDialogDivider1"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/gray_100"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/gray_100"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogDescription"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogDescription" />
 
     <TextView
         android:id="@+id/medCardDoubleDialogEnterSourceType"
-        android:text="@string/medcard_dialog_source_type"
-        android:textColor="@color/color_black"
         android:layout_width="0dp"
-        android:textSize="12sp"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginVertical="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/dmsans_regular"
+        android:text="@string/medcard_dialog_source_type"
+        android:textColor="@color/color_black"
+        app:layout_constraintBottom_toTopOf="@id/medCardDoubleDialogDivider2"
         app:layout_constraintEnd_toStartOf="@id/medCardDoubleDialogSpinnerSourceType"
-        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogDivider1"
-        app:layout_constraintBottom_toTopOf="@id/medCardDoubleDialogDivider2"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogDivider1" />
 
     <Spinner
         android:id="@+id/medCardDoubleDialogSpinnerSourceType"
-        android:layout_width="0dp"
         style="@style/testSpinner"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="8dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toTopOf="@id/medCardDoubleDialogDivider2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/medCardDoubleDialogEnterSourceType"
-        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogDivider1"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogDivider1" />
 
     <View
         android:id="@+id/medCardDoubleDialogDivider2"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/gray_100"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/gray_100"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogSpinnerSourceType"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/medCardDoubleDialogSpinnerSourceType" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,8 +15,12 @@
     <string name="login_hint_passwordCheck_number">\u0020 1 number</string>
     <string name="login_hint_passwordCheck_symbol">\u0020 1 special symbol</string>
     <string name="login_hint_passwordCheck_match">Passwords must match</string>
-    <string name="profile_hint_name">Name</string>
+    <string name="profile_hint_name">Firstname</string>
     <string name="profile_hint_surname">Surname</string>
+    <string name="profile_hint_date_of_birth">Your birthday</string>
+    <string name="profile_hint_gender">Your gender</string>
+    <string name="profile_hint_country">Your country</string>
+    <string name="profile_hint_height">Your height</string>
     <string name="gender_hint_not_say">I will not say</string>
 
     <!--buttons-->
@@ -81,7 +85,7 @@
     <string name="welcome_3_is_show_switch">Don\'t show again</string>
 
     <string name="welcome_4_title">help us</string>
-    <string name="welcome_4_main_text">\tPlease rate us in Google Play page and leave your comments. It will help others to find our app and get health value out of it.\n\n\tAlso, we want you to answer a few questions about our product.\n\n\tIf you can help us, we will send it to your e-mail.</string>
+    <string name="welcome_4_main_text">\tPlease rate us on Google Play page and leave your comments. It will help others to find our app and get health value out of it.\n\n\tAlso, we want you to answer a few questions about our product.\n\n\tIf you can help us, we will send it to your e-mail.</string>
     <string name="welcome_4_question_check_text">Receive a questionnaire</string>
     <string name="welcome_4_update_check_text">Receive our updates and news</string>
 
@@ -186,7 +190,7 @@
     <string name="medcard_frequency_weight">once per week</string>
     <string name="medcard_frequency_hip">once per two week or when weight changes</string>
     <string name="medcard_frequency_waist">once per two week or when weight changes</string>
-    <string name="medcard_frequency_wrist">once every six mont</string>
+    <string name="medcard_frequency_wrist">once every six month</string>
     <string name="medcard_frequency_neck">once every six month</string>
     <string name="medcard_frequency_heart_rate_alone">one or three times a day</string>
     <string name="medcard_frequency_daily_activity_level">once per month</string>
@@ -270,11 +274,15 @@
     <string name="smoker">Smoker</string>
     <string name="skin">Skin type</string>
     <string name="diseases">Diseases</string>
+    <string name="country">Country</string>
+    <string name="search_country">Search country</string>
+    <string name="please_select_your_country">Please select your country</string>
 
     <!--settings-->
     <string name="settings">Settings</string>
+    <string name="settings_description">Change your settings</string>
     <string name="connections">Connections</string>
-    <string name="countries">Country</string>
+    <string name="countries">Countries</string>
     <string name="delete_profile">Delete profile</string>
     <string name="more">More</string>
     <string name="communication_with_the_doctor">Communication with the doctor</string>
@@ -284,15 +292,19 @@
     <string name="enter_your_data">Enter Your Data</string>
     <string name="for_more_accurate_analysis">For More Accurate Analysis</string>
     <string name="_60">60%</string>
-    <string name="the_probability_of_dying">The probability of dying\nin the next 10 years from\ncardiovascular diseases.</string>
+    <string name="the_probability_of_dying">The probability of dying in the next 10 years from cardiovascular diseases.</string>
     <string name="your_cancer_risks_are">Your cancer risks are same like other\npeople with normal weight.</string>
     <string name="data_available">(Data Available)</string>
     <string name="view_report">View Report</string>
     <string name="consult_a_specialist">Consult a specialist. It is not a\nmedical application.</string>
     <string name="walk_more_than_8k">Walk more than 8k steps per day</string>
     <string name="walk_more_than_8000_steps_full">Walk more than 8000 steps per day is very important, it can improve health level and low weight and diseases risks.</string>
-    <string name="personal_recomendations">Personal Recomendations</string>
+    <string name="personal_recomendations">Personal Recommendations</string>
     <string name="monthly_subscriptions">(Monthly Subscriptions)</string>
     <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="health_indicators">Health indicators</string>
+    <string name="communication">Communication</string>
+    <string name="additional_settings">Additional Settings</string>
+    <string name="subscription">Subscription</string>
 
 </resources>

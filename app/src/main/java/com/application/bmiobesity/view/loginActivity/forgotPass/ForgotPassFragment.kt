@@ -2,11 +2,11 @@ package com.application.bmiobesity.view.loginActivity.forgotPass
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
+import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.common.EventObserver
 import com.application.bmiobesity.common.eventManager.EventManager
 import com.application.bmiobesity.common.eventManager.ForgotPassFragmentEvent
@@ -24,7 +24,7 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
 import kotlinx.coroutines.launch
 
-class ForgotPassFragment : Fragment(R.layout.login_forgotpass_fragment) {
+class ForgotPassFragment : BaseFragment(R.layout.login_forgotpass_fragment) {
 
     private val loginModel: LoginViewModel by activityViewModels()
     private var forgotPassBinding: LoginForgotpassFragmentBinding? = null
