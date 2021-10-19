@@ -1,5 +1,6 @@
 package com.application.bmiobesity.view.mainActivity.medcard
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -83,6 +84,7 @@ class MedcardFragment : BaseFragment(R.layout.main_medcard_fragment) {
         initListeners()
     }
 
+    @SuppressLint("InflateParams")
     private fun init(){
         sourceTypeSpinnerAdapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_dropdown_item, mainModel.medCardSourceType)
         val dailyLevels = arrayListOf(

@@ -44,7 +44,6 @@ fun errorCheck(code: Int, message: String, responseBody: ResponseBody?): Retrofi
 @Keep data class SendProfile(var first_name: String, var last_name: String, var email: String, var birth_date: String?, var height: Float?, var smoker: Boolean,  var country: Int?, var measuring_system: Int)
 @Keep data class SendUserProfile(var birth_date: String?, var country: Int?, var gender: Int?, var height: Float?, var smoker: Boolean, var measuring_system: Int)
 
-
 @Keep data class ResultSimpleCountry(val id: Int?, val value: String?)
 @Keep data class ResultListCountries(val countries: List<ResultSimpleCountry>?)
 

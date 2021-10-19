@@ -26,5 +26,4 @@ object BindingAdapter {
                 glideBuilder.into(view)
         }
     }
-
 }

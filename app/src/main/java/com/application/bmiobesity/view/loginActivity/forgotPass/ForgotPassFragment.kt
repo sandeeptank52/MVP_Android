@@ -2,7 +2,6 @@ package com.application.bmiobesity.view.loginActivity.forgotPass
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController

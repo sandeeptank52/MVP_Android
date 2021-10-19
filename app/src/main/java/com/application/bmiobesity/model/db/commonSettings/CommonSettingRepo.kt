@@ -23,10 +23,6 @@ class CommonSettingRepo private constructor(context: Context){
     suspend fun getAllCountries(): List<Countries>{
         return commonSettingDao.getAllCountries()
     }
-    suspend fun getCountriesByParam(param: String): List<Countries> {
-        val param1 = "%$param%"
-        return commonSettingDao.getCountriesByParam(param1)
-    }
 
     suspend fun setPolicy(item: Policy){
         commonSettingDao.deleteAllPolicy()

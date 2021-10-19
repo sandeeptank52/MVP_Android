@@ -76,7 +76,6 @@
         <item name="android:windowBackground">@drawable/all_round_white_10</item>
     </style>
 
-
     <!--<style name="AppStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/cPrimaryDark</item>
         <item name="colorOnPrimary">@color/colorOnPrimaryDark</item>

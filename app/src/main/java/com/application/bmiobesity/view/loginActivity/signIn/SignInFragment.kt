@@ -51,8 +51,8 @@ class SignInFragment : BaseFragment(R.layout.login_signin_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         signInBinding = LoginSigninFragmentBinding.bind(view)
+
         init()
         addRX()
         addListeners()
