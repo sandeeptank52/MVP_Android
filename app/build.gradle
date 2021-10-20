@@ -7,7 +7,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 def mainVersion = 2
 def featureVersion = 0
-def version_code = 5
+def version_code = 6
 
 android {
     signingConfigs {
