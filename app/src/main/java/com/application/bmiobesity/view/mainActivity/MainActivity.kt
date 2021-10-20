@@ -39,7 +39,6 @@ import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.util.*
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainBinding: MainActivityV2Binding
@@ -47,7 +46,6 @@ class MainActivity : AppCompatActivity() {
     private val eventManager: MainActivityEvent = EventManagerMain.getEventManager()
     private lateinit var navController: NavController
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -285,7 +283,4 @@ class MainActivity : AppCompatActivity() {
             mainBinding.medsCardIndicator.visibility = View.GONE
         }
     }
-
-
-
 }

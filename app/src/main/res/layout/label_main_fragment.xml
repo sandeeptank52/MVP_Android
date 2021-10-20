@@ -78,5 +78,4 @@
         app:layout_constraintStart_toStartOf="@id/labelProgressBar"
         app:layout_constraintTop_toBottomOf="@+id/labelProgressBar" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

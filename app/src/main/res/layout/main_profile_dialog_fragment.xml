@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_white"
-        tools:context=".view.mainActivity.subscriptions.SubscriptionsFragment">
+        tools:context=".view.mainActivity.profile.ProfileDialogFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mainFrameLayoutTitle"
@@ -46,13 +46,13 @@
                 android:id="@+id/title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/dmsans_bold"
                 android:gravity="center_vertical"
                 android:onClick="@{ () -> view.showNameDialog()}"
                 android:text='@{view.getFullName(vm.profileManager.currentProfile)}'
                 android:textColor="@color/color_white"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 app:layout_constraintBottom_toTopOf="@id/title_desc_tv"
                 app:layout_constraintEnd_toStartOf="@id/setting_img"
                 app:layout_constraintStart_toEndOf="@id/back_img"
@@ -63,22 +63,20 @@
                 android:id="@+id/title_desc_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/dmsans_medium"
                 android:onClick="@{ () -> view.showDatePickerDialog()}"
                 android:text='@{view.getBirthDate(vm.profileManager.currentProfile)}'
-                android:textColor="@color/color_white"
-                android:textSize="13sp"
+                android:textColor="@color/gray_100"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ava_img"
                 app:layout_constraintStart_toEndOf="@id/back_img"
                 app:layout_constraintTop_toBottomOf="@id/title_tv" />
 
             <ImageView
                 android:id="@+id/ava_img"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginEnd="@dimen/settings_padding_start"
                 android:circleCrop="@{true}"
                 android:imageUrl="@{vm.profileManager.currentProfile.imageURI}"
@@ -87,17 +85,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <ImageView
                 android:id="@+id/back_img"
-                android:layout_width="13dp"
-                android:layout_height="14dp"
-                android:layout_marginStart="@dimen/settings_padding_start"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
                 android:onClick="@{ () -> vm.backNav(false)}"
+                android:padding="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/arrow_back_icon" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView

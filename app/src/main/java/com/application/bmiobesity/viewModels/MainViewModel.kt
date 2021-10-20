@@ -90,7 +90,6 @@ class MainViewModel : ViewModel() {
     // Selected tab index
     private val mSelectIndex: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
     val selectedIndex: LiveData<Int> = mSelectIndex
-
     // Navigation
     private val mNavigationId: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
     val navigationId: LiveData<Int> = mNavigationId
@@ -98,10 +97,6 @@ class MainViewModel : ViewModel() {
     // BackNavigation
     private val mBackNavigation: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
     val backNavigation: LiveData<Boolean> = mBackNavigation
-
-    // Countries queries
-    private val mCountriesQuery: MutableLiveData<List<Countries>> by lazy { MutableLiveData<List<Countries>>() }
-    val countriesQuery: LiveData<List<Countries>> = mCountriesQuery
 
     init {
         InTimeApp.appComponent.inject(this)
@@ -131,9 +126,6 @@ class MainViewModel : ViewModel() {
     }
 
     // Load parameters from DB
-    suspend fun getCountriesByParam(param: String) = viewModelScope.launch(Dispatchers.IO) {
-        mCountriesQuery.postValue(commonSettingRepo.getCountriesByParam(param))
-    }
     private suspend fun updateGenders() =
         viewModelScope.launch(Dispatchers.IO) { genders = commonSettingRepo.getAllGenders() }
     private suspend fun updateCountries() =
@@ -254,19 +246,6 @@ class MainViewModel : ViewModel() {
     }
 
     fun updateMedCard() = viewModelScope.launch(Dispatchers.IO) {
-        /*val mCard = medCard.getResultMedCard()
-        when (val resultMedCard = remoteRepo.updateMedCard(mCard)){
-            is RetrofitResult.Success -> {
-                //medCard.setValues(resultMedCard.value)
-                medCard.successUpdate()
-                profileManager.updateAvailableMedCardData(resultMedCard.value)
-                updateAllResult()
-            }
-            is RetrofitResult.Error -> {
-                medCard.errorUpdate()
-            }
-        }*/
-
         val mCard = medCard.getDashBoardMedCard()
         when (val result = remoteRepo.updateDashBoard(mCard)) {
             is RetrofitResult.Success -> {
@@ -306,12 +285,8 @@ class MainViewModel : ViewModel() {
     }
 
     private suspend fun updateProfileDB(item: Profile) {
-        val temp = paramSettingRepo.getProfileFromMail(item.email)
-        if (temp == null) {
-            paramSettingRepo.insertProfile(item)
-        } else {
-            paramSettingRepo.updateProfile(item)
-        }
+        paramSettingRepo.getProfileFromMail(item.email)
+        paramSettingRepo.updateProfile(item)
     }
 
     private suspend fun loadProfile(profile: Profile) = viewModelScope.launch(Dispatchers.IO) {
@@ -443,7 +418,6 @@ class MainViewModel : ViewModel() {
     fun setTabIndex(index: Int) {
         mSelectIndex.postValue(index)
     }
-
     fun setNavigation(nav: NavigationId) {
         if (nav.id != 0)
             mNavigationId.postValue(nav.id)

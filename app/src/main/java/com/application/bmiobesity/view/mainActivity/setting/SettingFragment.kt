@@ -1,17 +1,15 @@
 package com.application.bmiobesity.view.mainActivity.setting
 
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListAdapter
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.application.bmiobesity.R
-import com.application.bmiobesity.base.BaseFragment
 import com.application.bmiobesity.common.EventObserver
 import com.application.bmiobesity.common.MeasuringSystem
 import com.application.bmiobesity.common.eventManagerMain.EventManagerMain
@@ -20,7 +18,6 @@ import com.application.bmiobesity.databinding.MainSettingFragmentV2Binding
 import com.application.bmiobesity.view.labelActivity.LabelActivity
 import com.application.bmiobesity.viewModels.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-
 
 class SettingFragment : DialogFragment(R.layout.main_setting_fragment_v2) {
 
@@ -34,6 +31,8 @@ class SettingFragment : DialogFragment(R.layout.main_setting_fragment_v2) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         settingBinding = MainSettingFragmentV2Binding.bind(view)
+        settingBinding?.vm = mainModel
+        settingBinding?.lifecycleOwner = this
 
         init()
         initLayoutListeners()
@@ -43,26 +42,22 @@ class SettingFragment : DialogFragment(R.layout.main_setting_fragment_v2) {
     override fun getTheme(): Int {
         return R.style.FullScreenDialog
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         dialog?.window?.attributes?.windowAnimations = R.style.DialogAnimation
     }
 
     private fun init(){
-        val measureArray = arrayListOf<String>(
+        val measureArray = arrayListOf(
             getString(R.string.setting_measure_metric),
             getString(R.string.setting_measure_imperial)
         )
-        measureAdapter = ArrayAdapter<String>(requireContext(), android.R.layout.select_dialog_singlechoice, measureArray)
+        measureAdapter = ArrayAdapter(requireContext(), android.R.layout.select_dialog_singlechoice, measureArray)
         initMeasureDialog(0)
     }
 
     private fun initLayoutListeners(){
         settingBinding?.settingMeasureConstraint?.setOnClickListener { measureDialog.show() }
-        settingBinding?.constraintDoctor?.setOnClickListener { showComingSoon() }
         settingBinding?.constraintConnections?.setOnClickListener { showComingSoon() }
         settingBinding?.constraintSupport?.setOnClickListener { showComingSoon() }
         settingBinding?.constraintMore?.setOnClickListener { showComingSoon() }
@@ -87,17 +82,6 @@ class SettingFragment : DialogFragment(R.layout.main_setting_fragment_v2) {
             }
         })
     }
-
-    private fun showDeleteDialog(){
-        val dialog = MaterialAlertDialogBuilder(requireContext())
-        dialog.setPositiveButton(R.string.button_delete){_, _ ->
-            mainModel.deleteProfile()
-        }
-        dialog.setNegativeButton(R.string.button_cancel){_, _ ->}
-        dialog.setTitle(R.string.setting_delete_dialog_title)
-        dialog.setMessage(R.string.setting_delete_dialog_message)
-        dialog.show()
-    }
     private fun initMeasureDialog(item: Int){
         measureDialog = MaterialAlertDialogBuilder(requireContext())
         measureDialog.setTitle(R.string.setting_measure_dialog_title)
@@ -110,8 +94,18 @@ class SettingFragment : DialogFragment(R.layout.main_setting_fragment_v2) {
         }
     }
 
+    private fun showDeleteDialog(){
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+        dialog.setPositiveButton(R.string.button_delete){_, _ ->
+            mainModel.deleteProfile()
+        }
+        dialog.setNegativeButton(R.string.button_cancel){_, _ ->}
+        dialog.setTitle(R.string.setting_delete_dialog_title)
+        dialog.setMessage(R.string.setting_delete_dialog_message)
+        dialog.show()
+    }
     private fun showComingSoon(){
-        Toast.makeText(requireContext(), "COMING SOON", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), resources.getString(R.string.coming_soon), Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

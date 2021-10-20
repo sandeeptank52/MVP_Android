@@ -23,8 +23,6 @@ interface CommonSettingDao {
     fun insertAllCountries(items: List<Countries>)
     @Query("SELECT * FROM countries ORDER BY value ASC")
     fun getAllCountries(): List<Countries>
-    @Query("SELECT * FROM countries WHERE value LIKE :param ORDER BY value ASC")
-    fun getCountriesByParam(param: String): List<Countries>
     @Query("DELETE FROM countries")
     fun deleteAllCountries()
 

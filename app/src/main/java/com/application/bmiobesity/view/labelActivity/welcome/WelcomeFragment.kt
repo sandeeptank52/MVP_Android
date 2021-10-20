@@ -66,7 +66,6 @@ class WelcomeFragment : BaseFragment(R.layout.label_welcome_text_fragment) {
                         welcomeBinding?.dotone?.background = colouredDot
                         welcomeBinding?.dottwo?.background = justDot
                         welcomeBinding?.dotthree?.background = justDot
-
                         welcomeBinding?.dotone?.visibility = View.VISIBLE
                         welcomeBinding?.dottwo?.visibility = View.VISIBLE
                         welcomeBinding?.dotthree?.visibility = View.VISIBLE
@@ -77,7 +76,6 @@ class WelcomeFragment : BaseFragment(R.layout.label_welcome_text_fragment) {
                         welcomeBinding?.dotone?.background = justDot
                         welcomeBinding?.dottwo?.background = colouredDot
                         welcomeBinding?.dotthree?.background = justDot
-
                         welcomeBinding?.dotone?.visibility = View.VISIBLE
                         welcomeBinding?.dottwo?.visibility = View.VISIBLE
                         welcomeBinding?.dotthree?.visibility = View.VISIBLE
@@ -90,7 +88,6 @@ class WelcomeFragment : BaseFragment(R.layout.label_welcome_text_fragment) {
                         welcomeBinding?.dotone?.visibility = View.GONE
                         welcomeBinding?.dottwo?.visibility = View.GONE
                         welcomeBinding?.dotthree?.visibility = View.GONE
-
                     }
                     else -> {
                         welcomeBinding?.welcomeNextButton?.text =

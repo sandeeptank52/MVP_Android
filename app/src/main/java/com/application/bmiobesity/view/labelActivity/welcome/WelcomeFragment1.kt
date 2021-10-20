@@ -20,6 +20,7 @@ class WelcomeFragment1: BaseFragment(R.layout.label_welcome_fragment_1) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         welcomeBinding1 = LabelWelcomeFragment1Binding.bind(view)
+
         lifecycleScope.launch(Dispatchers.IO) {
             labelModel.setBooleanParam(AppSettingDataStore.PrefKeys.SHOW_DISCLAIMER, false)
         }
