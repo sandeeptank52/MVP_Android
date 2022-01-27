@@ -20,7 +20,8 @@
 
         <activity
             android:name=".view.labelActivity.LabelActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -30,7 +31,8 @@
         <activity
             android:name=".view.loginActivity.LoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan">
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:exported="true">
             <nav-graph android:value="@navigation/login_nav"/>
         </activity>
 
