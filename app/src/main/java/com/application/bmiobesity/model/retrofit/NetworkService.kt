@@ -1,6 +1,7 @@
 package com.application.bmiobesity.model.retrofit
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,6 +19,7 @@ class NetworkService private constructor(){
         val client = OkHttpClient.Builder()
                 .addInterceptor(RefreshTokenAuthenticator())
                 .addInterceptor(interceptor)
+                .addInterceptor(OkHttpProfilerInterceptor())
                 .build()
 
         mRetrofit = Retrofit.Builder()
