@@ -104,6 +104,7 @@ fun errorCheck(code: Int, message: String, responseBody: ResponseBody?): Retrofi
                      var heart_rate_alone:Int?,
                      var blood_pressure_sys:Int?,
                      var blood_pressure_dia:Int?,
+                     var blood_saturation:Int?,
                      var cholesterol:Float?,
                      var glucose:Float?,
                      var smoker:Boolean?,

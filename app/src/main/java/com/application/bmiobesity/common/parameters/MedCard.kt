@@ -231,6 +231,7 @@ class MedCard {
             waitingUpdatesParameters["heart_rate_alone"]?.values?.lastOrNull()?.value?.toInt(),
             waitingUpdatesParameters["blood_pressure_sys"]?.values?.lastOrNull()?.value?.toInt(),
             waitingUpdatesParameters["blood_pressure_dia"]?.values?.lastOrNull()?.value?.toInt(),
+            98,
             waitingUpdatesParameters["cholesterol"]?.values?.lastOrNull()?.value,
             waitingUpdatesParameters["glucose"]?.values?.lastOrNull()?.value,
             null,
