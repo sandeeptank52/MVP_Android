@@ -155,7 +155,6 @@ class MainActivity : AppCompatActivity() {
     private fun logOutMenuAction(){
         lifecycleScope.launch(Dispatchers.IO) {
             mainModel.appSetting.setStringParam(AppSettingDataStore.PrefKeys.USER_PASS, "")
-            mainModel.deleteProfile()
             withContext(Dispatchers.Main){
                 val intent = Intent(applicationContext, LoginActivity::class.java)
                 startActivity(intent)
