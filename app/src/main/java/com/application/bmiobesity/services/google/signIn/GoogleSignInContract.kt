@@ -17,8 +17,4 @@ class GoogleSignInContract : ActivityResultContract<GoogleSignInClient, Task<Goo
     override fun parseResult(resultCode: Int, intent: Intent?): Task<GoogleSignInAccount> {
         return GoogleSignIn.getSignedInAccountFromIntent(intent)
     }
-
-    override fun getSynchronousResult( context: Context, input: GoogleSignInClient? ): SynchronousResult<Task<GoogleSignInAccount>>? {
-        return super.getSynchronousResult(context, input)
-    }
 }

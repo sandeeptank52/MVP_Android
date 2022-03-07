@@ -7,7 +7,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 def mainVersion = 2
 def featureVersion = 0
-def version_code = 7
+def version_code = 8
 
 android {
     signingConfigs {
@@ -40,10 +40,8 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
-    }
-    dataBinding {
-        enabled true
+        viewBinding true
+        dataBinding true
     }
 
     buildTypes {
@@ -70,48 +68,48 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
    // implementation project(path: ':opencv')
     def room_version = "2.4.2"
-    def nav_version = "2.3.3"
+    def nav_version = "2.4.1"
     def billing_version = "3.0.3"
 
     implementation fileTree(dir: 'libs', include: ['*.aar'])
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // google services
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
     implementation "com.android.billingclient:billing:$billing_version"
     implementation "com.android.billingclient:billing-ktx:$billing_version"
     // firebase
-    implementation platform('com.google.firebase:firebase-bom:28.1.0')
+    implementation platform('com.google.firebase:firebase-bom:29.1.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
     // facebook
-    implementation 'com.facebook.android:facebook-android-sdk:8.1.0'
-    implementation 'com.facebook.android:facebook-core:8.1.0'
-    implementation 'com.facebook.android:facebook-login:8.1.0'
+    //implementation 'com.facebook.android:facebook-android-sdk:8.1.0'
+    //implementation 'com.facebook.android:facebook-core:8.1.0'
+    //implementation 'com.facebook.android:facebook-login:8.1.0'
 
     // Yandex AppMetrica SDK
-    implementation 'com.yandex.android:mobmetricalib:3.21.0'
+    //implementation 'com.yandex.android:mobmetricalib:4.0.0'
 
     // Material
-    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'com.google.android.material:material:1.5.0'
 
     // Glide
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    kapt 'com.github.bumptech.glide:compiler:4.12.0'
     //annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     // Android X
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation "androidx.datastore:datastore-preferences:1.0.0-alpha06"
     implementation "androidx.security:security-crypto:1.1.0-alpha03"
     implementation "androidx.cardview:cardview:1.0.0"
-    implementation 'androidx.recyclerview:recyclerview:1.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
     // Coroutine
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
 
     // ROOM
     kapt "androidx.room:room-compiler:$room_version"
@@ -122,21 +120,21 @@ dependencies {
     //implementation "androidx.navigation:navigation-compose:1.0.0-alpha04"
 
     // KTX
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation "androidx.collection:collection-ktx:1.1.0"
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation "androidx.collection:collection-ktx:1.2.0"
     implementation "androidx.room:room-ktx:$room_version"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0"
-    implementation 'androidx.activity:activity-ktx:1.2.3'
-    implementation "androidx.fragment:fragment-ktx:1.3.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
+    implementation 'androidx.activity:activity-ktx:1.4.0'
+    implementation "androidx.fragment:fragment-ktx:1.4.1"
     implementation "androidx.navigation:navigation-runtime-ktx:$nav_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-    implementation "androidx.work:work-runtime-ktx:2.5.0"
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
 
     // Java RX
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.4'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.3'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
     // RX Binding
