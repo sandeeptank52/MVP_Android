@@ -7,7 +7,7 @@ Updated Screens:-
 - Favorites Screen :- 
     - In This Screen I have updated list items UI.
     - User can read and access easily.
-    - Eye cache & clean UI.
+    - Eye catchy & clean UI.
     - Moved Edit parameter Button on Top. 
     - User name and profile image will scroll up so user can access more space on screen.
   
