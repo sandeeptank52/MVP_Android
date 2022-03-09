@@ -36,6 +36,6 @@ We can improve more in UI if we need.
 
 I also Liked your Figma UI too, if you want i can build app for figma UI in separate branch.
 
-Let me know if Anything code related required from my side. I will try to give my best.
+Let me know if Anything code related required from my side. I will give my best.
 
 Thank you
