@@ -17,7 +17,7 @@
             android:id="@+id/data_settings_textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_margin="24dp"
             android:text="@string/edit"
             android:textStyle="bold"
             android:textAlignment="center"

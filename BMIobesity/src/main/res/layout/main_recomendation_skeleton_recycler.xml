@@ -4,64 +4,76 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="200dp"
     android:layout_margin="@dimen/margin_card"
     app:cardCornerRadius="@dimen/corner_card"
     app:cardElevation="@dimen/card_elevation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMain"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:background="#f9f9fb">
 
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.2" />
 
-        <View
-            android:id="@+id/recomendation_skeleton_text"
+        <TextView
+            android:id="@+id/recomendation_text"
             android:layout_width="0dp"
-            android:layout_height="18dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_height="22dp"
+            android:layout_margin="8dp"
+            android:maxLines="2"
+            android:textAlignment="textStart"
             android:background="@color/colorLine"
-
-            app:layout_constraintEnd_toStartOf="@+id/recomendation_skeleton_data"
-            app:layout_constraintStart_toEndOf="@+id/recomendation_skeleton_imageView"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/recomendation_skeleton_information"
-            android:layout_width="0dp"
-            android:layout_height="18dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
-            android:background="@color/colorLine"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recomendation_skeleton_text" />
+            app:layout_constraintTop_toBottomOf="@id/recomendation_imageView" />
 
-        <View
-            android:id="@+id/recomendation_skeleton_imageView"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+        <TextView
+            android:id="@+id/recomendation_information"
+            android:layout_width="0dp"
+            android:layout_height="18dp"
             android:background="@color/colorLine"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="12dp"
+            android:alpha="0.8"
+            android:maxLines="2"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@color/colorLine" />
+            app:layout_constraintTop_toBottomOf="@id/recomendation_text" />
 
-        <View
-            android:id="@+id/recomendation_skeleton_data"
+        <ImageView
+            android:id="@+id/recomendation_imageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:alpha="0.8"
+            android:layout_margin="4dp"
+            android:background="@color/colorLine"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/recomendation_data"
             android:layout_width="70dp"
-            android:layout_height="18dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_marginEnd="2dp"
             android:background="@color/colorLine"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

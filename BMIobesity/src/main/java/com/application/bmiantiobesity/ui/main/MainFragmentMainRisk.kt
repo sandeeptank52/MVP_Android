@@ -87,7 +87,7 @@ class MainFragmentMainRisk() : Fragment() {
     private fun initSkeletonLoading(view: View) {
         //Skeleton
         val recyclerSkeleton = view.findViewById<RecyclerView>(R.id.main_dashboard)
-        recyclerSkeleton.layoutManager = LinearLayoutManager(context)
+        recyclerSkeleton.layoutManager = GridLayoutManager(context,2)
         val countSkeleton = 7
         val adapter = SkeletonAdapter(countSkeleton)
         skeletonBuilder = Skeleton.bind(recyclerSkeleton)
