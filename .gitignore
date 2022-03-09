@@ -1,0 +1,12 @@
+/.gradle/*
+/.idea/*
+/build/*
+/out/*
+/local.properties/*
+local.properties
+*.iml
+
+mainframer
+
+/.locale
+/*.log

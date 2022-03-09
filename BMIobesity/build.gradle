@@ -1,0 +1,181 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+// Для Котлин аннотаций
+apply plugin: 'kotlin-kapt'
+// Apply the Crashlytics Gradle plugin
+apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'com.google.gms.google-services'
+
+def mainVersion = 1
+def featureVersion = 1
+def version_code = 46
+
+android {
+
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+    defaultConfig {
+        applicationId 'com.application.bmiobesity'
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode version_code
+        versionName "${mainVersion}.${featureVersion}.${version_code}"
+        multiDexEnabled = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('C:\\AllMyProject\\AndroidStudioProjects\\KEY\\InTime.jks')
+            storePassword '111'
+            keyAlias 'antiobesityapp'
+            keyPassword '111'
+        }
+    }
+
+    buildTypes {
+        release {
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            //signingConfig signingConfigs.release
+        }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+}
+
+// Автоматическое подставление названий в результат сборки
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        outputFileName = "BMIobesity-${variant.name} version-${variant.versionName}.apk"
+    }
+}
+
+dependencies {
+    //implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.3.0-beta01' // Web view error fo new
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    //Google Fit
+    implementation 'com.google.android.gms:play-services-fitness:20.0.0'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    // Google Analytics dependency.
+    implementation platform('com.google.firebase:firebase-bom:25.12.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.android.gms:play-services-ads:19.7.0'
+    implementation 'com.google.firebase:firebase-config-ktx'
+
+    //Facebook sdk
+    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
+
+    // AppMetrica SDK.
+    implementation 'com.yandex.android:mobmetricalib:3.16.1'
+
+    //Billing
+    implementation 'com.android.billingclient:billing-ktx:3.0.2'
+
+    // для multidex androidx
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    //Jazzy Animation
+    implementation 'com.twotoasters.jazzylistview:library-recyclerview:1.2.1'
+
+    //PDF
+    //implementation 'com.github.aerdy:Viger-PDF:1.2'
+    //implementation 'com.joanzapata.pdfview:android-pdfview:1.0.4@aar'
+    //implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+
+    // Tooltips
+    implementation 'com.github.Devit951:MagicTip:1.0.0'
+    //DatePicker
+    implementation 'com.github.drawers:SpinnerDatePicker:2.0.1'
+    //LoadImageToRest
+    implementation 'com.koushikdutta.ion:ion:3.0.9'
+    //SearchableSpinner
+    implementation 'gr.escsoft.michaelprimez.searchablespinner:SearchableSpinner:1.0.9'
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1' // Для кружочков первых бкув
+
+    // Skeleton
+    implementation 'com.ethanhua:skeleton:1.1.2'
+    implementation 'io.supercharge:shimmerlayout:2.1.0'
+
+    //FilePicker
+    implementation 'com.github.jaiselrahman:FilePicker:1.3.2'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+
+    // Kotlin Navigation
+    def nav_version = "2.3.3"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // LiveData
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.0'
+
+    //ViewModel
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
+
+    //Finger
+    implementation 'com.github.pwittchen:rxbiometric:0.1.0'
+    //Pin Code
+    implementation 'com.github.aabhasr1:OtpView:v1.1.2-ktx' // new
+
+    //ROOOM
+    implementation 'androidx.room:room-runtime:2.2.6'
+    kapt 'androidx.room:room-compiler:2.2.6'
+
+    // DAGGER 2
+    implementation 'com.google.dagger:dagger:2.28.1'
+    kapt 'com.google.dagger:dagger-compiler:2.28.1'
+
+    //Coroutines Scope
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.8'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
+
+    // RxJava2 Dependencies
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    //implementation 'com.squareup.retrofit2:converter-simplexml:2.6.2'
+    //implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
