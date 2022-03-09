@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_reset_graph"
+    app:startDestination="@id/resetPasswordFragment">
+
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.application.bmiantiobesity.ui.resetpassword.ResetPasswordFragment"
+        android:label="reset_password_fragment"
+        tools:layout="@layout/reset_password_fragment" />
+</navigation>

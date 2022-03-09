@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RiskViewLinear">
+        <attr name="percent" format="integer"/>
+        <attr name="line_start_color" format="integer"/>
+        <attr name="line_end_color" format="integer"/>
+    </declare-styleable>
+    <declare-styleable name="RiskViewHeight">
+        <attr name="set_percent" format="integer"/>
+    </declare-styleable>
+</resources>

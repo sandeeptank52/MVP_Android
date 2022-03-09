@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_reset_graph"
+    app:startDestination="@id/profileDetailFragment">
+    <fragment
+        android:id="@+id/connectToFragment"
+        android:name="com.application.bmiantiobesity.ui.settings.ConnectToFragment"
+        android:label="connect_to_fragment"
+        tools:layout="@layout/connect_to_fragment" />
+    <fragment
+        android:id="@+id/profileDetailFragment"
+        android:name="com.application.bmiantiobesity.ui.settings.ProfileDetailFragment"
+        android:label="ProfileDetailFragment">
+        <action
+            android:id="@+id/action_profileFragment_to_connectToFragment"
+            app:destination="@id/connectToFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.application.bmiantiobesity.ui.settings.SettingsFragment"
+        android:label="settings_fragment"
+        tools:layout="@layout/settings_fragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_setPinFragment"
+            app:destination="@id/setPinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setPinFragment"
+        android:name="com.application.bmiantiobesity.ui.settings.SetPinFragment"
+        android:label="set_pin_fragment"
+        tools:layout="@layout/set_pin_fragment" />
+</navigation>

@@ -1,0 +1,57 @@
+{
+  "project_info": {
+    "project_number": "197604612032",
+    "firebase_url": "https://bmiobesity.firebaseio.com",
+    "project_id": "bmiobesity",
+    "storage_bucket": "bmiobesity.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197604612032:android:291175caef89a0f0411a25",
+        "android_client_info": {
+          "package_name": "com.application.bmiobesity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "197604612032-l74giicrlgpsoradpvc8lj2gbqgvgt7o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.application.bmiobesity",
+            "certificate_hash": "3f194bedeeb21cd290a1ba3c857725bf126d7501"
+          }
+        },
+        {
+          "client_id": "197604612032-aa7putluujegpf9a4ce28df591a1kd1h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.application.bmiobesity",
+            "certificate_hash": "e87631d62a7bccec552748dd9a46d66f4f73042c"
+          }
+        },
+        {
+          "client_id": "197604612032-0rumh83jelhl70ji5rf7fiqtmaoq87ao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2r_GVygeyTzZ5XA9tcvBCt8moLlzYHW8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "197604612032-0rumh83jelhl70ji5rf7fiqtmaoq87ao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-3374682894221286~9347739388"
+    }
+  ],
+  "configuration_version": "1"
+}
