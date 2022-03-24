@@ -9,7 +9,7 @@
     android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@color/color_white"
     app:cardCornerRadius="5dp"
-    app:cardElevation="0dp"
+    app:cardElevation="5dp"
     app:strokeColor="@color/gray_400"
     app:strokeWidth="1dp">
 
@@ -20,10 +20,11 @@
 
         <ImageView
             android:id="@+id/favoriteCardViewIcon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:padding="10dp"
             android:contentDescription="@string/favorite_icon_image_description"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,23 +32,26 @@
             android:id="@+id/favoriteCardViewTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/dmsans_medium"
             android:lineSpacingExtra="0dp"
             android:textColor="@color/color_black"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toStartOf="@id/favoriteCardViewMenu"
-            app:layout_constraintStart_toEndOf="@id/favoriteCardViewIcon"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="20sp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/favoriteCardViewIcon" />
 
         <TextView
             android:id="@+id/favoriteCardViewValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/dmsans_regular"
-            app:layout_constraintEnd_toEndOf="@+id/favoriteCardViewTitle"
-            app:layout_constraintStart_toStartOf="@+id/favoriteCardViewTitle"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/favoriteCardViewTitle" />
 
         <ImageView
@@ -56,6 +60,7 @@
             android:layout_height="20dp"
             android:contentDescription="@string/favorite_menu_image_description"
             android:src="@drawable/ic_round_arrow_forward_ios_blue"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
