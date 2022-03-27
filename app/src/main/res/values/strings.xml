@@ -312,5 +312,6 @@
     <string name="additional_settings">Additional Settings</string>
     <string name="subscription">Subscription</string>
     <string name="coming_soon">Coming soon!</string>
+    <string name="health_brief">Health Brief</string>
 
 </resources>
